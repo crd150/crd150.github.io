@@ -48,4 +48,4 @@ This course is an introduction to the use of statistical methods and tools to un
 \
 
 
-Website creater and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
