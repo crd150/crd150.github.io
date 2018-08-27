@@ -74,7 +74,7 @@ To clarify which is which: R is the name of the programming language itself and 
 Open up RStudio.  You should see the interface shown in Figure 1 which has three windows.
 
 <center>
-![Figure 1: RStudio Interface.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab1/rgui.png)
+![Figure 1: RStudio Interface.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/rgui.png)
 
 </center>
 

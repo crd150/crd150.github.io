@@ -1,7 +1,6 @@
 ---
 title: 'CRD 150: Quantitative Methods in Community Research'
 subtitle: <h4 style="font-style:normal">Fall 2018</h4>
-layout: default
 ---
 
 Hello website!
