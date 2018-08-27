@@ -1,0 +1,17 @@
+name: "CRD 150: Quantitative Methods in Community Research"
+output_dir: "."
+navbar:
+  title: "CRD 150: Fall 2018"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Assignment Guidelines"
+      href: hw_guidelines.html
+    - text: "Labs/Assignments"
+      menu: 
+        - text: "Lab 1"
+          href: lab1.html 
+output:
+  html_document:
+      theme: cosmo
+

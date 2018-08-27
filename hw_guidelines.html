@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Assignment Guidelines</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assignment Guidelines</h1>
+<h3 class="subtitle"><em><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></em></h3>
+<h4 class="date"><em><h4 style="font-style:normal">
+Fall 2018
+</h4></em></h4>
+
+</div>
+
+
+<p><br />
+</p>
+<p>Assignments are typically released at the beginning of each lab and are due in a week. They will be posted on the course’s website. Assignments have three components</p>
+<ol style="list-style-type: decimal">
+<li>A step-by-step guide showing how to run tasks</li>
+<li>Executing data analysis tasks - for example, create a map or run a statistical model</li>
+<li>Answering conceptual questions - for example, interpret results that were produced from a data analysis task.</li>
+</ol>
+<p>Students will be graded on each of the above components. In order to get full credit for each component, you need to</p>
+<ul>
+<li>Component 1: Show that you ran the code provided in the step-by-step guide.<br />
+</li>
+<li>Component 2: Show the correct results as well as the appropriate code producing the results.</li>
+<li>Component 3: Provide correct answers.</li>
+</ul>
+<p>The expectation for assignments is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. You can ask for help from TAs and work with other students. However, you <em>must</em> submit your own assignment results. It is important that you do not skip assignments as class material build on one another.</p>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p><br />
+You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up all R related assignments. R Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents in RStudio. For each R related assignment, you will upload onto Canvas an R Markdown document, which has an <code>.Rmd</code> extension, and its knitted <code>.html</code> file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.</p>
+<p>In RStudio, install the package <strong>rmarkdown</strong> using the <code>install.packages()</code> command. Type the following code in your RStudio Console.</p>
+<pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
+<p>Next, choose an appropriate working directory. The working directory directs R to the specific folder where you want to upload and save files. This is the folder where your saved R Markdown <code>Rmd</code> and its associated <code>.html</code> file reside. In the console, execute the command</p>
+<pre class="r"><code>setwd(&quot;path_to_directory&quot;)
+# path_to_directory is the directory path of the directory you want to set as working directory</code></pre>
+<p>To create a new R Markdown file, select File -&gt; New File -&gt; R Markdown. You should see a window pop up that looks like the following figure.</p>
+<center>
+<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide1.png" alt="Figure 1: R Markdown window." />
+</center>
+<p><br />
+For each assignment, enter “Assignment #” in <em>Title</em>, replacing # with the Assignment number. For <em>Author</em>, enter your name. Keep Document in the left panel and HTML in the bottom panel selected. You should see a RMarkdown file pop up on the top left portion of your RStudio interface.</p>
+<center>
+<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide2.png" alt="Figure 2: R Markdown window." />
+</center>
+<p>Name the file: yourLastName_firstInitial_weekXX.Rmd example: brazil_n_week01.Rmd</p>
+<div id="authoring-an-r-markdown-document" class="section level3">
+<h3>Authoring an R Markdown document</h3>
+<p><br />
+R Markdown documents contain 3 major components:</p>
+<ol style="list-style-type: decimal">
+<li>A YAML header surrounded by —</li>
+<li>Chunks of R code surounded by ```</li>
+<li>Text mixed with simple text formatting using the <a href="https://www.markdownguide.org/cheat-sheet/">Markdown syntax</a></li>
+</ol>
+<p>The YAML header controls how R Markdown renders your <code>.Rmd</code> file. A YAML header is a section of key: value pairs surrounded by — marks. <strong>Use the following YAML format for each assignment</strong></p>
+<pre><code>---
+title: &quot;Assignment [insert number here]&quot;
+subtitle: CRD 150
+author: Your full name here
+date: 26 August 2018
+output: 
+  html_document:
+    code_folding: show
+---</code></pre>
+<p>All R lab guides will include code to give you guidance on specific commands and tasks. <strong>To get full credit for Component (1), you must insert this code in your R Markdown document.</strong> Code chunks are where you store R code that will be executed. They are inserted in between <code>```{r}</code> and <code>```</code>. For example, to designate <code>1+1</code> as R code, it will look like the following in your R Markdown document</p>
+<pre><code>```{r}
+1+1
+```</code></pre>
+<p>Your R code must reside inside an R code chunk (see the Insert button in the editor pane, top left by default) in order for it to be processed as R code (otherwise R Markdown will think it is text)</p>
+<p>To run code in just in this chunk, either click on <img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide4.png" /> located on the right corner of the chunk.</p>
+<p>You can explain results and answer questions by inserting text into your document. For example, let’s say you see this in one of your assignments</p>
+<center>
+<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide5.png" />
+</center>
+<p><br />
+To get full credit, you would type in your R Markdown document the following</p>
+<pre><code>```{r}
+1+1
+```
+
+Question: What does the above code do?
+Answer: This code adds 1 and 1 to get 2</code></pre>
+</div>
+</div>
+<div id="knitting" class="section level2">
+<h2>Knitting</h2>
+<p><br />
+Once you’re done writing up your assignment, you’ll need to submit your <code>.Rmd</code> document and the knitted <code>.html</code> document through Canvas. RStudio’s “Knit HTML” button will compile the open document to actual HTML and open a preview. To Knit your document click <img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide6.png" />. A preview will pop up and the <code>.html</code> file will be saved in your working directory.</p>
+<p>If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded <a href="http://xquartz.macosforge.org">here</a></p>
+</div>
+<div id="others-things-to-know" class="section level2">
+<h2>Others things to know</h2>
+<ul>
+<li>You can spell-check your assignment before handing it in by navigating the menu Edit -&gt; Check Spelling</li>
+<li>If you have Microsoft Word installed on your system you can pull down the menu associated with the Knit button and select the Knit to Word option and, if all goes well, you will be presented with a Word document.</li>
+<li>You can also create a pdf document, but you’ll need to download <a href="http://www.ams.org/publications/what-is-tex">Tex</a>on your system.</li>
+<li>Your R Markdown file needs to have the extension Rmd (don’t create arbitrarily named files)</li>
+<li>The default editor settings are to insert matching parentheses and quotes; if you find that this intrudes on your workflow, you can disable it via Tools -&gt; Global Options -&gt; Code then uncheck Insert matching parens/quotes</li>
+</ul>
+</div>
+<div id="getting-r-markdown-help" class="section level2">
+<h2>Getting R Markdown Help</h2>
+<p><br />
+Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheatsheet by going to Help &gt; Cheatsheets &gt; R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in chapter 21 in <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

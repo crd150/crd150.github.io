@@ -1,0 +1,138 @@
+---
+title: "Assignment Guidelines"
+subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
+date: <h4 style="font-style:normal">Fall 2018</h4>
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: readable
+---
+\
+
+
+Assignments are typically released at the beginning of each lab and are due in a week. They will be posted on the course's website. Assignments have three components
+
+1. A step-by-step guide showing how to run tasks
+2. Executing data analysis tasks - for example, create a map or run a statistical model
+3. Answering conceptual questions - for example, interpret results that were produced from a data analysis task.  
+
+Students will be graded on each of the above components.  In order to get full credit for each component, you need to
+
+* Component 1: Show that you ran the code provided in the step-by-step guide.  
+* Component 2: Show the correct results as well as the appropriate code producing the results. 
+* Component 3: Provide correct answers.  
+
+The expectation for assignments is to get through as much of it as possible during lab time.  If you are unable to finish the guide during the lab, please complete it on your own.  You can ask for help from TAs and work with other students.  However, you *must* submit your own assignment results.  It is important that you do not skip assignments as class material build on one another. 
+
+## R Markdown
+\
+
+You will use [R Markdown](https://rmarkdown.rstudio.com/) to write up all R related assignments.  R Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents in RStudio.  For each R related assignment, you will upload onto Canvas an R Markdown document, which has an `.Rmd` extension, and its knitted `.html` file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.
+
+In RStudio, install the package **rmarkdown** using the `install.packages()` command.  Type the following code in your RStudio Console.
+
+```{r eval=FALSE}
+install.packages("rmarkdown")
+```
+
+Next, choose an appropriate working directory. The working directory directs R to the specific folder where you want to upload and save files.  This is the folder where your saved R Markdown `Rmd` and its associated `.html` file reside. In the console, execute the command
+
+```{r eval=FALSE}
+setwd("path_to_directory")
+# path_to_directory is the directory path of the directory you want to set as working directory
+```
+
+To create a new R Markdown file, select File -> New File -> R Markdown.  You should see a window pop up that looks like the following figure.  
+
+<center>
+![Figure 1: R Markdown window.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide1.png)
+</center>
+\
+
+For each assignment, enter "Assignment #" in *Title*, replacing # with the Assignment number.  For *Author*, enter your name.  Keep Document in the left panel and HTML in the bottom panel selected.  You should see a RMarkdown file pop up on the top left portion of your RStudio interface.
+
+<center>
+![Figure 2: R Markdown window.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide2.png)
+</center>
+
+Name the file: yourLastName_firstInitial_weekXX.Rmd example: brazil_n_week01.Rmd
+
+###Authoring an R Markdown document
+\
+
+R Markdown documents contain 3 major components:
+
+1. A YAML header surrounded by ---
+2. Chunks of R code surounded by ```
+3. Text mixed with simple text formatting using the [Markdown syntax](https://www.markdownguide.org/cheat-sheet/)
+
+The YAML header controls how R Markdown renders your `.Rmd` file. A YAML header is a section of key: value pairs surrounded by --- marks.  **Use the following YAML format for each assignment**
+
+````
+`r ''`---
+title: "Assignment [insert number here]"
+subtitle: CRD 150
+author: Your full name here
+date: `r format(Sys.time(), '%d %B %Y')`
+output: 
+  html_document:
+    code_folding: show
+---
+````
+
+All R lab guides will include code to give you guidance on specific commands and tasks. **To get full credit for Component (1), you must insert this code in your R Markdown document.**  Code chunks are where you store R code that will be executed. They are inserted in between `` ```{r} `` and `` ``` ``.  For example, to designate `1+1` as R code, it will look like the following in your R Markdown document
+
+````
+```{r}`r ''`
+1+1
+```
+````
+
+Your R code must reside inside an R code chunk (see the Insert button in the editor pane, top left by default) in order for it to be processed as R code (otherwise R Markdown will think it is text)
+
+To run code in just in this chunk, either click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide3.png) and select *Run Current Chunk* or click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide4.png) located on the right corner of the chunk.
+
+You can explain results and answer questions by inserting text into your document.  For example, let's say you see this in one of your assignments
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide5.png)
+</center>
+\
+
+To get full credit, you would type in your R Markdown document the following
+
+````
+```{r}`r ''`
+1+1
+```
+
+Question: What does the above code do?
+Answer: This code adds 1 and 1 to get 2
+````
+
+## Knitting
+\
+
+Once you're done writing up your assignment, you'll need to submit your `.Rmd` document and the knitted `.html` document through Canvas.  RStudio’s "Knit HTML" button will compile the open document to actual HTML and open a preview.  To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/hwguide6.png).  A preview will pop up and the `.html` file will be saved in your working directory. 
+
+If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded [here](http://xquartz.macosforge.org)
+
+##Others things to know
+
+* You can spell-check your assignment before handing it in by navigating the menu Edit -> Check Spelling
+* If you have Microsoft Word installed on your system you can pull down the menu associated with the Knit button and select the Knit to Word option and, if all goes well, you will be presented with a Word document.
+* You can also create a pdf document, but you'll need to download [Tex](http://www.ams.org/publications/what-is-tex)on your system.
+* Your R Markdown file needs to have the extension Rmd (don’t create arbitrarily named files)
+* The default editor settings are to insert matching parentheses and quotes; if you find that this intrudes on your workflow, you can disable it via Tools -> Global Options -> Code then uncheck Insert matching parens/quotes
+
+
+##Getting R Markdown Help
+\
+
+Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheatsheet by going to Help > Cheatsheets > R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in chapter 21 in [R for Data Science](http://r4ds.had.co.nz/index.html)
+
+
+
+
