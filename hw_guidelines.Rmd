@@ -7,7 +7,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
-    theme: readable
+    theme: cosmo
 ---
 \
 
@@ -48,14 +48,19 @@ To create a new R Markdown file, select File -> New File -> R Markdown.  You sho
 
 <center>
 ![Figure 1: R Markdown window.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide1.png)
+
 </center>
 \
 
 For each assignment, enter "Assignment #" in *Title*, replacing # with the Assignment number.  For *Author*, enter your name.  Keep Document in the left panel and HTML in the bottom panel selected.  You should see a RMarkdown file pop up on the top left portion of your RStudio interface.
 
 <center>
+
 ![Figure 2: R Markdown window.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide2.png)
+
 </center>
+\
+
 
 Name the file: yourLastName_firstInitial_weekXX.Rmd example: brazil_n_week01.Rmd
 

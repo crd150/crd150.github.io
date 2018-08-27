@@ -8,7 +8,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
-    theme: readable
+    theme: cosmo
     code_folding: show
 ---
 
