@@ -48,18 +48,22 @@ This lab guide will follow closely and supplement the material presented in Chap
 
 <p class="comment", style="font-style:normal">**Assignment 1 is due by 11:59 pm, October 5th on Canvas.**  See X for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01</p>
 
-
+<div style="margin-bottom:25px;">
+</div>
 ##**What is R?**
 \
 
 R is an environment for data analysis and graphics. R is an interpreted language, not a compiled one. This means that you type something into R and it does it.  It is both a command line software and a programming environment.  It is an extensible, open-source language and computing environment for Windows, Macintosh, UNIX, and Linux platforms, which  allows for the user to freely distribute, study, change, and improve the software.
 
-
+<div style="margin-bottom:25px;">
+</div>
 ##**What is RStudio?**
 \
 
 R offers a very basic user interface. RStudio gives you a true integrated development environment (IDE), where you can write code in a window, see results in other windows, see locations of files, see objects you've created, and so on. 
 
+<div style="margin-bottom:25px;">
+</div>
 ##**Downloading R and RStudio**
 \
 
@@ -73,6 +77,8 @@ https://www.rstudio.com/
 
 To clarify which is which: R is the name of the programming language itself and RStudio is a convenient interface.
 
+<div style="margin-bottom:25px;">
+</div>
 ##**The RStudio Interface**
 \
 
@@ -101,6 +107,8 @@ Now may be a good time to read through the class assignment guidelines as they d
     + **Viewer** - allows you to view local web content (won't be using this much).
 
 
+<div style="margin-bottom:25px;">
+</div>
 ##**R Data Types**
 \
 
@@ -136,8 +144,12 @@ Nope. What is the problem here?  We need to put quotes around it.
 0/0
 ```
 
+<div style="margin-bottom:25px;">
+</div>
 ##**R Data Structures**
 
+<div style="margin-bottom:25px;">
+</div>
 ###**Vectors**
 \
 
@@ -191,7 +203,8 @@ length(b)
 length(v1)
 ```
 
-
+<div style="margin-bottom:25px;">
+</div>
 ###**Data Frames**
 \
 
@@ -261,7 +274,8 @@ The data frame object df1 should have dissapeared from the Environment tab.
 
 We've been talking about the values in vectors and data frames rather abstractly.  In practice, values, vectors and data frames have specific meaning in the context of data analysis.  Let's make things concrete.  Take a look at this [website](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls) showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences.  This is a data value (numeric!).  The collection of violent crime counts for each city is a vector. A data frame may have California cities as rows and the population, violent crime, homicide, and so on as columns.  We can name each column according to what values in that column represent (e.g. totpop, violent, homicide, and so on).
 
-
+<div style="margin-bottom:25px;">
+</div>
 ###**Commands/Functions**
 \
 
@@ -297,6 +311,8 @@ Each argument requires a certain type of data type.  For example, you'll get an 
 seq("p", "w")
 ```
 
+<div style="margin-bottom:25px;">
+</div>
 ###**R Packages**
 \
 
@@ -314,6 +330,8 @@ library(tidyverse)
 
 Note that you only need to install packages once (although you'll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load (`library()`) them each time you relaunch RStudio.  Also note that R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
 
+<div style="margin-bottom:25px;">
+</div>
 ###**Tibbles**
 \
 
@@ -368,7 +386,8 @@ names(nyctib)
 
 Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and data frames throughout the class, with a preference towards tibbles where possible.
 
-
+<div style="margin-bottom:25px;">
+</div>
 ##**Other resources**
 \
 
@@ -378,6 +397,8 @@ Although the guides we will provide and the RDS textbook should get you through 
 - [Data wrangling cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/r)
 
+<div style="margin-bottom:25px;">
+</div>
 ##**Assignment 1**
 
 Submit the commands shown in this guide in an R Markdown document.  Also in this document, answer the following questions.

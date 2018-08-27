@@ -371,15 +371,24 @@ In this guide you will learn the basic fundamentals of processing nonspatial dat
 <p class="comment" , style="font-style:normal">
 <strong>Assignment 1 is due by 11:59 pm, October 5th on Canvas.</strong> See X for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01
 </p>
+<div style="margin-bottom:25px;">
+
+</div>
 <div id="what-is-r" class="section level2">
 <h2><strong>What is R?</strong></h2>
 <p><br />
 R is an environment for data analysis and graphics. R is an interpreted language, not a compiled one. This means that you type something into R and it does it. It is both a command line software and a programming environment. It is an extensible, open-source language and computing environment for Windows, Macintosh, UNIX, and Linux platforms, which allows for the user to freely distribute, study, change, and improve the software.</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="what-is-rstudio" class="section level2">
 <h2><strong>What is RStudio?</strong></h2>
 <p><br />
 R offers a very basic user interface. RStudio gives you a true integrated development environment (IDE), where you can write code in a window, see results in other windows, see locations of files, see objects you’ve created, and so on.</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="downloading-r-and-rstudio" class="section level2">
 <h2><strong>Downloading R and RStudio</strong></h2>
@@ -389,6 +398,9 @@ The lab computers should already be equipped with R and RStudio. However, the be
 <p>And then downloand and install RStudio</p>
 <p><a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></p>
 <p>To clarify which is which: R is the name of the programming language itself and RStudio is a convenient interface.</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="the-rstudio-interface" class="section level2">
 <h2><strong>The RStudio Interface</strong></h2>
@@ -424,6 +436,9 @@ Now may be a good time to read through the class assignment guidelines as they d
 <li><strong>Viewer</strong> - allows you to view local web content (won’t be using this much).</li>
 </ul></li>
 </ul>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="r-data-types" class="section level2">
 <h2><strong>R Data Types</strong></h2>
@@ -451,9 +466,15 @@ R is really just a big fancy calculator. For example, type in the following math
 <pre><code>## [1] Inf</code></pre>
 <pre class="r"><code>0/0</code></pre>
 <pre><code>## [1] NaN</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="r-data-structures" class="section level2">
 <h2><strong>R Data Structures</strong></h2>
+<div style="margin-bottom:25px;">
+
+</div>
 <div id="vectors" class="section level3">
 <h3><strong>Vectors</strong></h3>
 <p><br />
@@ -489,6 +510,9 @@ v1</code></pre>
 <pre><code>## [1] 1</code></pre>
 <pre class="r"><code>length(v1)</code></pre>
 <pre><code>## [1] 3</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="data-frames" class="section level3">
 <h3><strong>Data Frames</strong></h3>
@@ -529,6 +553,9 @@ colnames(df1)</code></pre>
 <pre class="r"><code>rm(df1)</code></pre>
 <p>The data frame object df1 should have dissapeared from the Environment tab.</p>
 <p>We’ve been talking about the values in vectors and data frames rather abstractly. In practice, values, vectors and data frames have specific meaning in the context of data analysis. Let’s make things concrete. Take a look at this <a href="https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls">website</a> showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences. This is a data value (numeric!). The collection of violent crime counts for each city is a vector. A data frame may have California cities as rows and the population, violent crime, homicide, and so on as columns. We can name each column according to what values in that column represent (e.g. totpop, violent, homicide, and so on).</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="commandsfunctions" class="section level3">
 <h3><strong>Commands/Functions</strong></h3>
@@ -549,6 +576,9 @@ Let’s take a step back and talk about commands (also known as functions). You 
 <pre class="r"><code>seq(&quot;p&quot;, &quot;w&quot;)</code></pre>
 <pre><code>## Warning in seq.default(&quot;p&quot;, &quot;w&quot;): NAs introduced by coercion</code></pre>
 <pre><code>## Error in seq.default(&quot;p&quot;, &quot;w&quot;): &#39;from&#39; must be a finite number</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="r-packages" class="section level3">
 <h3><strong>R Packages</strong></h3>
@@ -557,6 +587,9 @@ Functions do not exist in a vacuum. They are part of R packages. R is an open-so
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;, repos = &quot;http://cran.us.r-project.org&quot;)</code></pre>
 <p>Next, you will need to load packages in your working environment (every time you start RStudio). We do this with the <code>library()</code> function.</p>
 <p>Note that you only need to install packages once (although you’ll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load (<code>library()</code>) them each time you relaunch RStudio. Also note that R has several packages already preloaded into your working environment. These are known as base packages and a list of their functions can be found <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">here</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="tibbles" class="section level3">
 <h3><strong>Tibbles</strong></h3>
@@ -623,6 +656,9 @@ library(nycflights13)</code></pre>
 ## [13] &quot;origin&quot;         &quot;dest&quot;           &quot;air_time&quot;       &quot;distance&quot;      
 ## [17] &quot;hour&quot;           &quot;minute&quot;         &quot;time_hour&quot;</code></pre>
 <p>Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we’ll be using a combination of tibbles and data frames throughout the class, with a preference towards tibbles where possible.</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 </div>
 <div id="other-resources" class="section level2">
@@ -634,6 +670,9 @@ Although the guides we will provide and the RDS textbook should get you through 
 <li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">Data wrangling cheatsheet</a></li>
 <li><a href="https://stackoverflow.com/questions/tagged/r">Stackoverflow</a></li>
 </ul>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="assignment-1" class="section level2">
 <h2><strong>Assignment 1</strong></h2>

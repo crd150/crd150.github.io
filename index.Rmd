@@ -23,15 +23,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Welcome to the CRD 150 website!  This website complements the class [Canvas](https://login.canvas.ucdavis.edu/) site.  
 
-This website you will find
+On this website you will find:
 
-* Abridged syllabus
+* An abridged syllabus
 * Assignment guidelines 
 * Lab and homework assignment material
 
-On Canvas, you will find
+On Canvas you will find:
 
-* Detailed syllabus
+* A detailed syllabus
 * Reading material
 * Data for labs/assignments
 * Project and midterm material
