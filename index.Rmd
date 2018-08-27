@@ -3,4 +3,41 @@ title: 'CRD 150: Quantitative Methods in Community Research'
 subtitle: <h4 style="font-style:normal">Fall 2018</h4>
 ---
 
-Hello website!
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\
+
+Welcome to the CRD 150 website!  This website complements the class [Canvas](https://login.canvas.ucdavis.edu/) site.  
+
+This website you will find
+
+* Abridged syllabus
+* Assignment guidelines 
+* Lab and homework assignment material
+
+On Canvas, you will find
+
+* Detailed syllabus
+* Reading material
+* Data for labs/assignments
+* Project and midterm material
+* Submit your homework
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/front.jpg)
+
+</center>

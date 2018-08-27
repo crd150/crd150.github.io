@@ -5,6 +5,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Syllabus"
+      href: syllabus.html
     - text: "Assignment Guidelines"
       href: hw_guidelines.html
     - text: "Labs/Assignments"

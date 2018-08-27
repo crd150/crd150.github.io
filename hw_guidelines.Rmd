@@ -115,7 +115,7 @@ Answer: This code adds 1 and 1 to get 2
 ## Knitting
 \
 
-Once you're done writing up your assignment, you'll need to submit your `.Rmd` document and the knitted `.html` document through Canvas.  RStudio’s "Knit HTML" button will compile the open document to actual HTML and open a preview.  To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png).  A preview will pop up and the `.html` file will be saved in your working directory. 
+Once you're done writing up your assignment, you'll need to submit your `.Rmd` document and the knitted `.html` document through [Canvas](https://login.canvas.ucdavis.edu/).  RStudio’s "Knit HTML" button will compile the open document to actual HTML and open a preview.  To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png).  A preview will pop up and the `.html` file will be saved in your working directory. 
 
 If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded [here](http://xquartz.macosforge.org)
 
