@@ -140,7 +140,8 @@ If you have a Mac and you are getting an error when knitting, you may need to do
 <div style="margin-bottom:25px;">
 </div>
 ##**Others things to know**
-\
+<div style="margin-bottom:20px;">
+</div>
 
 * You can spell-check your assignment before handing it in by navigating the menu Edit -> Check Spelling
 * If you have Microsoft Word installed on your system you can pull down the menu associated with the Knit button and select the Knit to Word option and, if all goes well, you will be presented with a Word document.
