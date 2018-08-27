@@ -36,6 +36,7 @@ On Canvas, you will find
 * Data for labs/assignments
 * Project and midterm material
 * Submit your homework
+* Grades
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/front.jpg)

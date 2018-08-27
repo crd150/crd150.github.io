@@ -15,5 +15,8 @@ navbar:
           href: lab1.html 
 output:
   html_document:
-      theme: readable
+    highlight: textmate
+    include:
+      after_body: footer.html
+    theme: readable
 
