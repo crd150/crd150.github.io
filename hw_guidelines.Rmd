@@ -9,6 +9,13 @@ output:
     toc_float: true
     theme: cosmo
 ---
+
+<style>
+h1.title {
+  font-weight: bold;
+}
+</style>
+
 \
 
 
@@ -26,7 +33,7 @@ Students will be graded on each of the above components.  In order to get full c
 
 The expectation for assignments is to get through as much of it as possible during lab time.  If you are unable to finish the guide during the lab, please complete it on your own.  You can ask for help from TAs and work with other students.  However, you *must* submit your own assignment results.  It is important that you do not skip assignments as class material build on one another. 
 
-## R Markdown
+## **R Markdown**
 \
 
 You will use [R Markdown](https://rmarkdown.rstudio.com/) to write up all R related assignments.  R Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents in RStudio.  For each R related assignment, you will upload onto Canvas an R Markdown document, which has an `.Rmd` extension, and its knitted `.html` file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.
@@ -64,7 +71,7 @@ For each assignment, enter "Assignment #" in *Title*, replacing # with the Assig
 
 Name the file: yourLastName_firstInitial_weekXX.Rmd example: brazil_n_week01.Rmd
 
-###Authoring an R Markdown document
+###**Authoring an R Markdown document**
 \
 
 R Markdown documents contain 3 major components:
@@ -117,14 +124,14 @@ Question: What does the above code do?
 Answer: This code adds 1 and 1 to get 2
 ````
 
-## Knitting
+## **Knitting**
 \
 
 Once you're done writing up your assignment, you'll need to submit your `.Rmd` document and the knitted `.html` document through [Canvas](https://login.canvas.ucdavis.edu/).  RStudio’s "Knit HTML" button will compile the open document to actual HTML and open a preview.  To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png).  A preview will pop up and the `.html` file will be saved in your working directory. 
 
 If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded [here](http://xquartz.macosforge.org)
 
-##Others things to know
+##**Others things to know**
 
 * You can spell-check your assignment before handing it in by navigating the menu Edit -> Check Spelling
 * If you have Microsoft Word installed on your system you can pull down the menu associated with the Knit button and select the Knit to Word option and, if all goes well, you will be presented with a Word document.
@@ -133,7 +140,7 @@ If you have a Mac and you are getting an error when knitting, you may need to do
 * The default editor settings are to insert matching parentheses and quotes; if you find that this intrudes on your workflow, you can disable it via Tools -> Global Options -> Code then uncheck Insert matching parens/quotes
 
 
-##Getting R Markdown Help
+##**Getting R Markdown Help**
 \
 
 Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheatsheet by going to Help > Cheatsheets > R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in chapter 21 in [R for Data Science](http://r4ds.had.co.nz/index.html)

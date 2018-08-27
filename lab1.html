@@ -352,6 +352,10 @@ border-radius: 5px;
 font-style: italic;
 }
 
+h1.title {
+  font-weight: bold;
+}
+
 </style>
 <p><br />
 </p>
@@ -368,17 +372,17 @@ In this guide you will learn the basic fundamentals of processing nonspatial dat
 <strong>Assignment 1 is due by 11:59 pm, October 5th on Canvas.</strong> See X for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01
 </p>
 <div id="what-is-r" class="section level2">
-<h2>What is R?</h2>
+<h2><strong>What is R?</strong></h2>
 <p><br />
 R is an environment for data analysis and graphics. R is an interpreted language, not a compiled one. This means that you type something into R and it does it. It is both a command line software and a programming environment. It is an extensible, open-source language and computing environment for Windows, Macintosh, UNIX, and Linux platforms, which allows for the user to freely distribute, study, change, and improve the software.</p>
 </div>
 <div id="what-is-rstudio" class="section level2">
-<h2>What is RStudio?</h2>
+<h2><strong>What is RStudio?</strong></h2>
 <p><br />
 R offers a very basic user interface. RStudio gives you a true integrated development environment (IDE), where you can write code in a window, see results in other windows, see locations of files, see objects you’ve created, and so on.</p>
 </div>
 <div id="downloading-r-and-rstudio" class="section level2">
-<h2>Downloading R and RStudio</h2>
+<h2><strong>Downloading R and RStudio</strong></h2>
 <p><br />
 The lab computers should already be equipped with R and RStudio. However, the benefit of R is that it is free, so you can download it onto your personal computers. You need to first download and install R</p>
 <p><a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></p>
@@ -387,7 +391,7 @@ The lab computers should already be equipped with R and RStudio. However, the be
 <p>To clarify which is which: R is the name of the programming language itself and RStudio is a convenient interface.</p>
 </div>
 <div id="the-rstudio-interface" class="section level2">
-<h2>The RStudio Interface</h2>
+<h2><strong>The RStudio Interface</strong></h2>
 <p><br />
 Open up RStudio. You should see the interface shown in Figure 1 which has three windows.</p>
 <center>
@@ -422,7 +426,7 @@ Now may be a good time to read through the class assignment guidelines as they d
 </ul>
 </div>
 <div id="r-data-types" class="section level2">
-<h2>R Data Types</h2>
+<h2><strong>R Data Types</strong></h2>
 <p><br />
 R is really just a big fancy calculator. For example, type in the following mathematical expression in the R console</p>
 <pre class="r"><code>1+1</code></pre>
@@ -449,9 +453,9 @@ R is really just a big fancy calculator. For example, type in the following math
 <pre><code>## [1] NaN</code></pre>
 </div>
 <div id="r-data-structures" class="section level2">
-<h2>R Data Structures</h2>
+<h2><strong>R Data Structures</strong></h2>
 <div id="vectors" class="section level3">
-<h3>Vectors</h3>
+<h3><strong>Vectors</strong></h3>
 <p><br />
 You just learned that R has three basic data types. Now, let’s go through how we can store data in R. You do this by using R’s various data structures. A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type. There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command <code>c()</code>. For example, represent the values 4, 16 and 9 in a vector</p>
 <pre class="r"><code>c(4, 16, 9)</code></pre>
@@ -487,7 +491,7 @@ v1</code></pre>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="data-frames" class="section level3">
-<h3>Data Frames</h3>
+<h3><strong>Data Frames</strong></h3>
 <p><br />
 We learned that data values can be stored in data objects known as vectors. The next step is to learn how to store vectors into a even higher level data structure. The data frame can do this. Data frames store vectors of the same length. Create a vector called “v2”&quot; storing the values 5, 12, and 25</p>
 <pre class="r"><code>v2 &lt;- c(5,12,25)</code></pre>
@@ -527,7 +531,7 @@ colnames(df1)</code></pre>
 <p>We’ve been talking about the values in vectors and data frames rather abstractly. In practice, values, vectors and data frames have specific meaning in the context of data analysis. Let’s make things concrete. Take a look at this <a href="https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls">website</a> showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences. This is a data value (numeric!). The collection of violent crime counts for each city is a vector. A data frame may have California cities as rows and the population, violent crime, homicide, and so on as columns. We can name each column according to what values in that column represent (e.g. totpop, violent, homicide, and so on).</p>
 </div>
 <div id="commandsfunctions" class="section level3">
-<h3>Commands/Functions</h3>
+<h3><strong>Commands/Functions</strong></h3>
 <p><br />
 Let’s take a step back and talk about commands (also known as functions). You execute many of your tasks in R using commands. We have already used a couple of commands above including <code>typeof</code> and <code>colnames</code>. Each function will have the following basic format</p>
 <p><code>functionName(arg1 = val1, arg2 = val2, and so on)</code></p>
@@ -547,7 +551,7 @@ Let’s take a step back and talk about commands (also known as functions). You 
 <pre><code>## Error in seq.default(&quot;p&quot;, &quot;w&quot;): &#39;from&#39; must be a finite number</code></pre>
 </div>
 <div id="r-packages" class="section level3">
-<h3>R Packages</h3>
+<h3><strong>R Packages</strong></h3>
 <p><br />
 Functions do not exist in a vacuum. They are part of R packages. R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. At the top left of a function’s help documentation, you’ll find in curly brackets the package that the function is housed in. For example, <code>seq()</code> is in the package <strong>base</strong>. In order to use functions in a package, you first need to install the package using the <code>install.packages()</code> command. For example, we will be using commands from the package <code>tidyverse</code> in this lab</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;, repos = &quot;http://cran.us.r-project.org&quot;)</code></pre>
@@ -555,7 +559,7 @@ Functions do not exist in a vacuum. They are part of R packages. R is an open-so
 <p>Note that you only need to install packages once (although you’ll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load (<code>library()</code>) them each time you relaunch RStudio. Also note that R has several packages already preloaded into your working environment. These are known as base packages and a list of their functions can be found <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">here</a>.</p>
 </div>
 <div id="tibbles" class="section level3">
-<h3>Tibbles</h3>
+<h3><strong>Tibbles</strong></h3>
 <p><br />
 Let’s take a step back and assess where we are in our journey into R land. We learned that there are three basic data types in R. We learned that we can store data values in vectors. We can then store vectors into data frames. And we run many tasks in R using commands/functions, which are created and stored in packages, which we need to install and load. For a long time, this was how R users worked with their data. Recently, a new framework for organizing data in R has emerged. This revolution is known as <code>tidy</code>, and you can read more about its principles in Chapter 9, pages 147-151 in RDS.</p>
 <p>An integral component of the tidyverse are tibbles. Tibbles are data frames, but they tweak some older behaviors to make life a little easier. There are two main differences in the usage of a data frame vs a tibble: printing and subsetting. Let’s be clear here - tibbles are just a special kind of data frame. They just makes things a little “tidier.”</p>
@@ -622,7 +626,7 @@ library(nycflights13)</code></pre>
 </div>
 </div>
 <div id="other-resources" class="section level2">
-<h2>Other resources</h2>
+<h2><strong>Other resources</strong></h2>
 <p><br />
 Although the guides we will provide and the RDS textbook should get you through a lot of the functions needed to succesfully accomplish tasks for this class, there are a number of useful online resources on R and RStudio that you can look into if you get stuck or want to learn more.</p>
 <ul>
@@ -632,7 +636,7 @@ Although the guides we will provide and the RDS textbook should get you through 
 </ul>
 </div>
 <div id="assignment-1" class="section level2">
-<h2>Assignment 1</h2>
+<h2><strong>Assignment 1</strong></h2>
 <p>Submit the commands shown in this guide in an R Markdown document. Also in this document, answer the following questions.</p>
 <ol style="list-style-type: decimal">
 <li>How much programming experience do you have? Select one: (a) Never programmed before, (b) Some experience, (c)Extensive experience.</li>

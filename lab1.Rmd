@@ -12,6 +12,7 @@ output:
     code_folding: show
 ---
 
+
 <style>
 p.comment {
 background-color: #DBDBDB;
@@ -20,6 +21,10 @@ border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
 font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
 }
 
 </style>
@@ -44,18 +49,18 @@ This lab guide will follow closely and supplement the material presented in Chap
 <p class="comment", style="font-style:normal">**Assignment 1 is due by 11:59 pm, October 5th on Canvas.**  See X for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01</p>
 
 
-##What is R?
+##**What is R?**
 \
 
 R is an environment for data analysis and graphics. R is an interpreted language, not a compiled one. This means that you type something into R and it does it.  It is both a command line software and a programming environment.  It is an extensible, open-source language and computing environment for Windows, Macintosh, UNIX, and Linux platforms, which  allows for the user to freely distribute, study, change, and improve the software.
 
 
-##What is RStudio?
+##**What is RStudio?**
 \
 
 R offers a very basic user interface. RStudio gives you a true integrated development environment (IDE), where you can write code in a window, see results in other windows, see locations of files, see objects you've created, and so on. 
 
-##Downloading R and RStudio
+##**Downloading R and RStudio**
 \
 
 The lab computers should already be equipped with R and RStudio.  However, the benefit of R is that it is free, so you can download it onto your personal computers. You need to first download and install R
@@ -68,7 +73,7 @@ https://www.rstudio.com/
 
 To clarify which is which: R is the name of the programming language itself and RStudio is a convenient interface.
 
-##The RStudio Interface
+##**The RStudio Interface**
 \
 
 Open up RStudio.  You should see the interface shown in Figure 1 which has three windows.
@@ -96,7 +101,7 @@ Now may be a good time to read through the class assignment guidelines as they d
     + **Viewer** - allows you to view local web content (won't be using this much).
 
 
-##R Data Types
+##**R Data Types**
 \
 
 R is really just a big fancy calculator. For example, type in the following mathematical expression in the R console
@@ -131,9 +136,9 @@ Nope. What is the problem here?  We need to put quotes around it.
 0/0
 ```
 
-##R Data Structures
+##**R Data Structures**
 
-###Vectors
+###**Vectors**
 \
 
 You just learned that R has three basic data types. Now, let's go through how we can store data in R. You do this by using R's various data structures. A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type.  There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command `c()`.  For example, represent the values 4, 16 and 9 in a vector
@@ -187,7 +192,7 @@ length(v1)
 ```
 
 
-###Data Frames
+###**Data Frames**
 \
 
 We learned that data values can be stored in data objects known as vectors.  The next step is to learn how to store vectors into a even higher level data structure.  The data frame can do this.   Data frames store vectors of the same length.  Create a vector called "v2"" storing the values 5, 12, and 25
@@ -257,7 +262,7 @@ The data frame object df1 should have dissapeared from the Environment tab.
 We've been talking about the values in vectors and data frames rather abstractly.  In practice, values, vectors and data frames have specific meaning in the context of data analysis.  Let's make things concrete.  Take a look at this [website](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls) showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences.  This is a data value (numeric!).  The collection of violent crime counts for each city is a vector. A data frame may have California cities as rows and the population, violent crime, homicide, and so on as columns.  We can name each column according to what values in that column represent (e.g. totpop, violent, homicide, and so on).
 
 
-###Commands/Functions
+###**Commands/Functions**
 \
 
 Let's take a step back and talk about commands (also known as functions).  You execute many of your tasks in R using commands.  We have already used a couple of commands above including `typeof` and `colnames`. Each function will have the following basic format
@@ -292,7 +297,7 @@ Each argument requires a certain type of data type.  For example, you'll get an 
 seq("p", "w")
 ```
 
-###R Packages
+###**R Packages**
 \
 
 Functions do not exist in a vacuum.  They are part of R packages.  R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. At the top left of a function's help documentation, you'll find in curly brackets the package that the function is housed in.  For example, `seq()` is in the package **base**. In order to use functions in a package, you first need to install the package using the `install.packages()` command. For example, we will be using commands from the package `tidyverse` in this lab 
@@ -309,7 +314,7 @@ library(tidyverse)
 
 Note that you only need to install packages once (although you'll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load (`library()`) them each time you relaunch RStudio.  Also note that R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
 
-###Tibbles
+###**Tibbles**
 \
 
 Let's take a step back and assess where we are in our journey into R land.  We learned that there are three basic data types in R.  We learned that we can store data values in vectors. We can then store vectors into data frames. And we run many tasks in R using commands/functions, which are created and stored in packages, which we need to install and load.  For a long time, this was how R users worked with their data.  Recently, a new framework for organizing data in R has emerged.  This revolution is known as `tidy`, and you can read more about its principles in Chapter 9, pages 147-151 in RDS.  
@@ -364,7 +369,7 @@ names(nyctib)
 Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and data frames throughout the class, with a preference towards tibbles where possible.
 
 
-##Other resources
+##**Other resources**
 \
 
 Although the guides we will provide and the RDS textbook should get you through a lot of the functions needed to succesfully accomplish tasks for this class, there are a number of useful online resources on R and RStudio that you can look into if you get stuck or want to learn more.  
@@ -373,7 +378,7 @@ Although the guides we will provide and the RDS textbook should get you through 
 - [Data wrangling cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/r)
 
-## Assignment 1
+##**Assignment 1**
 
 Submit the commands shown in this guide in an R Markdown document.  Also in this document, answer the following questions.
 
