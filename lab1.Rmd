@@ -331,6 +331,8 @@ Next, you will need to load packages in your working environment (every time you
 library(tidyverse)
 ```
 
+Don't worry about all those messages.  Unless you get a message in red that indicates there is an error (like we saw above when we typed in `hello world`), you should be fine.
+
 Note that you only need to install packages once (although you'll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load them each time you relaunch RStudio.  Also note that R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
 
 <div style="margin-bottom:25px;">
