@@ -414,5 +414,6 @@ Submit the commands shown in this guide in an R Markdown document.  Also in this
 
 \
 
+***
 
 Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
