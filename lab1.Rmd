@@ -40,13 +40,14 @@ In this guide you will learn the basic fundamentals of processing nonspatial dat
 
 
 1. Get familiar with the RStudio interface
-2. Understand R data types
-3. Understand R data structures, in particular vectors, data frames and tibbles
-4. Understand R functions and commands
+2. Understand R Markdown and the process for submitting assignments
+3. Understand R data types
+4. Understand R data structures, in particular vectors, data frames and tibbles
+5. Understand R functions and commands
 
 This lab guide follows closely and supplements the material presented in Chapters X in R for Data Science (RDS), which is available free at http://r4ds.had.co.nz/index.html
 
-<p class="comment", style="font-style:normal">**Assignment 1 is due by 11:59 pm, October 5th on Canvas.**  See X for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01</p>
+<p class="comment", style="font-style:normal">**Assignment 1 is due by 11:59 pm, October 5th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01</p>
 
 <div style="margin-bottom:25px;">
 </div>
@@ -91,13 +92,13 @@ Open up RStudio.  You should see the interface shown in Figure 1 which has three
 
 \
 
-Now may be a good time to read through the class assignment guidelines as they detail what is a R Markdown file.  After you read through the guidelines, open up an R Markdown file.  You should now see four windows in RStudio.
+Now may be a good time to read through the class assignment guidelines as they detail what is an R Markdown file.  After you read through the guidelines, open up an R Markdown file.  You should now see four windows in RStudio.
 
-* **Console** (lower-left) - allows you to run code interactively in R. This is where you type code in, press enter to execute the code, and see the results
-* **Editor** (upper-left) - where you write R Markdown files
+* **Console** (lower-left) - allows you to run code interactively in R. This is where you type code in, press enter to execute the code, and see the results.
+* **Editor** (upper-left) - where you write R Markdown files.
 * **Environment, History, and Connections tabs** (upper-right)
     + **Environment** - shows all the R objects that are currently open in your workspace.  This is the place, for example, where you will see any data you've loaded into R. When you exit RStudio, R will clear all objects in this window.  
-    + **History** - shows a list of executed commands in current session.
+    + **History** - shows a list of executed commands in the current session.
     + **Connections** - you can connect to a variety of data sources, and explore the objects and data inside the connection.  I typically don't use this window, but you [can](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).    
 * **Files, Plots, Packages, Help and Viewer tabs** (lower-right)
     + **Files** - shows all the files and folders in your current working directory.
@@ -135,8 +136,8 @@ Nope. What is the problem here?  We need to put quotes around it.
 "hello world" is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R.  There are three basic data types in R: character, logical, and numeric (there are two others - complex and raw - but we won't cover them because they are rarely used). 
 
 * **Character** - used to represent string values in R.  We saw this above with "hello world". Anything with quotes will be interpreted as a character.
-* **Logical** - takes on three possible values: FALSE, TRUE, and NA.  The value NA indicates a missing value. Note that all data types use NA as an indicator of missingness. Logicals are usually constructed with comparison operators, which we'll go through more carefully in Lab 2 
-* **Numeric** - separated into two types: integer and double.  The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type.  For example, in addition to NA, which indicates missingness, doubles have three other special values to handle problematic values after division.  R spits out `-Inf` and `Inf` when dividing a negative and positive value by 0, respectively, and `NaN` when dividing 0 by 0
+* **Logical** - takes on three possible values: FALSE, TRUE, and NA.  The value NA indicates a missing value. Note that all data types use NA as an indicator of missingness. Logicals are usually constructed with comparison operators, which we'll go through more carefully in Lab 2 .
+* **Numeric** - separated into two types: integer and double.  The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type.  For example, in addition to NA, which indicates missingness, doubles have three other special values to handle problematic values after division.  R spits out `-Inf` and `Inf` when dividing a negative and positive value by 0, respectively, and `NaN` when dividing 0 by 0.
 
 ```{r, error=TRUE}
 -1/0
@@ -155,7 +156,7 @@ You just learned that R has three basic data types. Now, let's go through how we
 ###**Vectors**
 \
 
-A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type.  There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command `c()`.  For example, represent the values 4, 16 and 9 in a vector
+A vector is the most common and basic R data structure and is pretty much the workhorse of the language. A vector is simply a sequence of values which can be of any data type.  There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command `c()`.  For example, represent the values 4, 16 and 9 in a vector
 
 ```{r, error=TRUE}
 c(4, 16, 9)
@@ -210,7 +211,7 @@ length(v1)
 ###**Data Frames**
 \
 
-We learned that data values can be stored in data objects known as vectors.  The next step is to learn how to store vectors into an even higher level data structure.  The data frame can do this.   Data frames store vectors of the same length.  Create a vector called "v2"" storing the values 5, 12, and 25
+We learned that data values can be stored in data structures known as vectors.  The next step is to learn how to store vectors into an even higher level data structure.  The data frame can do this.   Data frames store vectors of the same length.  Create a vector called "v2"" storing the values 5, 12, and 25
 
 ```{r, error=TRUE}
 v2 <- c(5,12,25)
@@ -228,7 +229,7 @@ Store this data frame in an object called "df1"
 df1<-data.frame(v1, v2)
 ```
 
-You can find the number of rows and columns that a data frame has by using the command `dim()`
+We can't use `length()` on a data frame because it has more than one vector. Instead, it has *dimensions* - the number of rows and columns. You can find the number of rows and columns that a data frame has by using the command `dim()`
 
 ```{r, error=TRUE}
 dim(df1)
@@ -326,18 +327,18 @@ install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 
 Next, you will need to load packages in your working environment (every time you start RStudio). We do this with the `library()` function.
 
-```{r include=FALSE, warning=FALSE, results="hide"}
+```{r warning=FALSE, results="hide"}
 library(tidyverse)
 ```
 
-Note that you only need to install packages once (although you'll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load (`library()`) them each time you relaunch RStudio.  Also note that R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
+Note that you only need to install packages once (although you'll need to install packages every time when using the lab computers because they wipe everything when you restart), but you need to load them each time you relaunch RStudio.  Also note that R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
 
 <div style="margin-bottom:25px;">
 </div>
 ###**Tibbles**
 \
 
-Let's take a step back and assess where we are in our journey into R land.  We learned that there are three basic data types in R.  We learned that we can store data values in vectors. We can then store vectors into data frames. And we run many tasks in R using commands/functions, which are created and stored in packages, which we need to install and load.  For a long time, this was how R users worked with their data.  Recently, a new framework for organizing data in R has emerged.  This revolution is known as `tidy`, and you can read more about its principles in Chapter 9, pages 147-151 in RDS.  
+Let's take a step back and assess where we are in our journey into R land.  We learned that there are three basic data types in R.  We learned that we can store data values in vectors. We can then store vectors into data frames. And we run many tasks in R using commands/functions, which are created and stored in packages, which we need to install and load.  For a long time, this was how R users worked with their data.  Recently, a new framework for organizing data in R has emerged.  This revolution is known as *tidy*, and you can read more about its principles in Chapter 9, pages 147-151 in RDS.  
 
 An integral component of the tidyverse are tibbles.  Tibbles are data frames, but they tweak some older behaviors to make life a little easier. There are two main differences in the usage of a data frame vs a tibble: printing and subsetting. Let's be clear here - tibbles are just a special kind of data frame. They just makes things a little "tidier."
 
@@ -354,7 +355,7 @@ There is a dataset called `flights` included in this package.  It includes infor
 nyctib <- flights
 ```
 
-This dataset is a tibble. Let's save it as a data frame by using the `as.data.frame()` function
+This dataset is a tibble. Let's also save it as a data frame by using the `as.data.frame()` function
 
 ```{r}
 nycdf <- as.data.frame(flights)
@@ -386,7 +387,7 @@ You can identify the names of the columns (and hence the variables in the datase
 names(nyctib)
 ```
 
-Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and data frames throughout the class, with a preference towards tibbles where possible.
+Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and regular data frames throughout the class, with a preference towards tibbles where possible.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -403,7 +404,7 @@ Although the guides we will provide and the RDS textbook should get you through 
 </div>
 ##**Assignment 1**
 
-Submit the commands shown in this guide in an R Markdown document.  Also in this document, answer the following questions.
+**Submit the commands shown in this guide in an R Markdown document**.  Also in this document, answer the following questions.
 
 1. How much programming experience do you have? Select one: (a) Never programmed before, (b) Some experience, (c)Extensive experience.
 2. How would you rate your familiarity with the R programming language? Select one: (a) Never used, (b) Installed on machine but don't really use, (c) Basic competence, (d) R Wizard.

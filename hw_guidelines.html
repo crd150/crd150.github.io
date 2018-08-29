@@ -331,17 +331,17 @@ h1.title {
 </p>
 <p>Assignments are typically released at the beginning of each lab and are due in a week. They will be posted on the course’s website. Assignments have three components</p>
 <ol style="list-style-type: decimal">
-<li>A step-by-step guide showing how to run tasks</li>
-<li>Executing data analysis tasks - for example, create a map or run a statistical model</li>
+<li>A step-by-step guide showing how to run tasks.</li>
+<li>Executing data analysis tasks - for example, create a map or run a statistical model.</li>
 <li>Answering conceptual questions - for example, interpret results that were produced from a data analysis task.</li>
 </ol>
-<p>Students will be graded on each of the above components. In order to get full credit for each component, you need to</p>
-<ul>
-<li>Component 1: Show the appropriate results for a given question (e.g. map, table, statistics)</li>
-<li>Component 2: Show the appropriate code producing the results.</li>
-<li>Component 3: Provide correct written answers.</li>
-</ul>
-<p>The expectation for each assignment is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. You can ask for help from TAs and work with other students. However, you <em>must</em> submit your own assignment results. It is important that you do not skip assignments as class material build on one another.</p>
+<p>In order to get full credit for each assignment, you will need to</p>
+<ol style="list-style-type: decimal">
+<li>Show the appropriate statistical results for a given question (e.g. map, table, statistics).</li>
+<li>Show the appropriate code producing the results.</li>
+<li>Provide correct written answers.</li>
+</ol>
+<p>The expectation for each assignment is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. You can ask for help from the TAs and work with other students. However, you <em>must</em> submit your own assignment results. It is important that you do not skip assignments as class material build on one another.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -349,13 +349,13 @@ h1.title {
 <h2><strong>R Markdown</strong></h2>
 <p><br />
 You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up all R related assignments. R Markdown is a simple formatting syntax for authoring html, pdf, and Microsoft Word documents in RStudio. For each R related assignment, you will upload onto Canvas an R Markdown document, which has an <code>.Rmd</code> extension, and its knitted <code>.html</code> file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.</p>
-<p>To be clear, R is a <em>programming language</em>. RStudio is an <em>application</em>. RMarkdown is a <em>markup syntax</em> to convert R script and text into a word, pdf or html document.</p>
+<p>To be clear, R is a <em>programming language</em>. RStudio is an <em>application</em>. R Markdown is a <em>markup syntax</em> to convert R script and text into a word, pdf or html document.</p>
 <p>In RStudio, install the package <strong>rmarkdown</strong> using the <code>install.packages()</code> command. Type the following code in your RStudio Console.</p>
 <pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
 <p>Next, choose an appropriate working directory. The working directory directs R to the specific folder where you want to upload and save files. This is the folder where your saved R Markdown <code>.Rmd</code> and its associated <code>.html</code> files reside. In the console, execute the command</p>
 <pre class="r"><code>setwd(&quot;path_to_directory&quot;)
 # path_to_directory is the directory path of the directory you want to set as working directory</code></pre>
-<p>An assignmnent <code>.Rmd</code> template can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd">here</a>. You can use this template for every assignment or follow the directions below.</p>
+<p>An assignmnent <code>.Rmd</code> template can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd">here</a>. You can use this template for every assignment or create your own R Markdown document using the directions below.</p>
 <p>To create a new R Markdown file, select File -&gt; New File -&gt; R Markdown from the menu up top. You should see a window pop up that looks like the following figure.</p>
 <center>
 <div class="figure">
@@ -364,16 +364,16 @@ You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up
 </div>
 </center>
 <p><br />
-For each assignment, enter “Assignment #” in <em>Title</em>, replacing # with the Assignment number. For <em>Author</em>, enter your name. Keep <em>Document</em> in the left panel and the radio button next to <em>HTML</em> in the bottom panel selected. You should see an RMarkdown file pop up on the top left portion of your RStudio interface.</p>
+For each assignment, enter “Assignment #” in <em>Title</em>, replacing # with the Assignment number. For <em>Author</em>, enter your name. Keep <em>Document</em> in the left panel and the radio button next to <em>HTML</em> in the bottom panel selected. You should see an R Markdown file pop up on the top left portion of your RStudio interface.</p>
 <center>
 <div class="figure">
-<img src="hwguide2.png" alt="Figure 2: R Markdown window." />
-<p class="caption">Figure 2: R Markdown window.</p>
+<img src="hwguide2.png" alt="Figure 2: R Markdown document" />
+<p class="caption">Figure 2: R Markdown document</p>
 </div>
 </center>
 <p><br />
 </p>
-<p>You won’t need anything including and below “### RMarkdown” - just delete that text. Instead, you will fill it in with your assignment answers. Name the file: yourLastName_firstInitial_weekXX.Rmd example: brazil_n_week01.Rmd</p>
+<p>You won’t need anything including and below “### RMarkdown” - just delete that text. Instead, you will fill it in with your assignment answers. Name the file: yourLastName_firstInitial_asgnXX.Rmd example: brazil_n_asgn01.Rmd</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -389,14 +389,14 @@ R Markdown documents contain 3 major components:</p>
 <p>The YAML header controls how R Markdown renders your <code>.Rmd</code> file. A YAML header is a section of key: value pairs surrounded by — marks. <strong>Use the following YAML format for each assignment</strong></p>
 <pre><code>---
 title: &quot;Assignment [insert number here]&quot;
-subtitle: CRD 150
+subtitle: CRD 150, Lab #
 author: Your full name here
 date: 29 August 2018
 output: 
   html_document:
     code_folding: show
 ---</code></pre>
-<p>Your RMarkdown assignment file will contain R code and text. R code chunks are where you store R code that will be executed. They are inserted in between <code>```{r}</code> and <code>```</code>. For example, to designate <code>1+1</code> as R code, it will look like the following in your R Markdown document</p>
+<p>Your R Markdown assignment file will contain R code and text. R code chunks are where you store R code that will be executed. They are inserted in between <code>```{r}</code> and <code>```</code>. For example, to designate <code>1+1</code> as R code, it will look like the following in your R Markdown document</p>
 <pre><code>```{r}
 1+1
 ```</code></pre>
@@ -413,7 +413,7 @@ To get full credit, you would type in your R Markdown document the following</p>
 
 Question: What does the above code do?
 Answer: This code adds 1 and 1 to get 2</code></pre>
-<p>Of course, you’ll need to test code to make sure it is running properly. Rather than writing and running the code for an assignment at one time, run them in chunks. To run code in just one chunk, either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk.</p>
+<p>Of course, you’ll need to test code to make sure it is running properly. Rather than writing and running the code for an assignment all at the end, run them in chunks. To run code in just one chunk, click on the R code chunk you want to run and either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -431,23 +431,23 @@ Once you’re done writing up your assignment, you’ll need to submit your <cod
 <div id="summary" class="section level2">
 <h2><strong>Summary</strong></h2>
 <p><br />
-So, the proper workflow for each assignment will be</p>
+The proper workflow for each assignment will be</p>
 <ol style="list-style-type: decimal">
 <li>Go through the step-by-step lab guide.<br />
 </li>
-<li>Either use the RMarkdown assignment template linked above or open up your own RMarkdown document</li>
-<li>In this documnent, answer all the assignment questions located at the end of the guide</li>
+<li>Open up the R Markdown assignment template linked above or create your own R Markdown document.</li>
+<li>In this documnent, answer all the assignment questions located at the end of the guide.</li>
 </ol>
 <ul>
-<li>Most of the questions will ask you to run code. Show that code in an RMarkdown chunk.<br />
+<li>Most of the questions will ask you to run code. Show that code in an R Markdown chunk. Make sure it works. If it doesnt, then partial to no credit.<br />
 </li>
-<li>Run that code one chunk at a time to make sure it is working</li>
-<li>Most of the questions will ask you to explain your code/results</li>
+<li>Run that code one chunk at a time to make sure it is working.</li>
+<li>Most of the questions will ask you to explain your code/results.</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Once you feel good about your answers, knit it</li>
-<li>Submit the <code>.Rmd</code> and <code>.html</code> files <strong>before</strong> the designated time on Canvas</li>
-<li>Smile, pat yourself on the back, and eat some ice cream</li>
+<li>Once you feel good about your answers, knit it.</li>
+<li>Submit the <code>.Rmd</code> and <code>.html</code> files <strong>before</strong> the designated time on Canvas.</li>
+<li>Smile, pat yourself on the back, and have some ice cream.</li>
 </ol>
 <div style="margin-bottom:25px;">
 
@@ -461,9 +461,9 @@ So, the proper workflow for each assignment will be</p>
 <ul>
 <li>You can spell-check your assignment before handing it in by navigating the menu Edit -&gt; Check Spelling</li>
 <li>If you have Microsoft Word installed on your system you can pull down the menu associated with the Knit button and select the Knit to Word option and, if all goes well, you will be presented with a Word document.</li>
-<li>You can also create a pdf document, but you’ll need to download <a href="http://www.ams.org/publications/what-is-tex">Tex</a>on your system.</li>
-<li>Your R Markdown file needs to have the extension Rmd (don’t create arbitrarily named files)</li>
-<li>The default editor settings are to insert matching parentheses and quotes; if you find that this intrudes on your workflow, you can disable it via Tools -&gt; Global Options -&gt; Code then uncheck Insert matching parens/quotes</li>
+<li>You can also create a pdf document, but you’ll need to download. <a href="http://www.ams.org/publications/what-is-tex">Tex</a> on your system.</li>
+<li>Your R Markdown file needs to have the extension <code>.Rmd</code> (don’t create arbitrarily named files).</li>
+<li>The default editor settings are to insert matching parentheses and quotes; if you find that this intrudes on your workflow, you can disable it via Tools -&gt; Global Options -&gt; Code then uncheck Insert matching parens/quotes.</li>
 </ul>
 <div style="margin-bottom:25px;">
 
