@@ -160,4 +160,7 @@ Whenever you are editing R Markdown documents in RStudio, you can display an R M
 
 
 
+\
 
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)

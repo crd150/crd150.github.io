@@ -412,3 +412,7 @@ Submit the commands shown in this guide in an R Markdown document.  Also in this
 5. In this class we will be studying cities.  Identify one U.S. city you would like to learn more about and *briefly* explain why.
 
 
+\
+
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
