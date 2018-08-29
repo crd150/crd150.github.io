@@ -44,7 +44,7 @@ In this guide you will learn the basic fundamentals of processing nonspatial dat
 3. Understand R data structures, in particular vectors, data frames and tibbles
 4. Understand R functions and commands
 
-This lab guide will follow closely and supplement the material presented in Chapters X in R for Data Science (RDS), which is available free at http://r4ds.had.co.nz/index.html
+This lab guide follows closely and supplements the material presented in Chapters X in R for Data Science (RDS), which is available free at http://r4ds.had.co.nz/index.html
 
 <p class="comment", style="font-style:normal">**Assignment 1 is due by 11:59 pm, October 5th on Canvas.**  See X for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgnXX. For example: brazil_n_asgn01</p>
 
