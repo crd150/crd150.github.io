@@ -159,8 +159,7 @@ If you have a Mac and you are getting an error when knitting, you may need to do
 Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheatsheet by going to Help > Cheatsheets > R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in chapter 21 in [R for Data Science](http://r4ds.had.co.nz/index.html)
 
 
-
-\
+***
 
 
 Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
