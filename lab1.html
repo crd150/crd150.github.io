@@ -472,19 +472,21 @@ R is really just a big fancy calculator. For example, type in the following math
 </div>
 <div id="r-data-structures" class="section level2">
 <h2><strong>R Data Structures</strong></h2>
+<p><br />
+You just learned that R has three basic data types. Now, let’s go through how we can store data in R. You do this by using R’s various data structures.</p>
 <div style="margin-bottom:25px;">
 
 </div>
 <div id="vectors" class="section level3">
 <h3><strong>Vectors</strong></h3>
 <p><br />
-You just learned that R has three basic data types. Now, let’s go through how we can store data in R. You do this by using R’s various data structures. A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type. There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command <code>c()</code>. For example, represent the values 4, 16 and 9 in a vector</p>
+A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type. There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command <code>c()</code>. For example, represent the values 4, 16 and 9 in a vector</p>
 <pre class="r"><code>c(4, 16, 9)</code></pre>
 <pre><code>## [1]  4 16  9</code></pre>
 <p>You can also have a vector of character values</p>
 <pre class="r"><code>c(&quot;luis&quot;, &quot;anne&quot;, &quot;ryan&quot;)</code></pre>
 <pre><code>## [1] &quot;luis&quot; &quot;anne&quot; &quot;ryan&quot;</code></pre>
-<p>The above code does not actually “save” the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out <code>c(4, 16, 9)</code>, you can save it in a data object. You assign data to an object using the arrow sign. This will create an object in R’s memory that can be called back into the command window at any time. For example, you can save “hello world” to a vector called “b” by typing in</p>
+<p>The above code does not actually “save” the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out <code>c(4, 16, 9)</code>, you can save it in a data object. You assign data to an object using the arrow sign <code>&lt;-</code>. This will create an object in R’s memory that can be called back into the command window at any time. For example, you can save “hello world” to a vector called “b” by typing in</p>
 <pre class="r"><code>b &lt;- &quot;hello world&quot;
 b</code></pre>
 <pre><code>## [1] &quot;hello world&quot;</code></pre>
@@ -492,14 +494,14 @@ b</code></pre>
 <pre class="r"><code>v1 &lt;- c(4, 16, 9)
 v1</code></pre>
 <pre><code>## [1]  4 16  9</code></pre>
-<p>You should see the objects b and v1 pop up in the Environment tab on the top right window. Note that the name “v1”&quot; is nothing special here. You could have named the object x or crd150 or your pet’s name. You can’t, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. 2d2). For example, you’ll get an error if you save the vector <code>c(4,16,9)</code> to an object with the following names</p>
+<p>You should see the objects b and v1 pop up in the Environment tab on the top right window of your RStudio interface. Note that the name “v1” is nothing special here. You could have named the object x or crd150 or your pet’s name (mine is didi). You can’t, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. 2d2). For example, you’ll get an error if you save the vector <code>c(4,16,9)</code> to an object with the following names</p>
 <pre class="r"><code>123 &lt;- c(4, 16, 9)
 !!! &lt;- c(4, 16, 9)</code></pre>
 <pre><code>## Error: &lt;text&gt;:2:5: unexpected assignment
 ## 1: 123 &lt;- c(4, 16, 9)
 ## 2: !!! &lt;-
 ##        ^</code></pre>
-<p>Every vector has two key properties: <em>type</em> and <em>length</em>. The type intuitively indicates the data type that the vector is holding. Use the command <code>typeof()</code> to determine the type</p>
+<p>Every vector has two key properties: <em>type</em> and <em>length</em>. The type propertey indicates the data type that the vector is holding. Use the command <code>typeof()</code> to determine the type</p>
 <pre class="r"><code>typeof(b)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code>typeof(v1)</code></pre>
@@ -517,7 +519,7 @@ v1</code></pre>
 <div id="data-frames" class="section level3">
 <h3><strong>Data Frames</strong></h3>
 <p><br />
-We learned that data values can be stored in data objects known as vectors. The next step is to learn how to store vectors into a even higher level data structure. The data frame can do this. Data frames store vectors of the same length. Create a vector called “v2”&quot; storing the values 5, 12, and 25</p>
+We learned that data values can be stored in data objects known as vectors. The next step is to learn how to store vectors into an even higher level data structure. The data frame can do this. Data frames store vectors of the same length. Create a vector called “v2”&quot; storing the values 5, 12, and 25</p>
 <pre class="r"><code>v2 &lt;- c(5,12,25)</code></pre>
 <p>We can create a data frame using the command <code>data.frame()</code> storing the vectors v1 and v2 as columns</p>
 <pre class="r"><code>data.frame(v1, v2)</code></pre>

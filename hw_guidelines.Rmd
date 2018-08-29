@@ -38,7 +38,9 @@ The expectation for assignments is to get through as much of it as possible duri
 ## **R Markdown**
 \
 
-You will use [R Markdown](https://rmarkdown.rstudio.com/) to write up all R related assignments.  R Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents in RStudio.  For each R related assignment, you will upload onto Canvas an R Markdown document, which has an `.Rmd` extension, and its knitted `.html` file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.
+You will use [R Markdown](https://rmarkdown.rstudio.com/) to write up all R related assignments.  R Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents in RStudio.  For each R related assignment, you will upload onto Canvas an R Markdown document, which has an `.Rmd` extension, and its knitted `.html` file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.  
+
+To be clear, R is a *programming language*. RStudio is an *application*. RMarkdown is a *markup syntax* to convert R script and text into a word, pdf or html document.
 
 In RStudio, install the package **rmarkdown** using the `install.packages()` command.  Type the following code in your RStudio Console.
 

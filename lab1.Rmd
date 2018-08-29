@@ -147,13 +147,15 @@ Nope. What is the problem here?  We need to put quotes around it.
 <div style="margin-bottom:25px;">
 </div>
 ##**R Data Structures**
+\
+You just learned that R has three basic data types. Now, let's go through how we can store data in R. You do this by using R's various data structures.
 
 <div style="margin-bottom:25px;">
 </div>
 ###**Vectors**
 \
 
-You just learned that R has three basic data types. Now, let's go through how we can store data in R. You do this by using R's various data structures. A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type.  There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command `c()`.  For example, represent the values 4, 16 and 9 in a vector
+A vector is the most common and basic data structure and is pretty much the workhorse of R. A vector is simply a sequence of values which can be of any data type.  There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command `c()`.  For example, represent the values 4, 16 and 9 in a vector
 
 ```{r, error=TRUE}
 c(4, 16, 9)
@@ -165,7 +167,7 @@ You can also have a vector of character values
 c("luis", "anne", "ryan")
 ```
 
-The above code does not actually "save" the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out `c(4, 16, 9)`, you can save it in a data object. You assign data to an object using the arrow sign.  This will create an object in R's memory that can be called back into the command window at any time.  For example, you can save "hello world" to a vector called "b" by typing in
+The above code does not actually "save" the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out `c(4, 16, 9)`, you can save it in a data object. You assign data to an object using the arrow sign `<-`.  This will create an object in R's memory that can be called back into the command window at any time.  For example, you can save "hello world" to a vector called "b" by typing in
 
 ```{r, error=TRUE}
 b <- "hello world"
@@ -179,7 +181,7 @@ v1 <- c(4, 16, 9)
 v1
 ```
 
-You should see the objects b and v1 pop up in the Environment tab on the top right window.  Note that the name "v1"" is nothing special here. You could have named the object x or crd150 or your pet's name.  You can't, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. 2d2).  For example, you'll get an error if you save the vector `c(4,16,9)` to an object with the following names
+You should see the objects b and v1 pop up in the Environment tab on the top right window of your RStudio interface.  Note that the name "v1" is nothing special here. You could have named the object x or crd150 or your pet's name (mine is didi).  You can't, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. 2d2).  For example, you'll get an error if you save the vector `c(4,16,9)` to an object with the following names
 
 ```{r, error=TRUE}
 123 <- c(4, 16, 9)
@@ -187,7 +189,7 @@ You should see the objects b and v1 pop up in the Environment tab on the top rig
 ```
 
 
-Every vector has two key properties: *type* and *length*.  The type intuitively indicates the data type that the vector is holding. Use the command `typeof()` to determine the type 
+Every vector has two key properties: *type* and *length*.  The type propertey indicates the data type that the vector is holding. Use the command `typeof()` to determine the type 
 
 ```{r, error=TRUE}
 typeof(b)
@@ -208,7 +210,7 @@ length(v1)
 ###**Data Frames**
 \
 
-We learned that data values can be stored in data objects known as vectors.  The next step is to learn how to store vectors into a even higher level data structure.  The data frame can do this.   Data frames store vectors of the same length.  Create a vector called "v2"" storing the values 5, 12, and 25
+We learned that data values can be stored in data objects known as vectors.  The next step is to learn how to store vectors into an even higher level data structure.  The data frame can do this.   Data frames store vectors of the same length.  Create a vector called "v2"" storing the values 5, 12, and 25
 
 ```{r, error=TRUE}
 v2 <- c(5,12,25)
