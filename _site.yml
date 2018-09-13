@@ -17,4 +17,4 @@ output:
   html_document:
     highlight: textmate
     theme: cosmo
-
+    css: styles.css
