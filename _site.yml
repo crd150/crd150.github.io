@@ -15,6 +15,18 @@ navbar:
           href: lab1.html 
 output:
   html_document:
-    highlight: textmate
     theme: cosmo
+    highlight: textmate
+    mathjax: ~
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+      number_sections: yes
+    includes:
+      after_body: include/after_body.html
     css: styles.css
+    keep_md: true
+    lib_dir: site_libs
+self_contained: no
