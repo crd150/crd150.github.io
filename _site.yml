@@ -18,7 +18,6 @@ output:
     theme: cosmo
     highlight: textmate
     mathjax: ~
-    toc: yes
     toc_depth: 3
     toc_float:
       collapsed: yes
