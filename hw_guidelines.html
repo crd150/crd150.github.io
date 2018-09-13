@@ -329,7 +329,7 @@ h1.title {
 </style>
 <p><br />
 </p>
-<p>Assignments are typically released at the beginning of each lab and are due in a week. They will be posted on the course’s website. Assignments have three components</p>
+<p>Assignments are typically released at the beginning of each lab and are due in a week. They are located at the end of each lab’s guide. Assignments have three components</p>
 <ol style="list-style-type: decimal">
 <li>A step-by-step guide showing how to run tasks.</li>
 <li>Executing data analysis tasks - for example, create a map or run a statistical model.</li>
@@ -341,7 +341,7 @@ h1.title {
 <li>Show the appropriate code producing the results.</li>
 <li>Provide correct written answers.</li>
 </ol>
-<p>The expectation for each assignment is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. You can ask for help from the TAs and work with other students. However, you <em>must</em> submit your own assignment results. It is important that you do not skip assignments as class material build on one another.</p>
+<p>The expectation for each guide is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. If you finish before the end of lab, start on the assignment. You can ask for help from the TAs and work with other students. However, you <em>must</em> submit your own assignment results. It is important that you do not skip guides and assignments as class material build on one another.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -355,8 +355,14 @@ You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up
 <p>Next, choose an appropriate working directory. The working directory directs R to the specific folder where you want to upload and save files. This is the folder where your saved R Markdown <code>.Rmd</code> and its associated <code>.html</code> files reside. In the console, execute the command</p>
 <pre class="r"><code>setwd(&quot;path_to_directory&quot;)
 # path_to_directory is the directory path of the directory you want to set as working directory</code></pre>
-<p>An assignmnent <code>.Rmd</code> template can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd">here</a>. You can use this template for every assignment or create your own R Markdown document using the directions below.</p>
-<p>To create a new R Markdown file, select File -&gt; New File -&gt; R Markdown from the menu up top. You should see a window pop up that looks like the following figure.</p>
+<p>An assignmnent <code>.Rmd</code> template will be provided for each assignment. A generic template can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd">here</a>. To open an <code>.Rmd</code> file, select File -&gt; Open File and navigate to the folder you saved the assignment template in and select the file. You should see the R Markdown file pop up on the top left portion of your RStudio interface.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="opening-a-new-r-markdown-file" class="section level3">
+<h3><strong>Opening a new R Markdown file</strong></h3>
+<p><br />
+If you want to create your own R Markdown file, select File -&gt; New File -&gt; R Markdown from the menu up top. You should see a window pop up that looks like the following figure.</p>
 <center>
 <div class="figure">
 <img src="hwguide1.png" alt="Figure 1: R Markdown window." />
@@ -373,9 +379,10 @@ For each assignment, enter “Assignment #” in <em>Title</em>, replacing # wit
 </center>
 <p><br />
 </p>
-<p>You won’t need anything including and below “### RMarkdown” - just delete that text. Instead, you will fill it in with your assignment answers. Name the file: yourLastName_firstInitial_asgnXX.Rmd example: brazil_n_asgn01.Rmd</p>
+<p>You won’t need anything including and below “### RMarkdown” - just delete that text. Instead, you will fill it in with your assignment answers.</p>
 <div style="margin-bottom:25px;">
 
+</div>
 </div>
 <div id="authoring-an-r-markdown-document" class="section level3">
 <h3><strong>Authoring an R Markdown document</strong></h3>
@@ -391,7 +398,7 @@ R Markdown documents contain 3 major components:</p>
 title: &quot;Assignment [insert number here]&quot;
 subtitle: CRD 150, Lab #
 author: Your full name here
-date: 29 August 2018
+date: 05 September 2018
 output: 
   html_document:
     code_folding: show
@@ -400,20 +407,32 @@ output:
 <pre><code>```{r}
 1+1
 ```</code></pre>
-<p>Your R code must reside inside an R code chunk (see the Insert button in the editor pane, top left by default) in order for it to be processed as R code (otherwise R Markdown will think it is text)</p>
-<p>You can explain results and answer questions by inserting text into your document. For example, let’s say you see this in one of your assignments</p>
-<center>
-<img src="hwguide5.png" />
-</center>
+<p>Your R code must reside inside an R code chunk (see the Insert button in the editor pane, top left by default) in order for it to be processed as R code (otherwise R Markdown will think it is text). R will often spit out messages that are not necessary for answering the assignment question. You can add options to the R code chunk to hide these unnecessary messages by adding <code>warning=FALSE</code> and <code>message=FALSE</code> as follows.</p>
+<pre><code>```{r, warning=FALSE, message = FALSE}}
+
+```</code></pre>
+<p>Always show the R code that produces your results. You then explain results and answer questions by inserting text into your document. For example, let’s say you see this in one of your assignments</p>
+<pre><code>
+1+1
+
+1. What does the above code do?
+2. What is the result of 2+2?</code></pre>
 <p><br />
 To get full credit, you would type in your R Markdown document the following</p>
-<pre><code>```{r}
-1+1
+<pre><code>
+
+1. What does the above code do?
+
+The code adds 1 + 1
+
+2. What is the result of 2+2?
+
+```{r, warning=FALSE, message = FALSE}
+2+2
 ```
 
-Question: What does the above code do?
-Answer: This code adds 1 and 1 to get 2</code></pre>
-<p>Of course, you’ll need to test code to make sure it is running properly. Rather than writing and running the code for an assignment all at the end, run them in chunks. To run code in just one chunk, click on the R code chunk you want to run and either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk.</p>
+The result of 2+2 is 4.</code></pre>
+<p>Of course, you’ll need to test code to make sure it is running properly. Rather than writing and running all the code at the end, run them in chunks. To run code in just one chunk, click on the R code chunk you want to run and either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -435,13 +454,13 @@ The proper workflow for each assignment will be</p>
 <ol style="list-style-type: decimal">
 <li>Go through the step-by-step lab guide.<br />
 </li>
-<li>Open up the R Markdown assignment template linked above or create your own R Markdown document.</li>
-<li>In this documnent, answer all the assignment questions located at the end of the guide.</li>
+<li>Save and open the R Markdown assignment template linked to each assignment.</li>
+<li>In this document, answer all the assignment questions located at the end of the guide.</li>
 </ol>
 <ul>
-<li>Most of the questions will ask you to run code. Show that code in an R Markdown chunk. Make sure it works. If it doesnt, then partial to no credit.<br />
+<li>Most of the questions will ask you to run code. Show that code in an R Markdown chunk. Bottom line: Any code you used to get a result should be in your assignment.<br />
 </li>
-<li>Run that code one chunk at a time to make sure it is working.</li>
+<li>Make sure your code works. If it doesnt, then partial to no credit. Run that code one chunk at a time to make sure it is working.</li>
 <li>Most of the questions will ask you to explain your code/results.</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">

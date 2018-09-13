@@ -19,7 +19,7 @@ h1.title {
 \
 
 
-Assignments are typically released at the beginning of each lab and are due in a week. They will be posted on the course's website. Assignments have three components
+Assignments are typically released at the beginning of each lab and are due in a week. They are located at the end of each lab's guide. Assignments have three components
 
 1. A step-by-step guide showing how to run tasks.
 2. Executing data analysis tasks - for example, create a map or run a statistical model.
@@ -31,7 +31,7 @@ In order to get full credit for each assignment, you will need to
 2. Show the appropriate code producing the results. 
 3. Provide correct written answers.  
 
-The expectation for each assignment is to get through as much of it as possible during lab time.  If you are unable to finish the guide during the lab, please complete it on your own.  You can ask for help from the TAs and work with other students.  However, you *must* submit your own assignment results.  It is important that you do not skip assignments as class material build on one another. 
+The expectation for each guide is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. If you finish before the end of lab, start on the assignment. You can ask for help from the TAs and work with other students.  However, you *must* submit your own assignment results.  It is important that you do not skip guides and assignments as class material build on one another. 
 
 <div style="margin-bottom:25px;">
 </div>
@@ -56,9 +56,14 @@ setwd("path_to_directory")
 # path_to_directory is the directory path of the directory you want to set as working directory
 ```
 
-An assignmnent `.Rmd` template can be found [here](https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd).  You can use this template for every assignment or create your own R Markdown document using the directions below.
+An assignmnent `.Rmd` template will be provided for each assignment.  A generic template can be found [here](https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd).  To open an `.Rmd` file, select File -> Open File and navigate to the folder you saved the assignment template in and select the file. You should see the R Markdown file pop up on the top left portion of your RStudio interface.
 
-To create a new R Markdown file, select File -> New File -> R Markdown from the menu up top.  You should see a window pop up that looks like the following figure.  
+<div style="margin-bottom:25px;">
+</div>
+### **Opening a new R Markdown file**
+\
+
+If you want to create your own R Markdown file, select File -> New File -> R Markdown from the menu up top.  You should see a window pop up that looks like the following figure.  
 
 <center>
 ![Figure 1: R Markdown window.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide1.png)
@@ -76,7 +81,7 @@ For each assignment, enter "Assignment #" in *Title*, replacing # with the Assig
 \
 
 
-You won't need anything including and below "### RMarkdown" - just delete that text.  Instead, you will fill it in with your assignment answers.  Name the file: yourLastName_firstInitial_asgnXX.Rmd example: brazil_n_asgn01.Rmd
+You won't need anything including and below "### RMarkdown" - just delete that text.  Instead, you will fill it in with your assignment answers.  
 
 <div style="margin-bottom:25px;">
 </div>
@@ -111,27 +116,44 @@ Your R Markdown assignment file will contain R code and text.  R code chunks are
 ```
 ````
 
-Your R code must reside inside an R code chunk (see the Insert button in the editor pane, top left by default) in order for it to be processed as R code (otherwise R Markdown will think it is text)
+Your R code must reside inside an R code chunk (see the Insert button in the editor pane, top left by default) in order for it to be processed as R code (otherwise R Markdown will think it is text).  R will often spit out messages that are not necessary for answering the assignment question.  You can add options to the R code chunk to hide these unnecessary messages by adding `warning=FALSE` and `message=FALSE` as follows.
 
-You can explain results and answer questions by inserting text into your document.  For example, let's say you see this in one of your assignments
+````
+```{r, warning=FALSE, message = FALSE}}`r ''`
 
-<center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide5.png)
-</center>
+```
+````
+
+Always show the R code that produces your results. You then explain results and answer questions by inserting text into your document.  For example, let's say you see this in one of your assignments
+
+````
+`r ''`
+1+1
+
+1. What does the above code do?
+2. What is the result of 2+2?
+````
 \
 
 To get full credit, you would type in your R Markdown document the following
 
 ````
-```{r}`r ''`
-1+1
+`r ''`
+
+1. What does the above code do?
+
+The code adds 1 + 1
+
+2. What is the result of 2+2?
+
+```{r, warning=FALSE, message = FALSE}`r ''`
+2+2
 ```
 
-Question: What does the above code do?
-Answer: This code adds 1 and 1 to get 2
+The result of 2+2 is 4.
 ````
 
-Of course, you'll need to test code to make sure it is running properly.  Rather than writing and running  the code for an assignment all at the end, run them in chunks.  To run code in just one chunk, click on the R code chunk you want to run and either click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide3.png) and select *Run Current Chunk* or click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide4.png) located on the right corner of the chunk.
+Of course, you'll need to test code to make sure it is running properly.  Rather than writing and running  all the code at the end, run them in chunks.  To run code in just one chunk, click on the R code chunk you want to run and either click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide3.png) and select *Run Current Chunk* or click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide4.png) located on the right corner of the chunk.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -150,10 +172,10 @@ If you have a Mac and you are getting an error when knitting, you may need to do
 The proper workflow for each assignment will be
 
 1. Go through the step-by-step lab guide.  
-2. Open up the R Markdown assignment template linked above or create your own R Markdown document.
-2. In this documnent, answer all the assignment questions located at the end of the guide.
-* Most of the questions will ask you to run code.  Show that code in an R Markdown chunk. Make sure it works.  If it doesnt, then partial to no credit.  
-  + Run that code one chunk at a time to make sure it is working.
+2. Save and open the R Markdown assignment template linked to each assignment.
+2. In this document, answer all the assignment questions located at the end of the guide.
+* Most of the questions will ask you to run code.  Show that code in an R Markdown chunk. Bottom line: Any code you used to get a result should be in your assignment.  
+  + Make sure your code works.  If it doesnt, then partial to no credit. Run that code one chunk at a time to make sure it is working.
 * Most of the questions will ask you to explain your code/results.
 3. Once you feel good about your answers, knit it.
 4. Submit the `.Rmd` and `.html` files **before** the designated time on Canvas.
@@ -176,7 +198,7 @@ The proper workflow for each assignment will be
 ##**Getting R Markdown Help**
 \
 
-Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheatsheet by going to Help > Cheatsheets > R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in chapter 21 in [R for Data Science](http://r4ds.had.co.nz/index.html)
+Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheatsheet by going to Help > Cheatsheets > R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in chapter 21 in [R for Data Science](http://r4ds.had.co.nz/index.html). 
 
 
 ***
