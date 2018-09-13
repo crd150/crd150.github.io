@@ -17,9 +17,7 @@ font-style: italic;
 
 </style>
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 \
 

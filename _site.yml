@@ -24,8 +24,6 @@ output:
       collapsed: yes
       smooth_scroll: yes
       number_sections: yes
-    includes:
-      after_body: include/after_body.html
     css: styles.css
     keep_md: true
     lib_dir: site_libs
