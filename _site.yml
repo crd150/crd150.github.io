@@ -12,7 +12,13 @@ navbar:
     - text: "Labs/Assignments"
       menu: 
         - text: "Lab 1"
-          href: lab1.html 
+          href: 
+    - text: "Other"
+      menu: 
+        - text: "Neighborhood Data Sources"
+          href: ndata.html     
+        - text: "Project Eligible Communities"
+          href: eligible.html   
 output:
   html_document:
     theme: cosmo
