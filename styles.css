@@ -105,9 +105,8 @@ html,body {height:75%;}
 }
 
 .btn-default {
-  background-color: #428bca;
   font-size: 10px;
-  float: left !important;
+  float: right !important;
 }
 
 .btn-primary:hover,
