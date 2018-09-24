@@ -123,14 +123,14 @@ Run that code chunk first to make sure it works (you should get 2!).  *Then* pro
 Note that you when you run an R code chunk, its output is embedded within your R Markdown document as in Figure 1
 
 <center>
-![Figure 1: Output within R Markdown document.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide1.jpg)
+![Figure 1: Output within R Markdown document.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide1.JPG)
 
 </center>
 
 When you are testing your code, it is better that code results are shown in your RStudio Console (the bottom left window). To get RStudio to do this, select the "Tools" menu and select "Global Options".  Select "R Markdown" from the left-hand side and deselect the check box "Show output inline for all R Markdown documents". The output from your code should now be shown in the console. 
 
 <center>
-![Figure 2: R Markdown options.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide2.jpg)
+![Figure 2: R Markdown options.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide2.JPG)
 
 </center>
 
