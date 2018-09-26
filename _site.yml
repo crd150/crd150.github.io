@@ -6,7 +6,7 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Syllabus"
-      href: 
+      href: syllabus.html
     - text: "Assignment Guidelines"
       href: hw_guidelines.html
     - text: "Labs/Assignments"
@@ -16,7 +16,9 @@ navbar:
     - text: "Other"
       menu: 
         - text: "Neighborhood Data Sources"
-          href:     
+          href:    
+        - text: "Big/Open Data Sources"
+          href: 
         - text: "Project Eligible Communities"
           href:    
 output:

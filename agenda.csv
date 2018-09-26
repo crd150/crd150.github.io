@@ -1,0 +1,34 @@
+﻿Date,Class,Topic,Readings,Assignment,Project
+27-Sep,Lecture,Introduction to class,,,
+28-Sep,Lab,Introduction to R,"Optional: RDS Ch. 2, 4, 7, 21",,
+2-Oct,Lecture,Data Analysis Framework. Introduction to US Census ,Handout,,
+4-Oct,Lecture,Data wrangling,Hoffman Ch. 8-9,,
+5-Oct,Lab,US Census data in R,"Optional: RDS Ch. 3, 8-10, 14",HW 1,Finalize groups
+9-Oct,Lecture,Neighborhood data,Wilson (2012),,
+11-Oct,Lecture,Descriptive statistics,Handout,,
+12-Oct,Lab,Neighborhood data in R,"Optional: RDS Ch. 1, 5, 22",HW 2,
+16-Oct,Lecture,Intro to spatial data,OSU Ch. 2,,
+18-Oct,Lecture,Exploratory spatial data analysis,OSU Ch. 3,,
+19-Oct,Lab,Making maps in R,"Optional: GWR Ch. 2.1, 4.2, 8",HW 3,Proposal I
+23-Oct,Lecture,Spatial autocorrelation,OSU Ch. 7 (skip 7.3 & 7.6),,
+25-Oct,Lecture,Spatial clusters,OSU Ch. 8 (skip 8.4 & 8.5),,
+26-Oct,Lab,Spatial clusters in R ,,HW 4,
+30-Oct,Lecture,Big data/Open data,Arribas-Bel (2014); Kitchin & McArdle (2016),,
+1-Nov,Lecture,Spatial point pattern analysis,OSU Ch. 5,,
+2-Nov,Lab,Point analysis in R,"Optional: GWR Ch. 2.3, 2.4, 4.2, 5.2, 6",HW 5,
+6-Nov,Lecture,Measuring segregation and inequity,Handout,,
+8-Nov,Lecture,Site suitability analysis,Handout,,
+9-Nov,Lab,Site suitability analysis in R,Optional: GWR Ch. 4.2, HW 6,Proposal II
+13-Nov,Lecture,Opportunity mapping,Handout,,Meeting
+15-Nov,Lecture,Geodemograhics,UA Ch. 5; Handout,,Meeting
+16-Nov,Lab,Data reduction in R,, HW 7,
+20-Nov,Lecture,Midterm,,,
+22-Nov,Lecture,Thanksgiving Holiday,,,
+23-Nov,Lab,Thanksgiving Holiday,,,
+27-Nov,Lecture,Participatory GIS,Lung-Amam et al. (2017),,Proposal III
+29-Nov,Lecture,Web GIS,,,
+30-Nov,Lab,Time to work on project,, HW 8,
+4-Dec,Lecture,Presentations,,,Presentations
+6-Dec,Lecture,Presentations,,,Presentations
+7-Dec,Lab,No lab,,,
+11-Dec,,,,,Paper
