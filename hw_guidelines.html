@@ -305,12 +305,8 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="ndata.html">Neighborhood Data Sources</a>
-    </li>
-    <li>
-      <a href="eligible.html">Project Eligible Communities</a>
-    </li>
+    <li class="dropdown-header">Neighborhood Data Sources</li>
+    <li class="dropdown-header">Project Eligible Communities</li>
   </ul>
 </li>
       </ul>
@@ -402,7 +398,7 @@ author: Your full name here
 date: Assignment due date
 output: 
   html_document:
-    code_folding: show
+    theme: cosmo
 ---</code></pre>
 <div style="margin-bottom:25px;">
 
@@ -419,7 +415,7 @@ Always submit the R code producing your results. You show your R code in R Markd
 <pre><code>```{r, warning=FALSE, message = FALSE}}
 1+1
 ```</code></pre>
-<p>You’ll need to test code to make sure it is running properly. Rather than writing all the code and then running it at the end, run them in chunks. To run code in just one chunk, click on the R code chunk you want to run and either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk. For example, let’s say the first two questions in an assignment is (1) Add one plus one and (2) Add two plus two. In your R Markdown document, type in the following to answer question 1</p>
+<p>You’ll need to test code to make sure it is running properly. Rather than writing all the code and then running it at the end, run them in chunks. To run code in just one chunk, click on the R code chunk you want to run and either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk. For example, let’s say the first question in an assignment is (1) Add one plus one. In your R Markdown document, type in the following to answer question 1</p>
 <pre><code>```{r, warning=FALSE, message = FALSE}}
 1+1
 ```</code></pre>
@@ -463,7 +459,7 @@ The code adds 1 + 1
 ```
 
 The result of 2+2 is 4.</code></pre>
-<p>Notice that the text is <strong>not</strong> inside the R code chunk.</p>
+<p>Notice that the text “The code adds 1 + 1” and “The result of 2+2 is 4.” are <strong>not</strong> inside the R code chunk.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -472,7 +468,7 @@ The result of 2+2 is 4.</code></pre>
 <div id="knitting" class="section level2">
 <h2><strong>Knitting</strong></h2>
 <p><br />
-Once you’re done writing up your assignment, you’ll need to submit your <code>.Rmd</code> document and the knitted <code>.html</code> document through <a href="https://login.canvas.ucdavis.edu/">Canvas</a>. RStudio’s “Knit HTML” button will compile the open document to actual HTML and open a preview. To Knit your document click <img src="hwguide6.png" />. A preview will pop up in a new window and the <code>.html</code> file will be saved in the folder where your Rmd file resides. If your R Markdown file has some issues, an error will pop up in the bottom left window of RStudio. Carefully read the description of the error, which will also contain the line number of the offending code.</p>
+Once you’re done writing up your assignment, you’ll need to submit your <code>.Rmd</code> document and the knitted <code>.html</code> document through <a href="https://login.canvas.ucdavis.edu/">Canvas</a>. RStudio’s “Knit HTML” button will compile the document to an HTML and open a preview. To Knit your document click <img src="hwguide6.png" />. A preview will pop up in a new window and the <code>.html</code> file will be saved in the folder where your Rmd file resides. If your R Markdown file has some issues, an error will pop up in the bottom left window of RStudio. Carefully read the description of the error, which will also contain the line number of the offending code.</p>
 <p>If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded <a href="http://xquartz.macosforge.org">here</a></p>
 <div style="margin-bottom:25px;">
 
@@ -485,7 +481,7 @@ The proper workflow for each assignment will be</p>
 <ol style="list-style-type: decimal">
 <li>Go through the step-by-step lab guide.<br />
 </li>
-<li>Save the R Markdown assignment template linked to each assignment in an appropriate folder.</li>
+<li>Save the R Markdown assignment template linked to each assignment in an appropriate folder on your hard drive.</li>
 <li>Open this R Markdown file in RStudio.</li>
 <li>In this document, answer all the assignment questions.</li>
 </ol>

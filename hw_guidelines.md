@@ -86,7 +86,7 @@ author: Your full name here
 date: Assignment due date
 output: 
   html_document:
-    code_folding: show
+    theme: cosmo
 ---
 ````
 
@@ -111,7 +111,7 @@ Your R code must reside inside an R code chunk in order for it to be processed a
 ```
 ````
 
-You'll need to test code to make sure it is running properly.  Rather than writing all the code and then running it at the end, run them in chunks.  To run code in just one chunk, click on the R code chunk you want to run and either click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide3.png) and select *Run Current Chunk* or click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide4.png) located on the right corner of the chunk.  For example, let's say the first two questions in an assignment is (1) Add one plus one and (2) Add two plus two.  In your R Markdown document, type in the following to answer question 1
+You'll need to test code to make sure it is running properly.  Rather than writing all the code and then running it at the end, run them in chunks.  To run code in just one chunk, click on the R code chunk you want to run and either click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide3.png) and select *Run Current Chunk* or click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide4.png) located on the right corner of the chunk.  For example, let's say the first question in an assignment is (1) Add one plus one.  In your R Markdown document, type in the following to answer question 1
 
 ````
 ```{r, warning=FALSE, message = FALSE}}
@@ -166,14 +166,14 @@ The code adds 1 + 1
 The result of 2+2 is 4.
 ````
 
-Notice that the text is **not** inside the R code chunk.  
+Notice that the text "The code adds 1 + 1" and "The result of 2+2 is 4." are **not** inside the R code chunk.  
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Knitting**
 \
 
-Once you're done writing up your assignment, you'll need to submit your `.Rmd` document and the knitted `.html` document through [Canvas](https://login.canvas.ucdavis.edu/).  RStudio’s "Knit HTML" button will compile the open document to actual HTML and open a preview.  To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png).  A preview will pop up in a new window and the `.html` file will be saved in the folder where your Rmd file resides.  If your R Markdown file has some issues, an error will pop up in the bottom left window of RStudio.  Carefully read the description of the error, which will also contain the line number of the offending code.
+Once you're done writing up your assignment, you'll need to submit your `.Rmd` document and the knitted `.html` document through [Canvas](https://login.canvas.ucdavis.edu/).  RStudio’s "Knit HTML" button will compile the document to an HTML and open a preview.  To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png).  A preview will pop up in a new window and the `.html` file will be saved in the folder where your Rmd file resides.  If your R Markdown file has some issues, an error will pop up in the bottom left window of RStudio.  Carefully read the description of the error, which will also contain the line number of the offending code.
 
 If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded [here](http://xquartz.macosforge.org)
 
@@ -185,7 +185,7 @@ If you have a Mac and you are getting an error when knitting, you may need to do
 The proper workflow for each assignment will be
 
 1. Go through the step-by-step lab guide.  
-2. Save the R Markdown assignment template linked to each assignment in an appropriate folder.
+2. Save the R Markdown assignment template linked to each assignment in an appropriate folder on your hard drive.
 3. Open this R Markdown file in RStudio.
 4. In this document, answer all the assignment questions.
 * Most of the questions will ask you to run code.  Show that code in an R Markdown chunk. Bottom line: Any code you used to get a result should be in your assignment.  
