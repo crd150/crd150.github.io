@@ -20,7 +20,7 @@ navbar:
         - text: "Big/Open Data Sources"
           href: 
         - text: "Project Eligible Communities"
-          href:    
+          href: eligible.html   
 output:
   html_document:
     theme: cosmo
