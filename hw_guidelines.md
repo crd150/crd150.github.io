@@ -76,7 +76,7 @@ R Markdown documents contain 3 major components:
 
 The YAML header controls how R Markdown renders your `.Rmd` file. A YAML header is a section of key: value pairs surrounded by --- marks.  
 
-Change your name, assignment number, lab number, and the date.  Other those items, **the YAML format for each assignment is set for you in the template, so don't change it**  It will generally look like the following.
+Change your name, assignment number, lab number, and the date.  Other than those items, **the YAML format for each assignment is set for you in the template, so don't change it**  It will generally look like the following.
 
 ````
 ---
