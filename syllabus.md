@@ -171,7 +171,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 27-Sep </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Introduction to class </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -179,7 +179,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 28-Sep </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Introduction to R </td>
-   <td style="text-align:left;width: 10em; "> Optional: RDS Ch. 2, 4, 7, 21 </td>
+   <td style="text-align:left;width: 11em; "> Optional: RDS Ch. 2, 4, 7, 21 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -187,7 +187,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 2-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Data Analysis Framework. Introduction to US Census </td>
-   <td style="text-align:left;width: 10em; "> Handout </td>
+   <td style="text-align:left;width: 11em; "> Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -195,7 +195,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 4-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Data wrangling </td>
-   <td style="text-align:left;width: 10em; "> Hoffman Ch. 8-9 </td>
+   <td style="text-align:left;width: 11em; "> Hoffman Ch. 8-9 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -203,7 +203,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 5-Oct </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> US Census data in R </td>
-   <td style="text-align:left;width: 10em; "> Optional: RDS Ch. 3, 8-10, 14 </td>
+   <td style="text-align:left;width: 11em; "> Optional: RDS Ch. 3, 8-10, 14 </td>
    <td style="text-align:left;"> HW 1 </td>
    <td style="text-align:left;"> Finalize groups </td>
   </tr>
@@ -211,7 +211,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 9-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Neighborhood data </td>
-   <td style="text-align:left;width: 10em; "> Wilson (2012) </td>
+   <td style="text-align:left;width: 11em; "> Wilson (2012) </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -219,7 +219,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 11-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Descriptive statistics </td>
-   <td style="text-align:left;width: 10em; "> Handout </td>
+   <td style="text-align:left;width: 11em; "> Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -227,7 +227,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 12-Oct </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Neighborhood data in R </td>
-   <td style="text-align:left;width: 10em; "> Optional: RDS Ch. 1, 5, 22 </td>
+   <td style="text-align:left;width: 11em; "> Optional: RDS Ch. 1, 5, 22 </td>
    <td style="text-align:left;"> HW 2 </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -235,7 +235,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 16-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Intro to spatial data </td>
-   <td style="text-align:left;width: 10em; "> OSU Ch. 2 </td>
+   <td style="text-align:left;width: 11em; "> OSU Ch. 2 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -243,7 +243,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 18-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Exploratory spatial data analysis </td>
-   <td style="text-align:left;width: 10em; "> OSU Ch. 3 </td>
+   <td style="text-align:left;width: 11em; "> OSU Ch. 3 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -251,7 +251,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 19-Oct </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Making maps in R </td>
-   <td style="text-align:left;width: 10em; "> Optional: GWR Ch. 2.1, 4.2, 8 </td>
+   <td style="text-align:left;width: 11em; "> Optional: GWR Ch. 2.1, 4.2, 8 </td>
    <td style="text-align:left;"> HW 3 </td>
    <td style="text-align:left;"> Proposal I </td>
   </tr>
@@ -259,7 +259,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 23-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Spatial autocorrelation </td>
-   <td style="text-align:left;width: 10em; "> OSU Ch. 7 (skip 7.3 &amp; 7.6) </td>
+   <td style="text-align:left;width: 11em; "> OSU Ch. 7 (skip 7.3 &amp; 7.6) </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -267,7 +267,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 25-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Spatial clusters </td>
-   <td style="text-align:left;width: 10em; "> OSU Ch. 8 (skip 8.4 &amp; 8.5) </td>
+   <td style="text-align:left;width: 11em; "> OSU Ch. 8 (skip 8.4 &amp; 8.5) </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -275,7 +275,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 26-Oct </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Spatial clusters in R </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;"> HW 4 </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -283,7 +283,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 30-Oct </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Big data/Open data </td>
-   <td style="text-align:left;width: 10em; "> Arribas-Bel (2014); Kitchin &amp; McArdle (2016) </td>
+   <td style="text-align:left;width: 11em; "> Arribas-Bel (2014); Kitchin &amp; McArdle (2016) </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -291,7 +291,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 1-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Spatial point pattern analysis </td>
-   <td style="text-align:left;width: 10em; "> OSU Ch. 5 </td>
+   <td style="text-align:left;width: 11em; "> OSU Ch. 5 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -299,7 +299,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 2-Nov </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Point analysis in R </td>
-   <td style="text-align:left;width: 10em; "> Optional: GWR Ch. 2.3, 2.4, 4.2, 5.2, 6 </td>
+   <td style="text-align:left;width: 11em; "> Optional: GWR Ch. 2.3, 2.4, 4.2, 5.2, 6 </td>
    <td style="text-align:left;"> HW 5 </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -307,7 +307,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 6-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Measuring segregation and inequity </td>
-   <td style="text-align:left;width: 10em; "> Handout </td>
+   <td style="text-align:left;width: 11em; "> Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -315,7 +315,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 8-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Site suitability analysis </td>
-   <td style="text-align:left;width: 10em; "> Handout </td>
+   <td style="text-align:left;width: 11em; "> Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -323,7 +323,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 9-Nov </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Site suitability analysis in R </td>
-   <td style="text-align:left;width: 10em; "> Optional: GWR Ch. 4.2 </td>
+   <td style="text-align:left;width: 11em; "> Optional: GWR Ch. 4.2 </td>
    <td style="text-align:left;"> HW 6 </td>
    <td style="text-align:left;"> Proposal II </td>
   </tr>
@@ -331,7 +331,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 13-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Opportunity mapping </td>
-   <td style="text-align:left;width: 10em; "> Handout </td>
+   <td style="text-align:left;width: 11em; "> Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Meeting </td>
   </tr>
@@ -339,7 +339,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 15-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Geodemograhics </td>
-   <td style="text-align:left;width: 10em; "> UA Ch. 5; Handout </td>
+   <td style="text-align:left;width: 11em; "> UA Ch. 5; Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Meeting </td>
   </tr>
@@ -347,7 +347,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 16-Nov </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Data reduction in R </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;"> HW 7 </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -355,7 +355,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 20-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Midterm </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -363,7 +363,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 22-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Thanksgiving Holiday </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -371,7 +371,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 23-Nov </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Thanksgiving Holiday </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -379,7 +379,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 27-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Participatory GIS </td>
-   <td style="text-align:left;width: 10em; "> Lung-Amam et al. (2017) </td>
+   <td style="text-align:left;width: 11em; "> Lung-Amam et al. (2017) </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Proposal III </td>
   </tr>
@@ -387,7 +387,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 29-Nov </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Web GIS </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -395,7 +395,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 30-Nov </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Time to work on project </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;"> HW 8 </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -403,7 +403,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 4-Dec </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Presentations </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Presentations </td>
   </tr>
@@ -411,7 +411,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 6-Dec </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Presentations </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Presentations </td>
   </tr>
@@ -419,7 +419,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 7-Dec </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> No lab </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
@@ -427,7 +427,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;width: 5em; "> 11-Dec </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;width: 10em; ">  </td>
+   <td style="text-align:left;width: 11em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Paper </td>
   </tr>
