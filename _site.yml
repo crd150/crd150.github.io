@@ -34,4 +34,3 @@ output:
     css: styles.css
     keep_md: true
     lib_dir: site_libs
-self_contained: no
