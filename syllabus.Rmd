@@ -165,7 +165,7 @@ dt <- read_csv("/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/a
 kable(dt) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive")) %>%
     column_spec(1, width = "5em") %>%
-    column_spec(4, width = "11em")
+    column_spec(4, width = "13em")
 ```
 
 
