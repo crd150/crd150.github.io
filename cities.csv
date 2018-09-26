@@ -1,0 +1,81 @@
+City,CityID,State,StateID
+"New York",51000,"New York",36
+"Los Angeles",44000,"California",6
+"Chicago",14000,"Illinois",17
+"Houston",35000,"Texas",48
+"Philadelphia",60000,"Pennsylvania",42
+"Phoenix",55000,"Arizona",4
+"San Antonio",65000,"Texas",48
+"San Diego",66000,"California",6
+"Dallas",19000,"Texas",48
+"San Jose",68000,"California",6
+"Austin",5000,"Texas",48
+"Jacksonville",35000,"Florida",12
+"San Francisco",67000,"California",6
+"Indianapolis",36003,"Indiana",18
+"Columbus",18000,"Ohio",39
+"Fort Worth",27000,"Texas",48
+"Charlotte",12000,"North Carolina",37
+"Detroit",22000,"Michigan",26
+"El Paso",24000,"Texas",48
+"Seattle",63000,"Washington",53
+"Denver",20000,"Colorado",8
+"Washington",50000,"District of Columbia",11
+"Boston",7000,"Massachusetts",25
+"Memphis",48000,"Tennessee",47
+"Nashville-Davidson",52006,"Tennessee",47
+"Baltimore",4000,"Maryland",24
+"Portland",59000,"Oregon",41
+"Oklahoma City",55000,"Oklahoma",40
+"Las Vegas",40000,"Nevada",32
+"Louisville",48006,"Kentucky",21
+"Milwaukee",53000,"Wisconsin",55
+"Albuquerque",2000,"New Mexico",35
+"Tucson",77000,"Arizona",4
+"Fresno",27000,"California",6
+"Sacramento",64000,"California",6
+"Kansas City",38000,"Missouri",29
+"Mesa",46000,"Arizona",4
+"Long Beach",43000,"California",6
+"Atlanta",4000,"Georgia",13
+"Virginia Beach",82000,"Virginia",51
+"Colorado Springs",16000,"Colorado",8
+"Omaha",37000,"Nebraska",31
+"Raleigh",55000,"North Carolina",37
+"Miami",45000,"Florida",12
+"Oakland",53000,"California",6
+"Minneapolis",43000,"Minnesota",27
+"Tulsa",75000,"Oklahoma",40
+"Cleveland",16000,"Ohio",39
+"Wichita",79000,"Kansas",20
+"Arlington",4000,"Texas",48
+"New Orleans",55000,"Louisiana",22
+"Bakersfield",3526,"California",6
+"Tampa",71000,"Florida",12
+"Aurora",4000,"Colorado",8
+"Honolulu",71550,"Hawaii",15
+"Anaheim",2000,"California",6
+"Santa Ana",69000,"California",6
+"Corpus Christi",17000,"Texas",48
+"Riverside",62000,"California",6
+"St. Louis",65000,"Missouri",29
+"Lexington-Fayette",46027,"Kentucky",21
+"Pittsburgh",61000,"Pennsylvania",42
+"Stockton",75000,"California",6
+"Anchorage",3000,"Alaska",2
+"Cincinnati",15000,"Ohio",39
+"St. Paul",58000,"Minnesota",27
+"Greensboro",28000,"North Carolina",37
+"Toledo",77000,"Ohio",39
+"Newark",51000,"New Jersey",34
+"Plano",58016,"Texas",48
+"Henderson",31900,"Nevada",32
+"Lincoln",28000,"Nebraska",31
+"Orlando",53000,"Florida",12
+"Jersey City",36000,"New Jersey",34
+"Fort Wayne",25000,"Indiana",18
+"Chula Vista",13392,"California",6
+"Buffalo",11000,"New York",36
+"St. Petersburg",63000,"Florida",12
+"Durham",19000,"North Carolina",37
+"Laredo",41464,"Texas",48
