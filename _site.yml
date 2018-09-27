@@ -15,12 +15,12 @@ navbar:
           href: 
     - text: "Other"
       menu: 
+        - text: "Project Eligible Communities"
+          href: eligible.html   
         - text: "Neighborhood Data Sources"
           href:    
         - text: "Big/Open Data Sources"
           href: 
-        - text: "Project Eligible Communities"
-          href: eligible.html   
 output:
   html_document:
     theme: cosmo

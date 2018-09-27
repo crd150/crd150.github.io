@@ -30,9 +30,7 @@ h1.title {
 </style>
 \
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 In this guide you will learn the basic fundamentals of processing nonspatial data in R.  Because R is not a prerequisite for the class, this guide assumes no background in the language.  The objectives of the guide are as follows
 
@@ -120,22 +118,35 @@ Now may be a good time to read through the [class assignment guidelines](https:/
 
 R is really just a big fancy calculator. For example, type in the following mathematical expression in the R console
 
-```{r results="hide"}
+
+```r
 1+1
 ```
 
 Note that spacing does not matter: `1+1` will generate the same answer as `1      +       1`.  Can you say hello to the world?
 \
 
-```{r, error=TRUE}
+
+```r
 hello world
+```
+
+```
+## Error: <text>:1:7: unexpected symbol
+## 1: hello world
+##           ^
 ```
 
 
 Nope. What is the problem here?  We need to put quotes around it. 
 
-```{r, error=TRUE}
+
+```r
 "hello world"
+```
+
+```
+## [1] "hello world"
 ```
 
 "hello world" is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R.  There are three basic data types in R: character, logical, and numeric (there are two others - complex and raw - but we won't cover them because they are rarely used). 
@@ -146,10 +157,29 @@ Nope. What is the problem here?  We need to put quotes around it.
 
 A special value used across all data types is NA. The value NA indicates a missing value. Doubles also use other special values, in particular to handle problematic values after division.  R spits out `-Inf` and `Inf` when dividing a negative and positive value by 0, respectively, and `NaN` when dividing 0 by 0.
 
-```{r, error=TRUE}
+
+```r
 -1/0
+```
+
+```
+## [1] -Inf
+```
+
+```r
 1/0
+```
+
+```
+## [1] Inf
+```
+
+```r
 0/0
+```
+
+```
+## [1] NaN
 ```
 
 <div style="margin-bottom:25px;">
@@ -165,52 +195,104 @@ You just learned that R has three basic data types. Now, let's go through how we
 
 A vector is the most common and basic R data structure and is pretty much the workhorse of the language. A vector is simply a sequence of values which can be of any data type but all of the same type.  There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command `c()`.  For example, to represent the values 4, 16 and 9 in a vector type in
 
-```{r, error=TRUE}
+
+```r
 c(4, 16, 9)
+```
+
+```
+## [1]  4 16  9
 ```
 
 You can also have a vector of character values
 
-```{r, error=TRUE}
+
+```r
 c("luis", "anne", "ryan")
+```
+
+```
+## [1] "luis" "anne" "ryan"
 ```
 
 The above code does not actually "save" the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out `c(4, 16, 9)`, you can save it in a data object. You assign data to an object using the arrow sign `<-`.  This will create an object in R's memory that can be called back into the command window at any time.  For example, you can save "hello world" to a vector called *b* by typing in
 
-```{r, error=TRUE}
+
+```r
 b <- "hello world"
 b
 ```
 
+```
+## [1] "hello world"
+```
+
 Similarly, you can save the numbers 4, 16 and 9 into a vector called *v1*
 
-```{r, error=TRUE}
+
+```r
 v1 <- c(4, 16, 9)
 v1
 ```
 
+```
+## [1]  4 16  9
+```
+
 You should see the objects *b* and *v1* pop up in the Environment tab on the top right window of your RStudio interface.  Note that the name *v1* is nothing special here. You could have named the object *x* or *crd150* or your pet's name (mine was *charlie*).  You can't, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. *2d2*).  For example, you'll get an error if you save the vector *c(4,16,9)* to an object with the following names
 
-```{r, error=TRUE}
+
+```r
 123 <- c(4, 16, 9)
 !!! <- c(4, 16, 9)
+```
+
+```
+## Error: <text>:2:5: unexpected assignment
+## 1: 123 <- c(4, 16, 9)
+## 2: !!! <-
+##        ^
 ```
 
 
 Every vector has two key properties: *type* and *length*.  The type property indicates the data type that the vector is holding. Use the command `typeof()` to determine the type 
 
-```{r, error=TRUE}
+
+```r
 typeof(b)
+```
+
+```
+## [1] "character"
+```
+
+```r
 typeof(v1)
+```
+
+```
+## [1] "double"
 ```
 
 Note that a vector cannot hold values of different types.  If different data types exist, R will coerce the values into the highest type based on its internal hierarchy:  logical < integer < double  < character.  Type in `test <- c("r", 6, TRUE)` in your R console.  What is the vector type of `test`?
 
 The command `length()` determines the number of data values that the vector is storing
 
-```{r, error=TRUE}
+
+```r
 length(b)
+```
+
+```
+## [1] 1
+```
+
+```r
 length(v1)
+```
+
+```
+## [1] 3
 ```
 
 <div style="margin-bottom:25px;">
@@ -220,25 +302,36 @@ length(v1)
 
 We learned that data values can be stored in data structures known as vectors.  The next step is to learn how to store vectors into an even higher level data structure.  The data frame can do this.   Data frames store vectors of the same length.  Create a vector called *v2* storing the values 5, 12, and 25
 
-```{r, error=TRUE}
+
+```r
 v2 <- c(5,12,25)
 ```
 
 We can create a data frame using the command `data.frame()` storing the vectors *v1* and *v2* as columns
 
-```{r, error=TRUE}
+
+```r
 data.frame(v1, v2)
+```
+
+```
+##   v1 v2
+## 1  4  5
+## 2 16 12
+## 3  9 25
 ```
 
 Store this data frame in an object called *df1*
 
-```{r, error=TRUE}
+
+```r
 df1<-data.frame(v1, v2)
 ```
 
 We can store different types of vectors in data frame.  For example:
 
-```{r, results = FALSE}
+
+```r
 v3 <- c("luis", "anne", "ryan")
 df2 <- data.frame(v1, v3)
 df2
@@ -246,51 +339,95 @@ df2
 
 For higher level data structures like a data frame, use the function `class()` to figure out what kind of object you're working with.
 
-```{r}
+
+```r
 class(df2)
+```
+
+```
+## [1] "data.frame"
 ```
 
 We can't use `length()` on a data frame because it has more than one vector. Instead, it has *dimensions* - the number of rows and columns. You can find the number of rows and columns that a data frame has by using the command `dim()`
 
-```{r, error=TRUE}
+
+```r
 dim(df1)
+```
+
+```
+## [1] 3 2
 ```
 
 Here, the data frame *df1* has 3 rows and 2 columns. Data frames also have column names, which are characters.
 
-```{r, error=TRUE}
+
+```r
 colnames(df1)
+```
+
+```
+## [1] "v1" "v2"
 ```
 
 In this case, the data frame used the vector names for the column names. We can change these names 
 
-```{r, error=TRUE}
+
+```r
 colnames(df1) <- c("col1", "col2")
 colnames(df1)
 ```
 
+```
+## [1] "col1" "col2"
+```
+
 We can extract columns from data frames by referring to their names using the `$` sign or index values
 
-```{r, error=TRUE}
+
+```r
 df1$col1
+```
+
+```
+## [1]  4 16  9
+```
+
+```r
 df1[,1]
+```
+
+```
+## [1]  4 16  9
 ```
 
 The last piece of code shows how you can extract data from data frames using brackets `[ , ]`. The value before the comma indicates the row, which you leave empty if you are not selecting by row, which we did above.  The value after the comma indicates the column, which you leave empty if you are not selecting by column
 
-```{r, error=TRUE}
+
+```r
 df1[2,]
+```
+
+```
+##   col1 col2
+## 2   16   12
 ```
 
 What is the value in the 2nd row and 1st column?
 
-```{r, error=TRUE}
+
+```r
 df1[2,1]
+```
+
+```
+## [1] 16
 ```
 
 To delete an object from your current R session, use the command `rm()`
 
-```{r, error=TRUE}
+
+```r
 rm(df1)
 ```
 
@@ -311,28 +448,48 @@ In R, you type in the function's name and set a number of options or parameters 
 
 Let’s try using `seq()` which makes regular sequences of numbers.  You can find out what the options are for a function by calling up its help documentation by typing `?` and the function name
 
-```{r, error=TRUE}
+
+```r
 ? seq
 ```
 
 The help documentation should have popped up in the bottom right window of your RStudio interface.  The documentation should also provide some examples of the function at the bottom of the page. Type the arguments `from = 1, to = 10` inside the parentheses
 
-```{r, error=TRUE}
+
+```r
 seq(from = 1, to = 10)
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
 You should get the same result if you type in
 
-```{r, error=TRUE}
+
+```r
 seq(1, 10)
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
 The above also demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. So in the code above, it is assumed that we want a sequence `from = 1` that goes `to = 10` because we typed 1 before 10. Type in 10 before 1 and see what happens.  Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. 
 
 Each argument requires a certain type of data type.  For example, you'll get an error when you use a character in `seq()`
 
-```{r, error=TRUE}
+
+```r
 seq("p", "w")
+```
+
+```
+## Warning in seq.default("p", "w"): NAs introduced by coercion
+```
+
+```
+## Error in seq.default("p", "w"): 'from' must be a finite number
 ```
 
 <div style="margin-bottom:25px;">
@@ -342,13 +499,15 @@ seq("p", "w")
 
 Functions do not exist in a vacuum.  They are a part of R packages.  R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. At the top left of a function's help documentation, you'll find in curly brackets the package that the function is housed in.  For example, `seq()` is in the package **base**. In order to use functions in a package, you first need to install the package using the `install.packages()` command. For example, we will be using commands from the package **tidyverse** in this lab 
 
-```{r, error=TRUE, results="hide"}
+
+```r
 install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 ```
 
 Next, you will need to load packages in your working environment (every time you start RStudio). We do this with the `library()` function.
 
-```{r warning=FALSE, results="hide", message=FALSE}
+
+```r
 library(tidyverse)
 ```
 
@@ -367,52 +526,132 @@ An integral component of the tidyverse are tibbles.  Tibbles are data frames, bu
 
 Let's bring in some actual data to illustrate the differences and similarities between data frames and tibbles.  Install the package **nycflights13** using `install.packages("nycflights13")`.  Make sure you also load the package.
 
-```{r warning = FALSE}
+
+```r
 library(nycflights13)
 ```
 
 There is a dataset called *flights* included in this package.  It includes information on all 336,776 flights that departed from New York City in 2013.  Let's save this file in the local R environment
 
-```{r}
+
+```r
 nyctib <- flights
 ```
 
 This dataset is a tibble. Let's also save it as a data frame by using the `as.data.frame()` function
 
-```{r}
+
+```r
 nycdf <- as.data.frame(flights)
 ```
 
 The first difference between data frames and tibbles is how the dataset "looks."  Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen.  In addition, each column reports its name and type.
 
-```{r}
+
+```r
 nyctib
+```
+
+```
+## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>
+##  1  2013     1     1      517            515        2.      830
+##  2  2013     1     1      533            529        4.      850
+##  3  2013     1     1      542            540        2.      923
+##  4  2013     1     1      544            545       -1.     1004
+##  5  2013     1     1      554            600       -6.      812
+##  6  2013     1     1      554            558       -4.      740
+##  7  2013     1     1      555            600       -5.      913
+##  8  2013     1     1      557            600       -3.      709
+##  9  2013     1     1      557            600       -3.      838
+## 10  2013     1     1      558            600       -2.      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time <int>,
+## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+## #   minute <dbl>, time_hour <dttm>
 ```
 
 Tibbles are designed so that you don't accidentally overwhelm your console when you print large data frames.  Compare the print output above to what you get with a data frame
 
-```{r, results="hide"}
+
+```r
 nycdf
 ```
 
 Ugly, right? You can shorten the print output on data frames by using the `head()` command, but the output is still not as "tidy" as a tibble
 
-```{r}
+
+```r
 head(nycdf)
+```
+
+```
+##   year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+## 1 2013     1   1      517            515         2      830            819
+## 2 2013     1   1      533            529         4      850            830
+## 3 2013     1   1      542            540         2      923            850
+## 4 2013     1   1      544            545        -1     1004           1022
+## 5 2013     1   1      554            600        -6      812            837
+## 6 2013     1   1      554            558        -4      740            728
+##   arr_delay carrier flight tailnum origin dest air_time distance hour
+## 1        11      UA   1545  N14228    EWR  IAH      227     1400    5
+## 2        20      UA   1714  N24211    LGA  IAH      227     1416    5
+## 3        33      AA   1141  N619AA    JFK  MIA      160     1089    5
+## 4       -18      B6    725  N804JB    JFK  BQN      183     1576    5
+## 5       -25      DL    461  N668DN    LGA  ATL      116      762    6
+## 6        12      UA   1696  N39463    EWR  ORD      150      719    5
+##   minute           time_hour
+## 1     15 2013-01-01 05:00:00
+## 2     29 2013-01-01 05:00:00
+## 3     40 2013-01-01 05:00:00
+## 4     45 2013-01-01 05:00:00
+## 5      0 2013-01-01 06:00:00
+## 6     58 2013-01-01 05:00:00
 ```
 
 You can also use `head()` on tibbles, but it isn't necessary since tibbles automatically shorten the output.  If you insist on seeing the **entire** tibble on your Console screen, type the tibble into the function `print.data.frame()`.
 
 You can identify the names of the columns (and hence the variables in the dataset) by using the function `names()`
 
-```{r}
+
+```r
 names(nyctib)
+```
+
+```
+##  [1] "year"           "month"          "day"            "dep_time"      
+##  [5] "sched_dep_time" "dep_delay"      "arr_time"       "sched_arr_time"
+##  [9] "arr_delay"      "carrier"        "flight"         "tailnum"       
+## [13] "origin"         "dest"           "air_time"       "distance"      
+## [17] "hour"           "minute"         "time_hour"
 ```
 
 Finally, you can convert a regular data frame to a tibble using the `as_tibble()` function
 
-```{r}
+
+```r
 as_tibble(nycdf)
+```
+
+```
+## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>
+##  1  2013     1     1      517            515        2.      830
+##  2  2013     1     1      533            529        4.      850
+##  3  2013     1     1      542            540        2.      923
+##  4  2013     1     1      544            545       -1.     1004
+##  5  2013     1     1      554            600       -6.      812
+##  6  2013     1     1      554            558       -4.      740
+##  7  2013     1     1      555            600       -5.      913
+##  8  2013     1     1      557            600       -3.      709
+##  9  2013     1     1      557            600       -3.      838
+## 10  2013     1     1      558            600       -2.      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time <int>,
+## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+## #   minute <dbl>, time_hour <dttm>
 ```
 
 Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and regular data frames throughout the class, with a preference towards tibbles where possible.
