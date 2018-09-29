@@ -40,7 +40,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This guide provides step-by-step instructions for downloading data from the [National Historical Geographic Information System](https://www.nhgis.org/) (NHGIS). The NHGIS provides Census population, housing, agricultural, and economic data, along with GIS-compatible boundary files, for geographic units in the United States from 1790 to the present.  NHGIS offers a user-friendly system for selecting and downloading raw data for processing in R.
 
-We will first obtain tabular data that are used in Lab 2. These data are for marital status and educational attainment at the county level  The guide will also describe how to download shapefiles.
+We will obtain tabular data that are used in Lab 2. These data are for marital status and educational attainment at the county level.  The guide will also describe how to download shapefiles, which won't be relevant until Week 4.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -97,7 +97,7 @@ This will give you variables that contain information on Marriage AND Education.
 
 12. When the data are ready to download, you will get an email.  In that email, click on the link it provides to download the data.  On that page, select *tables* under *Download Table Data*. This will download your data in a zipped folder. Save this download in an appropriate folder on your hard drive.
 
-13. Unzip the folder you downloaded. The unzipped folder should contain two files. A csv file containing your data and a txt file containing meta data.  The record layout/codebook for the file can also be found [here](https://raw.githubusercontent.com/crd150/data/master/nhgis0086_ds225_20165_2016_county_codebook.txt).  
+13. Unzip the folder you downloaded. The unzipped folder should contain two files. A csv file containing your data and a txt file containing meta data.  The record layout/codebook for the file can be found [here](https://raw.githubusercontent.com/crd150/data/master/nhgis0086_ds225_20165_2016_county_codebook.txt).  
 
 <div style="margin-bottom:25px;">
 </div>
