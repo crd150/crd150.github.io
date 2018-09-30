@@ -43,9 +43,9 @@ h1.title {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Your final project involves studying an interesting question about a U.S. community.  We define community as a [metropolitan area](https://www.census.gov/geo/reference/gtc/gtc_cbsa.html#mesa), [city](https://www.census.gov/geo/reference/gtc/gtc_place.html), or [county](https://www.census.gov/geo/reference/gtc/gtc_cou.html).  What is the spatial extent of these communities and how do they compare in size, scale, and area?  Below is a map comparing Sacramento Metropolitan Area (Grey), Sacramento City (Red), and Sacramento County (Blue).  You can hide and add these layers to see how they compare.   
+Your final project involves studying an interesting question about a U.S. community.  We define community as a [metropolitan area](https://www.census.gov/geo/reference/gtc/gtc_cbsa.html#mesa), [city](https://www.census.gov/geo/reference/gtc/gtc_place.html), or [county](https://www.census.gov/geo/reference/gtc/gtc_cou.html).  What is the spatial extent of these communities and how do they compare in size, scale, and area?  Below is a map comparing the Sacramento Metropolitan Area (Grey), Sacramento City (Red), and Sacramento County (Blue).  You can hide and add  layers to see how the geographies compare.   
 
-We will also work a lot with neighborhoods in this class.  This either means using Census [tracts](https://www.census.gov/geo/reference/gtc/gtc_ct.html) or [blocks](https://www.census.gov/geo/reference/gtc/gtc_block.html), and also sometimes zip codes (or [ZCTAs](https://www.census.gov/geo/reference/zctas.html).  Below is a map comparing Davis zip codes (Grey), tracts (blue), and blocks (red) Can you find the tract you  currently live in? What about the block?
+We will also work a lot with neighborhoods in this class.  This either means using Census [tracts](https://www.census.gov/geo/reference/gtc/gtc_ct.html) or [blocks](https://www.census.gov/geo/reference/gtc/gtc_block.html), and also sometimes zip codes (or [ZCTAs](https://www.census.gov/geo/reference/zctas.html)).  Below is a map comparing Davis zip codes (Grey), tracts (blue), and blocks (red). Can you find the tract you  currently live in? What about the block?
 
 One thing you'll have to be careful about if you're interested in comparing tracts over time - [boundaries change](https://www.census.gov/geo/reference/gtc/gtc_boundarychange.html).  We show a map comparing Davis tracts in 2000 (red) and 2010 (black). You'll notice that some tracts in 2000 get split up.  Why?  Because there were enough significant population changes within the tract from 2000 to 2010 to warrant a split.  If you are curious, for example, why the tract in East Davis got split up into 3 tracts, check out this side-by-side [Social Explorer map](https://www.socialexplorer.com/65d3c9db2b/view) showing changes in population size in the 3 tracts from 2000 to 2010. I also embedded that map below. Can you tell what happened?
 
@@ -148,12 +148,12 @@ sac.map <- leaflet(sac.tracts.metro) %>%
   # Base groups
   addTiles(group = "OSM (default)") %>%
   # Overlay groups
-  addPolygons(color="grey", group = "Metro", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = sac.tracts.city, color = "red", group = "City", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = sac.tracts.county, color = "blue", group = "County", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(color="grey", group = "Metro", weight = 1, smoothFactor = 0.5, 
+              opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(data = sac.tracts.city, color = "red", group = "City", weight = 1, 
+              smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(data = sac.tracts.county, color = "blue", group = "County", weight = 1, 
+              smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
   # Layers control
   addLayersControl(
     overlayGroups = c("Metro", "City", "County"),
@@ -162,7 +162,7 @@ sac.map <- leaflet(sac.tracts.metro) %>%
 sac.map
 ```
 
-<div style="margin-bottom:100px;">
+<div style="margin-bottom:25px;">
 </div>
 ## **Davis ZCTAs, tracts and blocks**
 <div style="margin-bottom:100px;">
@@ -221,12 +221,12 @@ davis.map <- leaflet(davis.zip) %>%
   # Base groups
   addTiles(urlTemplate = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") %>%
   # Overlay groups
-  addPolygons(color="black", group = "Zipcode", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = davis.tracts, color = "blue", group = "Tract", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = davis.blocks, color = "red", group = "Block", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(color="black", group = "Zipcode", weight = 1, smoothFactor = 0.5, 
+              opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(data = davis.tracts, color = "blue", group = "Tract", weight = 1, 
+              smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(data = davis.blocks, color = "red", group = "Block", weight = 1, 
+              smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
   # Layers control
   addLayersControl(
     overlayGroups = c("Zipcode", "Tract", "Block"),
@@ -236,7 +236,7 @@ davis.map
 ```
 
 
-<div style="margin-bottom:100px;">
+<div style="margin-bottom:25px;">
 </div>
 ## **Davis tracts in 2000 and 2010**
 <div style="margin-bottom:100px;">
@@ -305,8 +305,8 @@ davis.map2 <- leaflet(davis.tracts.2010) %>%
   # Overlay groups
   addPolygons(color="black", group = "2010", weight = 1, smoothFactor = 0.5,
     opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = davis.tracts.2000, color = "red", group = "2000", weight = 1, smoothFactor = 0.5,
-    opacity = 1.0, fillOpacity = 0.5) %>%
+  addPolygons(data = davis.tracts.2000, color = "red", group = "2000", weight = 1, 
+              smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
   # Layers control
   addLayersControl(
     overlayGroups = c("2010", "2000"),
