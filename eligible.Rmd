@@ -78,3 +78,9 @@ kable(dt) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive")) %>%
     column_spec(4, width = "15em")
 ```
+
+
+
+***
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
