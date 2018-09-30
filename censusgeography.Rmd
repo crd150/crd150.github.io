@@ -297,6 +297,7 @@ davis.tracts.2000 <- ms_clip(ca.tracts.2000, davis.city, remove_slivers = TRUE)
 ```
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE}
+library(leaflet)
 
 davis.map2 <- leaflet(davis.tracts.2010) %>%
   # Base groups
