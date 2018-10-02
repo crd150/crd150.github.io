@@ -42,7 +42,7 @@ We will obtain tabular data that are used in Lab 2. These data are for marital s
 
 <div style="margin-bottom:25px;">
 </div>
-##  **Downloading tabular data**
+##  **Download tabular data**
 \
 
 Go to the NHGIS home page.  You will need to sign up for a free account.  Click on *LOG IN*  located at the top right of the screen.  Click on *Create an account*, fill out the required info.  You should get an email verifying your registration.
@@ -99,7 +99,7 @@ This will give you variables that contain information on Marriage AND Education.
 
 <div style="margin-bottom:25px;">
 </div>
-## **Downloading shapefiles**
+## **Download shapefiles**
 \
 
 You can also download spatial shapefiles of different Census boundaries through NHGIS.  To download Census tract shapefile boundaries, follow the steps below
