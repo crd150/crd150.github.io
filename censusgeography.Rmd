@@ -69,6 +69,7 @@ library(rmapshaper)
           
 cb <- core_based_statistical_areas(cb = TRUE)
 pl <- places(state = "CA", cb = TRUE)
+cnty <- counties(state ="CA", cb = TRUE)
 ca.tracts <- tracts(state ="CA", cb = TRUE)
 yolo.blocks <-blocks(state="CA", county = "Yolo")
 zips <- zctas(cb=TRUE, state = "CA")
@@ -77,12 +78,8 @@ ca.tracts.2000<-st_transform(ca.tracts.2000, crs=st_crs(ca.tracts))
 
 sac.metro <- filter(cb, NAME =="Sacramento--Roseville--Arden-Arcade, CA")
 sac.city <- filter(pl, NAME == "Sacramento")
+sac.county <- filter(cnty, NAME == "Sacramento")
 davis.city <- filter(pl, NAME == "Davis")
-
-
-sac.tracts.metro <- ms_clip(ca.tracts, sac.metro, remove_slivers = TRUE) 
-sac.tracts.city <- ms_clip(ca.tracts, sac.city, remove_slivers = TRUE) 
-sac.tracts.county <- tracts(state ="CA", county = "Sacramento", cb = TRUE)
 
 davis.tracts <- ms_clip(ca.tracts, davis.city, remove_slivers = TRUE) 
 davis.blocks <- ms_clip(yolo.blocks, davis.city, remove_slivers = TRUE) 
@@ -95,15 +92,15 @@ davis.tracts.2000 <- ms_clip(ca.tracts.2000, davis.city, remove_slivers = TRUE)
 ```{r leaflet, fig.align="center", echo = FALSE, warning = FALSE, message = FALSE}
 library(leaflet)
 
-sac.map <- leaflet(sac.tracts.metro) %>%
+sac.map <- leaflet(sac.metro) %>%
   # Base groups
   addTiles(urlTemplate = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png") %>%
   # Overlay groups
   addPolygons(color="grey", group = "Metro", weight = 1, smoothFactor = 0.5,
     opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = sac.tracts.county, color = "blue", group = "County", weight = 1, smoothFactor = 0.5,
+  addPolygons(data = sac.county, color = "blue", group = "County", weight = 1, smoothFactor = 0.5,
     opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = sac.tracts.city, color = "red", group = "City", weight = 1, smoothFactor = 0.5,
+  addPolygons(data = sac.city, color = "red", group = "City", weight = 1, smoothFactor = 0.5,
     opacity = 1.0, fillOpacity = 0.5) %>%
   # Layers control
   addLayersControl(
@@ -119,40 +116,35 @@ sac.map
 
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE}
-library(tidycensus)
-census_api_key("INSERT YOUR API KEY HERE")
+#Load in required packages
 library(tigris)
 options(tigris_class = "sf")
 library(tidyverse)
 library(rmapshaper)
 
-          
+#extract metro, counties and cities          
 cb <- core_based_statistical_areas(cb = TRUE)
 pl <- places(state = "CA", cb = TRUE)
-ca.tracts <- tracts(state ="CA", cb = TRUE)
+cnty <- counties(state ="CA", cb = TRUE)
 
+#subset to Sacramento metro, county, and city
 sac.metro <- filter(cb, NAME =="Sacramento--Roseville--Arden-Arcade, CA")
 sac.city <- filter(pl, NAME == "Sacramento")
-
-
-sac.tracts.metro <- ms_clip(ca.tracts, sac.metro, remove_slivers = TRUE) 
-sac.tracts.city <- ms_clip(ca.tracts, sac.city, remove_slivers = TRUE) 
-sac.tracts.county <- tracts(state ="CA", county = "Sacramento", cb = TRUE)
-
+sac.county <- filter(cnty, NAME == "Sacramento")
 ```
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE}
 library(leaflet)
 
-sac.map <- leaflet(sac.tracts.metro) %>%
+sac.map <- leaflet(sac.metro) %>%
   # Base groups
   addTiles(group = "OSM (default)") %>%
   # Overlay groups
   addPolygons(color="grey", group = "Metro", weight = 1, smoothFactor = 0.5, 
               opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = sac.tracts.city, color = "red", group = "City", weight = 1, 
+  addPolygons(data = sac.city, color = "red", group = "City", weight = 1, 
               smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
-  addPolygons(data = sac.tracts.county, color = "blue", group = "County", weight = 1, 
+  addPolygons(data = sac.county, color = "blue", group = "County", weight = 1, 
               smoothFactor = 0.5, opacity = 1.0, fillOpacity = 0.5) %>%
   # Layers control
   addLayersControl(
@@ -195,6 +187,7 @@ davis.map
 
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE}
+#Load required packages
 library(tidycensus)
 census_api_key("INSERT YOUR KEY HERE")
 library(tigris)
@@ -202,13 +195,16 @@ options(tigris_class = "sf")
 library(tidyverse)
 library(rmapshaper)
 
+#Get cities, tracts, blocks, and ZCTAs
 pl <- places(state = "CA", cb = TRUE)
 ca.tracts <- tracts(state ="CA", cb = TRUE)
 yolo.blocks <-blocks(state="CA", county = "Yolo")
 zips <- zctas(cb=TRUE, state = "CA")
 
+#Davis city
 davis.city <- filter(pl, NAME == "Davis")
 
+#Clip tracts, blocks and ZCTAs to Davis city boundary
 davis.tracts <- ms_clip(ca.tracts, davis.city, remove_slivers = TRUE) 
 davis.blocks <- ms_clip(yolo.blocks, davis.city, remove_slivers = TRUE) 
 davis.zip <- ms_clip(zips, davis.city, remove_slivers = TRUE) 
@@ -276,6 +272,7 @@ Why were there changes? The following map from Social Explorer shows total popul
 </div>
 
 ```{r eval = FALSE, warning = FALSE, message = FALSE}
+#Load in required packages
 library(tidycensus)
 census_api_key("b81d373d6e785ecbc489de1fc862aef424d0a63a")
 library(tigris)
@@ -283,14 +280,17 @@ options(tigris_class = "sf")
 library(tidyverse)
 library(rmapshaper)
 
+#Bring in cities, tracts in 2000, and tracts in 2010
 pl <- places(state = "CA", cb = TRUE)
 ca.tracts.2010 <- tracts(state ="CA", cb = TRUE)
 ca.tracts.2000 <- tracts(state ="CA", cb = TRUE, year = 2000)
-# Need to reproject 2000 tracts to 2010 CRS
+# Need to reproject 2000 tracts to 2010 tract CRS
 ca.tracts.2000<-st_transform(ca.tracts.2000, crs=st_crs(ca.tracts))
 
+#Get City of Davis
 davis.city <- filter(pl, NAME == "Davis")
 
+#Clip tracts to Davis boundaries
 davis.tracts.2010 <- ms_clip(ca.tracts.2010, davis.city, remove_slivers = TRUE) 
 davis.tracts.2000 <- ms_clip(ca.tracts.2000, davis.city, remove_slivers = TRUE) 
 
