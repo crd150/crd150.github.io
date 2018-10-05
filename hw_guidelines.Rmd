@@ -19,7 +19,7 @@ h1.title {
 \
 
 
-Assignments are typically released at the beginning of each lab and are due in a week. They are located at the end of each lab's guide. Assignments have two components
+Assignments are typically released at the beginning of each lab and are due in a week. They are located at the end of each lab's guide. Assignments have two components:
 
 1. Executing data analysis tasks - for example, create a map or run a statistical model.
 2. Answering conceptual questions - for example, interpret results that were produced from a data analysis task.  
