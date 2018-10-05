@@ -460,7 +460,7 @@ The pipe operator is very useful for complex operations, which you will encounte
 ### **Subsetting/Filtering**
 \
 
-Subsetting or filtering means selecting rows/obsevervations based on their values.  To subset in R, use the command `filter()`.  Visually, subsetting rows looks like
+Subsetting or filtering means selecting rows/obsevervations based on their values.  To subset in R, use the command `filter()`.  Visually, subsetting rows looks like.
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/subsetrows.png)
