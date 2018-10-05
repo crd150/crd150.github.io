@@ -1,0 +1,71 @@
+---
+title: "Assignment 2"
+subtitle: CRD 150
+author: YOUR FULL NAME HERE
+date: Due by 12:00 am, October 12th on Canvas
+output: 
+  html_document:
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+1. Identify the type (numeric or categorical) and subtype (nominal, ordinal, etc.) that each of the following variables represent. (5 points).
+a. The number of vacant housing units 
+
+b. Percent of persons 25 years and older with a college degree
+
+c. Crimes per population
+
+d. [Census region](https://www.census.gov/geo/reference/gtc/gtc_census_divreg.html) 
+
+e. A variable with the following values
+
+    + Low income tract, low percent black
+    + Low income tract, moderate percent black
+    + Low income tract, high percent black 
+    + Middle income tract, low percent black
+    + Middle income tract, moderate percent black
+    + Middle income tract, high percent black 
+    + High income tract, low percent black
+    + High income tract, moderate percent black
+    + High income tract, high percent black 
+
+
+2. How many years of median income will it take to buy a home in California? And how did the Great Recession affect this measure of housing affordability? Let's answer these questions by examining [house-price-to-income ratios](https://www.citylab.com/equity/2018/05/where-the-house-price-to-income-ratio-is-most-out-of-whack/561404/) in California counties pre and post recession.  Do the following data wrangling tasks.  Submit all the code you used to accomplish these tasks.  Where possible, use the pipe operator `%>%`. (5 points)
+
+a. Using either the Census API or NHGIS, bring into R the following county-level variables from the 2005-2009 and 2012-2016 American Community Surveys (ACS): median housing value (variable ID "B25077_100") and median household income (variable ID "B19013_100"). 
+b. Calculate the ratio of median housing value to median household income for each years of data.
+c. Merge the files into the *cacounty* dataset from the lab guide.
+d. Calculate the change in the housing value-to-income ratio from 2005-09 to 2012-16.
+f. Keep the following variables: County, GEOID, the housing value-to-income ratio in 2005-09, 2012-16, and the change during this period, pnhwhite, phasn, pnhblk, and phisp.
+
+```{r warning=FALSE, message = FALSE}
+#Insert your code here
+```
+
+
+3. From the dataset you created in Question 2, answer the following questions. 
+a. How many years will it take for a household to pay off a house in Yolo County in 2012-16? What about before the recession?  Don't just print the entire data frame to answer these questions - use R code to help you find Yolo in your dataset. (2 points)
+
+```{r warning=FALSE, message = FALSE}
+#Insert your code here
+```
+
+b. Which county has the largest housing value-to-income ratio pre recession (2005-09)? Smallest? Which counties had the largest and smallest post recession (2012-16)? Which county experienced the greatest decrease? Which counties experienced an increase? See the function `arrange()` to answer these questions. (5 points)
+
+```{r warning=FALSE, message = FALSE}
+#Insert your code here
+```
+
+
+4. Subset the dataset you saved in Question 2 to keep only two sets of counties: Bay Area counties (Alameda, Contra Costa, Marin, Napa, San Francisco, San Mateo, Santa Clara, Solano, and Sonoma) and counties in Southern California (Imperial, San Diego, Riverside, Orange, Los Angeles, San Bernardino, Ventura, Santa Barbara).  Check [here](https://www.nrcs.usda.gov/wps/portal/nrcs/detail/ca/home/?cid=nrcs143_013697) to find their FIPS codes. Use the `write_csv()` command to save this pared down dataset as a `.csv`.  From this file, create a presentation ready table using the standards we outlined in lecture and in Hoffman Ch. 8-9.  The final table should show racial composition and housing-value-to-income ratios (and their change) for each Bay Area and Southern California county.  Copy and paste this table into a Microsoft Word document and submit this document along with your Rmd and html files. (5 points)
+
+```{r warning=FALSE, message = FALSE}
+#Insert your code here
+```
+
+
