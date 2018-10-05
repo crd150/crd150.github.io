@@ -413,7 +413,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <p>Delete everything else. Save this file (File -&gt; Save) in an appropriate folder. If you are using your laptop for this guide, it’s best to set up a clean and efficient file management structure like we described in lecture. For example, below is where I would save this file in my Mac laptop (I named the file “Lab2”). Save all other files used in this lab in this same folder. Now your R Markdown file is ready for Lab!</p>
 <center>
 <div class="figure">
-<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/filestructure.png" alt="This is what file organization looks like" />
+<img src="filestructure.png" alt="This is what file organization looks like" />
 <p class="caption">This is what file organization looks like</p>
 </div>
 <div style="margin-bottom:25px;">
@@ -492,7 +492,7 @@ Most of the data files you will encounter are comma-delimited (or comma-separate
 <p>To read in the csv file you downloaded from NHGIS, first make sure that R is pointed to the folder you saved your data into. Type in <code>getwd()</code> to find out the current directory and <code>setwd(&quot;directory name&quot;)</code> to set the directory to the folder containing the data. For me, the NHGIS file is located in the folder shown in Figure 1.</p>
 <center>
 <div class="figure">
-<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/setwd.png" alt="Figure 1: Direct R to where your data reside." />
+<img src="setwd.png" alt="Figure 1: Direct R to where your data reside." />
 <p class="caption">Figure 1: Direct R to where your data reside.</p>
 </div>
 </center>
@@ -518,7 +518,7 @@ It is rare that the data set you download is in exactly the right form for data 
 In practice, most of the data files you will download will contain variables you don’t need. It is easier to work with a smaller dataset as it reduces clutter and clears up memory space, which is important if you are executing complex tasks on a large number of observations. Use the command <code>select()</code> to keep variables by name. Visually, we are doing this (taken from the RStudio <a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">cheatsheet</a>)</p>
 <center>
 <div class="figure">
-<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/subsetcols.png" />
+<img src="subsetcols.png" />
 
 </div>
 </center>
@@ -576,7 +576,7 @@ names(ca1)</code></pre>
 The <code>mutate()</code> function allows you to create new variables within your dataset. This is important when you need to transform variables in some way - for example, calculating a ratio or adding two variables together. Visually, you are doing this</p>
 <center>
 <div class="figure">
-<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/mutate.png" />
+<img src="mutate.png" />
 
 </div>
 </center>
@@ -629,7 +629,7 @@ ca1</code></pre>
 Now we can join the two datasets <em>nhgisfile1</em> and <em>ca1</em> together. Remember from lecture that the unique Census ID for a county combines the county ID with the state ID. We have this ID as the single variable GEOID in <em>ca1</em>, but separated as <em>STATEA</em> and <em>COUNTYA</em> in nhgisfile1. See Figure 2.</p>
 <center>
 <div class="figure">
-<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/fig2.png" alt="Figure 2: Geographic IDs" />
+<img src="fig2.png" alt="Figure 2: Geographic IDs" />
 <p class="caption">Figure 2: Geographic IDs</p>
 </div>
 </center>
@@ -668,13 +668,13 @@ One of the important innovations from the tidy verse is the pipe operator <code>
 Subsetting or filtering means selecting rows/obsevervations based on their values. To subset in R, use the command <code>filter()</code>. Visually, subsetting rows looks like.</p>
 <center>
 <div class="figure">
-<img src="/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/subsetrows.png" />
+<img src="subsetrows.png" />
 
 </div>
 </center>
 <p>The first argument in the parentheses of this command is the name of the data frame. The second and any subsequent arguments (separated by commas) are the expressions that filter the data frame. For example, we can select Sacramento county using its <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/ca/home/?cid=nrcs143_013697">FIPS code</a></p>
 <pre class="r"><code>filter(cacounty, GEOID == &quot;06067&quot;)</code></pre>
-<p>The double equal operator <code>==</code> means equal to. We can also explicitly exclude cases and keep everything else by using the not equal operator <code>!=</code>. The following code <em>excludes</em> Sacramento county</p>
+<p>The double equal operator <code>==</code> means equal to. We can also explicitly exclude cases and keep everything else by using the not equal operator <code>!=</code>. The following code <em>excludes</em> Sacramento county.</p>
 <pre class="r"><code>filter(cacounty, GEOID != &quot;06067&quot;)</code></pre>
 <p>What about filtering if a county has a value greater than a specified value? For example, counties with a percent Hispanic greater than 0.5 (50%).</p>
 <pre class="r"><code>filter(cacounty, phisp &gt; 0.50)</code></pre>

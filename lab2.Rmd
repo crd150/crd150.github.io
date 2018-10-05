@@ -69,7 +69,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Delete everything else. Save this file (File -> Save) in an appropriate folder.  If you are using your laptop for this guide, it's best to set up a clean and efficient file management structure like we described in lecture.  For example, below is where I would save this file in my Mac laptop (I named the file "Lab2").  Save all other files used in this lab in this same folder. Now your R Markdown file is ready for Lab!  
 
 <center>
-![This is what file organization looks like](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/filestructure.png)
+![This is what file organization looks like](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/filestructure.png)
 
 <div style="margin-bottom:25px;">
 </div>
@@ -163,7 +163,7 @@ nhgisfile1 <- read_csv("https://raw.githubusercontent.com/crd150/data/master/nhg
 To read in the csv file you downloaded from NHGIS, first make sure that R is pointed to the folder you saved your data into.  Type in `getwd()` to find out the current directory and `setwd("directory name")` to set the directory to the folder containing the data.  For me, the NHGIS file is located in the folder shown in Figure 1.
 
 <center>
-![Figure 1: Direct R to where your data reside.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/setwd.png)
+![Figure 1: Direct R to where your data reside.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/setwd.png)
 
 </center>
 
@@ -198,7 +198,7 @@ In this lab, we won't have time to go through all of the methods and functions i
 In practice, most of the data files you will download will contain variables you don't need. It is easier to work with a smaller dataset as it reduces clutter and clears up memory space, which is important if you are executing complex tasks on a large number of observations.  Use the command `select()` to keep variables by name.  Visually, we are doing this (taken from the RStudio [cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf))  
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/subsetcols.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/subsetcols.png)
 
 </center>
 
@@ -248,7 +248,7 @@ Note that you can rename multiple variables within the same `rename()` command.
 The `mutate()` function allows you to create new variables within your dataset.  This is important when you need to transform variables in some way - for example, calculating a ratio or adding two variables together.  Visually, you are doing this
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/mutate.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/mutate.png)
 
 </center>
 
@@ -305,7 +305,7 @@ ca1 <- mutate(ca1, pnhwhite = nhwhite/tpopr, pnhasn = nhasn/tpopr,
 Now we can join the two datasets *nhgisfile1* and *ca1* together.  Remember from lecture that the unique Census ID for a county combines the county ID with the state ID.  We have this ID as the single variable GEOID in *ca1*, but separated as *STATEA* and *COUNTYA* in nhgisfile1.  See Figure 2.
 
 <center>
-![Figure 2: Geographic IDs](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/fig2.png)
+![Figure 2: Geographic IDs](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/fig2.png)
 
 </center>
 
@@ -363,7 +363,7 @@ The pipe operator is very useful for complex operations, which you will encounte
 Subsetting or filtering means selecting rows/obsevervations based on their values.  To subset in R, use the command `filter()`.  Visually, subsetting rows looks like.
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab2/subsetrows.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/subsetrows.png)
 
 </center>
 
@@ -373,7 +373,7 @@ The first argument in the parentheses of this command is the name of the data fr
 filter(cacounty, GEOID == "06067")
 ```
 
-The double equal operator `==` means equal to.  We can also explicitly exclude cases and keep everything else by using the not equal operator `!=`.  The following code *excludes* Sacramento county
+The double equal operator `==` means equal to.  We can also explicitly exclude cases and keep everything else by using the not equal operator `!=`.  The following code *excludes* Sacramento county.
 
 ```{r, results="hide"}
 filter(cacounty, GEOID != "06067")
