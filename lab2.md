@@ -523,7 +523,7 @@ filter(cacounty, GEOID == "06067" | GEOID == "06113")
 ## **Assignment 2**
 \
 
-Download and open the [Assignment 2 R Markdown Script](). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+Download and open the [Assignment 2 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn2.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
 
 1. Identify the type (numeric or categorical) and subtype (nominal, ordinal, etc.) that each of the following variables represent. (5 points).
 a. The number of vacant housing units 
