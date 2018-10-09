@@ -478,10 +478,8 @@ We should now have no missing values
 
 
 ```r
-summary(aggr(oakland))
+summary(aggr(oakland, plot=FALSE))
 ```
-
-![](policymap_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ```
 ## 

@@ -757,8 +757,7 @@ library(tidyimpute)</code></pre>
 <pre class="r"><code>oakland &lt;- oakland %&gt;%
     impute_mean(levratio)</code></pre>
 <p>We should now have no missing values</p>
-<pre class="r"><code>summary(aggr(oakland))</code></pre>
-<p><img src="policymap_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<pre class="r"><code>summary(aggr(oakland, plot=FALSE))</code></pre>
 <pre><code>## 
 ##  Missings per variable: 
 ##   Variable Count

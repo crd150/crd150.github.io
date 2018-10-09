@@ -317,7 +317,7 @@ oakland <- oakland %>%
 We should now have no missing values
 
 ```{r warning = FALSE, message = FALSE}
-summary(aggr(oakland))
+summary(aggr(oakland, plot=FALSE))
 ```
 
 Note that you can impute more than one variable within `impute_mean()`. 
