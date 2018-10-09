@@ -28,7 +28,6 @@ The following is an abridged version of the course syllabus.  A full course syll
     + Tuesday and Thursday, 3:10-5:00 pm, 158 Olson
 * Labs: 
     + Friday, 9:00-9:50 am, 2020 Science Lab
-    + Friday, 11:00-11:50, 2020 Science Lab
 
 <div style="margin-bottom:25px;">
 </div>
@@ -44,7 +43,7 @@ Dr. Noli Brazil
 
 Carlos Becerra  
 *Contact*: cabecerra.at.ucdavis.edu  
-*Office hours*: Friday from 12:00-1:00pm in 2060 Science Lab.
+*Office hours*: Friday from 11:00-12:00pm in 2020 Science Lab.
 
 <div style="margin-bottom:25px;">
 </div>

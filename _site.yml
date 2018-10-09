@@ -22,9 +22,11 @@ navbar:
         - text: "Census Geographies"
           href: censusgeography.html
         - text: "Download data from NHGIS"
-          href:  nhgis.html          
+          href:  nhgis.html       
+        - text: "Download data from PolicyMap"
+          href:  policymap.html  
         - text: "Neighborhood Data Sources"
-          href:    
+          href:  ndata.html   
         - text: "Big/Open Data Sources"
           href: 
 output:

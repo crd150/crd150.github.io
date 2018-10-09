@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Downoading data from PolicyMap</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Project Eligible Communities</a>
+    </li>
+    <li>
+      <a href="censusgeography.html">Census Geographies</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Download data from NHGIS</a>
+    </li>
+    <li>
+      <a href="policymap.html">Download data from PolicyMap</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li class="dropdown-header">Big/Open Data Sources</li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Downoading data from PolicyMap</h1>
+<h3 class="subtitle"><em><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></em></h3>
+<h4 class="author"><em><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></em></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+.figure {
+   margin-top: 30px;
+   margin-bottom: 30px;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+<p><br />
+</p>
+<p>This guide provides step-by-step instructions for downloading data from <a href="https://ucdavis.policymap.com/maps">PolicyMap</a>. PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries.</p>
+<p>In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median household income, percent Hispanic, percent black, a categorical variable of whether the tract is designated as an <a href="http://dof.ca.gov/Forecasting/Demographics/opportunity_zones/">Opportunity Zone</a> (a federally funded neighborhood-based economic development program initiated earlier this year) and the home mortgage loan-to-income leverage ratio. This is the same data we used in <a href="https://crd150.github.io/lab3.html">Lab 3</a> except just for Oakland. UC Davis provides full access to all PolicyMap tools for staff, students, and faculty. You can access the full site only if you are on campus or logged onto the UC Davis <a href="https://www.library.ucdavis.edu/service/connect-from-off-campus/">VPN</a>. We will download data from the UCD PolicyMap portal and clean up the files in Excel and R.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="download-data" class="section level2">
+<h2><strong>Download data</strong></h2>
+<p><br />
+</p>
+<ol style="list-style-type: decimal">
+<li>Navigate to the UC Davis <a href="https://ucdavis.policymap.com/maps">PolicyMap portal</a>. You should see a webpage that looks like the figure below. Note the UC Davis logo on the top right.</li>
+</ol>
+<center>
+<div class="figure">
+<img src="pmpage.png" />
+
+</div>
+</center>
+<ol start="2" style="list-style-type: decimal">
+<li>You should see a <em>Location</em> search bar somewhere near the top of the page. Type in “Oakland, CA” in the search bar and <em>Oakland, CA (City)</em> should pop up below - select it.</li>
+</ol>
+<center>
+<div class="figure">
+<img src="typeoakland.png" />
+
+</div>
+</center>
+<p>You should get a map that highlights Oakland’s boundaries.</p>
+<center>
+<div class="figure">
+<img src="oaklandmap1.png" />
+
+</div>
+</center>
+<ol start="3" style="list-style-type: decimal">
+<li>The map does not show any data. Let’s add the “Loan to Income Leverage Ratio.” Click on the <em>Lending</em> tab, followed by <em>Loan to Income “Leverage”&quot; Ratio</em> and then <em>All Loans</em>.</li>
+</ol>
+<center>
+<div class="figure">
+<img src="levratio.png" />
+
+</div>
+</center>
+<p>Now your map should look like the following</p>
+<center>
+<div class="figure">
+<img src="levratiomap.png" />
+
+</div>
+</center>
+<ol start="4" style="list-style-type: decimal">
+<li>Notice in the legend window you can change various aspects of the variable, including the year</li>
+</ol>
+<center>
+<div class="figure">
+<img src="pmyear.png" />
+
+</div>
+</center>
+<p>the data type</p>
+<center>
+<div class="figure">
+<img src="pmdata.png" />
+
+</div>
+</center>
+<p>and the geographic level.</p>
+<center>
+<div class="figure">
+<img src="pmgeo.png" />
+
+</div>
+</center>
+<p>Leave the defaults (Year: 2012-2016, Variable: Number, and Shaded by: Census Tract, 2010).</p>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Let’s download these data. At the top right of the site, click on the download icon <img src="download.png" />.</p></li>
+<li><p>A window should pop up. The first screen asks you what data to download - it should be “Median leverage ratio for all loans in 2016” under Layer. Click on the <em>Next, Select Location</em> button</p></li>
+</ol>
+<center>
+<div class="figure">
+<img src="pmfirst.png" />
+
+</div>
+</center>
+<ol start="7" style="list-style-type: decimal">
+<li>The next screen asks you to select a location. It should be <em>Oakland City, CA (City, 2010)</em> and <em>Shaded by Census Tract</em>. Click on <em>Next, Confirm Download</em>.</li>
+</ol>
+<center>
+<div class="figure">
+<img src="pmsecond.png" />
+
+</div>
+</center>
+<ol start="8" style="list-style-type: decimal">
+<li><p>The next screen asks you to confirm the download - just click on Download CSV <img src="dlcsv.png" /></p></li>
+<li><p>After a minute or two, a screen like below (on a Mac laptop) should pop up.</p></li>
+</ol>
+<center>
+<div class="figure">
+<img src="downloadcsv.png" />
+
+</div>
+</center>
+<p>Save the file into an appropriate folder, such as below (Mac laptop)</p>
+<center>
+<div class="figure">
+<img src="pmfolder.png" />
+
+</div>
+</center>
+<ol start="10" style="list-style-type: decimal">
+<li>PolicyMap allows you to download only one variable at the time. So, you’ll need to go through the above steps again to get the other variables. To download Opportunity Zone designation, navigate to the <em>Federal Guidelines</em> tab, then under <em>Additional CDFI Fund Data</em> select <em>Opportunity Zones (QOZ)</em> and then select <em>Designated Tracts</em>.</li>
+</ol>
+<center>
+<div class="figure">
+<img src="pmozone.png" />
+
+</div>
+</center>
+<p>Which should give you a map that looks like</p>
+<center>
+<div class="figure">
+<img src="ozonemap.png" />
+
+</div>
+</center>
+<p>Follow the same steps above to download these data as a csv into an appropriate folder on your hard drive.</p>
+<p>To get percent black, navigate to the <em>Demographics</em> tab, then under <em>Race</em> select <em>Black</em>. To download percent Hispanic, navigate to the <em>Demographics</em> tab, then under <em>Ethnicity</em> select <em>Hispanic</em> and finally <em>All</em>. To download median household income, navigate to the <em>Incomes &amp; Spending</em> tab, then under <em>Household</em>, select <em>All Households</em> under <em>Affordability</em>. You should have 5 separate csv files representing each variable.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="deleting-footers" class="section level2">
+<h2><strong>Deleting footers</strong></h2>
+<p><br />
+The files you download from PolicyMap are in csv format. The bottom of every PolicyMap csv will contain information on the Location, geographic scale, data source, and reminders to cite PolicyMap.</p>
+<center>
+<div class="figure">
+<img src="pmfooter.png" />
+
+</div>
+</center>
+These text will screw up how R reads in the files, so we need to delete them. Although you can set up R code to do this, for now let’s just manually delete the text in Microsoft Excel. Open up the csv file in Microsoft Excel, scroll to the bottom, select the rows containing the unnecessary text, right click, and then select Delete.<br />
+
+<center>
+<div class="figure">
+<img src="pmdelete.png" />
+
+</div>
+</center>
+<p>After you’ve deleted the footers, save the file.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="bring-into-r" class="section level2">
+<h2><strong>Bring into R</strong></h2>
+<p><br />
+The next step is to bring the PolicyMap csv files into R one at a time.</p>
+<ol style="list-style-type: decimal">
+<li>First thing to do is load in the necessary R packages</li>
+</ol>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Next, set your working directory to the folder where your PolicyMap files are located.</li>
+</ol>
+<pre class="r"><code>setwd(##file path to your PolicyMap csvs##)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Next, bring in the csv files using the function <code>read_csv()</code>. Note in the code below that the file names in parentheses will differ from yours, but <em>file1</em> contains the Loan to Income ratio data, <em>file2</em> contains the Opportunity Zone data, <em>file3</em> contains percent Hispanic, <em>file4</em> contains percent black, and <em>file5</em> contains median household income.</li>
+</ol>
+<pre class="r"><code>file1 &lt;- read_csv(&quot;PolicyMap Data 2018-10-06 0004UTC.csv&quot;)
+file1</code></pre>
+<pre><code>## # A tibble: 113 x 4
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Median leverage ratio fo…
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                     
+##  1 06001409000, CA 6001409000. 06001409000      3.19                      
+##  2 06001401700, CA 6001401700. 06001401700      3.07                      
+##  3 06001408100, CA 6001408100. 06001408100      3.11                      
+##  4 06001410000, CA 6001410000. 06001410000      3.51                      
+##  5 06001400100, CA 6001400100. 06001400100      3.01                      
+##  6 06001981900, CA 6001981900. 06001981900      N/A                       
+##  7 06001404600, CA 6001404600. 06001404600      3.31                      
+##  8 06001409900, CA 6001409900. 06001409900      3.37                      
+##  9 06001404400, CA 6001404400. 06001404400      3.04                      
+## 10 06001404502, CA 6001404502. 06001404502      3.1                       
+## # ... with 103 more rows</code></pre>
+<pre class="r"><code>file2 &lt;- read_csv(&quot;PolicyMap Data 2018-10-06 0007UTC.csv&quot;)
+file2</code></pre>
+<pre><code>## # A tibble: 113 x 4
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Designated Qualified Opp…
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;                     
+##  1 06001409000, CA 6001409000. 06001409000      Designated Qualified Oppo…
+##  2 06001401700, CA 6001401700. 06001401700      Designated Qualified Oppo…
+##  3 06001408100, CA 6001408100. 06001408100      Not Designated            
+##  4 06001410000, CA 6001410000. 06001410000      Not Designated            
+##  5 06001400100, CA 6001400100. 06001400100      Not Designated            
+##  6 06001981900, CA 6001981900. 06001981900      Not Designated            
+##  7 06001404600, CA 6001404600. 06001404600      Not Designated            
+##  8 06001409900, CA 6001409900. 06001409900      Not Designated            
+##  9 06001404400, CA 6001404400. 06001404400      Not Designated            
+## 10 06001404502, CA 6001404502. 06001404502      Not Designated            
+## # ... with 103 more rows</code></pre>
+<pre class="r"><code>file3 &lt;- read_csv(&quot;PolicyMap Data 2018-10-07 2245UTC.csv&quot;)
+file3</code></pre>
+<pre><code>## # A tibble: 113 x 4
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated percent of all…
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                                 &lt;dbl&gt;
+##  1 06001409000, CA 6001409000. 06001409000                           53.2 
+##  2 06001401700, CA 6001401700. 06001401700                           31.4 
+##  3 06001408100, CA 6001408100. 06001408100                           11.2 
+##  4 06001410000, CA 6001410000. 06001410000                            6.36
+##  5 06001400100, CA 6001400100. 06001400100                            2.75
+##  6 06001981900, CA 6001981900. 06001981900                            0.  
+##  7 06001404600, CA 6001404600. 06001404600                            3.77
+##  8 06001409900, CA 6001409900. 06001409900                           14.7 
+##  9 06001404400, CA 6001404400. 06001404400                            6.62
+## 10 06001404502, CA 6001404502. 06001404502                            8.13
+## # ... with 103 more rows</code></pre>
+<pre class="r"><code>file4 &lt;- read_csv(&quot;PolicyMap Data 2018-10-07 2223UTC.csv&quot;)
+file4</code></pre>
+<pre><code>## # A tibble: 113 x 4
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated percent of all…
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                                 &lt;dbl&gt;
+##  1 06001409000, CA 6001409000. 06001409000                           34.9 
+##  2 06001401700, CA 6001401700. 06001401700                           24.0 
+##  3 06001408100, CA 6001408100. 06001408100                           22.4 
+##  4 06001410000, CA 6001410000. 06001410000                           44.3 
+##  5 06001400100, CA 6001400100. 06001400100                            3.05
+##  6 06001981900, CA 6001981900. 06001981900                            0.  
+##  7 06001404600, CA 6001404600. 06001404600                            4.65
+##  8 06001409900, CA 6001409900. 06001409900                           46.9 
+##  9 06001404400, CA 6001404400. 06001404400                            2.04
+## 10 06001404502, CA 6001404502. 06001404502                            4.90
+## # ... with 103 more rows</code></pre>
+<pre class="r"><code>file5 &lt;- read_csv(&quot;PolicyMap Data 2018-10-07 2224UTC.csv&quot;)
+file5</code></pre>
+<pre><code>## # A tibble: 113 x 4
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated typical (media…
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                                 &lt;int&gt;
+##  1 06001409000, CA 6001409000. 06001409000                           44125
+##  2 06001401700, CA 6001401700. 06001401700                           66308
+##  3 06001408100, CA 6001408100. 06001408100                          103670
+##  4 06001410000, CA 6001410000. 06001410000                          107083
+##  5 06001400100, CA 6001400100. 06001400100                          177417
+##  6 06001981900, CA 6001981900. 06001981900                          105714
+##  7 06001404600, CA 6001404600. 06001404600                          163322
+##  8 06001409900, CA 6001409900. 06001409900                           97689
+##  9 06001404400, CA 6001404400. 06001404400                          150074
+## 10 06001404502, CA 6001404502. 06001404502                          133068
+## # ... with 103 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the function <code>left_join()</code>, we then merge all the files together using the Census tract ID <em>FIPS Code</em> (the variables <em>Census Tract</em> or <em>Formatted FIPS</em> also work as IDs). We save the merged files into a tibble named <em>oakland</em>.</li>
+</ol>
+<pre class="r"><code>oakland &lt;- file1 %&gt;%
+        left_join(file2, by =&quot;FIPS Code&quot;) %&gt;%
+        left_join(file3, by =&quot;FIPS Code&quot;) %&gt;%
+        left_join(file4, by =&quot;FIPS Code&quot;) %&gt;%
+        left_join(file5, by =&quot;FIPS Code&quot;)
+oakland</code></pre>
+<pre><code>## # A tibble: 113 x 16
+##    `Census Tract.x` `FIPS Code` `Formatted FIPS.… `Median leverage ratio …
+##    &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;                   
+##  1 06001409000, CA  6001409000. 06001409000       3.19                    
+##  2 06001401700, CA  6001401700. 06001401700       3.07                    
+##  3 06001408100, CA  6001408100. 06001408100       3.11                    
+##  4 06001410000, CA  6001410000. 06001410000       3.51                    
+##  5 06001400100, CA  6001400100. 06001400100       3.01                    
+##  6 06001981900, CA  6001981900. 06001981900       N/A                     
+##  7 06001404600, CA  6001404600. 06001404600       3.31                    
+##  8 06001409900, CA  6001409900. 06001409900       3.37                    
+##  9 06001404400, CA  6001404400. 06001404400       3.04                    
+## 10 06001404502, CA  6001404502. 06001404502       3.1                     
+## # ... with 103 more rows, and 12 more variables: `Census Tract.y` &lt;chr&gt;,
+## #   `Formatted FIPS.y` &lt;chr&gt;, `Designated Qualified Opportunity Zones, as
+## #   of 2018.` &lt;chr&gt;, `Census Tract.x.x` &lt;chr&gt;, `Formatted FIPS.x.x` &lt;chr&gt;,
+## #   `Estimated percent of all people who were Hispanic between
+## #   2012-2` &lt;dbl&gt;, `Census Tract.y.y` &lt;chr&gt;, `Formatted FIPS.y.y` &lt;chr&gt;,
+## #   `Estimated percent of all people who were Black between
+## #   2012-2016` &lt;dbl&gt;, `Census Tract` &lt;chr&gt;, `Formatted FIPS` &lt;chr&gt;,
+## #   `Estimated typical (median) income of a household between
+## #   2012-20` &lt;int&gt;</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="data-wrangling-in-r" class="section level2">
+<h2><strong>Data Wrangling in R</strong></h2>
+<p><br />
+We need to clean up the file to get it ready for analysis.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="basic-cleaning-tasks" class="section level3">
+<h3><strong>Basic cleaning tasks</strong></h3>
+<p><br />
+We need to subset columns, rename variables, and deal with badly coded values.</p>
+<pre class="r"><code>oakland&lt;- oakland %&gt;% 
+  rename(levratio=&quot;Median leverage ratio for all loans in 2016.&quot;, 
+  oppzone =&quot;Designated Qualified Opportunity Zones, as of 2018.&quot;, 
+  phisp = &quot;Estimated percent of all people who were Hispanic between 2012-2&quot;,
+  pblk = &quot;Estimated percent of all people who were Black between 2012-2016&quot;,
+  medincome = &quot;Estimated typical (median) income of a household between 2012-20&quot;,
+  fips = &quot;FIPS Code&quot;) %&gt;%
+  select(levratio, oppzone, phisp, pblk, medincome, fips) %&gt;%
+  mutate(levratio = as.double(replace(levratio, levratio == &quot;N/A&quot;, &quot;NA&quot;)))</code></pre>
+<p>What did we just do?</p>
+<ul>
+<li><code>rename()</code> renames some of the variables such that labels are easier to process in R (e.g. no spaces, concise).</li>
+<li>The <code>select()</code> function keeps only the necessary variables to reduce the clutter.</li>
+<li>R read the variable <em>Median leverage ratio for all loans in 2016</em> as a characteristic and not a numeric, which is incorrect. This happened because missing values are designated as “N/A” in PolicyMap not “NA”, which is how R designates missing values. In order to get the variable into its proper numeric form, convert “N/A” to “NA”. The <code>replace()</code> function tells R to replace values in <em>levratio</em> that are equal to “N/A” to the value “NA”. The function <code>as.double()</code> then tells R to convert the character variable <em>levratio</em> to a double.</li>
+</ul>
+<p>The tibble should now look like the following</p>
+<pre class="r"><code>oakland</code></pre>
+<pre><code>## # A tibble: 113 x 6
+##    levratio oppzone                        phisp  pblk medincome      fips
+##       &lt;dbl&gt; &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##  1     3.19 Designated Qualified Opportun… 53.2  34.9      44125    6.00e9
+##  2     3.07 Designated Qualified Opportun… 31.4  24.0      66308    6.00e9
+##  3     3.11 Not Designated                 11.2  22.4     103670    6.00e9
+##  4     3.51 Not Designated                  6.36 44.3     107083    6.00e9
+##  5     3.01 Not Designated                  2.75  3.05    177417    6.00e9
+##  6    NA    Not Designated                  0.    0.      105714    6.00e9
+##  7     3.31 Not Designated                  3.77  4.65    163322    6.00e9
+##  8     3.37 Not Designated                 14.7  46.9      97689    6.00e9
+##  9     3.04 Not Designated                  6.62  2.04    150074    6.00e9
+## 10     3.10 Not Designated                  8.13  4.90    133068    6.00e9
+## # ... with 103 more rows</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="dealing-with-missing-values" class="section level3">
+<h3><strong>Dealing with missing values</strong></h3>
+<p><br />
+Missing values are a part of a data scientist’s life. You can’t avoid them. To deal with missing data systematically, go through the following steps</p>
+<ol style="list-style-type: decimal">
+<li>The first step is to determine what percentage of your cases are missing data. The best function for doing this in R is <code>aggr()</code>, which is in the <strong>VIM</strong> package. Install this package using <code>install.packages()</code> and load it into R.</li>
+</ol>
+<pre class="r"><code>install.packages(&quot;VIM&quot;)
+library(VIM)</code></pre>
+<p>Then run the <code>aggr()</code> function as follows</p>
+<pre class="r"><code>summary(aggr(oakland))</code></pre>
+<p><img src="policymap_files/figure-html/unnamed-chunk-10-1.png" /><!-- --></p>
+<pre><code>## 
+##  Missings per variable: 
+##   Variable Count
+##   levratio     2
+##    oppzone     0
+##      phisp     0
+##       pblk     0
+##  medincome     0
+##       fips     0
+## 
+##  Missings in combinations of variables: 
+##  Combinations Count   Percent
+##   0:0:0:0:0:0   111 98.230088
+##   1:0:0:0:0:0     2  1.769912</code></pre>
+<p>The results show two tables and two plots. The left-hand side plot shows the proportion of cases that are missing values for each variable in the data set. The right-hand side plot shows which combinations of variables are missing. The first table shows the number of cases that are missing values for each variable in the data set. The second table shows the percent of cases missing values based on combinations of variables. The results show that 2 or 1.8% of census tracts are missing values on the variable <em>levratio</em>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Recall from Week 2 the two basic methods for dealing with missing values: (1) Ignore the observations with missing values or (2) Impute the mean. Usually, it is better to keep observations than discard or ignore them, so let’s go with strategy (2). To impute the mean, we need to use the <code>impute_mean()</code> function in the <strong>tidyimpute</strong> package. Install this package using <code>install.packages()</code> and load it into R.</li>
+</ol>
+<pre class="r"><code>install.packages(&quot;tidyimpute&quot;)
+library(tidyimpute)</code></pre>
+<p>Then use the function <code>impute_mean()</code>. To use this function, pipe in the data set <em>oakland</em>. Then type in the variables you want to impute missing values for.</p>
+<pre class="r"><code>oakland &lt;- oakland %&gt;%
+    impute_mean(levratio)</code></pre>
+<p>We should now have no missing values</p>
+<pre class="r"><code>summary(aggr(oakland))</code></pre>
+<p><img src="policymap_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<pre><code>## 
+##  Missings per variable: 
+##   Variable Count
+##   levratio     0
+##    oppzone     0
+##      phisp     0
+##       pblk     0
+##  medincome     0
+##       fips     0
+## 
+##  Missings in combinations of variables: 
+##  Combinations Count Percent
+##   0:0:0:0:0:0   113     100</code></pre>
+<p>Note that you can impute more than one variable within <code>impute_mean()</code>.</p>
+<p>Save the data set using the function <code>write_csv()</code> in an appropriate folder on your hard drive. The data set is now ready for analysis!</p>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
