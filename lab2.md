@@ -503,7 +503,7 @@ Both lines of code do not include counties that have a percent Hispanic equal to
 filter(cacounty, phisp <= 0.5)
 ```
 
-In addition to comparison operators, subsetting may also utilize logical operators that make multiple selections.  There are three basic logical operators: `&` (and), `|` is (or), and `!` is (not).  We can keep counties with *phisp* greater than 0.5 **and** *pcol* greater than 15% using `&`
+In addition to comparison operators, subsetting may also utilize logical operators that make multiple selections.  There are three basic logical operators: `&` (and), `|` is (or), and `!` is (not).  We can keep counties with *phisp* greater than 0.5 **and** *pcol* greater than 15% using `&`.
 
 
 ```r

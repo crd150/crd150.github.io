@@ -687,7 +687,7 @@ Subsetting or filtering means selecting rows/obsevervations based on their value
 <pre class="r"><code>filter(cacounty, phisp &lt; 0.50)</code></pre>
 <p>Both lines of code do not include counties that have a percent Hispanic equal to 0.5. We include it by using the less than or equal operator <code>&lt;=</code> or greater than or equal operator <code>&gt;=</code>.</p>
 <pre class="r"><code>filter(cacounty, phisp &lt;= 0.5)</code></pre>
-<p>In addition to comparison operators, subsetting may also utilize logical operators that make multiple selections. There are three basic logical operators: <code>&amp;</code> (and), <code>|</code> is (or), and <code>!</code> is (not). We can keep counties with <em>phisp</em> greater than 0.5 <strong>and</strong> <em>pcol</em> greater than 15% using <code>&amp;</code></p>
+<p>In addition to comparison operators, subsetting may also utilize logical operators that make multiple selections. There are three basic logical operators: <code>&amp;</code> (and), <code>|</code> is (or), and <code>!</code> is (not). We can keep counties with <em>phisp</em> greater than 0.5 <strong>and</strong> <em>pcol</em> greater than 15% using <code>&amp;</code>.</p>
 <pre class="r"><code>filter(cacounty, phisp &gt; 0.5 &amp; pcol &gt; 0.15)</code></pre>
 <p>Use <code>|</code> to keep counties with a <em>GEOID</em> of “06067” (Sacramento) <strong>or</strong> “06113” (Yolo)</p>
 <pre class="r"><code>filter(cacounty, GEOID == &quot;06067&quot; | GEOID == &quot;06113&quot;)</code></pre>
