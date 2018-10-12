@@ -142,16 +142,16 @@ ca
 ## # A tibble: 290 x 5
 ##    GEOID NAME                       variable estimate   moe
 ##    <chr> <chr>                      <chr>       <dbl> <dbl>
-##  1 06001 Alameda County, California tpopr    1605217.   NA 
-##  2 06001 Alameda County, California nhwhite   523797.  541.
-##  3 06001 Alameda County, California nhblk     176819. 1344.
-##  4 06001 Alameda County, California nhasn     449676. 1640.
-##  5 06001 Alameda County, California hisp      362070.   NA 
-##  6 06003 Alpine County, California  tpopr       1184.  191.
-##  7 06003 Alpine County, California  nhwhite      804.  164.
-##  8 06003 Alpine County, California  nhblk         10.   15.
-##  9 06003 Alpine County, California  nhasn          9.   13.
-## 10 06003 Alpine County, California  hisp          92.   54.
+##  1 06001 Alameda County, California tpopr     1605217    NA
+##  2 06001 Alameda County, California nhwhite    523797   541
+##  3 06001 Alameda County, California nhblk      176819  1344
+##  4 06001 Alameda County, California nhasn      449676  1640
+##  5 06001 Alameda County, California hisp       362070    NA
+##  6 06003 Alpine County, California  tpopr        1184   191
+##  7 06003 Alpine County, California  nhwhite       804   164
+##  8 06003 Alpine County, California  nhblk          10    15
+##  9 06003 Alpine County, California  nhasn           9    13
+## 10 06003 Alpine County, California  hisp           92    54
 ## # ... with 280 more rows
 ```
 
@@ -240,16 +240,16 @@ select(ca, GEOID, NAME, variable, estimate)
 ## # A tibble: 290 x 4
 ##    GEOID NAME                       variable estimate
 ##    <chr> <chr>                      <chr>       <dbl>
-##  1 06001 Alameda County, California tpopr    1605217.
-##  2 06001 Alameda County, California nhwhite   523797.
-##  3 06001 Alameda County, California nhblk     176819.
-##  4 06001 Alameda County, California nhasn     449676.
-##  5 06001 Alameda County, California hisp      362070.
-##  6 06003 Alpine County, California  tpopr       1184.
-##  7 06003 Alpine County, California  nhwhite      804.
-##  8 06003 Alpine County, California  nhblk         10.
-##  9 06003 Alpine County, California  nhasn          9.
-## 10 06003 Alpine County, California  hisp          92.
+##  1 06001 Alameda County, California tpopr     1605217
+##  2 06001 Alameda County, California nhwhite    523797
+##  3 06001 Alameda County, California nhblk      176819
+##  4 06001 Alameda County, California nhasn      449676
+##  5 06001 Alameda County, California hisp       362070
+##  6 06003 Alpine County, California  tpopr        1184
+##  7 06003 Alpine County, California  nhwhite       804
+##  8 06003 Alpine County, California  nhblk          10
+##  9 06003 Alpine County, California  nhasn           9
+## 10 06003 Alpine County, California  hisp           92
 ## # ... with 280 more rows
 ```
 
@@ -264,16 +264,16 @@ select(ca, GEOID:estimate)
 ## # A tibble: 290 x 4
 ##    GEOID NAME                       variable estimate
 ##    <chr> <chr>                      <chr>       <dbl>
-##  1 06001 Alameda County, California tpopr    1605217.
-##  2 06001 Alameda County, California nhwhite   523797.
-##  3 06001 Alameda County, California nhblk     176819.
-##  4 06001 Alameda County, California nhasn     449676.
-##  5 06001 Alameda County, California hisp      362070.
-##  6 06003 Alpine County, California  tpopr       1184.
-##  7 06003 Alpine County, California  nhwhite      804.
-##  8 06003 Alpine County, California  nhblk         10.
-##  9 06003 Alpine County, California  nhasn          9.
-## 10 06003 Alpine County, California  hisp          92.
+##  1 06001 Alameda County, California tpopr     1605217
+##  2 06001 Alameda County, California nhwhite    523797
+##  3 06001 Alameda County, California nhblk      176819
+##  4 06001 Alameda County, California nhasn      449676
+##  5 06001 Alameda County, California hisp       362070
+##  6 06003 Alpine County, California  tpopr        1184
+##  7 06003 Alpine County, California  nhwhite       804
+##  8 06003 Alpine County, California  nhblk          10
+##  9 06003 Alpine County, California  nhasn           9
+## 10 06003 Alpine County, California  hisp           92
 ## # ... with 280 more rows
 ```
 
@@ -356,18 +356,18 @@ ca1
 
 ```
 ## # A tibble: 58 x 7
-##    GEOID County                        hisp   nhasn  nhblk nhwhite   tpopr
-##    <chr> <chr>                        <dbl>   <dbl>  <dbl>   <dbl>   <dbl>
-##  1 06001 Alameda County, California 362070. 449676. 1.77e5 523797.  1.61e6
-##  2 06003 Alpine County, California      92.      9. 1.00e1    804.  1.18e3
-##  3 06005 Amador County, California    4822.    521. 8.60e2  29436.  3.70e4
-##  4 06007 Butte County, California    34503.   9497. 3.28e3 164398.  2.24e5
-##  5 06009 Calaveras County, Califor…   5028.    448. 2.56e2  36857.  4.48e4
-##  6 06011 Colusa County, California   12351.    346. 2.12e2   7881.  2.14e4
-##  7 06013 Contra Costa County, Cali… 277676. 169695. 9.38e4 504792.  1.11e6
-##  8 06015 Del Norte County, Califor…   5326.    650. 6.32e2  17427.  2.76e4
-##  9 06017 El Dorado County, Califor…  22868.   7542. 1.58e3 144069.  1.83e5
-## 10 06019 Fresno County, California  501136.  93878. 4.55e4 296265.  9.63e5
+##    GEOID County                          hisp  nhasn  nhblk nhwhite  tpopr
+##    <chr> <chr>                          <dbl>  <dbl>  <dbl>   <dbl>  <dbl>
+##  1 06001 Alameda County, California    362070 449676 176819  523797 1.61e6
+##  2 06003 Alpine County, California         92      9     10     804 1.18e3
+##  3 06005 Amador County, California       4822    521    860   29436 3.70e4
+##  4 06007 Butte County, California       34503   9497   3279  164398 2.24e5
+##  5 06009 Calaveras County, California    5028    448    256   36857 4.48e4
+##  6 06011 Colusa County, California      12351    346    212    7881 2.14e4
+##  7 06013 Contra Costa County, Califor… 277676 169695  93809  504792 1.11e6
+##  8 06015 Del Norte County, California    5326    650    632   17427 2.76e4
+##  9 06017 El Dorado County, California   22868   7542   1576  144069 1.83e5
+## 10 06019 Fresno County, California     501136  93878  45506  296265 9.63e5
 ## # ... with 48 more rows
 ```
 
