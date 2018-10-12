@@ -138,7 +138,7 @@ ncal.tracts %>%
 How do you know the tibble is grouped? Because it tells you 
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/Lab 3/groupby.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/groupby.png)
 
 </center>
 
