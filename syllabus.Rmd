@@ -43,7 +43,7 @@ Dr. Noli Brazil
 
 Carlos Becerra  
 *Contact*: cabecerra.at.ucdavis.edu  
-*Office hours*: Friday from 11:00-12:00pm in 2020 Science Lab.
+*Office hours*: Thursday from 1:00-2:00pm in 2318 Hart Hall.
 
 <div style="margin-bottom:25px;">
 </div>
