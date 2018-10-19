@@ -70,6 +70,8 @@ Delete everything else. Save this file (File -> Save) in an appropriate folder. 
 
 <center>
 ![This is what file organization looks like](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/filestructure.png)
+</center>
+
 
 <div style="margin-bottom:25px;">
 </div>
