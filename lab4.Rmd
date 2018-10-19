@@ -283,7 +283,7 @@ Census tracts neatly fall within a metropolitan area's boundary, as it does for 
 
 
 <center>
-![Figure 1: Tracts falling in (Metro) and out (City) of boundaries](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/example1.png)
+![Figure 1: Tracts falling in (Metro) and out (City) of boundaries](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/example1.png)
 
 </center>
 
@@ -322,7 +322,7 @@ ggplot() +
 Now, the city is filled in with tracts. To be clear what a clip is doing, Figure 2 shows a clip of the city example shown in Figure 1.  With a clip, one tract is not clipped because it falls completely within the city (the top left tract). But, the other three are clipped - the portions that are within the boundary are kept (in blue), and the rest (with hash marks) are discarded from the map.
 
 <center>
-![Figure 2: Clipping tracts](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/clip.png)
+![Figure 2: Clipping tracts](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/clip.png)
 
 </center>
 
@@ -640,7 +640,7 @@ a. The correlation between percent non-Hispanic black and percent poverty is 0.8
 b. The scatterplots below show the same data - each point represents an indivdual plotted based on their values for *x* and *y*.  The right scatterplot color codes each individual based on their county of residence, with correlations calculated for each county.
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/fig1hw4.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/fig1hw4.png)
 
 
 </center>
@@ -649,7 +649,7 @@ b. The scatterplots below show the same data - each point represents an indivdua
 c. A researcher concludes that full-service banks in Los Angeles are spatially inaccessible to Hispanic neighborhoods. The researcher bases his conclusion on the location of banks within Los Angeles City boundaries.  The map below shows Los Angeles City census tracts by percent Hispanic and the location of full-service banks
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/fig3hw4.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/fig3hw4.png)
 
 
 </center>
@@ -657,7 +657,7 @@ c. A researcher concludes that full-service banks in Los Angeles are spatially i
 d. The two figures below show the same area. The values represent the mean of a variable.  
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/fig4hw4.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/fig4hw4.png)
 
 
 </center>
