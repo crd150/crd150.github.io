@@ -685,7 +685,7 @@ The first line of code provides information on the entire census tract 060670052
 4. This [article](http://www.latimes.com/nation/la-na-houston-diversity-2017-htmlstory.html) claims that Houston is the most diverse city in the United States.  Create a Houston City (Texas) **sf** object containing the following census-tract level variables: percent poverty, percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic.  From this data set, accomplish the following tasks.
 
 a. What is the average percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic in Houston neighborhoods? Would you agree with the article that Houston is a diverse city? (1 point)
-b. Show percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic on a 2 x 2 facet map using quantile breaks. (2 points)
+b. Show percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic on a 2 x 2 facet map using quantile breaks. Hint: You will need to restructure your data set. (2 points)
 c. From (b), is your general impression that white residents are clustered? What about the other three race/ethnic groups?  (1 point)
 d. Create a presentation-ready map showing neighborhoods categorized as poor (poverty rate > 0.20) and not poor.  Based on your maps, briefly describe the spatial association between neighborhood poverty and race/ethnicity in Houston. (2 points)
 
