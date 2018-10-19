@@ -1,0 +1,696 @@
+---
+title: "Lab 4: Making Maps in R"
+subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
+author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
+date: <h4 style="font-style:normal">October 19, 2018</h4>
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: cosmo
+    code_folding: show
+---
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+\
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this guide you will learn how to make maps in R.  The broader goal, however, is to acquire the skills needed to process and present spatial data in R.  The objectives of the guide are as follows 
+
+
+1. Understand how spatial data are processed in R
+2. Learn basic spatial operations on polygon shapefile data
+3. Learn how to make a map
+
+
+<p class="comment", style="font-style:normal">**Assignment 4 is due by 12:00 am, October 26th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn04. For example: brazil_n_asgn04.</p>
+
+This lab guide follows closely and supplements the material presented in Chapters 2.1, 4.2, and 8 in the textbook [Geocomputation with R](https://geocompr.robinlovelace.net/) (GWR).  This guide focuses exclusively on polygon data.  You will have the opportunity to handle and examine point data in Week 6.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Spatial data in R**
+\
+
+There are two main packages for dealing with spatial data: **sp** and **sf**.
+
+* **sp** has been around since 2005, and thus has a rich ecosystem of tools built on top of it. However, it uses a rather complex data structure, which can make it challenging to use.
+* **sf** is newer (first released in 2016!) so it doesn’t have such a rich ecosystem. However, it’s much easier to use and fits in very naturally with the tidyverse.  The trend is gradually shifting towards the use of **sf** as the primary spatial package.
+
+Processing spatial data is very similar to nonspatial data thanks to the package **sf**, which is *tidy friendly*.  The non-tidy package **sp** is still used quite a bit, and you'll be relying on this package to do more complicated spatial analyses in future labs.  
+
+**sf** stands for simple features.  What is a feature? A feature is thought of as a thing, or an object in the real world, such as a building or a tree.  A county can be a feature. As can a city and a neighborhood.  Features have a geometry describing where on Earth the features are located, and they have attributes, which describe other properties. Think back to Lab 2 - we were working with counties.  The difference between what we were doing then and what we will be doing in this lab is that counties in Lab 2 had attributes (e.g. percent Hispanic, total population), but they did not have geomteries. This is what separates nonspatial and spatial data in R.  
+
+Install and load **sf** into your current R session.  You'll also need to load in our good friends **tidyverse** and **tidycensus**.  
+
+```{r warning=FALSE, results="hide", message=FALSE, eval=FALSE}
+install.packages("sf")
+library(sf)
+library(tidyverse)
+library(tidycensus)
+```
+
+```{r warning=FALSE, results="hide", message=FALSE, include=FALSE}
+library(sf)
+library(tidyverse)
+library(tidycensus)
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Bringing in spatial data**
+\
+
+We'll be primarily working with object (or vector) data in shapefile format in this class.  There are two major packages for bringing in Census shapefiles into R: **tidycensus** and **tigris**.  These packages allow users to directly download and use [TIGER Line shapefiles](https://www.census.gov/geo/maps-data/data/tiger-line.html) from the Census Bureau.
+
+<div style="margin-bottom:25px;">
+</div>
+### **tidycensus**
+\
+
+Back in Week 2's lab, we worked with the **tidycensus** package and the Census API to bring in Census data into R.  Fortunately, we can use the same commands to bring in Census geography.  Use the `get_acs()` command to bring in California tract-level median household income.  Remember to use your Census API key.  
+
+```{r include=FALSE, warning=FALSE, results="hide"}
+library(tidycensus)
+library(tidyverse)
+census_api_key("b81d373d6e785ecbc489de1fc862aef424d0a63a")
+```
+
+```{r eval=FALSE, warning=FALSE, results="hide"}
+census_api_key("YOUR API KEY GOES HERE")
+```
+
+```{r warning=FALSE, results="hide", message=FALSE}
+ca.tracts <- get_acs(geography = "tract", 
+              year = 2016,
+              variables = c(medincome = "B19013_001"), 
+              state = "CA",
+              survey = "acs5",
+              geometry = TRUE)
+```
+
+The only difference between the code above and what we used in Week 2 is we have one additional argument added to the `get_acs()` command: `geometry = TRUE`.  This tells R to bring in the spatial features associated with the geography you specified in the command, in our case California tracts. Type in *ca.tracts* to see what we've got.
+
+```{r}
+ca.tracts
+```
+
+The object looks much like a basic tibble, but with a few differences.  
+
+* You'll find that the description of the object now indicates that it is a simple feature collection with 8,041 features (census tracts) with 5 fields (attributes or columns of data).  
+* The `geometry_type` indicates that the spatial data are in `MULTIPOLYGON` form (as opposed to points or lines, the other basic vector data forms).  
+* `bbox` stands for bounding box, which indicates the spatial extent of the features (from left to right, for example, California tracts go from a longitude of -124.4096 to -114.1312).  
+* `epsg` and `proj4string` are related to the coordinate reference system, which we'll touch on later in the quarter.  
+* The final difference is that the data frame contains the column *geometry*.  The tidy data rule for simple features is: we have a `data.frame` where each feature forms a row. A single column (a list-column) contains the geometry for each observation.  Remember that a tibble is a `data.frame`. 
+
+<div style="margin-bottom:25px;">
+</div> 
+### **tigris package**
+\
+
+Another package that allows us to bring in census geographic boundaries is **tigris**.  [Here](https://github.com/walkerke/tigris/blob/master/README.md) is a list of all the shapefiles you can download through this package.  Install the package and load it in.  You'll need to specify the option `tigris_class = "sf"` to tell R to bring in shapefiles as **sf** objects (the default is to bring them as **sp** objects)
+
+```{r warning=FALSE, results="hide", message=FALSE, include=FALSE}
+library(tigris)
+options(tigris_class = "sf")
+```
+
+```{r warning=FALSE, results="hide", message=FALSE, eval=FALSE}
+install.packages("tigris")
+library(tigris)
+options(tigris_class = "sf")
+```
+
+If you had to restart R, you'll need to reload the **tidycensus**, **tidyverse** and **sf** packages, and run the `census_api_key()` command again.  Let's use use the function `core_based_statistical_areas()` to bring in boundaries for all metro areas in the United States.
+
+```{r warning=FALSE, message=FALSE, results = FALSE}
+cb <- core_based_statistical_areas(cb = TRUE)
+```
+
+Then use `filter()` to keep the San Francisco metro area.  In order to do this, we can use the function `grepl()` within the `filter()` function. 
+
+```{r}
+sf.metro <- filter(cb, grepl("San Francisco", NAME))
+```
+
+The function `grepl()` tells the command `filter()` to find features (rows) with the value "San Francisco" somewhere in their value for the variable *NAME*. This is useful when we don't know the exact name of an area.
+
+Let's also bring in the boundaries for Sacramento city.  Use the `places()` function to get all places in California.
+
+```{r warning=FALSE, message=FALSE, results = FALSE}
+pl <- places(state = "CA", cb = TRUE)
+```
+
+Then use `filter()` to keep Sacramento.
+
+```{r warning=FALSE, message=FALSE, results = FALSE}
+sac.city <- filter(pl, NAME == "Sacramento")
+```
+
+I use `NAME ==` here instead of `grpl()` because I didn't want to include West Sacramento.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Data Wrangling**
+\
+
+There is a lot of stuff [behind the curtain](https://r-spatial.github.io/sf/articles/sf1.html) of how R handles spatial data as simple features, but the main takeaway is that **sf** objects are data frames.  This means you can use many of the functions we've learned in the past two labs to manipulate **sf** objects, and this includes the pipe `%>%` operator.  For example, let's do the following data wrangling tasks on *ca.tracts*.
+
+1. Break up the column *NAME* into separate tract, county and state variables
+2. Rename the variable *estimate* to have a more descriptive label
+3. Drop unnecessary variables
+4. Keep tracts in [San Francisco Bay Area counties](http://www.bayareacensus.ca.gov/counties/counties.htm)
+
+We do all of this in one line of continuous code using the pipe operator `%>%`
+
+```{r results='hide'}
+bay.tracts <- ca.tracts %>%
+  separate(NAME, into = c("tract", "county", "state"), sep=", ") %>%
+  select(-c(state, variable, moe)) %>%
+  rename(medinc = estimate) %>%
+  filter(county == "Alameda County" | county == "Contra Costa County" | 
+           county == "Marin County" | county == "Napa County" | 
+           county == "San Francisco County" | county == "San Mateo County" | 
+           county == "Santa Clara County" | county == "Solano County" | 
+           county == "Sonoma County")
+bay.tracts
+```
+
+Notice that we've already used the functions above for nonspatial data wrangling. I introduce, however, one new function, `separate()`.  The column *NAME* has the following form
+
+````
+`r ''`Census Tract 4001, Alameda County, California
+````
+
+The `separate()` function tells R to separate *NAME* into three variables with the names *tract*, *county*, and *state*, whereby the three values in *NAME* are separated by a comma `,`.
+
+The main point: **sf** objects are data frames, so you can use many of the functions you've learned in the past couple of labs on these objects.  This includes the function `ggplot()`, which we can use to map the data. We'll go into more detail on how to use `ggplot()` for mapping later in this guide, so for now just type in
+
+```{r}
+ggplot(bay.tracts) + geom_sf()
+```
+
+You've made your first map in R. Hooray! 
+
+If you are getting an error about R not being able to find the function `geom_sf()` see [here](https://stackoverflow.com/questions/46817128/error-could-not-find-function-geom-sf?rq=1) for some guidance.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Spatial Data Wrangling**
+\
+
+The **sf** package offers a suite of functions unique to wrangling spatial data.  Most of these functions start out with the prefix `st_`.  To see all of the functions, type in
+
+```{r, results="hide"}
+methods(class = "sf")
+```
+
+We won't go through all of these functions as the list is quite extensive.  You can take a look at Chapter 4 of GWR to see some examples of these functions.  But, let's go through some of the more important ones.  
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Subset: Intersect and Within**
+\
+
+A common spatial data wrangling issue is to subset a set of spatial objects based on their location relative to another spatial object.  In our case, we want to keep Bay Area tracts that are in the San Francisco metro area.  We can do this using the `st_intersects()` function
+
+```{r warning=FALSE, message=FALSE, results = "hide"}
+subset.int<-st_intersects(x = bay.tracts, y = sf.metro)
+subset.int
+```
+
+OK, things get a little complicated here, so pay attention.  The result gives a 1 if the tract in *bay.tracts* intersects the boundaries of *sf.metro*, otherwise you get an "(empty)". The result is not an **sf** object.  It's a [list](http://r4ds.had.co.nz/lists.html), which we need to convert to a vector. We then use that vector to subset *bay.tracts* using `filter()`
+
+```{r}
+# convert to a vector
+subset.int.log = lengths(subset.int) > 0
+# subset bay.tracts to those in sf.metro
+sf.metro.tracts.int <- filter(bay.tracts, subset.int.log)
+```
+
+Plotting our tracts, we get
+
+```{r}
+ggplot() + 
+  geom_sf(data = sf.metro.tracts.int, fill = "blue") +
+  geom_sf(data = sf.metro, fill = NA, color = "red")
+```
+
+Don't get stuck on what the code is doing because we'll go through mapping with `ggplot()` later.  Focus on the map, which shows the tracts we kept using `st_intersects()` (blue polygons) and the San Francisco metropolitan area (red border). 
+
+Do you see an issue with the tracts?  The function `st_intersects()` returns all tracts that touch *sf.metro*, which include those that touch the metro's boundary. So, we have tracts that are not actually inside the metro area boundaries (but touch them). Not good. We can instead use the function `st_within()` to return tracts that are completely *within* the metro. 
+
+```{r warning=FALSE, message=FALSE}
+subset.w<-st_within(x = bay.tracts, y = sf.metro)
+# convert to a vector
+subset.w.log = lengths(subset.w) > 0
+# subset bay.tracts to those in sf.metro
+sf.metro.tracts.w = filter(bay.tracts, subset.w.log)
+ggplot() + 
+    geom_sf(data = sf.metro.tracts.w, fill = "blue") +
+    geom_sf(data = sf.metro, fill = NA, color = "red")
+```
+
+Now it works! Yay.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Subset: Clipping**
+\
+
+Census tracts neatly fall within a metropolitan area's boundary, as it does for counties.  In other words, tracts don't spill over.  But, it does spill over for cities.  The left diagram in Figure 1 is an example of a metro area in red and tracts in black - all the tracts fall neatly into the metro boundary.  In contrast, the right diagram is an example of a city - one tract falls neatly inside (top left), but the other three spill out.
+
+
+<center>
+![Figure 1: Tracts falling in (Metro) and out (City) of boundaries](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/example1.png)
+
+</center>
+
+If we perform `st_within()` but for Sacramento city, we'll produce the following plot
+
+```{r warning=FALSE, message=FALSE}
+subset2.w<-st_within(x = ca.tracts, y = sac.city)
+subset2.w.log = lengths(subset2.w) > 0
+sac.city.tracts.w = filter(ca.tracts, subset2.w.log)
+ggplot() + 
+  geom_sf(data = sac.city.tracts.w, fill = "blue") +
+  geom_sf(data = sac.city, fill = NA, color = "red") 
+```
+
+The blue polygons are the tracts we kept using `st_within()`.  You'll notice that it is empty around some of the edges of the city's boundary.  In these cases, only portions of census tracts boundaries are within the boundary. `st_within()` keeps tracts only if they are *completely within* the boundary.  This is not good when tracts do not neatly fall within a boundary.
+
+One way of dealing with this is to clip the portion of the tract that is inside the boundary.  Clipping will keep just the portion of the tract inside the city boundary and discards the rest of the tract.  Although **sf** has a function that sort of clips `st_intersection()`, it is actually a bit flawed because it often produces slivers, which are tiny sliver polygons or gaps between polygons produced after a clip.  Instead, we use the function, `ms_clip()` which is in the [**rmapshaper** package](https://cran.r-project.org/web/packages/rmapshaper/rmapshaper.pdf) and it effectively deals with the sliver problem. You'll need to install this package and load it in.
+
+```{r warning=FALSE, message=FALSE, include = FALSE}
+library(rmapshaper)
+```
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+install.packages("rmapshaper")
+library(rmapshaper)
+```
+
+```{r warning=FALSE, message=FALSE}
+sac.city.tracts.c <- ms_clip(target = ca.tracts, clip = sac.city, remove_slivers = TRUE)
+ggplot() + 
+  geom_sf(data = sac.city.tracts.c, fill = "blue") +
+  geom_sf(data = sac.city, fill = NA, color = "red")
+```
+
+
+Now, the city is filled in with tracts. To be clear what a clip is doing, Figure 2 shows a clip of the city example shown in Figure 1.  With a clip, one tract is not clipped because it falls completely within the city (the top left tract). But, the other three are clipped - the portions that are within the boundary are kept (in blue), and the rest (with hash marks) are discarded from the map.
+
+<center>
+![Figure 2: Clipping tracts](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/clip.png)
+
+</center>
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Merging attribute data**
+\
+
+Another important operation is to join attribute data to an **sf** object.  For example, let's say you wanted to add tract level percent race/ethnicity, which is located in a csv file I've uploaded on GitHub
+
+```{r warning=FALSE, message=FALSE}
+ca.race <- read_csv("https://raw.githubusercontent.com/crd150/data/master/ca_race_tracts_2016.csv")
+```
+
+Remember, were dealing with data frames here, so we can use `left_join()`, which we covered in Lab 2, to join the files *ca.race* and *sf.metro.tracts.w*
+
+```{r}
+sf.metro.tracts.w <- sf.metro.tracts.w %>%
+  left_join(ca.race, by = "GEOID") %>%
+  select(-(NAME))
+sf.metro.tracts.w
+```  
+
+What if we want to merge attribute data from one shapefile into another shapefile? In this case, you can't use `left_join()`.  Instead, you use the **sf** specific function `st_join()`.  To demonstrate this function, let's bring in census tract median housing value for all California tracts using the Census API.
+
+```{r, warning=FALSE, message=FALSE}
+ca.mhval <- get_acs(geography = "tract", 
+              year = 2016,
+              variables = c(medhval = "B25077_001"), 
+              state = "CA",
+              survey = "acs5",
+              geometry = TRUE) %>%
+            select(estimate, GEOID) %>%
+            rename(medhval = estimate)
+```              
+
+If we use `left_join()` to merge *medhval* from *ca.mhval* into *sf.metro.tracts.w*, we get an error
+
+```{r error=TRUE}
+sf.metro.tracts.w <- sf.metro.tracts.w %>%
+  left_join(ca.mhval, by = "GEOID")
+```
+
+The error tells us to use `st_join()`.  OK, let's use it then
+
+```{r}
+sf.metro.tracts.w <- sf.metro.tracts.w %>%
+  st_join(ca.mhval, join = st_equals) %>%
+  select(-(GEOID.y))
+sf.metro.tracts.w
+```
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Saving shapefiles**
+\
+
+To save an **sf** object to a file, we use the function `st_write()` and specify at least two arguments, the object and a file name in quotes with the file extension. You'll also need to specify `delete_layer = TRUE` which overwrites the existing file if it already exists.  Make sure you've set your directory to the folder you want your file to be saved in.  Type in `getwd()` to see your current directory and use `setwd()` to set the directory.
+
+```{r message=FALSE}
+st_write(sf.metro.tracts.w, "sfmetrotracts.shp", delete_layer = TRUE)
+```
+
+You can save your **sf** object in a number of different data formats other than `shp`.  We won't be concerned too much with these other formats, but you can see a list of them [here](https://www.gdal.org/ogr_formats.html).
+
+<div style="margin-bottom:25px;">
+</div>
+## **Mapping in R**
+\
+
+There are several functions in R that can be used for mapping.  We won't go through all of them, but GWR outlines the range of mapping packages available in Table 8.1.  We'll go through two of them: **ggplot2** and **tmap**.
+
+<div style="margin-bottom:25px;">
+</div>
+### **ggplot**
+\
+
+We used `ggplot()` above to put our tracts on a map.  The way `ggplot()` works for mapping is similar to when we used it for making graphs.  `ggplot()` is the foundation and we add elements to it using other functions.  Recall from Lab 3 the basic `ggplot()` template
+
+`````r ''`
+ggplot(data = <DATA>) +
+      <GEOM_FUNCTION>(mapping = aes())
+````
+
+In mapping,  `geom_sf()` is `<GEOM_FUNCTION>()`.  Unlike with functions like `geom_histogram()` and `geom_boxplot()`, we don't specify an x and y axis.  Instead you use `fill` if you want to map a variable or `color` to just map boundaries.
+
+Let's use `ggplot()` to make a choropleth map.  We need to specify a numeric variable in the `fill =` argument within `geom_sf()`. 
+
+```{r}
+ggplot(sf.metro.tracts.w) +
+  geom_sf(aes(fill = medinc))
+``` 
+
+Why is *sf.metro.tracts.w* specified within `ggplot()` whereas earlier it was used within `geom_sf()`? Because were plotting just *sf.metro.tracts.w* on the map.  In the examples above, we were plotting both *sf.metro.tracts.w* and *sf.metro*.  In other words, we were plotting two spatial datasets.  In this case, we had to leave `ggplot()` empty and specify the **sf** objects within `geom_sf()`.
+
+We can also specify a title (as well as subtitles and captions) using the `labs()` function.  
+
+```{r}
+ggplot(sf.metro.tracts.w) +
+  geom_sf(aes(fill = medinc)) +
+  labs(title = "Median income in San Francisco Metropolitan Area Tracts")  
+``` 
+
+
+We can make further layout adjustments to the map. Don't like a blue scale? You can change it using the `scale_fille_gradient()` function. We can also eliminate the gray tract border colors to make the fill color distinction clearer (those small tracts in San Francisco and Oakland are hard to see).  We do this by specifying `color = NA` inside `geom_sf()`. We can also get rid of the gray background by specifying a basic black and white theme using `theme_bw()`.
+
+```{r}
+ggplot(sf.metro.tracts.w) +   
+  geom_sf(aes(fill = medinc), color = NA) +
+  scale_fill_gradient(low= "white", high = "red", na.value ="gray") +  
+  labs(title = "Median income in San Francisco Metropolitan Area Tracts",
+       caption = "Tracts missing values are colored gray \n Source: American Community Survey") +  
+  theme_bw()
+```
+
+Note that I colored tracts with missing values as gray. I added a caption to let the viewer know. 
+
+I'm not a big fan of the border, the gridlines, and the geographic coordinate labels.  The function `theme()` controls these features.  I eliminate these features from the map, along with deleting the legend title (it's redundant because we already specify that were mapping median income in the title) by specifying `name = ""` in `scale_file_gradient()`.
+
+```{r}
+ggplot(sf.metro.tracts.w) +
+  geom_sf(aes(fill = medinc), color = NA) +
+  scale_fill_gradient(low= "white", high = "red", na.value ="gray", name ="") + 
+  labs(title = "Median income in San Francisco Metropolitan Area Tracts",
+       caption = "Tracts missing values are colored gray \n Source: American Community Survey") +  
+  theme( axis.text =  element_blank(),
+    axis.ticks =  element_blank(),
+    panel.background = element_blank())
+```      
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **tmap**
+\
+
+Whether one uses the **tmap** or **ggplot2** is a matter of taste, but let's spend more time on **tmap** given that our textbook resource GWR spends more attention to this function. Install and load the package **tmap**
+
+```{r warning=FALSE, results="hide", message=FALSE, eval = FALSE}
+install.packages("tmap")
+library(tmap)
+```
+
+```{r warning=FALSE, results="hide", message=FALSE, include = FALSE}
+library(tmap)
+```
+
+Similar to **ggplot2**, **tmap** is a series of functions that build on one another. The foundation is `tm_shape()` which acts like `ggplot()`.  You then build on `tm_shape()` by adding one or more elements, in particular `tm_polygons()`. All additional functions take on the form of `tm_`.  Check the full list of `tm_` elements [here](https://www.rdocumentation.org/packages/tmap/versions/2.0/topics/tmap-element).
+
+Let's make a choropleth map of median household income. 
+
+```{r}
+tm_shape(sf.metro.tracts.w) +
+  tm_polygons(col = "medinc", style = "quantile")
+```
+
+The argument `col = "medinc"` tells R to shade the tracts by the variable *medinc*.  The argument `style = "quantile"` tells R to break up the shading into quantiles, or equal groups of 5.  I find that this is where **tmap** offers a distinct advantage over **ggplot2** in that users have greater control over the legend and bin breaks.  **tmap** allows users to specify algorithms to automatically create breaks with the `style` argument.  Seven of the most useful break styles are described in the bullet points below (taken from GWR):
+
+* `style = pretty`, the default setting, rounds breaks into whole numbers where possible and spaces them evenly
+* `style = equal` divides input values into bins of equal range, and is appropriate for variables with a uniform distribution (not recommended for variables with a skewed distribution as the resulting map may end-up having little color diversity)
+* `style = quantile` ensures the same number of observations fall into each category (with the potential down side that bin ranges can vary widely)
+* `style = jenks` identifies groups of similar values in the data and maximizes the differences between categories
+* `style = cont` (and `order`) present a large number of colors over continuous color field, and are particularly suited for continuous rasters (order can help visualize skewed distributions)
+* `style = sd` divides the values by standard deviations above and below the mean.
+* `style = cat` was designed to represent categorical values and assures that each category receives a unique color
+
+Don't like the color? Palettes define the color ranges associated with the bins and determined by the `style` arguments.  We can change the color scheme by using the argument `palette`.
+
+```{r}
+tm_shape(sf.metro.tracts.w) +
+  tm_polygons(col = "medinc", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "Median income") 
+```
+
+Here, I used the color scheme "Reds". See Ch. 8.2.4 in GWR for a fuller discussion on color and other schemes you can specify.
+
+Also notice two additional arguments in the above code. `border.alpha` specifies the transparency of the polygon borders, which I set to 0 to indicate totally transparent.  The argument `title` specifies the title of the legend.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Scale bar and arrow**
+\
+
+We need to add other key elements to the map.  First, the scale bar, which you can add using the function `tm_scale_bar()`
+
+```{r}
+tm_shape(sf.metro.tracts.w, unit = "mi") +
+  tm_polygons(col = "medinc", style = "quantile",palette = "Reds", 
+              border.alpha = 0) +
+  tm_scale_bar(breaks = c(0, 10, 20), size = 1) 
+```
+
+The argument `breaks` tells R the distances to break up and end the bar.  Note that the scale is in miles (were in America!).  The default is in kilometers (the rest of the world!), but you can specify the units within `tm_shape()` using the argument `unit`.
+  
+Next element is the north arrow, which we can add using the function `tm_compass()`.  You can control for the type, size and location of the arrow within this function.  I place a 4-star arrow on the top right of the map.
+
+```{r}
+tm_shape(sf.metro.tracts.w, unit = "mi") +
+  tm_polygons(col = "medinc", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "Median income") +
+  tm_scale_bar(breaks = c(0, 10, 20), size = 1) +
+  tm_compass(type = "4star", position = c("right", "top")) 
+```
+
+<div style="margin-bottom:25px;">
+</div>
+### **Map layout**
+\
+
+We can make the map *prettier* by changing a variety of layout settings using the function `tm_layout()`.  This function is similar to `theme()` in `ggplot()`.  Check the help documentation for `tm_layout()` to see the complete list of settings.  Also see examples in Ch. 8.2.5 in GWR.  Let's change a few things to our map.
+
+```{r, message=FALSE, warning = FALSE, results = "hide"}
+sf.map <- tm_shape(sf.metro.tracts.w, unit = "mi") +
+  tm_polygons(col = "medinc", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "") +
+  tm_scale_bar(breaks = c(0, 10, 20), size = 1) +
+  tm_compass(type = "4star", position = c("right", "top")) + 
+  tm_layout(main.title = "Median income in San Francisco Metropolitan Area 
+            Tracts",  main.title.size = 0.95, frame = FALSE)
+sf.map
+```
+
+I did a few things
+
+* I added a title using the argument `main.title`
+* I made sure the title fits inside the map using `main.title.size`
+* I eliminated the frame around the map using the argument `frame = FALSE`
+* I eliminated the legend title by specifying `title = ""` inside `tm_polygons()`
+
+Also notice that I saved the map into an object called *sf.map*.  R is an object-oriented language, so *everything* you *make* in R are objects that can be saved for future manipulation.  This includes maps.  And future manipulations of a saved map includes adding more `tm_*` functions to the saved object, such as `sf.map + tm_layout(your changes here)`.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Faceted maps**
+\
+
+Remember last week we created faceted plots using `ggplot()`? We can do the same for maps. Faceted maps, also referred to as ‘small multiples’, are composed of many maps arranged side-by-side, and sometimes stacked vertically. Facets enable the visualization of how spatial relationships change with respect to another variable, such as time or geography. Typically all individual facets in a faceted map contain the same geometry data repeated multiple times, once for each column in the attribute data.
+
+To create a faceted map, use the function `tm_facets()`.  For example, I created choropleth maps of tract median income for the San Francisco metropolitan area by county using the following code.
+
+```{r warning=FALSE}
+tm_shape(sf.metro.tracts.w, unit = "mi") +
+  tm_polygons(col = "medinc", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "Median income") +
+    tm_facets(by = "county", free.coords = FALSE)+
+    tm_style_grey()
+```
+
+I didnt include all the map accoutrements such as the scale and arrow so you can clearly see how faceting works.  The `by` argument specifies the variable (in quotes) that you want to facet.  The `free.coords` argument specifies if each map has its own bounding box (which it doesn't since were using the same layer for all).
+
+<div style="margin-bottom:25px;">
+</div>    
+### **Saving maps**
+\
+
+You can save your maps a couple of ways.
+
+1. On the plotting screen where the map is shown, click on *Export* and save it as either an image or pdf file.
+2. Use the function `tmap_save()`
+
+For option 2, we can save the map object *sf.map* as such
+
+```{r warning=FALSE, message=FALSE}
+tmap_save(sf.map, "sfmetroinc.jpg")
+```
+
+Specify the **tmap** object and a filename with an extension. It supports `pdf`, `eps`, `svg`, `wmf`, `png`, `jpg`, `bmp` and `tiff`.  The default is `png`.  Also make sure you've set your directory to the folder that you want your map to be saved in.  
+
+<div style="margin-bottom:25px;">
+</div>
+### **Interactive maps**
+\
+
+So far we've created static maps. That is, maps that don't "move".  But, we're all likely used to Google or Bing maps - maps that we can move around and zoom into.  You can make interactive maps in R using the package **tmap**.  Here is another benefit of using **tmap** over **ggplot2** - the latter does not provide interactivity.
+
+To make your tmap object interactive, use the function `tmap_mode()`
+
+```{r, warning = FALSE, message = FALSE}
+tmap_mode("view")
+sf.map
+```
+
+Now that the interactive mode has been ‘turned on’, all maps produced with `tm_shape()` will launch.
+
+Besides interactivity, another important benefit of `tmap_mode()` is that it provides a basemap.  The function of a basemap is to provide background detail necessary to orient the location of the map.  In the static maps we produced above, the San Francisco metropolitan area was sort of floating in white space.  As you can see in the interactive map above we've added geographic context to the surrounding area. 
+
+The default basemap in `tmap_mode()` is CartoDB.Positron.  You can change the basemap through the `tm_view()` function.  For example, let's change the basemap to an [OpenStreetMap](https://www.openstreetmap.org/).
+
+```{r warning=FALSE, message=FALSE}
+sf.map + tm_view(basemaps="OpenStreetMap")
+```
+
+For a complete list of basemaps with previews, see [here](http://leaflet-extras.github.io/leaflet-providers/preview/).  There are a lot of cool ones, so please test them out.
+
+You can save your interactive map using the same methods described above. To switch back to plotting mode (noninteractive), type in 
+
+```{r}
+tmap_mode("plot")
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Assignment 4**
+\
+
+Download and open the [Assignment 4 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn4.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+
+Note that this assignment relies on *ca.tracts*, *sac.city.tracts.c*, and *sf.metro.tracts.w*, which we created in the lab guide.  Copy and paste the code that creates these objects in the beginning of your R Markdown because you will need it to successfully knit your document.
+
+1. Describe which "pitfalls" - Spatial Autocorrelation, the Modifiable Areal Unit Problem, the Ecological Fallacy, Scale, Nonuniformity of Space, and Edge Effects - each of the following scenarios fall under. Briefly explain your answer. (1 point each)
+
+a. The correlation between percent non-Hispanic black and percent poverty is 0.8 at the Census block level, 0.4 at the block group level, 0.2 at the tract level, and -0.2 at the county level.
+b. The scatterplots below show the same data - each point represents an indivdual plotted based on their values for *x* and *y*.  The right scatterplot color codes each individual based on their county of residence, with correlations calculated for each county.
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/fig1hw4.png)
+
+
+</center>
+
+
+c. A researcher concludes that full-service banks in Los Angeles are spatially inaccessible to Hispanic neighborhoods. The researcher bases his conclusion on the location of banks within Los Angeles City boundaries.  The map below shows Los Angeles City census tracts by percent Hispanic and the location of full-service banks
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/fig3hw4.png)
+
+
+</center>
+
+d. The two figures below show the same area. The values represent the mean of a variable.  
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/lab4/fig4hw4.png)
+
+
+</center>
+
+2. The left-hand side picture in the figure below shows census tract GEOID 06067005204 in Sacramento before a clip to the Sacramento city boundary.  The right-hand side picture shows that tract 06067005204 was cut a little over one-half as a result of the clip (the red portion of the tract is kept as a part of Sacramento city). 
+
+<center>
+![](https://raw.githubusercontent.com/crd150/data/master/cliphw.png)
+
+
+</center>
+
+Run the following code.  
+
+```{r eval=FALSE}
+filter(ca.tracts, GEOID == "06067005204")
+filter(sac.city.tracts.c, GEOID == "06067005204")
+```
+
+The first line of code provides information on the entire census tract 06067005204 taken from the        complete *ca.tracts* file whereas the second shows it for the clipped version of 06067005204 from the       *sac.city.tracts.c* file.  What is the median income in both tracts?  Based on this answer, what are you assumming when you clip a tract? (2 points)
+
+3. One can easily lie (or distort the story) with maps.  One of the commonly used tricks for misrepresenting the spatial distribution of phenomena relates to the inapporpriate classificayions of numeric variables.  In the lab guide, we showed quantile breaks of median income in San Francisco.  Using the object *sf.metro.tracts.w*, produce maps using three other classifications.  Does your general impression of where high and low income neighborhoods are located in the city change across the different classifications? (3 points)
+
+  
+4. This [article](http://www.latimes.com/nation/la-na-houston-diversity-2017-htmlstory.html) claims that Houston is the most diverse city in the United States.  Create a Houston City (Texas) **sf** object containing the following census-tract level variables: percent poverty, percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic.  From this data set, accomplish the following tasks.
+
+a. What is the average percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic in Houston neighborhoods? Would you agree with the article that Houston is a diverse city? (1 point)
+b. Show percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic on a 2 x 2 facet map using quantile breaks. (2 points)
+c. From (b), is your general impression that white residents are clustered? What about the other three race/ethnic groups?  (1 point)
+d. Create a presentation-ready map showing neighborhoods categorized as poor (poverty rate > 0.20) and not poor.  Based on your maps, briefly describe the spatial association between neighborhood poverty and race/ethnicity in Houston. (2 points)
+
+
+***
+
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
