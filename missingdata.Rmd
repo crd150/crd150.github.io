@@ -1,0 +1,245 @@
+---
+title: "Missing Data"
+subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
+author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: cosmo
+    code_folding: show
+---
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+\
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This guide briefly outlines what to do when you encounter missing data in your data set.  This is not meant to be a comprehensive treatment of how to deal with missing data.  One can teach a whole class or write a [whole book](https://us.sagepub.com/en-us/nam/missing-data/book9419) on this subject.  Instead, the guide provides a brief overview, complementing the discussion from lecture and readings in Week 2.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Bringing data into R**
+\
+
+First, let's load in the required packages for this guide.  Depending on when you read this guide, you may need to install some of these packages before calling `library()`.
+
+```{r warning = FALSE, message = FALSE}
+library(sf)
+library(sp)
+library(spdep)
+library(tidyverse)
+library(tmap)
+```
+
+We'll be using the shapefile *saccity.shp*. The file contains Sacramento City census tracts with the percent of the tract population living in subsidized housing, which was taken from the U.S. Department of Housing and Urban Development [data portal](https://www.huduser.gov/portal/datasets/pdrdatas.html). 
+
+We'll need to read in the shapefile. First, set your working directory to a folder you want to save your data in. 
+
+```{r eval = FALSE}
+setwd("path to the folder containing saccity.shp")
+```
+
+I saved the file in Github as a zip file.  Download that zip file using the function `download.file()`, unzip it using the function `unzip()`, and read the file into R using `st_read()`
+
+```{r warning = FALSE, message = FALSE}
+download.file(url = "https://raw.githubusercontent.com/crd150/data/master/saccity.zip", destfile = "saccity.zip")
+unzip(zipfile = "saccity.zip")
+sac.city.tracts.sf <- st_read("saccity.shp")
+```
+
+In case you are having problems with the above code, try installing the package **utils**.  If you are still having problems, download the zip file from Canvas (Week 5 folder).  Save that file into the folder you set your working directory to. Then use `st_read()`.
+
+Let's look at the tibble. 
+
+```{r}
+sac.city.tracts.sf
+```
+
+And make sure it looks like Sacramento city
+
+```{r}
+tm_shape(sac.city.tracts.sf) +
+  tm_polygons()
+```
+
+Cool? Cool.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Summarizing data with missing values**
+\
+
+The variable *psubhous* gives us the percent of the tract population living in subsidized housing.  What is the mean of this variable?
+
+```{r}
+sac.city.tracts.sf %>% summarize(mean = mean(psubhous))
+```
+
+Oh oh.  We get "NA" which tells us that there are some neighborhoods with missing data.  If a variable has an NA, most R functions summarizing that variable automatically yield an NA.
+
+What if we try to do some kind of spatial data analysis on the data? Surely, R won't give us a problem, right?  Let's calculate the Moran's I (see [Lab 5]()) for *psubhous*.
+
+```{r, warning = FALSE, error=TRUE}
+#Turn sac.city.tracts.sf into an sp object.
+sac.city.tracts.sp <- as(sac.city.tracts.sf, "Spatial")
+
+sacb<-poly2nb(sac.city.tracts.sp, queen=T)
+sacw<-nb2listw(sacb, style="W")
+moran.test(sac.city.tracts.sp$psubhous, sacw)    
+```
+
+Similar to nonspatial data functions, R will force you to deal with your missing data values. In this case, R gives us an error.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Summarizing the extent of missingness**
+\
+
+Before you do any analysis on your data, it's a good idea to check the extent of missingness in your data set. The best way to do this is to use the function `aggr()`, which is a part of the **VIM** package. Install this package and load it into R.
+
+```{r message = FALSE, warning = FALSE, eval = FALSE}
+install.packages("VIM")
+library(VIM)
+```
+
+```{r message = FALSE, warning = FALSE, include = FALSE}
+library(VIM)
+```
+
+Then run the `aggr()` function as follows
+
+```{r}
+summary(aggr(sac.city.tracts.sf))
+```
+
+The results show two tables and two plots. The left-hand side plot shows the proportion of cases that are missing values for each variable in the data set. The right-hand side plot shows which combinations of variables are missing. The first table shows the number of cases that are missing values for each variable in the data set. The second table shows the percent of cases missing values based on combinations of variables. The results show that 23 or 19% of census tracts are missing values on the variable *psubhous*.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Exclude missing data**
+\
+
+Recall from Week 2 the two basic methods for dealing with missing values: (1) Ignore the observations with missing values or (2) Impute the mean.
+
+You can implement method (1) two ways.  In the first way, you physically remove the offending missing value tracts from the data set.  You do this using the `filter()` command
+
+```{r}
+sac.city.tracts.sf.rm <- filter(sac.city.tracts.sf, is.na(psubhous) != TRUE)
+```
+
+You now get your mean 
+
+```{r}
+sac.city.tracts.sf.rm %>% summarize(mean = mean(psubhous))
+```
+
+And your Moran's I
+
+```{r, warning = FALSE}
+#Turn sac.city.tracts.sf into an sp object.
+sac.city.tracts.sp.rm <- as(sac.city.tracts.sf.rm, "Spatial")
+
+sacb.rm<-poly2nb(sac.city.tracts.sp.rm, queen=T)
+sacw.rm<-nb2listw(sacb.rm, style="W")
+moran.test(sac.city.tracts.sp.rm$psubhous, sacw.rm)    
+```
+
+It's often a better idea to keep your data intact rather than remove cases.  For many of R's functions, there is an `na.rm = TRUE` option, which tells R to remove all cases with missing values on the variable when performing the function. For example, inserting the `na.rm = TRUE` option in the `mean()` function yields
+
+```{r}
+sac.city.tracts.sf %>% summarize(mean = mean(psubhous, na.rm=TRUE))
+```
+
+In the function `moran.test()`, we use the option `na.action=na.omit`
+
+```{r}
+moran.test(sac.city.tracts.sp$psubhous, sacw, na.action=na.omit)    
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Impute the mean**
+\
+
+Usually, it is better to keep observations than discard or ignore them, so strategy (2), imputing the mean, is often the better approach. In the case of *psubhous*, were missing almost 20% of the data, which is a lot of cases to exclude.  Moreover, not **all** functions have the built in `na.rm` or `na.action` options. Plus, look at this map 
+
+```{r}
+tm_shape(sac.city.tracts.sf.rm) + tm_polygons(col="blue")
+```
+
+We've got permanent holes in Sacramento because we physically removed census tracts with missing values.  
+
+To impute the mean, we need to use the tidy friendly `impute_mean()` function in the **tidyimpute** package. Install this package and load it into R.
+
+```{r, eval = FALSE}
+install.packages("tidyimpute")
+library(tidyimpute)
+```
+
+```{r include=FALSE}
+library(tidyimpute)
+```
+
+Then use the function `impute_mean()`. To use this function, pipe in the data set and then type in the variables you want to impute.
+
+```{r message = FALSE, warning = FALSE}
+sac.city.tracts.sf.mn <- sac.city.tracts.sf %>%
+    impute_mean(psubhous)
+```
+
+Note that you can impute more than one variable within `impute_mean()`. We should now have no missing values
+
+```{r message = FALSE, warning = FALSE}
+summary(aggr(sac.city.tracts.sf.mn))
+```
+
+Therefore allowing us to calculate the mean of *psubhous*
+
+```{r}
+sac.city.tracts.sf.mn %>% summarize(mean = mean(psubhous))
+```
+
+And your Moran's I
+
+```{r, warning = FALSE}
+#Turn sac.city.tracts.sf into an sp object.
+sac.city.tracts.sp.mn <- as(sac.city.tracts.sf.mn, "Spatial")
+
+sacb.mn<-poly2nb(sac.city.tracts.sp.mn, queen=T)
+sacw.mn<-nb2listw(sacb.mn, style="W")
+moran.test(sac.city.tracts.sp.mn$psubhous, sacw.mn)    
+```
+
+And our map has no holes!!
+
+```{r message = FALSE}
+tmap_mode("view")
+tm_shape(sac.city.tracts.sf.mn) +
+  tm_polygons(col = "psubhous", style = "quantile")
+```
+
+
+
+***
+
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)

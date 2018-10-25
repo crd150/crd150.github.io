@@ -29,6 +29,8 @@ navbar:
           href:  nhgis.html       
         - text: "Download data from PolicyMap"
           href:  policymap.html  
+        - text: "Dealing with Missing Data"
+          href:  missingdata.html  
         - text: "Neighborhood Data Sources"
           href:  ndata.html   
         - text: "Big/Open Data Sources"
