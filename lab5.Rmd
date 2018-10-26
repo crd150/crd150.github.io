@@ -401,15 +401,14 @@ d. sacb.lag[1]
 
 a. Visually examine the presence of spatial autocorrelation for percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic. Briefly explain whether you think spatial autocorrelation exists for each of these variables. (3 points)
 b. Calculate Moran's I for each percent race/ethnicity variable. Which race/ethnicity exhibits spatial autocorrelation? (3 points)
-c. Do your conclusions in (b) change if you use a Rook definition of neighbor (with row standardized weights)? (2 points)
-d. Run the function `moran.mc()` for percent Hispanic. In words, explain and interpret what each of the following results are showing: data, weights, number of simulations, statistic, observed rank and p-value. (3 points)
+c. In words, explain and interpret what each of the following results are showing after running the function `moran.mc()` on the variable percent Hispanic: data, weights, number of simulations, statistic, observed rank and p-value. (3 points)
 
 3. An important use of hot spot analysis is to identify [ethnic enclaves](https://en.wikipedia.org/wiki/Ethnic_enclave). Use the Local Getis-Ord $G_i^*$ statistic to map black, Hispanic, and Asian hot spots (or enclaves) and cold spots in the Sacramento Metropolitan Area using Queen contiguity and row standardized weights. (3 points)
 
 4. Designate ethnic enclaves as tracts with Z-scores greater than 1.96 (or 5% significance level).  Describe these ethnic enclaves:
 
 a. You already have percent poverty preloaded into the file. What is the mean poverty rate of black, Hispanic, and Asian enclaves? (1 point)
-b. Bring in two other characteristics into your dataset using the Census or [PolicyMap](https://crd150.github.io/policymap.html). Calculate their means for black, Hispanic, and Asian enclaves.  Present these characteristics along with mean poverty by ethnic enclave in a presentation-ready table (using the principles outlined in Week 2). Describe what the table is showing.  Submit this table in a word document. (4 points)
+b. Bring in three other characteristics into your dataset using the Census or [PolicyMap](https://crd150.github.io/policymap.html). Calculate their means for black, Hispanic, and Asian enclaves.  Present these characteristics along with mean poverty by ethnic enclave in a presentation-ready table (using the principles outlined in Week 2). Describe what the table is showing, specifically highlighting differences between the three enclaves.  Submit this table in a word document. (4 points)
 
 
 ***
