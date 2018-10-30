@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Coordinate Reference Systems and Geocoding</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Project Eligible Communities</a>
+    </li>
+    <li>
+      <a href="censusgeography.html">Census Geographies</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Download data from NHGIS</a>
+    </li>
+    <li>
+      <a href="policymap.html">Download data from PolicyMap</a>
+    </li>
+    <li>
+      <a href="missingdata.html">Dealing with Missing Data</a>
+    </li>
+    <li>
+      <a href="georeferencing.html">Coordinate Reference Systems</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li class="dropdown-header">Big/Open Data Sources</li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Coordinate Reference Systems and Geocoding</h1>
+<h3 class="subtitle"><em><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></em></h3>
+<h4 class="author"><em><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></em></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+<p><br />
+</p>
+<p>In this guide we will cover the spatial data wrangling task of converting point data from a nonspatial to a spatial format. This process involves using geographic coordinates (longitude and latitude) to place points on a map. In some cases, you don’t have geographic coordinates but street addresses. Here, you’ll need to geocode your data, which involves converting street addresses to geographic coordinates. These tasks are intimately related to the concept of projection and reprojection, and underlying all of these concepts is a Coordinate Reference System. These topics will be covered using Los Angeles City as our case study.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="setting-up-the-data" class="section level2">
+<h2><strong>Setting up the data</strong></h2>
+<p><br />
+We’ll need to load required packages. You should have already installed these packages in prior labs, so no need to run the <code>install.packages()</code> function.</p>
+<pre class="r"><code>library(sf)
+library(tidyverse)
+library(sp)
+library(tmap)</code></pre>
+<p>Next, we’ll need to bring in shapefiles for Los Angeles City boundaries. I uploaded a zip file containing Los Angeles City shapefile boundaries on GitHub. There are actually two boundary files - one from the package <strong>tigris</strong> and the other downloaded from the <a href="https://crd150.github.io/nhgis.html#download_shapefiles">National Historical Geographic Information System</a> (NHGIS). Set your working directory to a folder you want to work out of. Download the file and unzip it using the following code.</p>
+<pre class="r"><code>setwd(&quot;insert your pathway here&quot;)
+download.file(url = &quot;https://raw.githubusercontent.com/crd150/data/master/georeferencing_minilab.zip&quot;, destfile = &quot;georeferencing_minilab.zip&quot;)
+unzip(zipfile = &quot;georeferencing_minilab.zip&quot;)</code></pre>
+<p>Bring in the <strong>tigris</strong> and NHGIS boundary files</p>
+<pre class="r"><code>la.city.tigris &lt;- st_read(&quot;lacity_tigris.shp&quot;)
+la.city.nhgis &lt;- st_read(&quot;lacity_nhgis.shp&quot;)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="bringing-in-point-data-longitudelatitude" class="section level2">
+<h2><strong>Bringing in point data: Longitude/Latitude</strong></h2>
+<p><br />
+Many point data sets are not in spatial form (i.e. data you can immediately map). Best case scenario is that you have a point data set with geographic coordinates. Geographic coordinates are in the form of a longitude and latitude, where longitude is your X coordinate and spans East/West and latitude is your Y coordinate and spans North/South.</p>
+<p>Let’s bring in a csv data set of homeless encampments in Los Angeles City, which was downloaded from the <a href="https://data.lacity.org/A-Well-Run-City/MyLA311-Service-Request-Data-2017/d4vt-q4t5">Los Angeles City Open Data portal</a> and uploaded onto GitHub.</p>
+<pre class="r"><code>homeless311.df &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/homeless311_la_2017.csv&quot;)</code></pre>
+<p>The data represent homeless encampment locations as reported through the City’s <a href="https://www.lacity.org/311-services">311 system</a>. We will use the function <code>st_as_sf()</code> to create a point <strong>sf</strong> object of <em>homeless311.df</em>. The function requires you to specify the longitude and latitude of each point, which are conveniently located in the variables <em>longitude</em> and <em>latitude</em> in <em>homeless311.df</em>. The other important option that should be set is <code>crs=</code>. This option specifies the coordinate reference system. We talked about this in lecture and we’ll cover this more a little later, but the most important point is that because we are going to map the points onto the Los Angeles City boundary <em>la.city.tigris</em>, we should adopt the CRS of <em>la.city.tigris</em>. The CRS of <em>la.city.tigris</em> can be called up by using the <code>st_crs()</code> function</p>
+<pre class="r"><code>st_crs(la.city.tigris)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   EPSG: 4269 
+##   proj4string: &quot;+proj=longlat +datum=NAD83 +no_defs&quot;</code></pre>
+<p>We plug this CRS directly into the <code>st_as_sf()</code> (along with the longitude and latitude) as follows</p>
+<pre class="r"><code>homeless311.sf &lt;- st_as_sf(homeless311.df, coords = c(&quot;longitude&quot;, &quot;latitude&quot;), crs = st_crs(la.city.tigris))</code></pre>
+<p>Now we can map homeless encampments onto the city’s boundaries</p>
+<pre class="r"><code>tm_shape(la.city.tigris) +
+  tm_polygons() +
+tm_shape(homeless311.sf) +  
+  tm_dots(col=&quot;red&quot;)</code></pre>
+<p><img src="georeferencing_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="coordinate-reference-system" class="section level2">
+<h2><strong>Coordinate Reference System</strong></h2>
+<p><br />
+The Coordinate Reference System is an important concept to understand when dealing with spatial data. We won’t go through the <em>real</em> nuts and bolts of CRS, which you can read in GWR Chapter 2.4 and 6, but we’ll go through enough of it so that you can get through most CRS related spatial data wrangling tasks.</p>
+<p>The CRS contains two major components: the Geographic Coordinate System (GCS) and the Projected Coordinate System (PCS). The GCS can be further separated into two parts: the ellipse and the datum. The ellipse is a model of the Earth’s shape. The datum defines the coordinate system of this model - the origin point and the axes. You need these two basic components to place points on Earth’s three-dimensional surface. Think of it as trying to create a globe (ellipse) and figuring out where to place points on that globe (datum).</p>
+<p>The PCS then translates these points from a globe onto a two-dimensional space. We need to do this because were creating maps, not globes (it’s kind of hard carrying a globe around when you’re finding your way around a city).</p>
+<p>When you call up the CRS of a spatial data set</p>
+<pre class="r"><code>st_crs(la.city.tigris)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   EPSG: 4269 
+##   proj4string: &quot;+proj=longlat +datum=NAD83 +no_defs&quot;</code></pre>
+<p>You see two ways to describe the CRS: an <code>epsg</code> code and a <code>proj4string</code>. The <code>epsg</code> is a shortcut way for defining all the components of a CRS in one number. You can look up all the possible <code>epsg</code> <a href="http://spatialreference.org/ref/epsg/">here</a>. <code>proj4string</code>, in contrast, spells everything out. For some reason, <code>st_crs()</code> truncates some of <code>proj4string</code>, so let’s run the function <code>proj4string()</code> on <em>la.city.tigris</em>, which we need to convert to an <strong>sp</strong> object using the function <code>as()</code> because <code>proj4string()</code> does not work on <strong>sf</strong> objects</p>
+<pre class="r"><code>proj4string(as(la.city.tigris, &quot;Spatial&quot;))</code></pre>
+<pre><code>## [1] &quot;+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0&quot;</code></pre>
+<p>Here we find the three major components to a CRS. The GCS ellipse and datum are specified by <code>ellps</code> and <code>datum</code>, respectively. The PCS is specified by <code>+proj</code>.</p>
+<p>OK, this may be too much info. Let’s step back and ask ourselves why do we need to know about the CRS for practical mapping and analysis purposes? There are three main reasons:</p>
+<ol style="list-style-type: decimal">
+<li>Two objects that are compared or combined should have the same CRS.</li>
+<li>Aesthetic purposes and/or to correct distortions.</li>
+<li>Many geometric functions require certain CRSs.</li>
+</ol>
+<p>We already talked about reason (1) above when we used the CRS of <em>la.city.tigris</em> to define the CRS of <em>homeless311.sf</em>. To illustrate (2), let’s compare the <strong>tigris</strong> and NHGIS Los Angeles City boundaries.</p>
+<p>We find that <em>la.city.nhgis</em> has a different CRS from <em>la.city.tigris</em>.</p>
+<pre class="r"><code>st_crs(la.city.nhgis)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   No EPSG code
+##   proj4string: &quot;+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs&quot;</code></pre>
+<p>Which is not necessarily a problem, but let’s map the two boundaries side by side. I used the function <code>tmap_arrange()</code> from the <strong>tmap</strong> package to do this</p>
+<pre class="r"><code>lacity1 &lt;- tm_shape(la.city.tigris) +
+  tm_polygons() 
+lacity2 &lt;- tm_shape(la.city.nhgis) +
+  tm_polygons() 
+
+tmap_arrange(lacity1, lacity2)</code></pre>
+<p><img src="georeferencing_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
+<p>You see a tilt for the NHGIS boundary map on the right. That tilt is not due to our bad eyesight or anything wrong in our code. It’s due to the projection system that NHGIS uses for their shapefiles, which is Albers Equal Area (<code>aea</code>). Figure 1 shows maps of the United States by different projection systems, include Albers Equal Area (top left)</p>
+<center>
+<div class="figure">
+<img src="projections.jpg" alt="Figure 1: U.S. Projection Coordinate Systems" />
+<p class="caption">Figure 1: U.S. Projection Coordinate Systems</p>
+</div>
+</center>
+<p>You’ll see that under Albers Equal Area, California tilts. Hence, Los Angeles will tilt. In this case, AEA may be better for maps of the entire U.S. or for certain parts of the country (e.g. Midwest).</p>
+<p>To fix the tilt, let’s reproject <em>la.city.nhgis</em> to the CRS of <em>la.city.tigris</em>, which has a PCS of <code>longlat</code>. We use the function <code>st_transform</code> to reproject spatial data from one CRS to another.</p>
+<pre class="r"><code>la.city.nhgis.tr &lt;-st_transform(la.city.nhgis, st_crs(la.city.tigris)) </code></pre>
+<p>Now, no more tilt!</p>
+<pre class="r"><code>lacity1 &lt;- tm_shape(la.city.tigris) +
+  tm_polygons() 
+lacity2 &lt;- tm_shape(la.city.nhgis.tr) +
+  tm_polygons() 
+
+tmap_arrange(lacity1, lacity2)</code></pre>
+<p><img src="georeferencing_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<p>Now, what about reason (3) in our list of reasons above? Right now, the spatial point data of homeless encampments are in longitude/latitude coordinates. Many of R’s geometric functions that require calculating distances (e.g. distance from one point to another) or areas require a standard measure of distance/area. Distance in latitude/longitude is in decimal degrees, which is not a standard measure. We can find out the units of a spatial data set by using the <code>st_crs()</code> function and calling up units as follows</p>
+<pre class="r"><code>st_crs(homeless311.sf)$units</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>st_crs(la.city.nhgis.tr)$units</code></pre>
+<pre><code>## NULL</code></pre>
+<p>Not good. We can reproject the encampments and Los Angeles City boundaries to a CRS that handles standard distance measures such as meters or kilometers. Going back to Figure 1, a Mercator projection looks appropriate for California. A <a href="http://desktop.arcgis.com/en/arcmap/latest/map/projections/universal-transverse-mercator.htm">Universal Transverse Mercator</a> (UTM) coordinate system splits the country into zones so that you can get appropriate (non titling) maps of your specific region. The zones are shown in Figure 2</p>
+<center>
+<div class="figure">
+<img src="utm.png" alt="Figure 2: UTM Zones" />
+<p class="caption">Figure 2: UTM Zones</p>
+</div>
+</center>
+<p>Southern California looks like its in Zone 11. So, let’s reproject <em>la.city.nhgis</em> to a UTM Zone 11 projection using <code>st_transform()</code>. We’ll have to spell out the PCS (utm in zone 11), datum and ellipse in the <code>crs=</code> option.</p>
+<pre class="r"><code>la.city.nhgis.tr2 &lt;-st_transform(la.city.nhgis.tr, crs = &quot;+proj=utm +zone=11 +datum=NAD83 +ellps=GRS80&quot;) </code></pre>
+<p>Check the units</p>
+<pre class="r"><code>st_crs(la.city.nhgis.tr2)$units</code></pre>
+<pre><code>## [1] &quot;m&quot;</code></pre>
+<p>“m” means meters. You can use the same code to reproject <em>homeless311.sf</em>.</p>
+<p>Another important problem that you may encounter is that a spatial data set you downloaded from a source contains no CRS (unprojected or unknown). In this case, use the function <code>st_set_crs()</code> to set the CRS. See GWR 6.1 for more details.</p>
+<p>Main takeaway points:</p>
+<ol style="list-style-type: decimal">
+<li>The CRS for any spatial data set you bring into R should always be established.</li>
+<li>If you are planning to work with multiple spatial data sets on the same project, make sure they have the same CRS.</li>
+<li>Make sure the CRS is appropriate for your community.</li>
+<li>Make sure the CRS is appropriate for the types of spatial tasks you are planning to conduct.</li>
+</ol>
+<p>If you stick with these principles, you should be able to get through most issues regarding CRSs. If you get stuck, read GWR Ch. 2.4 and 6.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="geocoding-addresses" class="section level2">
+<h2><strong>Geocoding addresses</strong></h2>
+<p><br />
+Often you will get point data that won’t have longitude/X and latitude/Y coordinates but instead have street addresses. The process of going from address to X/Y coordinates is known as geocoding. You can geocode street addresses using the <code>mutate_geocode()</code> function in the <strong>ggmap</strong> package. The function will take a data frame with physical addresses and create a new data frame with longitude/X and latitude/Y coordinates for those addresses. The new data frame will retain all columns of the input data frame.</p>
+<p><code>mutate_geocode()</code> draws from Google Maps’ API to connect street addresses to x,y coordinates. You can think of it as R punching in addresses into Google Maps to find locations like you do when you are trying to find directions.</p>
+<p>You used to be able to use <code>mutate_geocode()</code> without an API key, but Google changed that policy on July 2018. Now, you’ll need to register for a Google API key <a href="https://developers.google.com/maps/documentation/geocoding/get-api-key">here</a>. You’ll also need to attach a credit card to this API key. After you sign up for a Google API Key, you will need to enable billing. To do this, go to <a href="https://console.cloud.google.com" class="uri">https://console.cloud.google.com</a> and select APIs &amp; Services and then Library. Search for Geocoding API and click on enable. You’ll then want to make sure no one “steals” your API key for nefarious purposes by securing it. Go to Credentials from your API dashboard, select your key, then select on the API restrictions tab under Key restrictions. From the pull down menu, select Geocoding API and click save.</p>
+<p>When you sign up for a key, you’ll get a $200 per month credit. The Geocoding API costs $5.00 per 1,000 calls, or $0.005 per call. Over a span of 30 days, the daily usage credit for the Geocoding API is $6.67 per day. This means that you would be able to make 1,334 calls to the Geocoding API per day for free.</p>
+<p>The R CRAN version of <strong>ggmap</strong> is old and doesn’t allow you to register a key. Download the most recent version of <strong>ggmap</strong> through GitHub using the following code</p>
+<pre class="r"><code>if(!requireNamespace(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;dkahle/ggmap&quot;, ref = &quot;tidyup&quot;)
+
+library(ggmap)</code></pre>
+<p>If you have an old version of <strong>ggmap</strong> on your hard drive, you may need to restart R after installing <strong>ggmap</strong> to see the new version. Use the function <code>register_google()</code> to register your API key.</p>
+<pre class="r"><code>register_google(key = &#39;insert your Google API key here&#39;)</code></pre>
+<p>Now were set up to geocode stuff. As an example, let’s geocode colleges and universities in Los Angeles using the data set <em>Colleges_and_Universities.csv</em>, which I uploaded onto GitHub.</p>
+<pre class="r"><code>la.univ.df &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/LA_Colleges_and_Universities.csv&quot;)</code></pre>
+<p>The command <code>mutate_geocode()</code> takes on two primary arguments: <code>data</code> and <code>location</code>. The argument <code>data</code> is the data frame containing the addresses. The argument <code>location</code> is a string variable containing your address information. Address information at the minimum includes street prefix (e.g. East), number, name, suffix (eg. St., Ave.), city and state. More information is better, so including a zipcode is ideal. Note that <code>location</code> takes in only one variable - this means that you don’t separate out city, zipcode, and state from the street address - they all (address, city, state and zipcode) have to be one concatenated (string) line. You can use the <code>unite()</code> function to concatenate fields. The addresses for the universities in <em>la.univ.df</em> is in one field and contains the prefix, house number, street name, city, state and zipcode. You can geocode addresses if they are missing one or more of these pieces of information - for example, you can geocode without the zipcode - but you may get some error. You can also geocode intersections (e.g. 4th st and Main st) and landmarks (“University of California, Davis”). Check the file <em>Geocoding_Best_Practices</em> on Canvas for some tips on geocoding.</p>
+<p>Unfortunately, Google Maps API can be a little finicky and sensitive when it comes to geocoding addresses. In other words, although there are only 50 addresses to geocode in <em>la.univ.df</em>, you may get several addresses receiving the following warning.</p>
+<pre><code>geocode failed with status OVER_QUERY_LIMIT, location = ...</code></pre>
+<p>This means that Google Maps thinks you’ve gone over a geocoding query limit. That may be true because Google does limit geocoding queries to prevent a query overload. You can deal with this by regeocoding the addresses that receive this warning. And keep doing this until you’ve got all addresses geocoded. You can set this up using a <code>while()</code> loop. A <code>while()</code> loop repeats an action until some criteria is met. First, geocode the 50 addresses using <code>mutate_geocode()</code></p>
+<pre class="r"><code>la.univ.df.geo1 &lt;- mutate_geocode(la.univ.df, location=address)</code></pre>
+<p>Look at all those pretty red words…</p>
+<p>If you ended up with no warnings, you’re all good - all your addresses were successfully geocoded. If you end up getting the warning of a geocoding failure because of an over query limit constraint or get a result at the end that looks something like this</p>
+<pre><code>There were 16 warnings (use warnings() to see them)</code></pre>
+<p>run the following <code>while()</code> loop</p>
+<pre class="r"><code>while(sum(is.na(la.univ.df.geo1$lat)) != 0){
+  la.univ.df1 &lt;- la.univ.df.geo1 %&gt;%
+                filter(is.na(lat) == TRUE) %&gt;%
+                select(OBJECTID:address)
+  la.univ.df.geo2 &lt;- mutate_geocode(la.univ.df1, location=address )
+  la.univ.df.geo1 &lt;- bind_rows(filter(la.univ.df.geo1, is.na(lat) == FALSE), la.univ.df.geo2)
+}</code></pre>
+<p>Note that this process might take some time, but not more than 5-10 minutes. You can imagine that geocoding many (over 10,000) street addresses will take quite some time.</p>
+<p>Let’s break down the above code to understand what it is doing. The code inside the parentheses of the <code>while()</code> command tells R to keep running the code inside the brackets <code>while</code> the total number of NAs (non geocoded addresses) after geocoding is not equal to 0. In other words, the while loop keeps running the code until all the addresses are geocoded. The next line of code after <code>while()</code></p>
+<pre><code>la.univ.df1 &lt;- la.univ.df.geo1 %&gt;%
+        filter(is.na(lat) == TRUE) %&gt;%
+        select(OBJECTID:address)</code></pre>
+<p>saves the addresses with NA values from the prior geocoded data frame and keeps the original variables. So, <em>la.univ.df1</em> contains addresses that were not successfully geocoded. The next line of code</p>
+<pre><code>la.univ.df.geo2 &lt;- mutate_geocode(la.univ.df1, location=address)</code></pre>
+<p>geocodes these addresses. The last line of code</p>
+<pre><code>la.univ.df.geo1 &lt;- bind_rows(filter(la.univ.df.geo1, is.na(lat) == FALSE), la.univ.df.geo2)</code></pre>
+<p>uses the <code>bind_rows()</code> function to append (add rows) <em>la.univ.df.geo2</em> to the addresses successfully geocoded (no NA values) from the prior geocoded data frame <em>la.univ.df.geo1</em>.</p>
+<p>The <code>while()</code> loop then goes back to its criteria in the parentheses - if this second round of geocoding still yields NA values, it will run the code again until all addresses are successfully geocoded.</p>
+<p>Note that the final outcome <em>la.univ.df.geo1</em> is not a spatial object. It needs to be converted to one if it is to be used in generating a map output. Make the data frame into an <strong>sf</strong> point object by using the variables <em>lon</em> and <em>lat</em> in the function <code>st_as_sf()</code>. Remember to use the CRS of <em>la.city.tigris</em>.</p>
+<pre class="r"><code>la.univ.sf &lt;- st_as_sf(la.univ.df.geo1, coords = c(&quot;lon&quot;, &quot;lat&quot;), 
+                       crs = st_crs(la.city.tigris))</code></pre>
+<p>Now, map the colleges and universities.</p>
+<pre class="r"><code>tm_shape(la.city.tigris) +
+  tm_polygons() +
+tm_shape(la.univ.sf) +  
+  tm_symbols(size = 0.25, col = &quot;red&quot;)</code></pre>
+<p><img src="georeferencing_files/figure-html/unnamed-chunk-26-1.png" /><!-- --></p>
+<p>Or interactively</p>
+<pre class="r"><code>tmap_mode(&quot;view&quot;)
+tm_shape(la.univ.sf) +  
+  tm_symbols(size = 0.25, shape=3, col = &quot;red&quot;)</code></pre>
+<div id="htmlwidget-0e78e8eec5a048bd3a6f" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0e78e8eec5a048bd3a6f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldGrayCanvas",null,"Esri.WorldGrayCanvas",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap",null,"OpenStreetMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldTopoMap",null,"Esri.WorldTopoMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"createMapPane","args":["overlayPane01",401]},{"method":"addCircles","args":[[34.1287275,34.0624252,34.027414,34.1409207,34.0839639,34.0613055,34.0633778,33.9562658,34.061086,34.0309703,34.085421,33.9793263,34.0498306,34.0403409,34.0447173,34.0561128,34.0793518,34.0648793,34.0953776,33.9702454,34.08154,34.129581,34.0440447,34.0892322,33.9300832,34.0793518,33.9373547,34.0613992,34.0638524,34.0609199,33.9767364,34.0570639,34.0447812,34.1075609,34.0611135,34.0725988,34.0441185,34.061458,34.0667698,34.0489538,34.0641415,34.0324082,34.0044346,34.0561128,33.9932784,34.036117,34.061413,34.0625502,34.0972638,34.0685563],[-118.4719173,-118.2121202,-118.220028,-118.2250677,-118.4815446,-118.3000389,-118.3620373,-118.4173143,-118.2933151,-118.2789735,-118.3465144,-118.4147483,-118.27637,-118.2583258,-118.3087058,-118.2724303,-118.2925843,-118.2896613,-118.343701,-118.4165979,-118.2913512,-118.210692,-118.2327892,-118.292904,-118.3067827,-118.2925843,-118.2546266,-118.2884225,-118.2931324,-118.2830843,-118.3720193,-118.2745658,-118.3094696,-118.3100989,-118.3028146,-118.439277,-118.2600399,-118.2919856,-118.1684392,-118.2579843,-118.3695242,-118.3893814,-118.3321774,-118.2724303,-118.4427416,-118.262991,-118.2989582,-118.2951419,-118.3084569,-118.3448707],[194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836,194.889449088836],null,"la.univ.sf",{"interactive":true,"className":"","pane":"overlayPane01","stroke":true,"color":"#666666","weight":1,"opacity":0.5,"fill":true,"fillColor":["#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000","#FF0000"],"fillOpacity":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},["<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099868<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>American Jewish University<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>15600 Mulholland Dr<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,077<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>15600 Mulholland Dr , Los Angeles , CA 90077<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099872<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Los Angeles County College Of Nursing And Allied Health<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1237 N. Mission Rd.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,033<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1237 N. Mission Rd. , Los Angeles , CA 90033<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099873<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Marinello School Of Beauty<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1241 S. Soto Street<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,023<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1241 S. Soto Street , Los Angeles , CA 90023<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099876<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Marinello School Of Beauty<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>2700 Colorado Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,041<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>2700 Colorado Blvd , Los Angeles , CA 90041<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099881<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Mount St Marys College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>12001 Chalon Rd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,049<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>12001 Chalon Rd , Los Angeles , CA 90049<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099883<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Everest College-La Wilshire<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3460 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3460 Wilshire Blvd , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099886<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Marinello School Of Beauty<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>6111 Wilshire Boulevard<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,048<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>6111 Wilshire Boulevard , Los Angeles , CA 90048<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099891<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Otis College Of Art And Design<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>9045 Lincoln Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,045<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>9045 Lincoln Blvd , Los Angeles , CA 90045<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099898<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Westwood College-Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3250 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3250 Wilshire Blvd , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099899<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>University Of Southern California<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>University Park<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,089<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>University Park , Los Angeles , CA 90089<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099904<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Yeshiva Ohr Elchonon Chabad West Coast Talmudical Seminary<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>7215 Waring Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,046<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>7215 Waring Ave , Los Angeles , CA 90046<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099909<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>American Intercontinental University<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>12655 West Jefferson Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,066<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>12655 West Jefferson Blvd , Los Angeles , CA 90066<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099911<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Samra University Of Oriental Medicine<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1730 W. Olympic Boulevard<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,015<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1730 W. Olympic Boulevard , Los Angeles , CA 90015<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099915<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Virginia Sewing Machines And School Center<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1033 S Broadway St<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,015<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1033 S Broadway St , Los Angeles , CA 90015<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099916<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Pacific States University<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1516 S Western Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,006<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1516 S Western Ave , Los Angeles , CA 90006<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099917<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Associated Technical College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1670 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,017<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1670 Wilshire Blvd , Los Angeles , CA 90017<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099918<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>American Career College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>4021 Rosewood Avenue<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,004<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>4021 Rosewood Avenue , Los Angeles , CA 90004<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099919<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>World Mission University<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>500 Shatto Pl<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,020<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>500 Shatto Pl , Los Angeles , CA 90020<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099928<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>American Academy Of Dramatic Arts-West<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1336 N La Brea<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,028<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1336 N La Brea , Los Angeles , CA 90028<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099947<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Loyola Marymount University<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>One Lmu Drive<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,045<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>One Lmu Drive , Los Angeles , CA 90045<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099950<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Cleveland Chiropractic College Of Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>590 N Vermont Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,004<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>590 N Vermont Ave , Los Angeles , CA 90004<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099962<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Occidental College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1600 Campus Rd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,041<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1600 Campus Rd , Los Angeles , CA 90041<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099964<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Southern California Institute Of Architecture<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>960 E. 3Rd Street<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,013<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>960 E. 3Rd Street , Los Angeles , CA 90013<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108143665<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Los Angeles City College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>855 N. Vermont Ave.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,029<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>855 N. Vermont Ave. , Los Angeles , CA 90029<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108146032<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Los Angeles Southwest College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1600 W. Imperial Hwy.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,047<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1600 W. Imperial Hwy. , Los Angeles , CA 90047<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108146857<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>West Coast University<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>4021 Rosewood Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,004<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>4021 Rosewood Ave , Los Angeles , CA 90004<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108147725<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Maxine Waters Employment Preparation Center<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>10925 South  Central Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,059<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>10925 South  Central Ave , Los Angeles , CA 90059<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108150988<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Southwestern Law School<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3050 Wilshire Boulevard<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3050 Wilshire Boulevard , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099828<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Ces College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3251 West 6Th Street<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,020<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3251 West 6Th Street , Los Angeles , CA 90020<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099829<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Liberty Training Institute<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>2706 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,057<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>2706 Wilshire Blvd , Los Angeles , CA 90057<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099832<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Ladera Career Paths Training Centers<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>6820 La Tijera Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,045<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>6820 La Tijera Blvd , Los Angeles , CA 90045<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099834<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Walter Jay Md Institute An Educational Center<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1930 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,057<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1930 Wilshire Blvd , Los Angeles , CA 90057<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099838<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Palace Beauty College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1517 S Western Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,006<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1517 S Western Ave , Los Angeles , CA 90006<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099853<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>American Film Institute Conservatory<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>2021 N Western Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,027<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>2021 N Western Ave , Los Angeles , CA 90027<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099855<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Bryan College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3580 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3580 Wilshire Blvd , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099857<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>University Of California-Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>405 Hilgard Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,095<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>405 Hilgard Ave , Los Angeles , CA 90095<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099864<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>The Fashion Institute Of Design &amp; Merchandising-Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>919 S Grand Ave<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,015<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>919 S Grand Ave , Los Angeles , CA 90015<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099865<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>La College International<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3200 Wilshire Blvd.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3200 Wilshire Blvd. , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108090956<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>California State University Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>5151 State University Dr.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,032<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>5151 State University Dr. , Los Angeles , CA 90032<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108091068<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Los Angeles Community College District<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>770 Wilshire Blvd.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,017<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>770 Wilshire Blvd. , Los Angeles , CA 90017<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099786<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Los Angeles Ort Technical Institute<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>6435 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,048<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>6435 Wilshire Blvd , Los Angeles , CA 90048<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099787<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Everest College-West Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3000 S Robertson Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,034<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3000 S Robertson Blvd , Los Angeles , CA 90034<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099792<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Universal College Of Beauty Inc<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3419 W 43Rd Place<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,008<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3419 W 43Rd Place , Los Angeles , CA 90008<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099796<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Diversified Language Institute<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1670 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,017<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1670 Wilshire Blvd , Los Angeles , CA 90017<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099800<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Yo San University Of Traditional Chinese Medicine<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>13315 W. Washington Boulevard<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,066<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>13315 W. Washington Boulevard , Los Angeles , CA 90066<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099801<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Coast Career Institute<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>1354 S Hill St<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,015<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>1354 S Hill St , Los Angeles , CA 90015<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099802<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>The Art Institute Of California-Hollywood<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3440 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3440 Wilshire Blvd , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099803<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Marian Health Careers Center<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>3325 Wilshire Blvd<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,010<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>3325 Wilshire Blvd , Los Angeles , CA 90010<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099812<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Icdc College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>5422 Sunset Blvd.<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,027<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>5422 Sunset Blvd. , Los Angeles , CA 90027<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>108099814<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">OBJECTID<\/td><td>108 mln<\/td><\/tr><tr><td style=\"color: #888888;\">Name<\/td><td>Community Based Education And Development Dba Cbd College<\/td><\/tr><tr><td style=\"color: #888888;\">addrln1<\/td><td>5724 W. Third Street<\/td><\/tr><tr><td style=\"color: #888888;\">city<\/td><td>Los Angeles<\/td><\/tr><tr><td style=\"color: #888888;\">state<\/td><td>CA<\/td><\/tr><tr><td style=\"color: #888888;\">zip<\/td><td>90,036<\/td><\/tr><tr><td style=\"color: #888888;\">address<\/td><td>5724 W. Third Street , Los Angeles , CA 90036<\/td><\/tr><\/table><\/div>"],{"maxWidth":500,"minWidth":100,"autoPan":true,"keepInView":false,"closeButton":true,"className":""},[108099868,108099872,108099873,108099876,108099881,108099883,108099886,108099891,108099898,108099899,108099904,108099909,108099911,108099915,108099916,108099917,108099918,108099919,108099928,108099947,108099950,108099962,108099964,108143665,108146032,108146857,108147725,108150988,108099828,108099829,108099832,108099834,108099838,108099853,108099855,108099857,108099864,108099865,108090956,108091068,108099786,108099787,108099792,108099796,108099800,108099801,108099802,108099803,108099812,108099814],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addLayersControl","args":[["Esri.WorldGrayCanvas","OpenStreetMap","Esri.WorldTopoMap"],"la.univ.sf",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[33.9300832,34.1409207],"lng":[-118.4815446,-118.1684392]},"fitBounds":[33.9300832,-118.4815446,34.1409207,-118.1684392,[]]},"evals":[],"jsHooks":[]}</script>
+<p>The street addresses in <em>LA_Colleges_and_Universities.csv</em> are pretty clean and thus geocoding was relatively smooth. Geocoding, however, is a messy process when you’ve got dirty addresses. Check the file Geocoding_Best_Practices.pdf in the Week 6 folder on Canvas for some tips on geocoding.</p>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

@@ -33,6 +33,8 @@ navbar:
           href:  policymap.html  
         - text: "Dealing with Missing Data"
           href:  missingdata.html  
+        - text: "Coordinate Reference Systems"
+          href:  georeferencing.html  
         - text: "Neighborhood Data Sources"
           href:  ndata.html   
         - text: "Big/Open Data Sources"

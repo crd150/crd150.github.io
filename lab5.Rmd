@@ -51,7 +51,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## **Bringing spatial data into R**
 \
 
-Let's bring in our main dataset for the lab, a shapefile named *sacmetrotracts.shp*, which contains 2016 [housing eviction rates](http://evictionlab.org/) for census tracts in the Sacramento Metropolitan Area. Download these data from the Week 5 folder on Canvas. The data come in as a zip file, so you will need to unzip it.  To unzip files from a Windows machine, check [here](https://support.microsoft.com/en-us/help/14200/windows-compress-uncompress-zip-files).  To unzip on a Mac, check [here](https://support.apple.com/kb/PH25411?locale=en_US).  Make sure you put the files form the unzipped folder into an appropriate folder on your hard drive.  Set your working directory to this folder using `setwd()`. 
+Let's bring in our main dataset for the lab, a shapefile named *sacmetrotracts.shp*, which contains 2016 [housing eviction rates](http://evictionlab.org/) for census tracts in the Sacramento Metropolitan Area. Download these data from the Week 5 folder on Canvas. The data come in as a zip file, so you will need to unzip it.  To unzip files from a Windows machine, check [here](https://support.microsoft.com/en-us/help/14200/windows-compress-uncompress-zip-files).  To unzip on a Mac, check [here](https://support.apple.com/kb/PH25411?locale=en_US).  Make sure you put the files from the unzipped folder into an appropriate folder on your hard drive.  Set your working directory to this folder using `setwd()`. 
 
 ```{r eval = FALSE}
 setwd(#path to the folder containing sacmetrotracts.shp#)
