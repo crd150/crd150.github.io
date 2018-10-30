@@ -397,7 +397,7 @@ b. plot(sac.tracts.sp)
 c. sacw$weights[[1]]
 d. sacb.lag[1]
 
-2. You will be using the shapefile sacmetrotracts_race.shp, which you can download from the Assignments Lab 5 folder on Canvas. The file contains census tract data on race/ethnicity composition in the Sacramento Metropolitan Area. The file is clean and ready for analysis. A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn5_question2_codebook.txt). Bring the file into R. Use Queen contiguity and row standardized weights unless instructed otherwise.
+2. You will be using the shapefile sacmetrotracts_race.shp, which you can download from the Assignments -> Assignment 5 folder on Canvas. The file contains census tract data on race/ethnicity composition in the Sacramento Metropolitan Area. The file is clean and ready for analysis. A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn5_question2_codebook.txt). Bring the file into R. Use Queen contiguity and row standardized weights unless instructed otherwise.
 
 a. Visually examine the presence of spatial autocorrelation for percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic. Briefly explain whether you think spatial autocorrelation exists for each of these variables. (3 points)
 b. Calculate Moran's I for each percent race/ethnicity variable. Which race/ethnicity exhibits spatial autocorrelation? (3 points)
