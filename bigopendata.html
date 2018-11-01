@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Big Data and Open Data Sources</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Project Eligible Communities</a>
+    </li>
+    <li>
+      <a href="censusgeography.html">Census Geographies</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Download data from NHGIS</a>
+    </li>
+    <li>
+      <a href="policymap.html">Download data from PolicyMap</a>
+    </li>
+    <li>
+      <a href="missingdata.html">Dealing with Missing Data</a>
+    </li>
+    <li>
+      <a href="georeferencing.html">Coordinate Reference Systems</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li class="dropdown-header">Big/Open Data Sources</li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Big Data and Open Data Sources</h1>
+<h3 class="subtitle"><em><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></em></h3>
+<h4 class="date"><em><h4 style="font-style:normal">
+Fall 2018
+</h4></em></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+<p><br />
+This guide is a reference tool for online sources that provide <a href="https://en.wikipedia.org/wiki/Big_data">Big Data</a> or <a href="https://ash.harvard.edu/files/open_government.pdf">Open Data</a>. Remember to look at the meta data to figure out what kinds of information you can download.<br />
+</p>
+<ul>
+<li><p><a href="http://insideairbnb.com/get-the-data.html">Airbnb</a>: Provides csv files containing detailed information on data on airbnb hosts. The data are in latitude/longitude. They don’t provide historical data.</p></li>
+<li>Bikesharing: Web sites providing public use data on bikesharing. Provides station-to-station data.
+<ul>
+<li><a href="https://www.fordgobike.com/system-data">San Francisco</a>.<br />
+</li>
+<li><a href="https://www.citibikenyc.com/system-data">New York City</a></li>
+<li><a href="https://www.divvybikes.com/system-data">Chicago</a>.</li>
+<li><a href="https://www.capitalbikeshare.com/system-data">Washington D.C.</a></li>
+</ul></li>
+<li><p><a href="https://ropensci.github.io/osmdata/">OpenStreetMaps</a>. <strong>osmdata</strong> is an R package for downloading OpenStreetMaps data. The site provides a couple of vignettes on using the package.</p></li>
+<li><p><a href="https://aot-file-browser.plenar.io/">Array of things</a>. The City of Chicago installed modular sensor boxes around Chicago to collect real-time data on the city’s environment, infrastructure, and activity for research and public use.</p></li>
+<li><p><a href="https://www.zillow.com/research/data/">Zillow</a>. Provides housing price data at the metro, city and zipcode levels. R has a <a href="https://cran.r-project.org/web/packages/ZillowR/index.html">package</a> for downloading Zillow data directly.</p></li>
+<li><p><a href="https://www.yelp.com/dataset">Yelp</a>. A public use dataset put together by Yelp specifically for personal and educational purposes, but has been used in academic and applied research. You can use the Yelp API, and here is a <a href="https://billpetti.github.io/2017-12-23-use-yelp-api-r-rstats/">tutorial</a>, but there are some restrictions, specifically getting an access ID and creating your own app. Here is another <a href="https://github.com/richierocks/yelp">tutorial</a> for a specific R package that uses the Yelp API.</p></li>
+<li><p><a href="https://movement.uber.com/?lang=en-US">Uber</a>. A public use dataset that provides anonymized information on Uber usage in select US cities. You’ll need to sign up for an account or use your Facebook or Google account.</p></li>
+<li><p><a href="https://apps.twitter.com/">Twitter</a>. Twitter provides access to a sample of their tweets. You’ll need to register for an API. Here are some guides to collect and manage tweets in R: <a href="https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/">here</a>, <a href="https://cfss.uchicago.edu/webdata002_twitter_exercise.html">here</a>, and <a href="https://cran.r-project.org/web/packages/rtweet/vignettes/intro.html">here</a>.</p></li>
+</ul>
+<p><strong>Open data portals</strong></p>
+<p>Many city, county and even state governments maintain open data portals. These portals provide various datasets held and maintained by the public sectors. Some of the data are measured at a fine spatial scale, going doing to latitude/longitude.</p>
+<p>There are a couple of sites that maintain open data portal directories, including</p>
+<ul>
+<li><p><a href="https://www.data.gov/open-gov/">Data.gov</a></p></li>
+<li><p><a href="https://www.opendatasoft.com/a-comprehensive-list-of-all-open-data-portals-around-the-world/#/united-states">OpenDataSoft</a></p></li>
+<li><p><a href="http://us-cities.survey.okfn.org/">US City Open Data Census</a></p></li>
+</ul>
+<p>Here are links to various open data portals in US cities (updated 10/31/18)</p>
+<p><em>California</em></p>
+<ul>
+<li><p><a href="http://data.cityofsacramento.org/">Sacramento City</a></p></li>
+<li><p><a href="http://data-sacramentocounty.opendata.arcgis.com/">Sacramento County</a></p></li>
+<li><p><a href="https://datasf.org/opendata/">San Francisco City</a></p></li>
+<li><p><a href="https://data.acgov.org/">Alameda County</a></p></li>
+<li><p><a href="https://data.oaklandnet.com/">Oakland City</a></p></li>
+<li><p><a href="http://data.openoakland.org/">Oakland City</a></p></li>
+<li><p><a href="http://www.longbeach.gov/openlb/">Long Beach City</a></p></li>
+<li><p><a href="https://data.sanjoseca.gov/home">San Jose City</a></p></li>
+<li><p><a href="https://geodat-kernco.opendata.arcgis.com/">Kern County</a></p></li>
+<li><p><a href="http://data-anaheim.opendata.arcgis.com/">Anaheim City</a></p></li>
+<li><p><a href="https://data.countyofriverside.us/">Riverside County</a></p></li>
+<li><p><a href="http://data-countyofriverside.opendata.arcgis.com/">Riverside County</a></p></li>
+<li><p><a href="http://chulavista-cvgis.opendata.arcgis.com/">Chula Vista City</a></p></li>
+<li><p><a href="https://data.lacity.org/">Los Angeles City</a></p></li>
+<li><p><a href="http://geohub.lacity.org/">Los Angeles City</a></p></li>
+<li><p><a href="https://data.lacounty.gov/">Los Angeles County</a></p></li>
+<li><p><a href="https://egis3.lacounty.gov/dataportal/">Los Angeles County</a></p></li>
+<li><p><a href="http://data-ocpw.opendata.arcgis.com/">Orange County</a></p></li>
+<li><p><a href="https://datasf.org/">San Francisco City/County</a></p></li>
+<li><p><a href="http://prod-sccgov.opendata.arcgis.com/">Santa Clara County</a></p></li>
+<li><p><a href="https://data.sccgov.org/">Santa Clara County</a></p></li>
+<li><p><a href="https://data.sandiego.gov/">San Diego City</a></p></li>
+<li><p><a href="http://geohub-doitgis.opendata.arcgis.com/datasets">Solano County</a></p></li>
+<li><p><a href="https://data.ca.gov/">California State</a></p></li>
+</ul>
+<p><em>Major Cities</em></p>
+<ul>
+<li><p><a href="https://data.boston.gov/">Boston</a></p></li>
+<li><p><a href="https://data.ny.gov/">New York</a></p></li>
+<li><p><a href="https://opendata.cityofnewyork.us/data/">New York</a></p></li>
+<li><p><a href="https://data.cityofchicago.org/">Chicago</a></p></li>
+<li><p><a href="https://www.opendataphilly.org/">Philadelphia</a></p></li>
+<li><p><a href="https://data.detroitmi.gov/">Detroit</a></p></li>
+<li><p><a href="https://data.baltimorecity.gov/">Balitmore</a></p></li>
+<li><p><a href="https://datasf.org/">San Francisco City/County</a></p></li>
+<li><p><a href="https://data.seattle.gov/">Seattle</a></p></li>
+<li><p><a href="http://opendata.dc.gov/">Washington D.C.</a></p></li>
+</ul>
+<p><strong>Looking for data?</strong></p>
+<ul>
+<li><p>Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on. Check it out <a href="https://toolbox.google.com/datasetsearch">here</a>.</p></li>
+<li><p>Kaggle is a crowd-sourced platform for all things data science. This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources. A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets <a href="https://www.kaggle.com/datasets">here</a>.</p></li>
+<li><p>Esri provides a repository that many of its members use to store various big and open data all in shapefile format. Check out what’s available <a href="http://hub.arcgis.com/pages/open-data">here</a>.</p></li>
+</ul>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
