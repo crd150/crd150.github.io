@@ -201,7 +201,8 @@ Not good. We can reproject the encampments and Los Angeles City boundaries to a 
 Southern California looks like its in Zone 11.  So, let's reproject *la.city.nhgis* to a UTM Zone 11 projection using `st_transform()`.  We'll have to spell out the PCS (utm in zone 11), datum and ellipse in the `crs=` option.
 
 ```{r}
-la.city.nhgis.tr2 <-st_transform(la.city.nhgis.tr, crs = "+proj=utm +zone=11 +datum=NAD83 +ellps=GRS80") 
+la.city.nhgis.tr2 <-st_transform(la.city.nhgis.tr, 
+                                 crs = "+proj=utm +zone=11 +datum=NAD83 +ellps=GRS80") 
 ```
 
 Check the units

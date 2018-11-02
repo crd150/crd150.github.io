@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lab 6: Point Pattern Analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Project Eligible Communities</a>
+    </li>
+    <li>
+      <a href="censusgeography.html">Census Geographies</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Download data from NHGIS</a>
+    </li>
+    <li>
+      <a href="policymap.html">Download data from PolicyMap</a>
+    </li>
+    <li>
+      <a href="missingdata.html">Dealing with Missing Data</a>
+    </li>
+    <li>
+      <a href="georeferencing.html">Coordinate Reference Systems</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big/Open Data Sources</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 6: Point Pattern Analysis</h1>
+<h3 class="subtitle"><em><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></em></h3>
+<h4 class="author"><em><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></em></h4>
+<h4 class="date"><em><h4 style="font-style:normal">
+November 2, 2018
+</h4></em></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+<p><br />
+</p>
+<p>In this guide you will learn how to handle and descriptively analyze spatial point data in R. You’ll also get some experience working with government open data. The objectives of the guide are as follows</p>
+<ol style="list-style-type: decimal">
+<li>Learn how to create point data from x (longitude) and y (latitude) coordinate data</li>
+<li>Learn how to map point data</li>
+<li>Learn basic spatial point data operations</li>
+<li>Learn how to examine point patterns</li>
+</ol>
+<p>The guide will use data from the <a href="https://datasf.org/opendata/">San Francisco Open Data Portal</a>. Specifically, we will examine the spatial distribution of car break ins, which has gotten a lot of recent <a href="https://www.sfchronicle.com/news/article/Gone-in-5-seconds-SF-neighborhood-police-12545144.php">public attention</a>.</p>
+<p class="comment" , style="font-style:normal">
+<strong>Assignment 6 is due by 12:00 am, November 9th on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn06. For example: brazil_n_asgn06.
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="bringing-in-tract-data" class="section level2">
+<h2><strong>Bringing in tract data</strong></h2>
+<p><br />
+Let’s first bring in Census tract data into R. We will bring in census tract polygon features and racial composition data using the Census API and keep tracts within San Francisco city boundaries. The code for doing this is below. We won’t go through each line of code in detail because we’ve covered all of these operations and functions in prior labs. We’ve embedded comments within the code briefly explaining what each chunk is doing, but go back to prior guides (or RDS/GWR) if you need further help.</p>
+<pre class="r"><code>#Load necessary packages
+library(sf)
+library(sp)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+options(tigris_class = &quot;sf&quot;)
+library(tmap)
+library(rmapshaper)</code></pre>
+<pre class="r"><code>census_api_key(&quot;YOUR API KEY GOES HERE&quot;)</code></pre>
+<pre class="r"><code># Bring in census tract data. 
+ca.tracts &lt;- get_acs(geography = &quot;tract&quot;, 
+              year = 2016,
+              variables = c(tpop = &quot;B01003_001&quot;, tpopr = &quot;B03002_001&quot;, 
+                            nhwhite = &quot;B03002_003&quot;, nhblk = &quot;B03002_004&quot;,
+                             nhasn = &quot;B03002_006&quot;, hisp = &quot;B03002_012&quot;),
+              state = &quot;CA&quot;,
+              survey = &quot;acs5&quot;,
+              geometry = TRUE)
+# Make the data tidy, calculate percent race/ethnicity, and keep essential vars.
+ca.tracts &lt;- ca.tracts %&gt;% 
+  select(-(moe)) %&gt;%
+  spread(key = variable, value = estimate) %&gt;%
+  mutate(pnhwhite = nhwhite/tpopr, pnhasn = nhasn/tpopr, 
+              pnhblk = nhblk/tpopr, phisp = hisp/tpopr) %&gt;%
+  select(c(GEOID,tpop, pnhwhite, pnhasn, pnhblk, phisp))  
+
+# Bring in city boundary data
+pl &lt;- places(state = &quot;CA&quot;, cb = TRUE)
+
+# Keep SF city
+sf.city &lt;- filter(pl, NAME == &quot;San Francisco&quot;)
+
+# Keep tracts that intersect SF city boundary.
+# Eliminate Farallon and Treasure Islands
+
+sf.tracts &lt;- ms_clip(ca.tracts, sf.city, remove_slivers = TRUE) %&gt;%
+  filter(GEOID != &quot;06075980401&quot; &amp; GEOID != &quot;06075017902&quot;)</code></pre>
+<p>You should get a map that looks like</p>
+<pre class="r"><code>tm_shape(sf.tracts) +
+  tm_polygons()</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="bringing-in-point-data" class="section level2">
+<h2><strong>Bringing in point data</strong></h2>
+<p><br />
+Let’s now bring in the locations of car break-ins in San Francisco in 2017. I’ve uploaded the file <em>Car_Break-ins.csv</em> into GitHub for your convenience. Use <code>read_csv()</code> to read it in.</p>
+<pre class="r"><code>break.df &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/Car_Break-ins.csv&quot;)</code></pre>
+<p>To convert these data into spatial points, we’ll need to “put” them onto a map. Luckily, our data have longitude (x-coordinate) and latitude (y-coordinate) information, so we don’t need to <a href="https://crd150.github.io/georeferencing.html#geocoding_addresses">geocode addresses</a>.</p>
+<p>We will use the function <code>st_as_sf()</code> to create spatial points from longitude/latitude coordinates. In the function, you will need to specify the x,y (or longitude/latitude) coordinates. In <em>break.sf</em>, these variables are conveniently named <em>X</em> and <em>Y</em> and is specified in <code>st_as_sf()</code> using the <code>coords</code> argument as such <code>coords = c(&quot;X&quot;, &quot;Y&quot;)</code>. Next, you’ll need to specify the Coordinate Reference System (CRS) using the option <code>crs=</code>. We went through in lecture and in this <a href="https://crd150.github.io/georeferencing.html">guide</a> some of the intricacies of a CRS. You can also read more about CRS in Ch. 2.3 and 6 of GWR. You won’t be tested on CRS and projections, and all of our labs and assignments will require fairly minimal effort in dealing with CRS, but it is an essential topic when handling spatial data, so please go through the guide and lecture slides if you didn’t get it the first time.</p>
+<p>There are two important things to know about CRS. First, all spatial data in your current R session should have the same CRS. We already brought in <em>sf.tracts</em> into R, which has a CRS of</p>
+<pre class="r"><code>st_crs(sf.tracts)</code></pre>
+<pre><code>## Coordinate Reference System:
+##   EPSG: 4269 
+##   proj4string: &quot;+proj=longlat +datum=NAD83 +no_defs&quot;</code></pre>
+<p><code>+proj=longlat</code> means that <em>sf.tracts</em> has a longitude/latitude projected coordinate system. Insert this CRS into the <code>crs=</code> argument in the <code>st_as_sf()</code> function as follows</p>
+<pre class="r"><code>break.sf &lt;- st_as_sf(break.df, coords = c(&quot;X&quot;, &quot;Y&quot;), crs = st_crs(sf.tracts))</code></pre>
+<p>The second important thing is your CRS should be compatible with the functions you plan to use on your data. Distance in longitude/latitude is in decimal degrees which (1) most people don’t understand and (2) is not compatible with several spatial functions. We need to change this to something that takes on meters. A popular meter-based Projected Coordinate System is <a href="http://desktop.arcgis.com/en/arcmap/latest/map/projections/universal-transverse-mercator.htm">Universal Tranverse Mercator</a> (UTM). UTM separates the United States in separate zones and Northern California is in zone 10.</p>
+<center>
+<div class="figure">
+<img src="utm.png" alt="Figure 1: UTM Zones" />
+<p class="caption">Figure 1: UTM Zones</p>
+</div>
+</center>
+<p>Let’s reproject both <em>sf.tracts</em> and <em>breaks.sf</em> to a UTM Zone 10 projected coordinate system. Use NAD83 as the datum and set the ellipse as GRS80 (popular choices for the datum/ellipse of the U.S.). To reproject use the function <code>st_transform()</code> as follows</p>
+<pre class="r"><code>sf.tracts.utm &lt;- st_transform(sf.tracts, crs = &quot;+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80&quot;)
+break.sf.utm &lt;- st_transform(break.sf, &quot;+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80&quot;)</code></pre>
+<p>Let’s map the break ins.</p>
+<pre class="r"><code>tm_shape(sf.tracts.utm) +
+  tm_polygons() +
+tm_shape(break.sf.utm) +  
+  tm_dots(col=&quot;red&quot;)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-10-1.png" /><!-- --></p>
+<p>You’ll notice those break-ins on Treasure Island (top right corner). Take those out by keeping just the points that intersect with the tract polygons. Use the function <code>st_intersects()</code>, which we covered in <a href="https://crd150.github.io/lab4.html">Lab 4</a>.</p>
+<pre class="r"><code>subset.int&lt;-st_intersects(break.sf.utm, sf.tracts.utm)
+subset.int.log = lengths(subset.int) &gt; 0
+break.sf.utm &lt;- filter(break.sf.utm, subset.int.log)
+tm_shape(sf.tracts.utm) +
+  tm_polygons() +
+tm_shape(break.sf.utm) +  
+  tm_dots(col=&quot;red&quot;)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="spatstat-package" class="section level2">
+<h2><strong>spatstat package</strong></h2>
+<p><br />
+As we saw in Week 5, <strong>sf</strong> spatial objects are often not compatible with most spatial functions. This is the case here with spatial point pattern analysis methods. We will be using the package <strong>spatstat</strong>, which has a number of useful functions for point pattern analysis. The downside is that it introduces yet another object class: <strong>ppp</strong> objects. Fortunately, the package is <a href="http://spatstat.github.io/">well documented</a> and is not too difficult to get used to. Install the package and load it in.</p>
+<pre class="r"><code>install.packages(&quot;spatstat&quot;)
+library(spatstat)</code></pre>
+<p>There is no function that directly converts <strong>sf</strong> to <strong>ppp</strong>. We’ll need to convert <em>break.sf.utm</em> first to an <strong>sp</strong> object using the <code>as()</code> function as was described in <a href="https://crd150.github.io/lab5.html#sf_and_sp_spatial_objects">Lab 5</a>.</p>
+<pre class="r"><code>break.sf.sp &lt;- as(break.sf.utm, &quot;Spatial&quot;)</code></pre>
+<p>Then convert this <strong>sp</strong> point object to a <strong>ppp</strong> object</p>
+<pre class="r"><code>break.sf.ppp &lt;- as(break.sf.sp, &quot;ppp&quot;)</code></pre>
+<p>As we have done with <strong>sp</strong>, we’ll limit the nuts and bolts of how <strong>ppp</strong> objects work, and we’ll stick to <strong>sf</strong> point objects whenever we can.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="point-intensity" class="section level2">
+<h2><strong>Point intensity</strong></h2>
+<p><br />
+One of the first analyses we can do with point data is to examine the distribution of points across an area. This is measuring first-order effects. First-order patterns look at trends over space and are typically measured by point density.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="quadrat-counts" class="section level3">
+<h3><strong>Quadrat counts</strong></h3>
+<p><br />
+A popular first-order method is to calculate quadrat counts, as is discussed on page 127 in OSU. Here, we break up the area into equally sized cells. We can carry out a simple quadrat analysis on our data using the <code>quadratcount()</code> function in the <strong>spatstat</strong> package. You have to specify the number of cells in your area. Here, we make a 6 x 6 grid, count the number of points within each of the 36 cells, and plot the grid.</p>
+<pre class="r"><code>qcounts&lt;-quadratcount(break.sf.ppp, nx = 6, ny = 6)
+plot(unmark(break.sf.ppp), pch=20, cols=&quot;grey70&quot;, main=NULL)
+plot(qcounts, col = &quot;red&quot;, add=TRUE)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
+<p>We can calculate the density (intensity) of points in each cell using the <code>intensity()</code> command.</p>
+<pre class="r"><code>break.intensity &lt;- intensity(qcounts)
+plot( intensity(qcounts, image=TRUE), main=&quot;Car Break-ins in San Francisco, 2017&quot;)
+plot(unmark(break.sf.ppp),  pch=20, cex=0.6, col=rgb(0,0,0,.2),  add=TRUE)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
+<p>Six-by-six might be too small. Let’s instead make a 40 by 40 grid.</p>
+<pre class="r"><code>qcounts&lt;-quadratcount(break.sf.ppp, nx = 40, ny = 40)</code></pre>
+<p>We’ll need to convert the resulting object into a data frame to do further analysis.</p>
+<pre class="r"><code>Qcount&lt;-data.frame(qcounts)</code></pre>
+<p>Following page 130 in OSU, we can get a basic measure of the spatial arrangement of points by calculating the ratio of the variance to the mean (VMR) of the quadrat counts</p>
+<pre class="r"><code>#dont plot qcounts - 40 x 40 grid wont show you much
+var(Qcount$Freq)/mean(Qcount$Freq)</code></pre>
+<pre><code>## [1] 171.6365</code></pre>
+<p>OSU states a VMR greater than 1.0 indicates a tendency towards clustering. 171.6 is super huge!</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="points-in-polygons" class="section level3">
+<h3><strong>Points in polygons</strong></h3>
+<p><br />
+Rather than use quadrats, we can instead use census tracts, which has been our definition of neighborhood. To get the count of break-ins by census tract, we need to use the function <code>aggregate()</code>, which is a part of the <strong>sf</strong> package. The code below tells R to sum up the number of points <em>break.sf</em> in <em>sf.tracts</em> identifying each point by its “IncidntNum”. The argument <code>length</code> is the R function for summing up points. If you wanted to get the average time of day of break-ins by census tract, you would use “Time” rather than “IncidntNum” and <code>mean</code> rather than <code>length</code>.</p>
+<pre class="r"><code>sf.tracts.sum &lt;- aggregate(break.sf.utm[&quot;IncidntNum&quot;], sf.tracts.utm, length) %&gt;%
+                  replace(is.na(.), 0)
+View(sf.tracts.sum)</code></pre>
+<p>The column <em>IncidntNum</em> indicates the number of car break-ins in each tract. If you get an NA value, that means no thefts are found in that tract. That’s why we included the command <code>replace(is.na(.), 0)</code>, which tells R to replace any NA values with a 0. Notice that <em>sf.tracts.sum</em> does not have the other variables from <em>sf.tracts.utm</em>. We’ll have to join <em>sf.tracts.sum</em> to <em>sf.tracts.utm</em>. Because we’re joining two <strong>sf</strong> objects, we’ll use the function <code>st_join()</code>. Let’s also rename <em>IncidntNum</em> to something more descriptive</p>
+<pre class="r"><code>sf.tracts.utm &lt;- sf.tracts.utm %&gt;% 
+    st_join(sf.tracts.sum, join=st_equals, left=FALSE) %&gt;%
+    rename(breakins = IncidntNum)</code></pre>
+<p>We can map the count of break-ins by census tract, but counts do not take into consideration exposure. In this case, tracts that are larger in size or greater in population will likely have more break-ins. Let’s calculate the number of break-ins per area and per 100 population.</p>
+<p>To calculate the number of break-ins per area, we’ll need to get the area of each polygon, which we do by using the function <code>st_area()</code>. The default area metric is kilometers squared, but we can use the function <code>set_units()</code> from the <strong>units</strong> package to set the unit of measure to (the U.S. friendly) miles squared. Use these functions within <code>mutate()</code> to create a new column containing each tract’s area.</p>
+<pre class="r"><code>library(units)
+sf.tracts.utm&lt;-mutate(sf.tracts.utm,area=set_units(st_area(sf.tracts.utm), value = mi2))</code></pre>
+<p>Then calculate the number of break-ins per area and per 100 population.</p>
+<pre class="r"><code>sf.tracts.utm&lt;-mutate(sf.tracts.utm,barea=breakins/area, bpop = (breakins/tpop)*100)</code></pre>
+<p>Let’s create a choropleth map of break-ins per area.</p>
+<pre class="r"><code>tm_shape(sf.tracts.utm, unit = &quot;mi&quot;) +
+  tm_polygons(col = &quot;barea&quot;, style = &quot;quantile&quot;,palette = &quot;Reds&quot;, 
+              border.alpha = 0, title = expression(&quot;Break-ins per &quot; * mi^2)) +
+  tm_compass(position = c(&quot;left&quot;, &quot;bottom&quot;)) +
+  tm_scale_bar(position = c(&quot;left&quot;, &quot;bottom&quot;)) +
+  tm_style(&quot;natural&quot;, title = &quot;Car break-ins in San Francisco\nTracts 2017&quot;,  title.size = 0.95, frame=FALSE)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-25-1.png" /><!-- --></p>
+<p>Try mapping break-ins per 100 population. Do you see any significant differences between the two maps? If so, which measure do you think is a more appropriate representation?</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="point-intensity-heat-maps" class="section level2">
+<h2><strong>Point intensity heat maps</strong></h2>
+<p><br />
+In Chapter 3 of OSU, the authors describe the use of kernel density (heat) maps to show the spatial patterns of points. Let’s create one of those here. One benefit of using a kernel density map to visually present your point data is that it does away with predefined areas like quadrats or census tracts. Your point space truly becomes continuous.</p>
+<p>We use the function <code>smooth_map()</code> to create a kernel density map. This function is in the package <strong>tmaptools</strong>, which we’ll need to load in.</p>
+<pre class="r"><code>library(tmaptools)</code></pre>
+<p>The most important parameter we need to set in <code>smooth_map()</code> is the <code>bandwidth</code>, which represents the radius of the kernel function. Think of the bandwidth as a smoothing parameter, where the larger it is, the smoother the map. We set this to 0.5, which represents 0.5 miles (because we’ll set <code>unit = &quot;mi&quot;</code> as an option within the function). We’ll also need to specify the argument <code>cover</code> which specifies the boundaries of the map (SF boundaries). I use <code>quantile</code> to define the color style, but as we outlined in <a href="https://crd150.github.io/lab4.html#tmap">Week 4’s lab</a>, there are other methods. Run <code>smooth_map()</code> and save the result into an object.</p>
+<pre class="r"><code>ds &lt;- smooth_map(break.sf.utm, bandwidth = 0.5, cover = sf.tracts.utm, unit = &quot;mi&quot;, style = &quot;quantile&quot;)</code></pre>
+<p>The values in <em>ds</em> that you’ll need to map is ds$polygons. Let’s map that on top of <em>sf.tracts.utm</em> and make the map look “pretty”.</p>
+<pre class="r"><code>tm_shape(ds$polygons) + tm_fill(col = &quot;level&quot;,
+  palette = &quot;YlOrRd&quot;, border.alpha = 0, title = expression(&quot;Break-ins&quot;)) +
+  tm_shape(sf.tracts.utm) + tm_borders() +
+  tm_compass(position = c(&quot;left&quot;, &quot;bottom&quot;)) +
+  tm_scale_bar(position = c(&quot;right&quot;, &quot;bottom&quot;)) +
+  tm_style(&quot;natural&quot;, title = &quot;Car break-ins San Francisco Tracts\n2017&quot;,  title.size = 0.95, frame=FALSE, legend.position = c(&quot;right&quot;, &quot;top&quot;))</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
+<p>Cool, right? As we discussed in lecture, setting the bandwidth can really change your results. My suggestion is to test different bandwidth values. Or choose a bandwidth that makes sense given the city (e.g. big vs. small) and/or context (e.g. walking vs. driving) you are studying.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="assessing-point-clustering-using-distance-based-methods" class="section level2">
+<h2><strong>Assessing point clustering using distance based methods</strong></h2>
+<p><br />
+In Week 5, we covered Moran’s I, which provides a neat summary index for measuring spatial autocorrelation (clustering). There is no point analog to the Moran’s I, but, as detailed in OSU Ch. 5, there are a handful of distance (nearest neighbor) based methods for determining whether spatial points are clustered across a geographic space. Methods that measure the relationship between points, in this case their distance from one another, are capturing second-order effects.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="nearest-neighbor-distance" class="section level3">
+<h3><strong>Nearest neighbor distance</strong></h3>
+<p><br />
+The first distance-based method that OSU goes through is calculating the average nearest neighbor distance. Here, you calculate for each point the distance to its nearest neighbor. You do this using the function <code>nndist()</code>, which is a part of the <strong>spatstat</strong> package.</p>
+<p>We plug <em>break.sf.ppp</em> into <code>nndist()</code>, save that result into an object (<code>nndist()</code> produces a numeric vector containing nearest distance for each point), and take the mean.</p>
+<pre class="r"><code>break.ndist &lt;- nndist(break.sf.ppp)
+mean(break.ndist)</code></pre>
+<pre><code>## [1] 9.242018</code></pre>
+<p>We find that the mean nearest distance is 9.24 meters. That’s pretty darn small. If you plot a histogram of the nearest distance values</p>
+<pre class="r"><code>#hist() is the base version for producing a histogram.  ggplot() does not work
+#on vectors
+hist(break.ndist, breaks = 50)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-30-1.png" /><!-- --></p>
+<p>we find <em>a lot</em> of zeroes, which means there are a lot of car break-ins happening in the same location.</p>
+<p>How do we know this value indicates clustering? The mean and histogram indicate that points cluster, but we can formally test it using the Clark and Evan’s R statistic described on OSU page 143. The <strong>spatstat</strong> package has the function <code>clarkevans.test()</code> for calculating this statistic and testing whether it is statistically significant from 1 (which indicates no clustering). An R less than 1 that is statistically significant indicates clustering.</p>
+<pre class="r"><code>clarkevans.test(break.sf.ppp)</code></pre>
+<pre><code>## 
+##  Clark-Evans test
+##  No edge correction
+##  Z-test
+## 
+## data:  break.sf.ppp
+## R = 0.25886, p-value &lt; 2.2e-16
+## alternative hypothesis: two-sided</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="k-function" class="section level3">
+<h3><strong>K function</strong></h3>
+<p><br />
+OSU introduces a set of functions - G(), F(), and K() - that describe the distribution of nearest neighbor distances. Our good friend <strong>spatstat</strong> provides canned functions for estimating these distributions. Let’s calculate K().</p>
+<p>Two things. First, OSU describes ways to assess spatial clustering inferentially by comparing the observed distribution of nearest neighbor distances to a theoretically derived expectation with “envelopes”. We can do this in R using the <code>envelope()</code> function. Second, OSU on page 137 warns us about edge effects. R offers 5 edge effect corrections. We’ll use the guard zone correction, which we specify using <code>correction = &quot;border&quot;</code> in the <code>envelope()</code> function. Let’s calculate K and its envelope.</p>
+<pre class="r"><code>envK &lt;- envelope(break.sf.ppp, fun = Kest, correction=&quot;border&quot;, nsim = 50)</code></pre>
+<p>Then plot it</p>
+<pre class="r"><code>plot(envK)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
+<p>It’s hard to see, but R is plotting the envelopes. They are just really narrow. To calculate G() and F(), use <code>envelope()</code> in the same way, replacing <code>Kest</code> with <code>Gest</code> and <code>Fest</code> in the <code>fun</code> option.</p>
+<p>All the evidence provided thus far - quadrats, kernel density maps, nearest neighbor distance, the K function - indicate that break-ins cluster.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="assignment-6" class="section level2">
+<h2><strong>Assignment 6</strong></h2>
+<p><br />
+Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/assgn6.Rmd">Assignment 6 R Markdown Script</a>). Any response requiring a data analysis task must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.).</p>
+<p>In this assignment, you will be exploring the spatial distribution of Airbnb listings in the City of Oakland. <a href="https://press.airbnb.com/about-us/">Airbnb</a> involves renting an entire home, a room or a shared room, typically from a private citizen. The data were downloaded from Airbnb’s public use <a href="http://insideairbnb.com/get-the-data.html">data site</a>. A record layout of the data oak_tracts.shp can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assgn6_tract_codebook.txt">here</a>. The oakland_airbnb_listings.csv file contains a lot of variables, but the key one for this assignment is id (unique ID for each listing). Download oak_tracts.shp (in a zip file) from the Assignments &gt;- Assignment 6 folder on Canvas. oakland_airbnb_listings.csv can be found <a href="https://raw.githubusercontent.com/crd150/data/master/oakland_airbnb_listings.csv">here</a>. We also uploaded the file on Canvas.</p>
+<ol style="list-style-type: decimal">
+<li>The following figures show plots of the G function for different sets of points. Indicate the point pattern - Complete Spatial Randomness, Uniform/Evenly spaced, or Clustered - in each plot. (1 point each)</li>
+</ol>
+<center>
+<div class="figure">
+<img src="hw6fig1.png" />
+
+</div>
+</center>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>For the plot shown in (b), explain what is causing the G function’s staircase shape. (1 point)</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>For this question, you will conduct a point pattern analysis of Airbnb listings in Oakland.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Bring in the Oakland census tract shapefile first. Then bring in the Airbnb locations and convert them to a spatial point <strong>sf</strong> object. Reproject both the tract and Airbnb locations to NAD 83/GRS80/UTM Zone 10. Keep Airbnb locations within Oakland boundaries. (1 point)</li>
+<li>Use a first-order approach to show the spatial distribution of Airbnb locations in the city. What do your results suggest about the pattern of Airbnb locations? (2 points)</li>
+<li>Plot the K function with its envelopes using a border correction. What is R plotting on the x and y axis? (2 points)</li>
+<li>Plot the F and G functions with their envelopes using a border correction. (2 point)</li>
+<li>What do the K, F and G plots suggest about the pattern of Airbnb locations? (1 point)</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>Airbnb has received criticism regarding its effects on local communities. See this <a href="https://www.citylab.com/equity/2018/03/what-airbnb-did-to-new-york-city/552749/">CityLab article</a> outlining the major criticisms. Let’s explore the validity of these criticisms using our data set.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Community advocates claim that Airbnb increases rent. What is the correlation between tract-level rent and the number of Airbnb listings per 1,000 housing units? (1 point)</li>
+<li>This <a href="https://theconversation.com/airbnb-and-empty-houses-whos-responsible-for-managing-the-impacts-on-our-cities-83959">article</a> contends that Airbnb promotes housing vacancy. Calculate the correlation between percent vacant housing and the number of Airbnb listings per 1,000 housing units. (1 point)</li>
+<li>Another claim is that Airbnb locations are in predominantly white, higher income, and gentrifying neighborhoods. What is the correlation between the number of Airbnb listings per 1,000 housing units and percent black, Hispanic, and median household income? (2 points)</li>
+</ol>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
