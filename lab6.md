@@ -471,7 +471,7 @@ All the evidence provided thus far - quadrats, kernel density maps, nearest neig
 ## **Assignment 6**
 \
 
-Download and open the [Assignment 6 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn6.Rmd)). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+Download and open the [Assignment 6 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn6.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
 
 In this assignment, you will be exploring the spatial distribution of Airbnb listings in the City of Oakland. [Airbnb](https://press.airbnb.com/about-us/) involves renting an entire home, a room or a shared room, typically from a private citizen. The data were downloaded from Airbnb's public use [data site](http://insideairbnb.com/get-the-data.html).  A record layout of the data oak_tracts.shp can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn6_tract_codebook.txt). The oakland_airbnb_listings.csv file contains a lot of variables, but the key one for this assignment is id (unique ID for each listing).  Download oak_tracts.shp (in a zip file) from the Assignments >- Assignment 6 folder on Canvas. oakland_airbnb_listings.csv can be found [here](https://raw.githubusercontent.com/crd150/data/master/oakland_airbnb_listings.csv). We also uploaded the file on Canvas. 
 
