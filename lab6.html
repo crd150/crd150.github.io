@@ -495,7 +495,7 @@ Let’s now bring in the locations of car break-ins in San Francisco in 2017. I�
 </center>
 <p>Let’s reproject both <em>sf.tracts</em> and <em>breaks.sf</em> to a UTM Zone 10 projected coordinate system. Use NAD83 as the datum and set the ellipse as GRS80 (popular choices for the datum/ellipse of the U.S.). To reproject use the function <code>st_transform()</code> as follows</p>
 <pre class="r"><code>sf.tracts.utm &lt;- st_transform(sf.tracts, crs = &quot;+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80&quot;)
-break.sf.utm &lt;- st_transform(break.sf, &quot;+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80&quot;)</code></pre>
+break.sf.utm &lt;- st_transform(break.sf, crs = &quot;+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80&quot;)</code></pre>
 <p>Let’s map the break ins.</p>
 <pre class="r"><code>tm_shape(sf.tracts.utm) +
   tm_polygons() +

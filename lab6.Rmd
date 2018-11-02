@@ -150,7 +150,7 @@ Let's reproject both *sf.tracts* and *breaks.sf* to a UTM Zone 10 projected coor
 
 ```{r}
 sf.tracts.utm <- st_transform(sf.tracts, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
-break.sf.utm <- st_transform(break.sf, "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
+break.sf.utm <- st_transform(break.sf, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
 ```
 
 Let's map the break ins.
