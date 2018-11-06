@@ -1,0 +1,236 @@
+---
+title: "Point Proximity Buffers"
+subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
+author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: cosmo
+    code_folding: show
+---
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+\
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this guide we will cover how to create and use point proximity buffers in R.  Buffer analysis is used for identifying areas surrounding geographic features. The process involves generating a circle with a radius *r* around existing geographic features.  Buffer analysis is a form of distance analysis.  In this case, you connect other features based on whether they fall inside or outside the boundary of the buffer.  In this guide we will extend the San Francisco Break-ins data from [Lab 6](https://crd150.github.io/lab6.html).  We'll detect whether car breaks-ins tend to be clustered near certain buildings.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Setting up the data**
+\
+
+We’ll need to load required packages. You should have already installed these packages in prior labs, so no need to run the install.packages() function.
+
+```{r warning = FALSE, message = FALSE}
+#Load necessary packages
+library(sf)
+library(tidyverse)
+library(tmap)
+```
+
+We'll then bring in four data files: (1) a shapefile of San Francisco Census tracts (2) a csv containing car breaks-in (3) a csv of [San Francisco Elementary schools](https://data.sfgov.org/Economy-and-Community/Map-of-Schools/qb37-w9se/data) and (4) a list of [active businesses in San Francisco](https://data.sfgov.org/Economy-and-Community/Map-of-Registered-Business-Locations/ednt-jx6u).   I uploaded all the files on GitHub.  The code for bringing in the files and cleaning them are below.  We won’t go through each line of code in detail because we’ve covered all of these operations and functions in Lab 6. We’ve embedded comments within the code briefly explaining what each chunk is doing, but go back to Lab 6 if you need further help.
+
+```{r warning = FALSE, message = FALSE, include = FALSE}
+download.file(url = "https://raw.githubusercontent.com/crd150/data/master/sf_tracts.zip", destfile = "sf_tracts.zip")
+unzip(zipfile = "sf_tracts.zip")
+
+sf.tracts <- st_read("sf_tracts.shp")
+sf.tracts.utm <- st_transform(sf.tracts, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
+```
+
+```{r warning = FALSE, message = FALSE, eval = FALSE}
+#Download zip file containing San Francisco city tracts shapefile
+setwd("insert your pathway here")
+download.file(url = "https://raw.githubusercontent.com/crd150/data/master/sf_tracts.zip", destfile = "sf_tracts.zip")
+unzip(zipfile = "sf_tracts.zip")
+
+sf.tracts <- st_read("sf_tracts.shp")
+sf.tracts.utm <- st_transform(sf.tracts, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
+```
+
+
+```{r warning = FALSE, message = FALSE}
+#Download car-break ins.   
+break.df <- read_csv("https://raw.githubusercontent.com/crd150/data/master/Car_Break-ins.csv")
+#Make into sf object using San Francisco tracts CRS.
+break.sf <- st_as_sf(break.df, coords = c("X", "Y"), crs = st_crs(sf.tracts))
+#Reproject into UTM Zone 10
+break.sf.utm <- st_transform(break.sf, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
+```
+
+```{r warning = FALSE, message = FALSE}
+#Download elementary schools
+elem.df <- read_csv("https://raw.githubusercontent.com/crd150/data/master/elementary_schools.csv")
+#Make into sf object using San Francisco tracts CRS.
+elem.sf <- st_as_sf(elem.df, coords = c("longitude", "latitude"), crs = st_crs(sf.tracts))
+#Reproject into UTM Zone 10
+elem.sf.utm <- st_transform(elem.sf, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
+```
+
+```{r warning = FALSE, message = FALSE}
+#Download businesses
+bus.df <- read_csv("https://raw.githubusercontent.com/crd150/data/master/sf_businesses_2018.csv")
+#Make into sf object using San Francisco tracts CRS.
+bus.sf <- st_as_sf(bus.df, coords = c("lon", "lat"), crs = st_crs(sf.tracts))
+#Reproject into UTM Zone 10
+bus.sf.utm <- st_transform(bus.sf, crs = "+proj=utm +zone=10 +datum=NAD83 +ellps=GRS80")
+```
+
+```{r warning = FALSE, message = FALSE}
+#Keeps car breaks-ins within San Fracisco city tract boundaries
+subset.int<-st_intersects(break.sf.utm, sf.tracts.utm)
+subset.int.log = lengths(subset.int) > 0
+break.sf.utm <- filter(break.sf.utm, subset.int.log)
+
+#Keeps businesses within San Fracisco city tract boundaries
+subset.int<-st_intersects(bus.sf.utm, sf.tracts.utm)
+subset.int.log = lengths(subset.int) > 0
+bus.sf.utm <- filter(bus.sf.utm, subset.int.log)
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Creating buffers** 
+\
+
+The first task is to visually inspect car break-ins around elementary schools.  That is, do we see clustering of points around schools?  We'll answer this question by creating buffers around schools. 
+
+The size of the buffer depends on the city you are examining and the context of your question.  In this case, let's use 150 meter buffers, which is the average size of a San Francisco city block.
+
+We use the **sf** function `st_buffer()` to create buffers.  The required arguments are your **sf** object and the distance.
+
+```{r warning = FALSE, message = FALSE}
+elem.buff <-st_buffer(elem.sf.utm, 150)
+elem.buff
+```
+
+You'll see that *elem.buff* is a polygon object like a census tract.  To be clear regarding what a buffer is, let's extract one school, El Dorado Elementary School (ID "PS028"), and its 150 meter buffer.
+
+```{r warning = FALSE, message = FALSE}
+ex1 <- filter(elem.buff, `Map Label` == "PS028")
+ex2 <- filter(elem.sf.utm, `Map Label` == "PS028")
+```
+
+And let's map it onto tracts with break-ins.
+
+```{r results="hide"}
+ex.map<-tm_shape(sf.tracts.utm) +
+          tm_polygons() +
+        tm_shape(ex1) +
+          tm_borders(col="red") +  
+        tm_shape(ex2) +
+          tm_dots(col = "red") +
+        tm_shape(break.sf.utm) +
+          tm_dots() 
+tmap_mode("view")
+ex.map 
+```
+
+The school we are mapping is located in the bottom right of the city.  If you zoom in (Figure 1), you'll see that the school is right in the middle of the buffer.  The radius of this buffer is 150 meters, and we find that there are four break-ins located within a block of the school
+
+
+
+<center>
+![Figure 1: 150 meter buffer](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/buffer.png)
+
+</center>
+
+One operation we can do using these buffers is to keep just the break-ins located within the buffers.  We do this by using the `st_intersects()` function, which we went through in Lab 4.  
+
+```{r warning = FALSE, message = FALSE}
+subset.int<-st_intersects(break.sf.utm, elem.buff)
+subset.int.log = lengths(subset.int) > 0
+elem.buff.break <- filter(break.sf.utm, subset.int.log)
+```
+
+The object *elem.buff.break* is a point **sf** object containing all break-ins located within 150 meters of an elementary school.  One thing we can do with these data is map it.
+
+```{r warning = FALSE, message = FALSE}
+tm_shape(sf.tracts.utm) +
+  tm_polygons() +
+tm_shape(break.sf.utm) +
+  tm_dots(col = "black") +
+tm_shape(elem.buff.break) +
+  tm_dots(col="red") 
+```
+
+You can also make a static map and present it to the San Francisco Police Department to visually show how break-ins map onto elementary schools.
+
+```{r warning = FALSE, message = FALSE}
+tmap_mode("plot")
+tm_shape(sf.tracts.utm, unit = "mi") +
+  tm_polygons() +
+tm_shape(break.sf.utm) +
+  tm_dots(col = "black") +
+tm_shape(elem.buff.break) +
+  tm_dots(col="red") +
+tm_shape(elem.buff) +
+  tm_polygons(col="red", alpha = 0.2) +
+tm_scale_bar(breaks = c(0, 1, 2), size = 0.5) +
+tm_compass(type = "4star", position = c("right", "top")) + 
+tm_layout(main.title = "150 Meter Buffers around Elementary Schools, San Francisco,\nCar Break-ins, 2017",  main.title.size = 0.75, frame = FALSE)  
+```    
+
+<div style="margin-bottom:25px;">
+</div>
+## **Do break-ins cluster around certain businesses?**
+\
+
+A map is fine, but we'll want to add some numerical summaries to get a better idea of where break-ins cluster.  In this section, we'll answer the question: do car break-ins cluster around certain types of businesses? We can do this by creating buffers of a certain distance around each business and counting the number of break-ins inside the buffer.  The key variable in this data set is *naicscodedescription*, which provides a broad description of the business.
+
+Let's create 150 meter buffers around each business location
+
+```{r warning = FALSE}
+bus.buff <-st_buffer(bus.sf.utm, 150)
+```
+
+
+We will count the number of break-ins located *within* each buffer.  We'll do this for all businesses in our data set.  Remember that *bus.buff* is a polygon. Counting the number of break-ins inside a buffer is a points-in-polygons operation, which we already did in [Lab 6](https://crd150.github.io/lab6.html) using the `aggregate()` function.  We'll have to join the object we get from `aggregate()` back to the buffer.  
+
+```{r warning = FALSE, message = FALSE}
+temp<-aggregate(break.sf.utm["IncidntNum"], bus.buff, length) %>%
+                  replace(is.na(.), 0)
+
+bus.buff <- bus.buff %>% 
+    st_join(temp, join=st_equals, left=FALSE) %>%
+    rename(breakins = IncidntNum)
+```
+
+We can then use `summarize()` to find the mean number of car break-ins that occur within 150 meters of each business type.
+
+```{r warning = FALSE, message = FALSE}
+bus.buff %>%
+  group_by(naicscodedescription) %>%
+  summarize(mean = mean(breakins, na.rm=TRUE))
+```
+
+It looks like food services (e.g. restaurants, bars) and retail trade (e.g. beauty parlors, gift shops, nail salons) lead the way, with 59.6 and 59.0 car break-ins occurring on average within 150 meters in 2017.  The least is construction with 25.5.  
+
+
+
+
+***
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
+

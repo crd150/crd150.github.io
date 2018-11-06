@@ -37,6 +37,8 @@ navbar:
           href:  missingdata.html  
         - text: "Coordinate Reference Systems"
           href:  georeferencing.html  
+        - text: "Point Proximity Buffers"
+          href: buffers.html
         - text: "Neighborhood Data Sources"
           href:  ndata.html   
         - text: "Big/Open Data Sources"
