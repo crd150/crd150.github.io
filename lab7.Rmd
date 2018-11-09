@@ -1,0 +1,602 @@
+---
+title: "Lab 7: Site Suitability Analysis"
+subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
+author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
+date: <h4 style="font-style:normal">October 12, 2018</h4>
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: cosmo
+    code_folding: show
+---
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+\
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this guide you will learn how to calculate neighborhood segregation, exclusion, and accessibility measures using R.  You will then integrate some of these measures to conduct a site suitability analysis. The objectives of the guide are as follows
+
+1. Calculate measures of place-based social exclusion and inequity.
+2. Conduct a site suitability analysis
+
+To accomplish objective (1), you will be working with tract data for the six largest cities in California: Los Angeles, San Diego, San Jose, San Francisco, Fresno, and Sacramento. To accomplish objective (2), you will run a site suitability analysis for banking institutions in the City of Los Angeles.
+
+<p class="comment", style="font-style:normal">**Assignment 7 is due by 12:00 am, November 16th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn07. For example: brazil_n_asgn07.</p>
+
+<div style="margin-bottom:25px;">
+</div>
+## **Bringing in tract data**
+\
+
+We will use the Census API to bring in demographic and socioeconomic tract-level data for the cities of Los Angeles, San Diego, San Jose, San Francisco, Fresno, and Sacramento.  You will need data on racial/ethnic composition and the indicators used to measure concentrated disadvantage.  We won't go through each line of code in detail because we've covered all of these operations and functions in prior labs.  We've embedded comments within the code briefly explaining what each chunk is doing, but go back to prior guides (or RDS/GWR) if you need further help. There is one package that you'll need to install.  We'll load it in later in the lab.
+
+```{r warning = FALSE, message = FALSE, eval=FALSE}
+install.packages("matrixStats")
+```
+
+```{r warning=FALSE, results="hide", message=FALSE}
+#Load necessary packages
+library(sf)
+library(sp)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+options(tigris_class = "sf")
+library(tmap)
+library(rmapshaper)
+library(tidyimpute)
+library(VIM)
+```
+
+```{r include=FALSE, warning=FALSE, results="hide"}
+census_api_key("b81d373d6e785ecbc489de1fc862aef424d0a63a")
+```
+
+```{r eval=FALSE, warning=FALSE}
+census_api_key("YOUR API KEY GOES HERE")
+```
+
+```{r warning=FALSE, results="hide", message=FALSE}
+# Bring in census tract data using the Census API 
+ca.tracts <- get_acs(geography = "tract", 
+              year = 2016,
+              variables = c(tpop = "B01003_001", tpopr = "B03002_001", 
+                            nhwhite = "B03002_003", nhblk = "B03002_004",
+                            nhasn = "B03002_006", hisp = "B03002_012", 
+                            tpopa = "B01001_001", mage5 = "B01001_003", 
+                            mage9 = "B01001_004", mage14 = "B01001_005",
+                            mage17 = "B01001_006", fage5 = "B01001_027",
+                            fage9 = "B01001_028", fage14 = "B01001_029",
+                            fage17 = "B01001_030", tpoppa = "B19057_001",
+                            pa = "B19057_002", tpopp = "B17017_001",
+                            pov = "B17017_002", tpopu = "B23025_003",
+                            unemp = "B23025_005", tpopfh = "B11005_001",
+                            fhhf = "B11005_007", fhhnf = "B11005_010"),
+              state = "CA",
+              survey = "acs5",
+              geometry = TRUE)
+
+# Make the data tidy, calculate and keep essential vars.
+ca.tracts <- ca.tracts %>% 
+  select(-(moe)) %>%
+  spread(key = variable, value = estimate) %>%
+  mutate(pnhwhite = nhwhite/tpopr, pnhasn = nhasn/tpopr, 
+        pnhblk = nhblk/tpopr, phisp = hisp/tpopr, 
+        nonwhite = tpopr-nhwhite, pnonwhite = nonwhite/tpopr,
+        pchild = (mage5+mage9+mage14+mage17+fage5+fage9+fage14+fage17)/tpopa,
+        pwelfare = pa/tpoppa, ppov = pov/tpopp, punemp = unemp/tpopu,
+        pfhh = (fhhf+fhhnf)/tpopfh) %>%
+  select(c(GEOID,tpop, tpopr, pnhwhite, pnhasn, pnhblk, phisp, pchild, pwelfare,
+           ppov, punemp, pfhh, nhwhite, nhasn, nhblk, hisp, nonwhite, pnonwhite))  
+
+# Bring in city boundary data
+pl <- places(state = "CA", cb = TRUE)
+
+# Keep six largest cities in CA
+large.cities <- filter(pl, NAME == "Los Angeles" | NAME == "San Diego" | 
+                         NAME == "San Jose" | NAME == "San Francisco" |
+                         NAME == "Fresno" | NAME == "Sacramento")
+
+#Clip tracts in large cities. Drop unnecessary variables
+large.tracts <- ms_clip(ca.tracts, large.cities, remove_slivers = TRUE) %>%
+                st_join(large.cities) %>%
+                select(-(c(ALAND, AWATER, AFFGEOID, GEOID.y)))
+
+#check missing values
+summary(aggr(large.tracts, plot=FALSE))
+
+#impute missing values
+large.tracts <- large.tracts %>%
+    group_by(NAME) %>%
+    impute_mean(pnhwhite, pnhasn, pnhblk, phisp, pchild, pwelfare,
+                ppov, punemp, pfhh, pnonwhite)
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Racial segregation**
+\
+
+Measures of segregation and other indices of place-based inequality have been fundamental to documenting and understanding the causes and consequences of residential patterns of racial separation. Let's calculate the two most common city-level measures of racial segregation: Dissimilarity, which captures residential evenness, and Interaction, which measures exposure.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Dissimilarity Index**
+\
+
+The most common measure of residential evenness is the Dissimilarity Index *D*. To calculate *D*, we'll follow the Dissimilarity index formula on page 2 of this week's handout on measuring exclusion and inequity. We first need to calculate the total population by race/ethnicity for each city.  We do this by using the `group_by()` and `mutate()` functions.  
+
+```{r warning = FALSE, message = FALSE}
+large.tracts <- large.tracts %>%
+      group_by(NAME) %>%
+      mutate(nhwhitec = sum(nhwhite), nonwhitec = sum(nonwhite), 
+             nhasnc = sum(nhasn), nhblkc = sum(nhblk), 
+             hispc = sum(hisp), tpoprc = sum(tpopr)) %>%
+      ungroup()
+```  
+  
+The `group_by()` function tells R that all future functions on *large.tracts* will be grouped according to the variable *NAME*, which is the city name. The function `ungroup()` at the end of the code tells R to stop this grouping function. For example, we see near the top of the following code
+
+```{r warning = FALSE, message = FALSE}
+large.tracts %>%
+    group_by(NAME)
+```
+
+that the tibble *large.tracts* is grouped (*Groups:   NAME [6]*).  Use `ungroup()` 
+
+```{r warning = FALSE, message = FALSE}
+large.tracts %>%
+    group_by(NAME) %>%
+    ungroup()
+```
+
+and the grouping is gone!  It's always good practice to `ungroup()` a data set if you are saving it.
+
+We then use the pipe operator to perform the following tasks: `mutate()` to calculate the tract level contributions to the index and `summarize()` to add up the tract level contributions to get the city-wide Dissimilarity index.   We'll need to use `group_by()` to do these tasks separately for each city.  Remember that *D* is a two-group measure - so, we calculate Dissimilarity for Black/White (*BWD*), Asian/White (*AWD*), Hispanic/White (*HWD*), Nonwhite/White (*NWWD*).  In all of these cases, we calculate segregation from white residents, but you can calculate segregation for any race/ethnicity combination (e.g. Black/Hispanic).
+
+```{r warning = FALSE, message = FALSE}
+large.tracts %>%
+      group_by(NAME) %>%
+      mutate(d.wb = abs(nhblk/nhblkc-nhwhite/nhwhitec),
+              d.wa = abs(nhasn/nhasnc-nhwhite/nhwhitec), 
+              d.wh = abs(hisp/hispc-nhwhite/nhwhitec),
+              d.wnw = abs(nonwhite/nonwhitec-nhwhite/nhwhitec)) %>%
+      summarize(BWD = 0.5*sum(d.wb), AWD = 0.5*sum(d.wa),
+                HWD = 0.5*sum(d.wh), NWWD = 0.5*sum(d.wnw))
+```
+
+
+The Dissimilarity index for Black/White in Sacramento is 0.432.  The interpretation of this value is that 43.2% of black residents would need to change places with white residents from other neighborhoods in order to achieve a uniform distribution of black residents across neighborhoods.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Interaction Index**
+\
+
+The most common measure of exposure is the Interaction Index $P^*$.  Let's calculate the exposure of black (*BWI*), Asian (*AWI*), Hispanic (*HWI*), and Non-white (*NWWI*) residents to white residents using the formula on page 3 of this week's handout on measuring exclusion and inequity.
+
+```{r}
+large.tracts %>%
+      group_by(NAME) %>%
+      mutate(i.wb = (nhblk/nhblkc)*(nhwhite/tpopr),
+              i.wa = (nhasn/nhasnc)*(nhwhite/tpopr), 
+              i.wh = (hisp/hispc)*(nhwhite/tpopr),
+              i.wnw = (nonwhite/nonwhitec)*(nhwhite/tpopr)) %>%
+      summarize(BWI = sum(i.wb, na.rm=TRUE), AWI = sum(i.wa, na.rm=TRUE),
+                HWI = sum(i.wh, na.rm=TRUE), NWWI = sum(i.wnw, na.rm=TRUE))
+```                
+                
+The probability of a black resident "interacting" with a white person in his or her neighborhood is about 26% in Sacramento. We can also interpret this to mean that 26 of every 100 people a black person meets in his or her neighborhood will be white.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Location Quotient**
+\
+
+The Dissimilarity and Isolation indices are city (or metro or county) level measures.  What about a local measure of segregation?  That is, how can we identify neighborhoods with a disproportionate amount of one race/ethnic group? That's where the Location Quotient for Racial Resident Segregation comes in.  The LQ is effectively a measure of concentration.  
+
+Let's zoom into the City of Los Angeles, which will be the case study for our site suitability analysis a little later, and calculate the LQ for each of its tracts.  First, keep Los Angeles City from *large.tracts* using the `filter()` command and calculate the LQ for blacks, Asians, Hispanics, and non-whites.
+
+```{r}
+la.tracts <- large.tracts %>%
+  filter(NAME == "Los Angeles") %>%
+  mutate(blklq = pnhblk/(nhblkc/tpoprc), 
+        asnlq = pnhasn/(nhasnc/tpoprc),
+        hisplq = phisp/(hispc/tpoprc),
+        nonwhitelq = pnonwhite/(nonwhitec/tpoprc))
+```
+
+You can visualize the distribution using a histogram (or boxplot).  For example, a histogram of the black LQ looks like
+
+```{r warning=FALSE, message = FALSE}
+la.tracts %>% 
+  ggplot() + 
+    geom_histogram(mapping = aes(x=blklq), na.rm=TRUE)
+```
+
+The skewness of the distribution indicates significant concentration of the black population in Los Angeles. We can also map the LQs
+
+```{r warning = FALSE}
+tmap_mode("view")
+tm_shape(la.tracts, unit = "mi") +
+  tm_polygons(col = "blklq", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "Black Location Quotient") 
+```
+
+The map indicates that there are some neighborhoods in the city that have a percent non-Hispanic black population that is as high as 9.253 times the overall percent non-Hispanic black population in the city. Wow!
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Concentrated disadvantage**
+\
+
+Let's move from the narrow perspective of race/ethnicity to the broader realm of community social disadvantage.  We want to capture a measure that represents socioeconomic deprivation in a local area that encompasses more than just race, income or poverty.  A popular measure is concentrated disadvantage, which combines the following key indicators of socioeconomic deprivation into a single index.   
+
+* Percent of households under welfare (*pwelfare*)
+* Percent of households in poverty (*ppov*)
+* Percent of the civilian labor force that are unemployed (*punemp*)
+* Percent of households that are female-headed with children (*pfhh*)
+* Percent black (*pnhblk*) 
+* Percent of residents that are less than 18 years old (*pchild*).
+
+In order to combine variables into an index, we need to standardize them.  We do this to get the variables onto the same scale. A common approach to standardizing a variable is to calculate its z-score, which puts the values of a variable into standard deviation units.
+
+The z-score is a measure of distance from the mean, in this case the mean of all tracts in an area.  To calculate the z-score for a particular tract, the value of the variable in that tract is subtracted from the total mean and divided by the standard deviation of the variable. A positive z-score indicates that the tract's value is above the mean and a negative value indicates the value is below the mean.
+
+Let's calculate the z-score for the variable *pwelfare*.  Let's create a variable named *pwelfarez* that subtracts from each tract's value on *pwelfare* the total mean of *pwelfare*.  Then you divide this difference by the standard deviation of *pwelfare*.  The mean and standard deviation of the standardized variable *pwelfarez* should be 0 and 1, respectively.
+
+```{r, results = "hide"}
+la.tracts %>%
+  mutate(pwelfarez = (pwelfare-mean(pwelfare))/sd(pwelfare)) 
+```
+
+We need to do this for all 6 variables that make up concentrated disadvantage.  We then add the z-scores and take the average to get the measure of concentrated disadvantage, which we will save in the variable *concd*.  Let's do this in the following code, and save it back into *la.tracts*.
+
+```{r}
+la.tracts <- la.tracts %>%
+  mutate(pwelfarez = (pwelfare-mean(pwelfare))/sd(pwelfare),
+         pnhblkz =  (pnhblk-mean(pnhblk))/sd(pnhblk),
+         pchildz = (pchild-mean(pchild))/sd(pchild),
+         ppovz = (ppov-mean(ppov))/sd(ppov),
+         punempz = (punemp-mean(punemp))/sd(punemp),
+         pfhhz = (pfhh-mean(pfhh))/sd(pfhh),
+         concd = (pwelfarez+pnhblkz+pchildz+ppovz+punempz+pfhhz)/6)
+```
+
+You can visualize the distribution of concentrated disadvantage using a histogram (or boxplot)
+
+```{r warning=FALSE, results = "hide"}
+la.tracts %>% 
+  ggplot() + 
+  geom_histogram(mapping = aes(x=concd), na.rm=TRUE)
+```
+
+We can also map the index
+
+```{r warning = FALSE, message = FALSE}
+tm_shape(la.tracts, unit = "mi") +
+  tm_polygons(col = "concd", style = "quantile",palette = "BrBG", 
+              border.alpha = 0, title = "Concentrated Disadvantage") 
+```
+
+The higher a neighborhood's index value, the more socioeconomically deprived 
+
+<div style="margin-bottom:25px;">
+</div>
+## **Site suitability modeling**
+\
+
+Building on some of the measures calculated above, in this section you will build a site suitability model – a common spatial analysis approach for locating a land use in space given a set of spatial constraints or ‘decision factors.’
+
+In this case study, we want to determine where to locate a bank or credit union.  There is much work examining the presence of ["bank deserts"](https://www.kcet.org/shows/city-rising/bank-deserts-nearly-one-in-five-la-county-neighborhoods-lack-bank-or-credit-union).  Much of this work shows that certain neighborhoods, specifically low income and majority minority, are spatially inaccessible to a nearby financial institution.  What are the consequences?   Residents without access to banking services often do not have a savings account to save for their future. They are unable to access affordable credit to purchase a home, pay for higher education, or replace an older vehicle.  When residents lack access to banking services they often turn to payday loans, check-cashing services, auto title loans, and other non-traditional forms of credit that charge high-interest rates and expensive fees. 
+
+When constructing a site suitability model, you need to establish a set of location criteria or decision factors to narrow your geographic search.  There are a number of factors to consider when deciding where to place a new bank, but let's approach this exercise from a social equity standpoint.  That is, let's find disadvantaged and minority neighborhoods that have low spatial access to a financial institution. You also want to have a neighborhood with a relatively large population to serve that is close to pubic transportation.  As such, you will be using the following variables to find suitable sites
+
+1. Neighborhood distance to the nearest bank
+2. Neighborhood distance to the near major public transportation hub
+3. Concentrated disadvantage
+4. Percent nonwhite location quotient
+5. Population density
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Bringing in bank locations**
+\
+
+We need to bring in Los Angeles city bank locations to calculate neighborhood distance to the nearest bank.  You can download these data from [PolicyMap](https://ucdavis.policymap.com/maps), although the locations will be given in street address (not latitude/longitude), which means you'll need to geocode the locations using the method described [here](https://crd150.github.io/georeferencing.html).  I instead took the data from Los Angeles' [open data portal](http://geohub.lacity.org/datasets/banking-and-finance-1), which provides the locations already in shapefile format.  Download that data from the Week 7 folder in Canvas and save it into an appropriate folder.  Point R to the folder you saved that data in using `set_wd()` and bring it into R using `st_read()`
+
+```{r include = FALSE}
+setwd("/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io")
+```
+
+```{r warning = FALSE, message = FALSE, results = "hide"}
+banks.sf<-st_read("Banking_and_Finance.shp")
+```
+
+We'll also need to reproject *banks.sf* to match *la.tracts*'s Coordinate Reference System.
+
+```{r warning = FALSE, message = FALSE}
+banks.sf <- st_transform(banks.sf, crs = st_crs(la.tracts))
+```
+
+We'll be using a couple of functions measuring distance between points, so it's best to reproject both the tracts and banks into a meter friendly CRS, such as UTM Zone 11.
+
+```{r warning = FALSE, message = FALSE}
+la.tracts.utm <- st_transform(la.tracts, crs = "+proj=utm +zone=11 +datum=NAD83 +ellps=GRS80")
+banks.sf.utm <- st_transform(banks.sf, crs = "+proj=utm +zone=11 +datum=NAD83 +ellps=GRS80")
+```
+
+Finally, the banks data set contains financial institutions in Los Angeles County, not City. However, we shouldn't keep just the banks within the city. Why? Because residents living on the boundaries of the city might access nearby banks outside of the boundaries. This avoids the problem of Edge Effects that OSU discuss in Chapters 2 and 5 of OSU. Let's first map the banks and tracts. 
+
+```{r warning = FALSE, message = FALSE}
+tm_shape(la.tracts.utm) +
+  tm_polygons() +
+tm_shape(banks.sf.utm) +  
+  tm_dots(col="red")
+```
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Distance to nearest bank**
+\
+
+Distance to a resource like a bank measures neighborhood spatial accessibility.  We define neighborhoods as polygons.  So, we are trying to find the distance between polygons and their nearest points. How do we do this?  A common way is to find a polygon's centroid and find its distance to the nearest point. The centroid is exactly what it sounds - the center point of a geographic space.  To find the centroids for each neighborhood, use the function `st_centroid()`
+
+```{r warning=FALSE}
+neigh_cent.la <- st_centroid(la.tracts.utm)
+```
+
+We can plot the centroids to see what we get
+
+```{r}
+tm_shape(la.tracts.utm) +
+  tm_polygons() +
+tm_shape(neigh_cent.la) +  
+  tm_symbols(size = 0.01, col = "black")
+```
+
+If you zoom into any tract, you'll find that the point is located right in the middle.
+
+We can calculate the distance (in meters) from each neighborhood centroid to each bank point.  We do this by using the function `st_distance()`
+
+```{r results = "hide"}
+bank.dist<-st_distance(neigh_cent.la, banks.sf.utm)
+```
+
+For the object *bank.dist*, the rows represent the neighborhoods and the columns are the banks.  You can check this by comparing dimensions
+
+```{r}
+#number of neighborhoods is 999
+dim(neigh_cent.la)
+#number of banks is 2430
+dim(banks.sf.utm)
+#999 by 2430
+dim(bank.dist)
+```
+
+So, we have a distance matrix.  That is we have each tract's distance to each bank. Great. But, what we want is to get the distance to the *closest* bank.  We can use the function `rowMins()` in the package **matrixStats** to accomplish this.  
+
+```{r warning = FALSE, message = FALSE}
+library(matrixStats)
+```
+
+The function `rowMins()` does exactly what you think it would do - get the minimum value across columns for each row.  For *bank.dist*, this means we get the minimum distance to a bank for each neighborhood.  Run this function within `mutate()` to save the resulting value in our main data set *la.tracts.utm*
+
+```{r warning = FALSE, message = FALSE}
+la.tracts.utm <- mutate(la.tracts.utm, bankdist = rowMins(bank.dist))
+```
+
+Let's create a choropleth map of distance to nearest financial institution.
+
+```{r}
+tm_shape(la.tracts.utm) +
+  tm_polygons(col = "bankdist", style = "quantile",palette = "Blues") +
+  tm_shape(banks.sf) +
+  tm_symbols(size = 0.10, col = "red")
+```
+
+<div style="margin-bottom:25px;">
+</div>
+### **Distance to near rail station**
+\
+
+Site suitability models typically rely on different types of spatial objects.  This means you'll be working with polygon, point and line data.  Another spatial point object besides bank locations that we want to incorporate into our site suitability model is distance to a Metro rail, the City's largest provider of public transportation.  The rationale is that we want to situate a bank in a neighborhood that has or is close to a major public transportation stop so that others across the city can access the bank.
+
+Download the shapefile Metro_Stations.shp from the Week 7 Canvas folder into an appropriate folder and use `st_read()` to read it in.  The file comes from the [Los Angeles Geohub](http://geohub.lacity.org/datasets/c493f3d44e97482e90ce9355019b1349_185). Reproject the data to UTM Zone 11.
+
+```{r warning = FALSE, message = FALSE, results = "hide"}
+metro.sf <- st_read("Metro_Stations.shp")
+metro.sf.utm <- st_transform(metro.sf, crs = "+proj=utm +zone=11 +datum=NAD83 +ellps=GRS80")
+```
+
+We follow the same steps above to calculate the nearest distance of each neighborhood centroid to an existing metro stop.  
+
+```{r warning = FALSE, message = FALSE}
+metro.dist<-st_distance(neigh_cent.la, metro.sf.utm)
+la.tracts.utm <- la.tracts.utm %>%
+  mutate(metrodist = rowMins(metro.dist))
+```
+
+Plot metro stations on your own if you are curious to see where stations are located.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Finalizing the model**
+\
+
+As outlined in this week's handout, there are a couple of approaches to site suitability modeling.  In optimal selection, we need to find the areas that meet *all* conditions of a given set of criteria.  Let's say we define eligible neighborhoods as those with the following characteristics.
+
+1. The nearest financial institution is 1 mile (or ~1609 meters) or more away.
+2. The nearest [Metro Rail](https://www.metro.net/riding/maps/) station is 1 mile or less away.
+2. Has a concentrated disadvantage that is in the upper quartile of the city's distribution.
+3. Has a nonwhite location quotient that is in the upper quartile of the city's distribution.
+4. Has a population density greater than the city median.
+
+In order to run this model, we first need to calculate population density by dividing population by the tract area, which we calculate using the function `st_area()`.  We then calculate quartiles for population density, concentrated disadvantage and the non-white LQ using the function `ntile()`.  
+
+```{r}
+la.tracts.utm <- la.tracts.utm %>%
+  mutate(popd = tpop/st_area(la.tracts.utm),
+         popdq = ntile(popd,4), concdq = ntile(concd,n = 4), 
+         nonwhitelqq = ntile(nonwhitelq,4))
+```         
+
+We then use `ifelse()` statements to find out which tracts have a distance of more than 1 mile from the nearest bank, have a distance of 1 mile or less from the nearest rail station, have a population density greater than the median, are in the top quartile in concentrated disadvantage and the non-white LQ. These are our selection criteria.  
+
+```{r}
+la.tracts.utm <- la.tracts.utm %>%
+  mutate(bdistcriteria = ifelse(test = bankdist > 1609, yes = 1, no = 0), 
+         mdistcriteria = ifelse(test = metrodist < 1609, yes = 1, no = 0),
+         concdcriteria = ifelse(test = concdq == 4, yes = 1,no = 0), 
+         nwlqcriteria = ifelse(test = nonwhitelqq == 4, yes = 1, no = 0),
+         popdcriteria = ifelse(test = popdq > 2,yes = 1,no = 0))
+```
+
+To understand what the `ifelse()` function is doing, let's look at the first `ifelse()` command above.  This command tells R that if a neighborhood has a *bankdist* greater than 1609 (our `test =`), give it a 1, otherwise give it a 0. These 1's and 0's are saved in the variable *bdistcriteria*.
+
+Finally, we use an `ifelse()` statement to create a variable *banksiteopt* that indicates which tracts meet all 5 criteria. We then substitute a missing value NA for *banksiteopt* if the tract has no population (for example, the tract containing the Los Angeles Airport).
+
+```{r}
+la.tracts.utm <- la.tracts.utm %>%
+  mutate(banksiteopt = ifelse(bdistcriteria == 1 & mdistcriteria == 1 &
+                              concdcriteria == 1 & nwlqcriteria == 1 & 
+                              popdcriteria == 1,1,0),
+         banksiteopt = ifelse(tpop == 0,NA,banksiteopt ))
+table(la.tracts.utm$banksiteopt)
+```
+
+It looks like we have 8 eligible tracts. We can map the locations
+
+```{r}
+tm_shape(la.tracts.utm) +
+  tm_polygons(col = "banksiteopt", style = "cat")
+```
+
+What do these tracts look like?  We can create a summary table of demographic and socioeconomic characteristics of these tracts compared to the rest of the city.
+
+```{r}
+temp<-la.tracts.utm %>%
+  group_by(banksiteopt) %>%
+  summarize("Bank Distance" = mean(bankdist),
+            "Metro Distance" = mean(metrodist),
+            "Population size" = mean(tpop),
+            "% white" = mean(pnhwhite),
+            "% Asian" = mean(pnhasn),
+            "% black" = mean(pnhblk),
+            "% phisp" = mean(phisp),
+            "% less < 18 yrs" = mean(pchild),
+            "% welfare" = mean(pwelfare),
+            "% poverty" = mean(ppov),
+            "% unemployed" = mean(punemp),
+            "% female headed hhs" = mean(pfhh)) %>%
+  ungroup()
+st_geometry(temp) <- NULL
+temp %>%
+  gather(variable, value, -banksiteopt) %>% 
+  spread(banksiteopt, value)
+```
+
+The code `st_geometry(temp) <- NULL` eliminates the spatial data from the object to make it just a basic tibble.  The last line of codes transposes the summary table *temp* - that is, it shifts the rows into columns and the columns into rows. Why do this? It creates a tibble that you can then save into a csv using `write_csv()` and then format and make presentation ready in Excel.
+    
+Where are these neighborhoods?  Checking out one [definition](http://maps.latimes.com/neighborhoods/region/south-la/) of neighborhood boundaries, the southern set of tracts are in Watts and the set of tracts just north are in Florence.  As you can see from the summary statistics, these neighborhoods are predominantly Black and Hispanic with high poverty rates, welfare rates, female-headed households, and a large proportion of child and adolescent residents.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Categorical suitability index**
+\
+
+The method described above for choosing a suitable site might seem too stringent.  Rather than a 0/1 decision, perhaps we want to base our decision off of an examination of the distribution of neighborhoods that meet none, one, two, three, four or five of the conditions. We create this variable by adding the four 0/1 criteria variables.  
+
+```{r}
+la.tracts.utm <- la.tracts.utm %>%
+  mutate(banksitecat1 = bdistcriteria + mdistcriteria +concdcriteria + 
+           nwlqcriteria + popdcriteria,
+  banksitecat1 = ifelse(tpop == 0,NA,banksitecat1))
+table(la.tracts.utm$banksitecat1)
+```
+
+Let's map the index.
+
+```{r}
+tm_shape(la.tracts.utm) +
+  tm_polygons(col = "banksitecat1", style = "cat") 
+```  
+
+The variable *banksitecat1* weights all criteria equally.  We can instead attach greater weights to variables we believe are more important.  For example, we may want concentrated disadvantage to weigh more in the decision, and thus we give it 50% of the weight with the rest of the weight equally distributed to the other four criteria.  Remember that the sum of the weights should equal 1.
+
+```{r}
+la.tracts.utm <- la.tracts.utm %>%
+  mutate(banksitecat2 = 0.50*concdcriteria + 0.125*mdistcriteria +
+                      0.125*bdistcriteria + 
+                      0.125*nwlqcriteria + 0.125*popdcriteria,
+        banksitecat2 = ifelse(tpop == 0,NA,banksitecat2 ))
+table(la.tracts.utm$banksitecat2)
+```
+
+```{r}
+tm_shape(la.tracts.utm) +
+  tm_polygons(col = "banksitecat2", style = "cat") 
+```  
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Assignment 7**
+\
+
+Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn7.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+
+1. You will be calculating segregation indices for the cities of Detroit and Los Angeles.  **You do not need to convert the data sets used in this question into sf objects**.  Keep them as data frames (tibbles).
+
+a. Load into R racial/ethnic composition at the census tract level for Detroit.  The data set is in csv format and can be downloaded [here](https://raw.githubusercontent.com/crd150/data/master/detroit_tracts.csv).  Calculate the Black/White, Hispanic/White, and Asian/White Dissimilarity and Interaction indices. (2 points)
+b. Load into R racial/ethnic composition at the tract level for Los Angeles. The data set is in csv format and can be downloaded [here](https://raw.githubusercontent.com/crd150/data/master/los_angeles_tracts.csv). Calculate the Black/White, Hispanic/White, and Asian/White Dissimilarity and Interaction indices. (2 points)
+c. Intuitively, if you get a high Dissimilarity index, you should get a low Interaction index.  Comparing Detroit and Los Angeles Asian/White and Hispanic/White segregation, we find this to be the case.  However, we find that Los Angeles has a larger Black/White Dissimilarity index than Detroit, but has a higher Interaction index.  What is a good explanation for this finding? (2 points)
+
+2. The [Housing Authority of the City of Los Angeles](http://home.hacla.org/) wants to build an affordable housing development targeted towards families and has approached you to provide suggestions for potential neighborhoods.  They provide the following seven criteria.
+
+* Vacant units: They want to make sure there are actual places within the neighborhood to build the new development. The neighborhood's percent of vacant housing units should be greater than or equal to 5%.
+* Density of familes with children: Their target households are families with young children. The neighborhood's percent of households with children under 18 should be in the upper quartile of the city’s distribution.
+* High housing cost burden: A main goal in building the development is to alleviate some of the financial pressure put on certain neighborhoods in the City given the recent rise in housing and rental prices. The neighborhood's percent of households that are cost burdened should be in the upper quartile of the city's distribution.
+* Elementary schools: Given that the targeted households are families with young children, access to a nearby elementary school is important.  The neighborhood's centroid should be 1 mile (or 1609 meters) or less away from an elementary school.
+* Parks: Outdoor recreation is important for health and well-being, particularly for young children.  The neighborhood's centroid should be 1 mile or less away from a park.
+* Concentrated disadvantage: The City wants to target neighborhoods with high social disadvantage.  The neighborhood's concentrated disadvantage should be in the upper quartile of the city’s distribution.
+* Population density: The City wants to target areas with a high population density.  The neighborhood should have a population density greater than the city median.
+
+You will construct a site suitability model based on the above criteria to select appropriate census tracts for an affordable housing development.  You will need to reproject all shapefiles to UTM Zone 11.
+
+a. Download the shapefile los_angeles_tracts_site.shp from the Assignments -> Assignment 7 folder on Canvas. The data set contains American Community Survey 2012-2016 tract-level percent of housing units that are vacant, percent of households with children under 18, and the six variables making up concentrated disadvantage.  The data are clean and require no wrangling. Bring this data into R and calculate population density and concentrated disadvantage. (2 points)
+b. Download data for 2012-2016 homeowner cost burden from [PolicyMap](https://ucdavis.policymap.com/maps). The specific variable you want is Percent of homeowners who are burdened.  You can find this under Housing -> Affordability -> Cost Burdens -> Homeowner Cost Burdens -> All Households -> Cost Burdened. Follow the [PolicyMap tutorial](https://crd150.github.io/policymap.html) to clean up the file, which includes dealing with missing data. Merge this file into the data set from (a). (2 points)
+c. Download data for elementary schools from the [Los Angeles Geohub](https://geohub.lacity.org/datasets/c493f3d44e97482e90ce9355019b1349_49). Click on Download and then click Shapefile. This is point data. Bring it into R. Calculate distance between neighborhood centroids and the nearest elementary school. (2 points)
+d. Download data for parks from the [Los Angeles Geohub](https://data.lacity.org/A-Livable-and-Sustainable-City/Department-of-Recreation-and-Parks-GIS-Map-of-Park/nuub-r4zx).  Click on Export and then Shapefile. Bring it into R. Calculate distance between neighborhood centroids and the nearest park.  The park data are in polygon form, so in order to calculate distances, you'll need to create park centroids. (2 points)
+e. Construct a site suitability model using the optimal selection method. Make sure to make tracts with no population ineligible. How many tracts are eligible? Provide a presentation-ready map showing the results of your model. (3 points)
+f. Construct a site suitability model using the categorical suitability count index method.  Provide a bar chart showing the distribution of tracts by number of satisfied criteria (Hint: Turn your frequency table into a tibble). Provide a presentation-ready map showing the results of your model. (3 points)
+
+
+***
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
+
