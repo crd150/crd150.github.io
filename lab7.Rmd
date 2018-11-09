@@ -187,7 +187,7 @@ large.tracts %>%
 ```
 
 
-The Dissimilarity index for Black/White in Sacramento is 0.432.  The interpretation of this value is that 43.2% of black residents would need to change places with white residents from other neighborhoods in order to achieve a uniform distribution of black residents across neighborhoods.
+The Dissimilarity index for Black/White in Sacramento is 0.432.  The interpretation of this value is that 43.2% of black residents would need to move neighborhoods in order to achieve a uniform distribution of black residents across neighborhoods.
 
 <div style="margin-bottom:25px;">
 </div>
