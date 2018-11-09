@@ -2,7 +2,7 @@
 title: "Lab 7: Site Suitability Analysis"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
 author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
-date: <h4 style="font-style:normal">October 12, 2018</h4>
+date: <h4 style="font-style:normal">November 9, 2018</h4>
 output: 
   html_document:
     toc: true
