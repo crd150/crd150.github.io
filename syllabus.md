@@ -329,23 +329,31 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 13-Nov </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Opportunity mapping </td>
-   <td style="text-align:left;width: 13em; "> UA Ch. 5; Handout </td>
+   <td style="text-align:left;"> Cancelled </td>
+   <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Meeting </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 15-Nov </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Geodemographics </td>
-   <td style="text-align:left;width: 13em; "> Handout </td>
+   <td style="text-align:left;"> Cancelled </td>
+   <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Meeting </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 16-Nov </td>
    <td style="text-align:left;"> Lab </td>
-   <td style="text-align:left;"> Data reduction in R </td>
+   <td style="text-align:left;"> Project meetings </td>
+   <td style="text-align:left;width: 13em; ">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Meeting </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 5em; "> 19-Nov </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;"> HW 7 </td>
    <td style="text-align:left;">  </td>
@@ -385,26 +393,26 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 29-Nov </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Web GIS </td>
-   <td style="text-align:left;width: 13em; ">  </td>
+   <td style="text-align:left;"> Opportunity Mapping/Web GIS </td>
+   <td style="text-align:left;width: 13em; "> UA Ch. 5; Handout </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 30-Nov </td>
    <td style="text-align:left;"> Lab </td>
-   <td style="text-align:left;"> Time to work on project </td>
+   <td style="text-align:left;"> Opportunity Mapping </td>
    <td style="text-align:left;width: 13em; ">  </td>
-   <td style="text-align:left;"> HW 8 </td>
+   <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 4-Dec </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Presentations </td>
+   <td style="text-align:left;"> Opportunity Mapping/Web GIS </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Presentations </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 6-Dec </td>
@@ -419,7 +427,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> No lab </td>
    <td style="text-align:left;width: 13em; ">  </td>
-   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> HW 8 </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
