@@ -345,10 +345,10 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 16-Nov </td>
    <td style="text-align:left;"> Lab </td>
-   <td style="text-align:left;"> Project meetings </td>
+   <td style="text-align:left;"> Cancelled </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Meeting </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 19-Nov </td>
