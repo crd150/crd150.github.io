@@ -361,7 +361,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 20-Nov </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Midterm </td>
+   <td style="text-align:left;"> Cancelled </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
@@ -385,10 +385,10 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 27-Nov </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Participatory GIS </td>
-   <td style="text-align:left;width: 13em; "> Lung-Amam et al. (2017) </td>
+   <td style="text-align:left;"> Midterm </td>
+   <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Proposal III </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 29-Nov </td>
@@ -409,8 +409,8 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 4-Dec </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Opportunity Mapping/Web GIS </td>
-   <td style="text-align:left;width: 13em; ">  </td>
+   <td style="text-align:left;"> Participatory GIS </td>
+   <td style="text-align:left;width: 13em; "> Lung-Amam et al. (2017) </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
