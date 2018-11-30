@@ -325,6 +325,9 @@ div.tocify {
     <li>
       <a href="lab7.html">Lab 7</a>
     </li>
+    <li>
+      <a href="lab8ec.html">Lab 8</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -654,7 +657,7 @@ file4</code></pre>
 file5</code></pre>
 <pre><code>## # A tibble: 113 x 4
 ##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated typical (media…
-##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                                 &lt;int&gt;
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                                 &lt;dbl&gt;
 ##  1 06001409000, CA  6001409000 06001409000                           44125
 ##  2 06001401700, CA  6001401700 06001401700                           66308
 ##  3 06001408100, CA  6001408100 06001408100                          103670
@@ -696,7 +699,7 @@ oakland</code></pre>
 ## #   `Estimated percent of all people who were Black between
 ## #   2012-2016` &lt;dbl&gt;, `Census Tract` &lt;chr&gt;, `Formatted FIPS` &lt;chr&gt;,
 ## #   `Estimated typical (median) income of a household between
-## #   2012-20` &lt;int&gt;</code></pre>
+## #   2012-20` &lt;dbl&gt;</code></pre>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -731,7 +734,7 @@ We need to subset columns, rename variables, and deal with badly coded values.</
 <pre class="r"><code>oakland</code></pre>
 <pre><code>## # A tibble: 113 x 6
 ##    levratio oppzone                        phisp  pblk medincome      fips
-##       &lt;dbl&gt; &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+##       &lt;dbl&gt; &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ##  1     3.19 Designated Qualified Opportun… 53.2  34.9      44125    6.00e9
 ##  2     3.07 Designated Qualified Opportun… 31.4  24.0      66308    6.00e9
 ##  3     3.11 Not Designated                 11.2  22.4     103670    6.00e9
