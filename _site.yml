@@ -12,41 +12,25 @@ navbar:
     - text: "Labs/Assignments"
       menu: 
         - text: "Lab 1"
-          href: lab1.html
+          href: 
         - text: "Lab 2"
-          href: lab2.html
+          href:
         - text: "Lab 3"
-          href: lab3.html
+          href: 
         - text: "Lab 4"
-          href: lab4.html
+          href: 
         - text: "Lab 5"
-          href: lab5.html
+          href: 
         - text: "Lab 6"
-          href: lab6.html
+          href: 
         - text: "Lab 7"
-          href: lab7.html
+          href: 
         - text: "Lab 8"
-          href: lab8ec.html
+          href: 
     - text: "Other"
       menu: 
         - text: "Project Eligible Communities"
           href: eligible.html   
-        - text: "Census Geographies"
-          href: censusgeography.html
-        - text: "Download data from NHGIS"
-          href:  nhgis.html       
-        - text: "Download data from PolicyMap"
-          href:  policymap.html  
-        - text: "Dealing with Missing Data"
-          href:  missingdata.html  
-        - text: "Coordinate Reference Systems"
-          href:  georeferencing.html  
-        - text: "Point Proximity Buffers"
-          href: buffers.html
-        - text: "Neighborhood Data Sources"
-          href:  ndata.html   
-        - text: "Big/Open Data Sources"
-          href: bigopendata.html
 output:
   html_document:
     theme: cosmo
