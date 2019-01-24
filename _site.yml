@@ -12,25 +12,27 @@ navbar:
     - text: "Labs/Assignments"
       menu: 
         - text: "Lab 1"
-          href: 
+          href: lab1.html
         - text: "Lab 2"
-          href:
+          href: lab2.html
         - text: "Lab 3"
-          href: 
+          href: lab3.html
         - text: "Lab 4"
-          href: 
+          href: lab4.html
         - text: "Lab 5"
-          href: 
+          href: lab5.html
         - text: "Lab 6"
-          href: 
+          href: lab6.html
         - text: "Lab 7"
-          href: 
+          href: lab7.html
         - text: "Lab 8"
           href: 
     - text: "Other"
       menu: 
         - text: "Project Eligible Communities"
           href: eligible.html   
+        - text:  "Buffer Analysis"
+          href: buffers.html
 output:
   html_document:
     theme: cosmo
