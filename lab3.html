@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lab 3: Working with Neighborhood Data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+    <li>
+      <a href="lab7.html">Lab 7</a>
+    </li>
+    <li>
+      <a href="lab8ec.html">Lab 8</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Project Eligible Communities</a>
+    </li>
+    <li>
+      <a href="censusgeography.html">Census Geographies</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Download data from NHGIS</a>
+    </li>
+    <li>
+      <a href="policymap.html">Download data from PolicyMap</a>
+    </li>
+    <li>
+      <a href="missingdata.html">Dealing with Missing Data</a>
+    </li>
+    <li>
+      <a href="georeferencing.html">Coordinate Reference Systems</a>
+    </li>
+    <li>
+      <a href="buffers.html">Point Proximity Buffers</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big/Open Data Sources</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 3: Working with Neighborhood Data</h1>
+<h3 class="subtitle"><em><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></em></h3>
+<h4 class="author"><em><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></em></h4>
+<h4 class="date"><em><h4 style="font-style:normal">
+October 12, 2018
+</h4></em></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+.figure {
+   margin-top: 30px;
+   margin-bottom: 30px;
+}
+
+h1.title {
+  font-weight: bold;
+}
+
+</style>
+<p><br />
+</p>
+<p>In <a href="https://crd150.github.io/lab2.html">Lab 2</a>, we worked with county-level data. That is, the rows or units of observations in our data set represented counties. In this lab, we will be working with neighborhood data, using census tracts to represent neighborhoods. Specifically, you will learn how to use descriptive statistics and graphs to describe neighborhoods using R. The data were downloaded from <a href="https://ucdavis.policymap.com/maps">PolicyMap</a>. The objectives of the guide are as follows</p>
+<ol style="list-style-type: decimal">
+<li>Get familiar with PolicyMap neighborhood data</li>
+<li>Learn how to use various R functions to summarize neighborhood characteristics</li>
+<li>Introduction to R graphics</li>
+</ol>
+<p>This lab guide follows closely and supplements the material presented in Chapters 1,5 and 22 in the textbook <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> (RDS).</p>
+<p class="comment" , style="font-style:normal">
+<strong>Assignment 3 is due by 12:00 am, October 19th on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn03. For example: brazil_n_asgn03.
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="open-up-a-new-r-markdown-file" class="section level2">
+<h2><strong>Open up a new R Markdown file</strong></h2>
+<p><br />
+As you did in Lab 2 and will do for all Labs, save and run all the code from this guide from your own R Markdown document. To open a new R Markdown file, click on <em>File</em> at the top menu in RStudio, select <em>New File</em>, and then <em>R Markdown</em>. A window should pop up. In that window, for <em>Title</em>, put in “Lab 3”. For <em>Author</em>, put your name. Leave the HTML radio button clicked, and select OK. A new R Markdown file should pop up in the top left window. Don’t change anything inside the YAML (the stuff at the top in between the <code>---</code>). Also keep the grey chunk after the YAML.</p>
+<pre><code>```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```</code></pre>
+<p>Delete everything else. Save this file (File -&gt; Save) in an appropriate folder.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="reading-in-census-tract-data" class="section level2">
+<h2><strong>Reading in census tract data</strong></h2>
+<p><br />
+You will be working with census tract data for the cities of Sacramento, San Francisco, San Jose, and Oakland, the four largest cities in Northern California. Let’s get some practice working with data from PolicyMap, which provides Census data along with other cool and interesting neighborhood data.</p>
+<p>Unlike the Census, PolicyMap does not have a user-friendly R package for downloading their data through an API. To save us time, I downloaded data from PolicyMap, cleaned the file, and uploaded it on GitHub. Let’s bring the csv file into R using <code>read_csv()</code>, which comes from the <strong>tidyverse</strong> package, which we need to load in.</p>
+<pre class="r"><code>library(tidyverse)
+ncal.tracts &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/pmap_lab3.csv&quot;)
+ncal.tracts</code></pre>
+<p>The dataset contains tract-level median household income, percent Hispanic, percent Black, whether the tract is designated as an <a href="http://dof.ca.gov/Forecasting/Demographics/opportunity_zones/">Opportunity Zone</a> (a high-poverty neighborhood eligible for federal economic development funding), the home mortgage loan-to-income ratio (also known as the leverage ratio), and whether the tract is “Majority” Hispanic (<em>phisp</em> &gt; 50%) or “Not Majority” Hispanic. In putting this data file together, data wrangling was fairly extensive. I’ve uploaded a <a href="https://crd150.github.io/policymap.html">tutorial</a> describing the steps for downloading and cleaning these data. You won’t need to go through the tutorial to complete this guide and Assignment 3, but please look through it at some point as it provides some important data wrangling functions that will be relevant for your final project, especially if you are planning to use PolicyMap.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="summarizing-a-single-variable" class="section level2">
+<h2><strong>Summarizing a single variable</strong></h2>
+<p><br />
+Recall from Week 2 lecture our two important data types: categorical and numeric. Let’s first summarize a numeric variable - neighborhood median household income - using some basic descriptive statistics.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="numeric-variable" class="section level3">
+<h3><strong>Numeric variable</strong></h3>
+<p><br />
+We use the function <code>summarize()</code> to calculate mean neighborhood income. The first argument inside <code>summarize()</code> is the data object <em>ncal.tracts</em> and the second argument is the function calculating the specific summary statistic, in this case <code>mean()</code>.</p>
+<pre class="r"><code>summarize(ncal.tracts, mean(medincome))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   `mean(medincome)`
+##               &lt;dbl&gt;
+## 1            80309.</code></pre>
+<p>Does the average neighborhood income differ by city? We need to pair <code>summarize()</code> with the function <code>group_by()</code> to answer this question. The function <code>group_by()</code> tells R to run subsequent functions on the data object <em>by</em> a group characteristic (such as gender, educational attainment, or in this case, city).</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city) %&gt;%
+  summarize(mean(medincome))</code></pre>
+<pre><code>## # A tibble: 4 x 2
+##   city          `mean(medincome)`
+##   &lt;chr&gt;                     &lt;dbl&gt;
+## 1 Oakland                  66706.
+## 2 Sacramento               53562.
+## 3 San Francisco            90985.
+## 4 San Jose                 91464.</code></pre>
+<p>The above code uses the pipe operator <code>%&gt;%</code>, which was first introduced in Lab 2. The utility of <code>%&gt;%</code> is that it executes tasks on the same dataset using one line of continuous code. The first pipe sends <em>ncal.tracts</em> into the function <em>group_by()</em>, which tells R to group <em>ncal.tracts</em> by the variable <em>city</em>.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city)</code></pre>
+<p>How do you know the tibble is grouped? Because it tells you</p>
+<center>
+<div class="figure">
+<img src="groupby.png" />
+
+</div>
+</center>
+<p>The second pipe takes this grouped dataset and sends it into the <code>summarize()</code> command, which calculates the mean neighborhood income (by city, because the dataset is grouped by city).</p>
+<p>We can calculate more than one summary statistic within <code>summarize()</code>. For example, to get the mean, median, standard deviation and interquartile range (IQR) of median income, and give column labels for the variables in the resulting summary table, we type in</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city) %&gt;%
+  summarize(incmn = mean(medincome),
+            incmd = median(medincome),
+            incsd = sd(medincome),
+            inciqr = IQR(medincome))</code></pre>
+<pre><code>## # A tibble: 4 x 5
+##   city           incmn  incmd  incsd inciqr
+##   &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Oakland       66706. 51691  41262. 42011 
+## 2 Sacramento    53562. 48696. 24405. 28392.
+## 3 San Francisco 90985. 88929  38443. 50490 
+## 4 San Jose      91464. 87917  34637. 48539</code></pre>
+<p>Remember from lecture that the IQR is the difference between the 75th and 25th percentiles. It is a measure of spread, and more generally, an indicator of inequality. Another measure of neighborhood inequality is the 90/10 ratio. To calculate this ratio, we’ll first need to calculate the 90th and 10th percentiles using the <code>quantile()</code> command. We can do all of this inside <code>summarize()</code>.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city) %&gt;%
+  summarize(incmn = mean(medincome),
+            incmd = median(medincome),
+            incsd = sd(medincome),
+            inciqr = IQR(medincome),
+            p90 = quantile(medincome, p = 0.90),
+            p10 = quantile(medincome, p = 0.10),
+            r90.10 = p90/p10) %&gt;%
+  select(-(c(p90,p10)))</code></pre>
+<pre><code>## # A tibble: 4 x 6
+##   city           incmn  incmd  incsd inciqr r90.10
+##   &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Oakland       66706. 51691  41262. 42011    4.38
+## 2 Sacramento    53562. 48696. 24405. 28392.   3.14
+## 3 San Francisco 90985. 88929  38443. 50490    3.56
+## 4 San Jose      91464. 87917  34637. 48539    2.74</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="categorical-variable" class="section level3">
+<h3><strong>Categorical variable</strong></h3>
+<p><br />
+Let’s next summarize a categorical variable. <em>oppzone</em> indicates whether a tract is designated as an Opportunity Zone neighborhood. To get the percent of tracts that are Opportunity Zone neighborhoods, you’ll need to combine the functions <code>group_by()</code>, <code>summarize()</code> and <code>mutate()</code> using <code>%&gt;%</code>.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(oppzone) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(freq = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   oppzone                                   n  freq
+##   &lt;chr&gt;                                 &lt;int&gt; &lt;dbl&gt;
+## 1 Designated Qualified Opportunity Zone    75 0.125
+## 2 Not Designated                          524 0.875</code></pre>
+<p>Let’s break up this chunk of code to show exactly what was done here. First, <code>group_by(oppzone)</code> separates the neighborhoods by Opportunity Zone designation. We then used <code>summarize()</code> to count the number of neighborhoods by Opportunity Zone designation. The function to get a count is <code>n()</code>, and we saved this count in a variable named <em>n</em>. This gives us the following table.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(oppzone) %&gt;%
+  summarize (n = n())</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   oppzone                                   n
+##   &lt;chr&gt;                                 &lt;int&gt;
+## 1 Designated Qualified Opportunity Zone    75
+## 2 Not Designated                          524</code></pre>
+<p>Next, we used <code>mutate()</code> on this table to get the proportion of all neighborhoods by Opportunity Zone designation. The code <code>sum(n)</code> adds the values of <em>n</em>: 524+75 = 599. We then divide the value of each <em>n</em> by this sum: 75/599 = 0.125 and 524/599 = 0.875. That yields the final frequency table.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(oppzone) %&gt;%
+  summarize (n = n()) %&gt;%
+  mutate(freq = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   oppzone                                   n  freq
+##   &lt;chr&gt;                                 &lt;int&gt; &lt;dbl&gt;
+## 1 Designated Qualified Opportunity Zone    75 0.125
+## 2 Not Designated                          524 0.875</code></pre>
+<p>We can add <em>city</em> to the <code>group_by()</code> function to disaggregate by city.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city, oppzone) %&gt;%
+  summarize (n = n()) %&gt;%
+  mutate(freq = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 8 x 4
+## # Groups:   city [4]
+##   city          oppzone                                   n   freq
+##   &lt;chr&gt;         &lt;chr&gt;                                 &lt;int&gt;  &lt;dbl&gt;
+## 1 Oakland       Designated Qualified Opportunity Zone    30 0.265 
+## 2 Oakland       Not Designated                           83 0.735 
+## 3 Sacramento    Designated Qualified Opportunity Zone    23 0.23  
+## 4 Sacramento    Not Designated                           77 0.77  
+## 5 San Francisco Designated Qualified Opportunity Zone    11 0.0558
+## 6 San Francisco Not Designated                          186 0.944 
+## 7 San Jose      Designated Qualified Opportunity Zone    11 0.0582
+## 8 San Jose      Not Designated                          178 0.942</code></pre>
+<p>Which city has the highest proportion of Opportunity Zone neighborhoods? Lowest?</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="summarizing-two-variables" class="section level2">
+<h2><strong>Summarizing two variables</strong></h2>
+<p><br />
+The functions we’ve gone through so far describe <strong>one</strong> variable. It is often the case that we are interested in understanding whether two community variables are associated with one another.</p>
+<p>Let’s go through the ways we can describe the association between: (1) two categorical variables; (2) one categorical variable and one numeric variable; (3) two numeric variables.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="two-categorical-variables" class="section level3">
+<h3><strong>Two categorical variables</strong></h3>
+<p><br />
+To summarize the relationship between two categorical variables, you’ll need to find the proportion of observations for each combination, also known as a cross tabulation. Let’s create a cross tabulation of the categorical variables <em>oppzone</em> and <em>mhisp</em>.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(oppzone, mhisp) %&gt;%
+  summarize(n = n())  %&gt;%
+  mutate(freq = n / sum(n))</code></pre>
+<pre><code>## # A tibble: 4 x 4
+## # Groups:   oppzone [2]
+##   oppzone                               mhisp            n   freq
+##   &lt;chr&gt;                                 &lt;chr&gt;        &lt;int&gt;  &lt;dbl&gt;
+## 1 Designated Qualified Opportunity Zone Majority        16 0.213 
+## 2 Designated Qualified Opportunity Zone Not Majority    59 0.787 
+## 3 Not Designated                        Majority        47 0.0897
+## 4 Not Designated                        Not Majority   477 0.910</code></pre>
+<p>A much higher proportion of Opportunity Zone neighborhoods are Majority Hispanic compared to non Opportunity Zone neighborhoods.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="one-categorical-one-numeric" class="section level3">
+<h3><strong>One categorical, one numeric</strong></h3>
+<p><br />
+A typical way of summarizing the relationship between a categorical variable and a numeric variable is by taking the mean of the continuous variable for each level of the categorical variable. The variable <em>oppzone</em> is categorical with two categories (designated and not designated as an Opportunity Zone) and we can get the mean loan-to-income ratio for each of these categories.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(oppzone) %&gt;%
+  summarize(&quot;Mean levratio&quot; = mean(levratio))</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   oppzone                               `Mean levratio`
+##   &lt;chr&gt;                                           &lt;dbl&gt;
+## 1 Designated Qualified Opportunity Zone            3.45
+## 2 Not Designated                                   3.36</code></pre>
+<p>Let’s separate by city by adding <em>city</em> to the <code>group_by()</code> function.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city, oppzone) %&gt;%
+  summarize(&quot;Mean levratio&quot; = mean(levratio))</code></pre>
+<pre><code>## # A tibble: 8 x 3
+## # Groups:   city [?]
+##   city          oppzone                               `Mean levratio`
+##   &lt;chr&gt;         &lt;chr&gt;                                           &lt;dbl&gt;
+## 1 Oakland       Designated Qualified Opportunity Zone            3.46
+## 2 Oakland       Not Designated                                   3.30
+## 3 Sacramento    Designated Qualified Opportunity Zone            3.20
+## 4 Sacramento    Not Designated                                   2.99
+## 5 San Francisco Designated Qualified Opportunity Zone            3.82
+## 6 San Francisco Not Designated                                   3.36
+## 7 San Jose      Designated Qualified Opportunity Zone            3.54
+## 8 San Jose      Not Designated                                   3.53</code></pre>
+<p>Any city stick out?</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="two-numeric-variables" class="section level3">
+<h3><strong>Two numeric variables</strong></h3>
+<p><br />
+You can summarize the relationship between two numeric variables with the correlation coefficient. To calculate the correlation coefficient, use the function <code>cor()</code>. The first two arguments in <code>cor()</code> are the two numeric variables you want to calculate the correlation. Let’s calculate the correlation between neighborhood income and percent race, and neighborhood loan-to-income ratio and percent race. Group these correlations by city.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  group_by(city) %&gt;%
+  summarize(hisp_ratio = cor(levratio,phisp), 
+            blk_ratio = cor(levratio,pblk),
+            hisp_inc = cor(medincome,phisp),
+            blk_inc = cor(medincome,pblk))</code></pre>
+<pre><code>## # A tibble: 4 x 5
+##   city          hisp_ratio blk_ratio hisp_inc blk_inc
+##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Oakland            0.607     0.269   -0.468  -0.488
+## 2 Sacramento         0.410     0.411   -0.544  -0.484
+## 3 San Francisco      0.337     0.194   -0.309  -0.344
+## 4 San Jose           0.607    -0.221   -0.693  -0.229</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="summarizing-variables-using-graphs" class="section level2">
+<h2><strong>Summarizing variables using graphs</strong></h2>
+<p><br />
+Another way of summarizing neighborhood variables and their relationships is through graphs and charts. The main package for R graphing is <strong>ggplot2</strong> which is a part of the <strong>tidyverse</strong> package. The graphing function is <code>ggplot()</code> and it takes on the basic template</p>
+<pre><code>ggplot(data = &lt;DATA&gt;) +
+      &lt;GEOM_FUNCTION&gt;(mapping = aes(x, y))</code></pre>
+<ul>
+<li><code>ggplot()</code> is the base function where you specify your dataset using the <code>data = &lt;DATA&gt;</code> argument.<br />
+</li>
+<li>You then need to build on this base by using the plus operator <code>+</code> and <code>&lt;GEOM_FUNCTION&gt;()</code> where <code>&lt;GEOM_FUNCTION&gt;()</code> is a unique function indicating the type of graph you want to plot. For example, the <code>&lt;GEOM_FUNCTION&gt;()</code> for a histogram is <code>geom_histogram()</code>.</li>
+<li>Each unique function has its unique set of mapping arguments which you specify using the <code>mapping = aes()</code> argument. Charts and graphs have an x-axis, y-axis, or both.</li>
+</ul>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="bar-charts" class="section level3">
+<h3><strong>Bar charts</strong></h3>
+<p><br />
+We use bar charts to summarize categorical variables. Bar charts show either the number or frequency of each category. To create a bar chart, use <code>geom_bar()</code> for <code>&lt;GEOM_FUNCTION&gt;()</code>. Let’s show a bar chart of <em>oppzone</em>. We can borrow from the code we used earlier to create our <em>oppzone</em> frequency table and pipe this table directly into <code>ggplot()</code>.</p>
+<pre class="r"><code>ncal.tracts %&gt;% 
+  group_by(oppzone) %&gt;%
+  summarize (n = n()) %&gt;%
+  mutate(freq = n / sum(n))  %&gt;%
+  ggplot() +
+    geom_bar(mapping=aes(x=oppzone, y=freq),stat=&quot;identity&quot;) </code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-15-1.png" /><!-- --></p>
+<p>We didn’t need to specify <code>data = &lt;DATA&gt;</code> in <code>ggplot()</code> because it was piped in. Within <code>aes()</code>, we specified the categorical variable <em>oppzone</em> on the x-axis and then the proportion of neighborhoods <em>freq</em> on the y-axis. The argument <code>stat = &quot;identity&quot;</code> tells <code>ggplot()</code> to plot the exact value listed for the variable <em>freq</em>.</p>
+<p>The X and Y axes labels are not so great. We can relabel the axes using the <code>xlab()</code> and <code>ylab()</code> functions.</p>
+<pre class="r"><code>ncal.tracts %&gt;% 
+  group_by(oppzone) %&gt;%
+  summarize (n = n()) %&gt;%
+  mutate(freq = n / sum(n))  %&gt;%
+  ggplot() +
+    geom_bar(mapping=aes(x=oppzone, y=freq),stat=&quot;identity&quot;) +
+    xlab(&quot;Opportunity Zone&quot;) +
+    ylab(&quot;Proportion&quot;)</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
+<p>We can also show a cross tabulation of two categorical variables using a bar chart. Let’s take the earlier code used to create the cross tabulation of Opportunity Zone and Majority/Not Majority Hispanic and pipe that into <code>ggplot()</code></p>
+<pre class="r"><code>ncal.tracts %&gt;% 
+  group_by(oppzone, mhisp) %&gt;%
+  summarize(n = n())  %&gt;%
+  mutate(freq = n / sum(n)) %&gt;%
+  ggplot() +
+    geom_bar(mapping=aes(x=oppzone,y=freq,fill=mhisp), position=&quot;dodge&quot;,stat=&quot;identity&quot;) +
+    xlab(&quot;Opportunity Zone&quot;) +
+    ylab(&quot;Frequency&quot;) +
+    labs(fill=&quot;Hispanic Population&quot;) </code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
+<p>The only real difference between the code to create this chart and the code to create the single variable bar chart is that you add the second categorical variable <em>mhisp</em> into the argument <code>fill=</code> within <code>aes()</code>. The argument <code>position=&quot;dodge&quot;</code> puts the bars side-by-side rather than stacked (take out <code>position=&quot;dodge&quot;</code> from the above code and see what a stacked bar chart looks like). The above code also changes the legend title using the function <code>labs()</code>. As we went through in lecture, you can add a title, subtitle and footnotes using the <code>labs()</code> function.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="histograms" class="section level3">
+<h3><strong>Histograms</strong></h3>
+<p><br />
+Histograms are used to summmarize a single numeric variable. To create a histogram, use <code>geom_histogram()</code> for <code>&lt;GEOM_FUNCTION()&gt;</code>. Let’s create a histogram of median household income.</p>
+<pre class="r"><code>ncal.tracts %&gt;% 
+  ggplot() + 
+  geom_histogram(mapping = aes(x=medincome))</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-18-1.png" /><!-- --></p>
+<p>Because a single variable is plotted on the x-axis, we specify <code>x =</code> in <code>aes()</code> but not a <code>y =</code>. The message tells us that we can use the <code>bins =</code> argument to change the number of bins used to produce the histogram. You can increase the number of bins to make the bins narrower and thus get a finer grain of detail. Let’s increase the number of bins from 30 (the default) to 50.</p>
+<pre class="r"><code>ncal.tracts %&gt;% 
+  ggplot() + 
+  geom_histogram(mapping = aes(x=medincome), bins = 50)</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
+<p>Or you can decrease the number of bins to get a broader visual summary of the shape of the variable’s distribution. Let’s decrease the number of bins to 10.</p>
+<pre class="r"><code>ncal.tracts %&gt;% 
+  ggplot() + 
+  geom_histogram(mapping = aes(x=medincome), bins = 10)</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="boxplots" class="section level3">
+<h3><strong>Boxplots</strong></h3>
+<p><br />
+We can use a boxplot to visually summarize the distribution of a single variable or the relationship between a categorical and numeric variable. Use <code>geom_boxplot()</code> for <code>&lt;GEOM_FUNCTION()&gt;</code> to create a boxplot. Let’s examine median household income.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  ggplot() +
+     geom_boxplot(mapping = aes(y = medincome))</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
+<p>Remember from the week’s readings that the points oustide the whiskers represent outliers. Outliers are defined as having values that are either larger than the 75th percentile plus 1.5 times the IQR or smaller than the 25th percentile minus 1.5 times the IQR. The IQR is $55,103, the 75th percentile is $104,670 and the 25th percentile is $49,568. While we don’t see outliers at the bottom, we do see outliers at the top - these are neighborhoods with median income values greater than $104,670 + 1.5*$55,103 = $187,324.5</p>
+<p>Let’s examine the distribution of median income by Opportunity Zone. Because we are examining the association between two variables, we need to specify <em>x</em> <strong>and</strong> <em>y</em> variables.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  ggplot() +
+    geom_boxplot(mapping = aes(x = oppzone, y = medincome)) </code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
+<p>The boxplot is for all neighborhoods combined. Use the <code>facet_wrap()</code>function to separate by city</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  ggplot() +
+  geom_boxplot(mapping = aes(x = oppzone, y = medincome)) +
+  facet_wrap(~city) </code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
+<p>Note the tilde operator <code>~</code> before city.</p>
+<p>The labels for <em>oppzone</em> is really long. We can change the label or we can create horizontal boxplots. To create horizontal boxplots, add the <code>coord_flip()</code> function at the end. Let’s also change the axes labels to make them more descriptive.</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  ggplot() +
+    geom_boxplot(mapping = aes(x = oppzone, y = medincome)) +
+    facet_wrap(~city) +
+    ylab(&quot;Median income&quot;) +
+    xlab(&quot;Opportunity Zone&quot;) +
+    coord_flip()</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="scatterplots" class="section level3">
+<h3><strong>Scatterplots</strong></h3>
+<p><br />
+The scatterplot is the traditional graph for visualizing the association between two continuous variables. For scatterplots, we use <code>geom_point()</code> for <code>&lt;GEOM_FUNCTION&gt;()</code>. Because we are plotting two variables, we specify an <em>x</em> and <em>y</em> axis. Does median household income change with greater percent Hispanic in the neighborhood?</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  ggplot() +
+    geom_point(mapping = aes(x = phisp, y = medincome)) +
+    xlab(&quot;Percent Hispanic&quot;) +
+    ylab(&quot;Median income&quot;)</code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-25-1.png" /><!-- --></p>
+<p>And for each city?</p>
+<pre class="r"><code>ncal.tracts %&gt;%
+  ggplot() +
+    geom_point(mapping = aes(x = phisp, y = medincome)) +
+    xlab(&quot;Percent Hispanic&quot;) +
+    ylab(&quot;Median income&quot;) +
+    facet_wrap(~city) </code></pre>
+<p><img src="lab3_files/figure-html/unnamed-chunk-26-1.png" /><!-- --></p>
+<p><code>ggplot()</code> is a powerful function, and you can make a lot of really visually captivating graphs. You can also make maps with the function, which we’ll cover in next week’s lab. We have just scratched the surface of its functions and features. The list of all possible plots for <code>&lt;GEOM_FUNCTION&gt;()</code> can be found <a href="https://ggplot2.tidyverse.org/reference/">here</a>. You can also make your graphs really “pretty” and professional looking by altering graphing features, including colors, labels, titles and axes. For a list of <code>ggplot()</code> functions that alter various features of a graph, check out <a href="http://r4ds.had.co.nz/graphics-for-communication.html">Chapter 22 in RDS</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="assignment-3" class="section level2">
+<h2><strong>Assignment 3</strong></h2>
+<p><br />
+Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/assgn3.Rmd">Assignment 3 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.).</p>
+<ol style="list-style-type: decimal">
+<li>As a comprehensive source for neighborhood data, PolicyMap allows you to examine interesting associations across different dimensions of neighborhood health and well-being. Let’s utilize this important feature by examining potential predictors of resident health in the City of Sacramento. Bring into R the dataset <a href="https://raw.githubusercontent.com/crd150/data/master/sac_health_policymap.csv">sac_health_policymap.csv</a>, which contains census-tract level data on Sacramento downloaded from PolicyMap. Consider the dataset to be cleaned and ready for analysis. A record layout of the data can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assgn3_question1_codebook.txt">here</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Create a histogram of the variable <em>health</em>, which measures the percent of residents reporting very good to excellent health. Describe the shape of the distribution. (2 points)</li>
+<li>Examine the association between <em>health</em> and the variable <em>foodaccess</em>, which measures grocery store access for low income neighborhoods. Based on this examination, briefly describe the relationship between the variable <em>health</em> and <em>foodaccess</em>. (2 points)</li>
+<li>Create scatterplots showing the association between <em>health</em> and the following variables: <em>phys</em>, <em>hburden</em>, <em>unemp</em>, and <em>medinc</em>. Based on these scatterplots, briefly describe the relationship between <em>health</em> and the four variables, specifically noting any nonlinearities in the relationship. (4 points)</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>The following questions investigate housing structure in Yolo County. Bring into R the dataset <a href="https://raw.githubusercontent.com/crd150/data/master/ca_border_tracts.csv">ca_border_tracts.csv</a>, which contains 2012-2016 American Community Survey (ACS) data for census tracts in California and states sharing a boundary with California (Arizona, Nevada, and Oregon). Consider the dataset to be cleaned and ready for analysis. A record layout of the data can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assgn3_question2_codebook.txt">here</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>What is the mean, median, interquartile range, and standard deviation of the percentage of houses built since 2000 in Yolo County? (2 points)</li>
+<li>What is the correlation between median household income and percentage of houses built since 2000 in Yolo County? (1 point)</li>
+<li>Show a plot investigating any potential outliers in the percentage of houses built since 2000 in Yolo County? (1 point)</li>
+<li>Did you find any outliers? If so, how many? What is the mean, median and standard deviation of the percentage of houses built since 2000 in Yolo County <em>without</em> these outliers? What about the correlation between median household income and percentage of houses built since 2000? (3 points)</li>
+<li>Briefly comment on what you’ve learned. (1 point)</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>The following questions uses the same dataset from Question 2 to investigate differences across major California regions and states sharing a boundary with California. Because California is so large, we separated the state into three regions: Bay Area, Southern California, and the rest of California.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Calculate 90/10 percentile ratios for median household income for each region (Bay Area, Southern California, Other California, Arizona, Nevada, and Oregon). Which region exhibits the highest neighborhood income inequality? Lowest? (2 points)</li>
+<li>What is the association between median household income and percent white, black, and Hispanic for all regions combined? Are there any specific regions that noticeably differ from these associations? If so, which ones and how do they differ? (2 points).</li>
+</ol>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
