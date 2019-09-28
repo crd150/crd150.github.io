@@ -15,8 +15,6 @@ navbar:
       menu: 
         - text: "Project Eligible Communities"
           href: eligible.html   
-        - text:  "Buffer Analysis"
-          href: buffers.html
 output:
   html_document:
     theme: cosmo
