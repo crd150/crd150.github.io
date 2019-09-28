@@ -10,23 +10,7 @@ navbar:
     - text: "Assignment Guidelines"
       href: hw_guidelines.html
     - text: "Labs/Assignments"
-      menu: 
-        - text: "Lab 1"
-          href: lab1.html
-        - text: "Lab 2"
-          href: lab2.html
-        - text: "Lab 3"
-          href: lab3.html
-        - text: "Lab 4"
-          href: lab4.html
-        - text: "Lab 5"
-          href: lab5.html
-        - text: "Lab 6"
-          href: lab6.html
-        - text: "Lab 7"
-          href: lab7.html
-        - text: "Lab 8"
-          href: 
+      href: index.html
     - text: "Other"
       menu: 
         - text: "Project Eligible Communities"
