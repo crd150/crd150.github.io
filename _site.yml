@@ -13,7 +13,7 @@ navbar:
       href: index.html
     - text: "Other"
       menu: 
-        - text: "Project Eligible Communities"
+        - text: "Eligible Communities"
           href: eligible.html   
         - text: "Neighborhood Data Sources"
           href: ndata.html   
