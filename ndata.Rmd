@@ -1,7 +1,7 @@
 ---
 title: "Neighborhood Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Fall 2018</h4>
+date: <h4 style="font-style:normal">Winter 2020</h4>
 output: 
   html_document:
     theme: cosmo
@@ -20,19 +20,32 @@ font-style: italic;
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
 
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
 \
 
-This guide is a reference tool describing online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract.  A census tract generally encompasses a population between 2,000 to 8,000 residents.  Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment.  However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice.  Below are online data sources organized by topic or theme.
+This guide lists and describes online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract.  A census tract generally encompasses a population between 2,000 to 8,000 residents.  Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment.  However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice.  Below are online data sources organized by topic or theme.
 
 
 **Comprehensive neighborhood data sources**
 
 * [PolicyMap](https://ucdavis.policymap.com/maps) 
-    + PolicyMap is a data and mapping resource that provides a wealth of policy, education, socioeconomic, demographic, health and neighborhood dimension data at various geographic scales including census tracts.  As UC Davis affiliates, we have access to the subscription or paid edition. You either need to be on campus or on [VPN](https://www.library.ucdavis.edu/service/connect-from-off-campus/) setup.  Although allowing the user to upload and map shapefiles, the site does not all you to download shapefiles.
+    + PolicyMap is a data and mapping resource that provides a wealth of policy, education, socioeconomic, demographic, health and neighborhood dimension data at various geographic scales including census tracts.  As UC Davis affiliates, we have access to the subscription or paid edition. You either need to be on campus or on [VPN](https://www.library.ucdavis.edu/service/connect-from-off-campus/) setup.  Although allowing the user to upload and map shapefiles, the site does not allow you to download shapefiles.
 
 * [Social Explorer](https://www.socialexplorer.com/)
     + Similar to PolicyMap, but focuses more on historical data, including Census data going back to the first Census in 1790. Also like PolicyMap, UC Davis affiliates have access to all Social Explorer tools. Focuses on census data, but provides data from other sources, including religious organizations.
@@ -51,13 +64,13 @@ The Census represents the most comprehensive source for demographic and socioeco
 
 You can download Census tract shapefiles (and other spatial data formats) at the following sites
 
-* [United States Census](https://www.census.gov/geo/maps-data/data/cbf/cbf_tracts.html)
+* [United States Census](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html)
 
 * [National Historical Geographic Information System](https://www.nhgis.org/)
 
-If you want to evaluate tract characteristics over an extensive time period, you'll need to account for changes in tract boundary definitions.  Social explorer allows you to get historical census data in 2010 tract boundaries.  Other resources for getting data normalized to a certain year's boundary definition include
+If you want to evaluate tract characteristics over a long time period, you'll need to account for changes in tract boundary definitions.  Social explorer allows you to get historical census data in 2010 tract boundaries.  Other resources for getting data normalized to a certain year's boundary definition include
 
-* [United States Census](https://www.census.gov/geo/maps-data/data/relationship.html)
+* [United States Census](https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html)
     + The U.S. Census provides relationship files that allow you to normalize data to a specific year for the tract (and other small scale geographies).
     
 * [Geolytics Neighborhood Change Database](http://demographics.geolytics.com/ncdb2010/login.aspx)
@@ -123,6 +136,8 @@ The Opportunity Atlas is an an interactive, map-based tool that can trace the ro
 A data warehouse created by the [University of Southern California](https://socialinnovation.usc.edu/) that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles.  Check the site out [here](https://data.myneighborhooddata.org/stories/s/xs7g-jqmb).
 
 **Looking for data?**
+
+* The [National Neighborhood Data Archive](https://www.openicpsr.org/openicpsr/nanda)  is a publicly available data archive containing contextual measures for locations across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.
 
 * Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on.  Check it out [here](https://toolbox.google.com/datasetsearch)
 

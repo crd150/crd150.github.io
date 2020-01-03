@@ -1,34 +1,32 @@
 ﻿Date,Class,Topic,Readings,Assignment,Project
-27-Sep,Lecture,Introduction to class,,,
-28-Sep,Lab,Introduction to R,"Optional: RDS Ch. 2, 4, 7, 21",,
-2-Oct,Lecture,Data Analysis Framework. Introduction to US Census ,Handout,,
-4-Oct,Lecture,Data wrangling,Hoffman Ch. 8-9,,
-5-Oct,Lab,US Census data in R,"Optional: RDS Ch. 3, 8-10, 14",HW 1,Finalize groups
-9-Oct,Lecture,Neighborhood data,Wilson (2012),,
-11-Oct,Lecture,Descriptive statistics,Handout,,
-12-Oct,Lab,Neighborhood data in R,"Optional: RDS Ch. 1, 5, 22",HW 2,
-16-Oct,Lecture,Intro to spatial data,OSU Ch. 2,,
-18-Oct,Lecture,Exploratory spatial data analysis,OSU Ch. 3,,
-19-Oct,Lab,Making maps in R,"Optional: GWR Ch. 2.1, 4.2, 8",HW 3,Proposal I
-23-Oct,Lecture,Spatial autocorrelation,OSU Ch. 7 (skip 7.3 & 7.6),,
-25-Oct,Lecture,Spatial clusters,OSU Ch. 8 (skip 8.4 & 8.5),,
-26-Oct,Lab,Spatial clusters in R ,,HW 4,
-30-Oct,Lecture,Big data/Open data,Arribas-Bel (2014); Kitchin & McArdle (2016),,
-1-Nov,Lecture,Spatial point pattern analysis,OSU Ch. 5,,
-2-Nov,Lab,Point analysis in R,"Optional: GWR Ch. 2.3, 2.4, 4.2, 5.2, 6",HW 5,
-6-Nov,Lecture,Measuring segregation and inequity,Handout,,
-8-Nov,Lecture,Site suitability analysis,Handout,,
-9-Nov,Lab,Site suitability analysis in R,Optional: GWR Ch. 4.2, HW 6,Proposal II
-13-Nov,Lecture,Opportunity mapping,UA Ch. 5; Handout,,Meeting
-15-Nov,Lecture,Geodemographics,Handout,,Meeting
-16-Nov,Lab,Data reduction in R,, HW 7,
-20-Nov,Lecture,Midterm,,,
-22-Nov,Lecture,Thanksgiving Holiday,,,
-23-Nov,Lab,Thanksgiving Holiday,,,
-27-Nov,Lecture,Participatory GIS,Lung-Amam et al. (2017),,Proposal III
-29-Nov,Lecture,Web GIS,,,
-30-Nov,Lab,Time to work on project,, HW 8,
-4-Dec,Lecture,Presentations,,,Presentations
-6-Dec,Lecture,Presentations,,,Presentations
-7-Dec,Lab,No lab,,,
-11-Dec,,,,,Paper
+6-Jan,Lecture,Introduction to class,,,
+8-Jan,Lecture,Data Analysis Framework. Intro to R,Handout 1,,
+10-Jan,Lab,Intro to R,"Optional: RDS Ch. 2, 4, 7, 21",,
+13-Jan,Lecture,Data wrangling and the U.S. Census,Handout 2*,,
+15-Jan,Lecture,Descriptive statistics and the U.S. Census,Handout 3*,,
+17-Jan,Lab,Working with U.S. Census data in R,"Optional: RDS Ch. 3, 8-10, 14",HW 1,
+20-Jan,Lecture,Martin Luther King Jr. Day: No class,,,
+22-Jan,Lecture,"Descriptive statistics, tables and graphs",Hoffmann Ch. 8-9,,
+24-Jan,Lab,Describing your data in R,"Optional: RDS 1, 3, 5, 22",HW 2,
+27-Jan,Lecture,Intro to spatial data,OSU Ch. 1-2,,
+29-Jan,Lecture,Map making,OSU Ch. 3,,
+31-Jan,Lab,Spatial data in R,"Optional: GWR Ch. 2.1, 2.2, 8",HW 3,Prop I
+3-Feb,Lecture,Spatial data wrangling,,,
+5-Feb,Lecture,Spatial autocorrelation ,OSU Ch. 7,,
+7-Feb,Lab,Spatial autocorrelation in R ,"Optional: GWR: Ch. 4.1, 4.2",HW 4,
+10-Feb,Lecture,Big data/open data; Intro to point data,UA Ch. 1-2*,,
+12-Feb,Lecture,Spatial point patterns,OSU Ch. 5,,
+14-Feb,Lab,Spatial point pattern analysis in R,"Optional: GWR Ch. 2.4, 2.5, 4.2, 6",HW 5,
+17-Feb,Lecture,President’s Day: No class,,,
+19-Feb,Lecture,Neighborhood segregation,Handout 4; Logan and Stults (2011)*,,
+21-Feb,Lab,Neighborhood segregation in R,,HW 6,Prop II
+24-Feb,Lecture,Midterm,,,
+26-Feb,Lecture,Opportunity mapping,Handout 5; Lung-Amam et al. (2018)*,,
+28-Feb,Lab,Opportunity mapping in R,"Optional: GWR Ch. 4.2, 5.2",HW 7,
+2-Mar,Lecture,Participatory GIS,Goodchild (2007); Mukherjee (2015),,
+4-Mar,Lecture,Story Maps & Web GIS,Lung-Amam & Dawkins (2019) ,,
+6-Mar,Lab,Story Maps using ArcGIS online,,HW 8,
+9-Mar,Lecture,Intro to QGIS; StoryMap workshop,,,
+11-Mar,Lecture,Data ethics,Kitchin (2016),,
+13-Mar,Lab,Share your StoryMap,,,StoryMap
+17-Mar,,Paper due 1:00 pm,,,StoryMap evals

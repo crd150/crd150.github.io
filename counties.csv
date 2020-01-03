@@ -1,265 +1,101 @@
-﻿County,CountyID,State,StateID
-Los Angeles,37,California,6
-Cook,31,Illinois,17
-Harris,201,Texas,48
-Maricopa,13,Arizona,4
-San Diego,73,California,6
-Orange,59,California,6
-Miami-Dade,86,Florida,12
-Kings,47,New York,36
-Dallas,113,Texas,48
-Riverside,65,California,6
-Queens,81,New York,36
-San Bernardino,71,California,6
-King,33,Washington,53
-Clark,3,Nevada,32
-Tarrant,439,Texas,48
-Santa Clara,85,California,6
-Broward,11,Florida,12
-Bexar,29,Texas,48
-Wayne,163,Michigan,26
-New York,61,New York,36
-Alameda,1,California,6
-Middlesex,17,Massachusetts,25
-Philadelphia,101,Pennsylvania,42
-Suffolk,103,New York,36
-Sacramento,67,California,6
-Bronx,5,New York,36
-Palm Beach,99,Florida,12
-Nassau,59,New York,36
-Hillsborough,57,Florida,12
-Cuyahoga,35,Ohio,39
-Orange,95,Florida,12
-Oakland,125,Michigan,26
-Franklin,49,Ohio,39
-Allegheny,3,Pennsylvania,42
-Hennepin,53,Minnesota,27
-Travis,453,Texas,48
-Fairfax,59,Virginia,51
-Contra Costa,13,California,6
-Salt Lake,35,Utah,49
-Montgomery,31,Maryland,24
-Mecklenburg,119,North Carolina,37
-Pima,19,Arizona,4
-St. Louis,189,Missouri,29
-Wake,183,North Carolina,37
-Fulton,121,Georgia,13
-Honolulu,3,Hawaii,15
-Westchester,119,New York,36
-Fresno,19,California,6
-Milwaukee,79,Wisconsin,55
-Fairfield,1,Connecticut,9
-Pinellas,103,Florida,12
-Shelby,157,Tennessee,47
-Marion,97,Indiana,18
-DuPage,43,Illinois,17
-Bergen,3,New Jersey,34
-Erie,29,New York,36
-Duval,31,Florida,12
-Prince George's,33,Maryland,24
-Hartford,3,Connecticut,9
-Collin,85,Texas,48
-Gwinnett,135,Georgia,13
-Kern,29,California,6
-New Haven,9,Connecticut,9
-Macomb,99,Michigan,26
-San Francisco,75,California,6
-Ventura,111,California,6
-El Paso,141,Texas,48
-Pierce,53,Washington,53
-Middlesex,23,New Jersey,34
-Hidalgo,215,Texas,48
-Baltimore,5,Maryland,24
-Montgomery,91,Pennsylvania,42
-Worcester,27,Massachusetts,25
-Hamilton,61,Ohio,39
-Essex,13,New Jersey,34
-Multnomah,51,Oregon,41
-Essex,9,Massachusetts,25
-Suffolk,25,Massachusetts,25
-Oklahoma,109,Oklahoma,40
-Jefferson,111,Kentucky,21
-Snohomish,61,Washington,53
-San Mateo,81,California,6
-Denton,121,Texas,48
-Monroe,55,New York,36
-Cobb,67,Georgia,13
-DeKalb,89,Georgia,13
-San Joaquin,77,California,6
-Lake,97,Illinois,17
-Norfolk,21,Massachusetts,25
-Will,197,Illinois,17
-Fort Bend,157,Texas,48
-Jackson,95,Missouri,29
-Lee,71,Florida,12
-Bernalillo,1,New Mexico,35
-Hudson,17,New Jersey,34
-Davidson,37,Tennessee,47
-El Paso,41,Colorado,8
-Denver,31,Colorado,8
-Jefferson,73,Alabama,1
-District of Columbia,1,District of Columbia,11
-Polk,105,Florida,12
-Providence,7,Rhode Island,44
-Tulsa,143,Oklahoma,40
-Kent,81,Michigan,26
-Monmouth,25,New Jersey,34
-Bucks,17,Pennsylvania,42
-Baltimore city,510,Maryland,24
-Arapahoe,5,Colorado,8
-Ocean,29,New Jersey,34
-Johnson,91,Kansas,20
-Utah,49,Utah,49
-Washington,67,Oregon,41
-Delaware,45,Pennsylvania,42
-Brevard,9,Florida,12
-Anne Arundel,3,Maryland,24
-Jefferson,59,Colorado,8
-Bristol,5,Massachusetts,25
-New Castle,3,Delaware,10
-Union,39,New Jersey,34
-Douglas,55,Nebraska,31
-Summit,153,Ohio,39
-Lancaster,71,Pennsylvania,42
-Montgomery,113,Ohio,39
-Ramsey,123,Minnesota,27
-Stanislaus,99,California,6
-Kane,89,Illinois,17
-Montgomery,339,Texas,48
-Dane,25,Wisconsin,55
-Chester,29,Pennsylvania,42
-Guilford,81,North Carolina,37
-Camden,7,New Jersey,34
-Volusia,127,Florida,12
-Sedgwick,173,Kansas,20
-Passaic,31,New Jersey,34
-Plymouth,23,Massachusetts,25
-Morris,27,New Jersey,34
-Sonoma,97,California,6
-Williamson,491,Texas,48
-Lake,89,Indiana,18
-Pasco,101,Florida,12
-Spokane,63,Washington,53
-Greenville,45,South Carolina,45
-Adams,1,Colorado,8
-Richmond,85,New York,36
-Hampden,13,Massachusetts,25
-Onondaga,67,New York,36
-Polk,153,Iowa,19
-Tulare,107,California,6
-Clark,11,Washington,53
-Burlington,5,New Jersey,34
-Virginia Beach city,810,Virginia,51
-Knox,93,Tennessee,47
-East Baton Rouge Parish,33,Louisiana,22
-Prince William,153,Virginia,51
-Seminole,117,Florida,12
-York,133,Pennsylvania,42
-Washoe,31,Nevada,32
-Santa Barbara,83,California,6
-Jefferson Parish,51,Louisiana,22
-Lucas,95,Ohio,39
-Monterey,53,California,6
-Solano,95,California,6
-Ada,1,Idaho,16
-Cameron,61,Texas,48
-Mobile,97,Alabama,1
-Berks,11,Pennsylvania,42
-Genesee,49,Michigan,26
-Dakota,37,Minnesota,27
-Hillsborough,11,New Hampshire,33
-Richland,79,South Carolina,45
-Sarasota,115,Florida,12
-Pinal,21,Arizona,4
-Waukesha,133,Wisconsin,55
-Clackamas,5,Oregon,41
-Pulaski,119,Arkansas,5
-Orleans Parish,71,Louisiana,22
-Charleston,19,South Carolina,45
-St. Charles,183,Missouri,29
-Orange,71,New York,36
-Stark,151,Ohio,39
-Butler,17,Ohio,39
-Mercer,21,New Jersey,34
-Placer,61,California,6
-Allen,3,Indiana,18
-Forsyth,67,North Carolina,37
-Loudoun,107,Virginia,51
-Lane,39,Oregon,41
-Westmoreland,129,Pennsylvania,42
-Lehigh,77,Pennsylvania,42
-Washtenaw,161,Michigan,26
-Nueces,355,Texas,48
-Manatee,81,Florida,12
-Hamilton,65,Tennessee,47
-Madison,89,Alabama,1
-Collier,21,Florida,12
-Anoka,3,Minnesota,27
-Marion,83,Florida,12
-Brazoria,39,Texas,48
-Chesterfield,41,Virginia,51
-Somerset,35,New Jersey,34
-Bell,27,Texas,48
-Davis,11,Utah,49
-Marion,47,Oregon,41
-Cumberland,51,North Carolina,37
-Larimer,69,Colorado,8
-Rockland,87,New York,36
-Henrico,87,Virginia,51
-Luzerne,79,Pennsylvania,42
-Lake,69,Florida,12
-St. Louis city,510,Missouri,29
-Galveston,167,Texas,48
-Douglas,35,Colorado,8
-Boulder,13,Colorado,8
-Osceola,97,Florida,12
-Fayette,67,Kentucky,21
-Escambia,33,Florida,12
-Howard,27,Maryland,24
-Albany,1,New York,36
-McHenry,111,Illinois,17
-Lorain,93,Ohio,39
-Hamilton,57,Indiana,18
-Lancaster,109,Nebraska,31
-Northampton,95,Pennsylvania,42
-Horry,51,South Carolina,45
-Rockingham,15,New Hampshire,33
-Anchorage Municipality,20,Alaska,2
-Dutchess,27,New York,36
-Lubbock,303,Texas,48
-Durham,63,North Carolina,37
-Spartanburg,83,South Carolina,45
-St. Lucie,111,Florida,12
-Gloucester,15,New Jersey,34
-Rutherford,149,Tennessee,47
-Winnebago,201,Illinois,17
-Cumberland,5,Maine,23
-Greene,77,Missouri,29
-Leon,73,Florida,12
-Ingham,65,Michigan,26
-Chatham,51,Georgia,13
-Erie,49,Pennsylvania,42
-San Luis Obispo,79,California,6
-Weld,123,Colorado,8
-Lexington,63,South Carolina,45
-Ottawa,139,Michigan,26
-Atlantic,1,New Jersey,34
-New London,11,Connecticut,9
-Dauphin,43,Pennsylvania,42
-Cleveland,27,Oklahoma,40
-Santa Cruz,87,California,6
-Clayton,63,Georgia,13
-St. Joseph,141,Indiana,18
-Madison,119,Illinois,17
-Thurston,67,Washington,53
-Webb,479,Texas,48
-St. Clair,163,Illinois,17
-Merced,47,California,6
-Marin,41,California,6
-Kalamazoo,77,Michigan,26
-Kitsap,35,Washington,53
-Brown,9,Wisconsin,55
-Alachua,1,Florida,12
-Caddo Parish,17,Louisiana,22
-Jefferson,245,Texas,48
-Buncombe,21,North Carolina,37
+CountyID,County,StateID,State
+037,Los Angeles ,06, California
+031,Cook ,17, Illinois
+201,Harris ,48, Texas
+013,Maricopa ,04, Arizona
+073,San Diego ,06, California
+059,Orange ,06, California
+086,Miami-Dade ,12, Florida
+047,Kings ,36, New York
+113,Dallas ,48, Texas
+065,Riverside ,06, California
+081,Queens ,36, New York
+071,San Bernardino ,06, California
+033,King ,53, Washington
+003,Clark ,32, Nevada
+439,Tarrant ,48, Texas
+085,Santa Clara ,06, California
+029,Bexar ,48, Texas
+011,Broward ,12, Florida
+163,Wayne ,26, Michigan
+061,New York ,36, New York
+001,Alameda ,06, California
+017,Middlesex ,25, Massachusetts
+101,Philadelphia ,42, Pennsylvania
+103,Suffolk ,36, New York
+067,Sacramento ,06, California
+005,Bronx ,36, New York
+099,Palm Beach ,12, Florida
+059,Nassau ,36, New York
+057,Hillsborough ,12, Florida
+095,Orange ,12, Florida
+035,Cuyahoga ,39, Ohio
+049,Franklin ,39, Ohio
+125,Oakland ,26, Michigan
+003,Allegheny ,42, Pennsylvania
+053,Hennepin ,27, Minnesota
+453,Travis ,48, Texas
+059,Fairfax ,51, Virginia
+013,Contra Costa ,06, California
+035,Salt Lake ,49, Utah
+031,Montgomery ,24, Maryland
+119,Mecklenburg ,37, North Carolina
+183,Wake ,37, North Carolina
+121,Fulton ,13, Georgia
+019,Pima ,04, Arizona
+189,St. Louis ,29, Missouri
+003,Honolulu ,15, Hawaii
+119,Westchester ,36, New York
+019,Fresno ,06, California
+079,Milwaukee ,55, Wisconsin
+103,Pinellas ,12, Florida
+001,Fairfield ,09, Connecticut
+097,Marion ,18, Indiana
+003,Bergen ,34, New Jersey
+157,Shelby ,47, Tennessee
+043,DuPage ,17, Illinois
+029,Erie ,36, New York
+085,Collin ,48, Texas
+031,Duval ,12, Florida
+033,Prince George's ,24, Maryland
+003,Hartford ,09, Connecticut
+135,Gwinnett ,13, Georgia
+029,Kern ,06, California
+075,San Francisco ,06, California
+099,Macomb ,26, Michigan
+009,New Haven ,09, Connecticut
+111,Ventura ,06, California
+053,Pierce ,53, Washington
+215,Hidalgo ,48, Texas
+023,Middlesex ,34, New Jersey
+141,El Paso ,48, Texas
+005,Baltimore ,24, Maryland
+091,Montgomery ,42, Pennsylvania
+027,Worcester ,25, Massachusetts
+061,Hamilton ,39, Ohio
+013,Essex ,34, New Jersey
+051,Multnomah ,41, Oregon
+121,Denton ,48, Texas
+025,Suffolk ,25, Massachusetts
+009,Essex ,25, Massachusetts
+109,Oklahoma ,40, Oklahoma
+061,Snohomish ,53, Washington
+111,Jefferson ,21, Kentucky
+081,San Mateo ,06, California
+055,Monroe ,36, New York
+067,Cobb ,13, Georgia
+089,DeKalb ,13, Georgia
+077,San Joaquin ,06, California
+157,Fort Bend ,48, Texas
+097,Lake ,17, Illinois
+071,Lee ,12, Florida
+021,Norfolk ,25, Massachusetts
+095,Jackson ,29, Missouri
+197,Will ,17, Illinois
+017,Hudson ,34, New Jersey
+031,Denver ,08, Colorado
+037,Davidson ,47, Tennessee
+001,Bernalillo ,35, New Mexico
+041,El Paso ,08, Colorado
+001,District of Columbia,11, District of Columbia
+073,Jefferson ,01, Alabama

@@ -2,11 +2,12 @@
 ---
 title: "Big Data and Open Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Fall 2018</h4>
+date: <h4 style="font-style:normal">Winter 2020</h4>
 output: 
   html_document:
     theme: cosmo
 ---
+
 
 
 <style>
@@ -21,16 +22,30 @@ font-style: italic;
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
 \
 
-This guide is a reference tool for online sources that provide [Big Data](https://en.wikipedia.org/wiki/Big_data) or [Open Data](https://ash.harvard.edu/files/open_government.pdf).  Remember to look at the meta data to figure out what kinds of information you can download.
+This guide lists and describes online sources that provide [Big Data](https://en.wikipedia.org/wiki/Big_data) or [Open Data](https://ash.harvard.edu/files/open_government.pdf).  Remember to look at the meta data to figure out what kinds of information you can download.
 \
 
 
-* [Airbnb](http://insideairbnb.com/get-the-data.html): Provides csv files containing detailed information on data on airbnb hosts.  The data are in latitude/longitude.  They don't provide historical data.
+* [Airbnb](http://insideairbnb.com/get-the-data.html): Provides csv files containing detailed information on data on airbnb hosts.  The data are in longitude/latitude.  They don't provide historical data.
 
 * Bikesharing: Web sites providing public use data on bikesharing.  Provides station-to-station data.
     + [San Francisco](https://www.fordgobike.com/system-data).  
@@ -40,7 +55,7 @@ This guide is a reference tool for online sources that provide [Big Data](https:
 
 * [OpenStreetMaps](https://ropensci.github.io/osmdata/).  **osmdata** is an R package for downloading OpenStreetMaps data.  The site provides a couple of vignettes on using the package.
 
-* [Array of things](https://aot-file-browser.plenar.io/).  The City of Chicago installed modular sensor boxes around Chicago to collect real-time data on the city’s environment, infrastructure, and activity for research and public use. 
+* [Array of things](https://aot-file-browser.plenar.io/).  The City of Chicago installed modular sensor boxes around Chicago to collect real-time data on the city’s environment, infrastructure, and activity for research and public use. Other cities have followed.
 
 * [Zillow](https://www.zillow.com/research/data/). Provides housing price data at the metro, city and zipcode levels.  R has a [package](https://cran.r-project.org/web/packages/ZillowR/index.html) for downloading Zillow data directly.
 
@@ -48,24 +63,28 @@ This guide is a reference tool for online sources that provide [Big Data](https:
 
 * [Uber](https://movement.uber.com/?lang=en-US).  A public use dataset that provides anonymized information on Uber usage in select US cities.  You'll need to sign up for an account or use your Facebook or Google account.
 
-* [Twitter](https://apps.twitter.com/). Twitter provides access to a sample of their tweets.  You'll need to register for an API.  Here are some guides to collect and manage tweets in R: [here](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/), [here](https://cfss.uchicago.edu/webdata002_twitter_exercise.html), and [here](https://cran.r-project.org/web/packages/rtweet/vignettes/intro.html).
+* [Twitter](https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets). Twitter provides access to a sample of their tweets.  You'll need to register for an API.  Here are some guides to collect and manage tweets in R: [here](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/), [here](https://cfss.uchicago.edu/webdata002_twitter_exercise.html), and [here](https://cran.r-project.org/web/packages/rtweet/vignettes/intro.html).
 
 
 **Open data portals**
 
-Many city, county and even state governments maintain open data portals.  These portals provide various datasets held and maintained by the public sectors.  Some of the data are measured at a fine spatial scale, going doing to latitude/longitude.  
+Many city, county and even state governments maintain open data portals.  These portals provide various datasets held and maintained by the public sectors.  Some of the data are measured at a fine spatial scale, going doing to longitude/latitude.  
 
 There are a couple of sites that maintain open data portal directories, including
 
 * [Data.gov](https://www.data.gov/open-gov/)
 
-* [OpenDataSoft](https://www.opendatasoft.com/a-comprehensive-list-of-all-open-data-portals-around-the-world/#/united-states)
+* [Open Data Inception](https://opendatainception.io/)
 
 * [US City Open Data Census](http://us-cities.survey.okfn.org/)
 
-Here are links to various open data portals in US cities (updated 10/31/18)
+Here are links to various open data portals in US cities (updated 12/25/19)
 
 *California*
+
+* [Southern California Association of Governments](http://gisdata-scag.opendata.arcgis.com/)
+
+* [Sacramento Area Council of Governments](https://data.sacog.org/)
 
 * [Sacramento City](http://data.cityofsacramento.org/)
 
@@ -85,13 +104,11 @@ Here are links to various open data portals in US cities (updated 10/31/18)
 
 * [Kern County](https://geodat-kernco.opendata.arcgis.com/)
 
+* [Chula Vista City](https://chulavista-cvgis.opendata.arcgis.com/)
+
 * [Anaheim City](http://data-anaheim.opendata.arcgis.com/)
 
 * [Riverside County](https://data.countyofriverside.us/)
-
-* [Riverside County](http://data-countyofriverside.opendata.arcgis.com/)
-
-* [Chula Vista City](http://chulavista-cvgis.opendata.arcgis.com/)
 
 * [Los Angeles City](https://data.lacity.org/)
 
@@ -111,8 +128,6 @@ Here are links to various open data portals in US cities (updated 10/31/18)
 
 * [San Diego City](https://data.sandiego.gov/)
 
-* [Solano County](http://geohub-doitgis.opendata.arcgis.com/datasets)
-
 * [California State](https://data.ca.gov/)
 
 *Major Cities*
@@ -127,15 +142,19 @@ Here are links to various open data portals in US cities (updated 10/31/18)
 
 * [Philadelphia](https://www.opendataphilly.org/)
 
+* [Phoenix](https://www.phoenixopendata.com/)
+
 * [Detroit](https://data.detroitmi.gov/)
 
-* [Balitmore](https://data.baltimorecity.gov/)
+* [Baltimore](https://data.baltimorecity.gov/)
 
 * [San Francisco City/County](https://datasf.org/)
 
 * [Seattle](https://data.seattle.gov/)
 
 * [Washington D.C.](http://opendata.dc.gov/)
+
+Your city/county not listed above? Use Google. It's your friend.
 
 **Looking for data?**
 

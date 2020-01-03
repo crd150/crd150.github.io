@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -73,9 +73,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -89,7 +87,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -99,6 +96,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -114,7 +114,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -134,6 +133,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -155,47 +191,66 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -209,6 +264,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -244,8 +305,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -254,6 +313,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -275,7 +344,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -288,22 +357,8 @@ div.tocify {
 <li>
   <a href="hw_guidelines.html">Assignment Guidelines</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Labs/Assignments
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Lab 1</li>
-    <li class="dropdown-header">Lab 2</li>
-    <li class="dropdown-header">Lab 3</li>
-    <li class="dropdown-header">Lab 4</li>
-    <li class="dropdown-header">Lab 5</li>
-    <li class="dropdown-header">Lab 6</li>
-    <li class="dropdown-header">Lab 7</li>
-    <li class="dropdown-header">Lab 8</li>
-  </ul>
+<li>
+  <a href="index.html">Labs/Assignments</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -330,12 +385,12 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Assignment Guidelines</h1>
-<h3 class="subtitle"><em><h4 style="font-style:normal">
+<h3 class="subtitle"><h4 style="font-style:normal">
 CRD 150 - Quantitative Methods in Community Research
-</h4></em></h3>
-<h4 class="date"><em><h4 style="font-style:normal">
-Fall 2018
-</h4></em></h4>
+</h4></h3>
+<h4 class="date"><h4 style="font-style:normal">
+Winter 2020
+</h4></h4>
 
 </div>
 
@@ -343,31 +398,54 @@ Fall 2018
 <style>
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
 }
 </style>
 <p><br />
 </p>
-<p>Assignments are typically released at the beginning of each lab and are due in a week. They are located at the end of each lab’s guide. Assignments have two components:</p>
+<p>Assignments will be released at the beginning of each lab and are due in a week. They are linked to the end of each lab’s guide. Assignments have two components:</p>
 <ol style="list-style-type: decimal">
-<li>Executing data analysis tasks - for example, create a map or run a statistical model.</li>
-<li>Answering conceptual questions - for example, interpret results that were produced from a data analysis task.</li>
+<li>Executing data analysis tasks - for example, create a map or run a statistical model and interpret its results.</li>
+<li>Answering conceptual questions - for example, interpret a concept introduced in lecture or the textbook.</li>
 </ol>
 <p>In order to get full credit for each assignment, you will need to</p>
 <ol style="list-style-type: decimal">
-<li>Show the appropriate statistical results for a given question (e.g. map, table, statistics).</li>
-<li>Show the appropriate code producing the results.</li>
+<li>Show the correct statistical results for a given question (e.g. map, table, statistics).</li>
+<li>Show the code producing the results.</li>
 <li>Provide correct written answers.</li>
 </ol>
-<p>Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. You can ask for help from the TAs and work with other students. However, you <em>must</em> submit your own assignments.</p>
+<p>Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Because there are typically multiple ways to get an answer, we will not grade you on the efficiency of your code. You can ask for help from the TAs and work with other students. However, you <em>must</em> submit your own assignments.</p>
+<p>Also note: all code used to produce your results must be shown in your HTML file (e.g., do not use <code>echo=FALSE</code> or <code>include=FALSE</code> as options anywhere)</p>
 <div style="margin-bottom:25px;">
 
 </div>
 <div id="r-markdown" class="section level2">
 <h2><strong>R Markdown</strong></h2>
 <p><br />
-You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up all R related assignments. R Markdown is a simple formatting syntax for authoring html, pdf, and Microsoft Word documents in RStudio. For each R related assignment, you will upload onto Canvas an R Markdown document, which has an <code>.Rmd</code> extension, and its knitted <code>.html</code> file. This will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output.</p>
-<p>To be clear, R is a <em>programming language</em>. RStudio is an <em>application</em>. R Markdown is a <em>markup syntax</em> to convert R script and text into a word, pdf or html document.</p>
-<p>In RStudio, install the package <strong>rmarkdown</strong> using the <code>install.packages()</code> command. Type the following code in your RStudio Console.</p>
+You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up all R related assignments. R Markdown is a simple formatting syntax for authoring html, pdf, and Microsoft Word documents in RStudio. For each R related assignment, you will upload onto Canvas two documents:</p>
+<ol style="list-style-type: decimal">
+<li>R Markdown document, which has an <code>.Rmd</code> extension</li>
+<li>A knitted <code>.html</code> file.</li>
+</ol>
+<p>These documents will allow the TAs to create an easy-to-read document to grade; more importantly, you will also get to practice (1) writing scripts, (2) keeping track of the analyses you run, and (3) organizing your output. <strong>Do not combine the Rmd and html files into a zipped compressed folder</strong>.</p>
+<p>To be clear, R is a <em>programming language</em>. RStudio is an <em>application</em>. R Markdown is a <em>markup syntax</em> to convert R script and text into a word, pdf or html document. It allows for presentation ready documents that show commands and results in a seamless flow. When you write R code and embed it in presentation documents created using R Markdown, you are forced to explicitly state the steps you took to do your research.</p>
+<p>In RStudio, install the package <strong>rmarkdown</strong> using the <code>install.packages()</code> command.</p>
 <pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
 <div style="margin-bottom:25px;">
 
@@ -376,7 +454,7 @@ You will use <a href="https://rmarkdown.rstudio.com/">R Markdown</a> to write up
 <div id="opening-an-r-markdown-file" class="section level2">
 <h2><strong>Opening an R Markdown file</strong></h2>
 <p><br />
-An <code>.Rmd</code> template will be provided for each assignment. A generic template can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assignment_template.Rmd">here</a>. Download the week’s assignment template and save it into an appropriate folder on your hard drive. File management is important here - save this template into a folder that will contain all the files (data, Rmd, html, etc.) related to that week’s assignment. When you knit your Rmd (we’ll get to what this means below), this is where your html file will go.</p>
+An <code>.Rmd</code> template will be provided for each assignment. Download the week’s assignment template and save it into an appropriate folder on your hard drive. File management is important here - save this template into a folder that will contain all the files (data, Rmd, html, etc.) related to that week’s assignment. When you knit your Rmd (we’ll get to what knitting means below), this is where your html file will go.</p>
 <p>To open an <code>.Rmd</code> file in RStudio, select File -&gt; Open File and navigate to the folder you saved the assignment template in and select the file. You should see the R Markdown file pop up on the top left portion of your RStudio interface.</p>
 <div style="margin-bottom:25px;">
 
@@ -387,7 +465,7 @@ An <code>.Rmd</code> template will be provided for each assignment. A generic te
 <p><br />
 R Markdown documents contain 3 major components:</p>
 <ol style="list-style-type: decimal">
-<li>A YAML header surrounded by —</li>
+<li>A YAML header surrounded by - - -</li>
 <li>Chunks of R code surrounded by ```</li>
 <li>Text mixed with simple text formatting using the <a href="https://www.markdownguide.org/cheat-sheet/">Markdown syntax</a></li>
 </ol>
@@ -397,11 +475,11 @@ R Markdown documents contain 3 major components:</p>
 <div id="yaml-header" class="section level3">
 <h3><strong>YAML header</strong></h3>
 <p><br />
-The YAML header controls how R Markdown renders your <code>.Rmd</code> file. A YAML header is a section of key: value pairs surrounded by — marks.</p>
-<p>Change your name, assignment number, lab number, and the date. Other than those items, <strong>the YAML format for each assignment is set for you in the template, so don’t change it</strong> It will generally look like the following.</p>
+The YAML header controls how R Markdown renders your <code>.Rmd</code> file. A YAML header is a section of key:value pairs surrounded by - - - marks.</p>
+<p>In the assignment template’s YAML, change your name, assignment number, lab number, and the date. Other than those items, <strong>the YAML format for each assignment is set for you in the template, so don’t change it.</strong> It will generally look like the following.</p>
 <pre><code>---
 title: &quot;Assignment [insert number here]&quot;
-subtitle: CRD 150, Lab #
+subtitle: CRD 150
 author: Your full name here
 date: Assignment due date
 output: 
@@ -412,72 +490,230 @@ output:
 
 </div>
 </div>
-<div id="r-code-chunks" class="section level3">
-<h3><strong>R Code chunks</strong></h3>
+<div id="text" class="section level3">
+<h3><strong>Text</strong></h3>
 <p><br />
-Always submit the R code producing your results. You show your R code in R Markdown through R code chunks. R code is inserted in between <code>```{r}</code> and <code>```</code>. For example, to designate <code>1+1</code> as R code, it will look like the following in your R Markdown document</p>
-<pre><code>```{r}
-1+1
-```</code></pre>
-<p>Your R code must reside inside an R code chunk in order for it to be processed as R code (otherwise R Markdown will think it is text). R will often spit out messages that are not necessary for answering the assignment question. You can add options to the R code chunk to hide these unnecessary messages by adding <code>warning=FALSE</code> and <code>message=FALSE</code> as follows.</p>
-<pre><code>```{r, warning=FALSE, message = FALSE}}
-1+1
-```</code></pre>
-<p>You’ll need to test code to make sure it is running properly. Rather than writing all the code and then running it at the end, run them in chunks. To run code in just one chunk, click on the R code chunk you want to run and either click on <img src="hwguide3.png" /> and select <em>Run Current Chunk</em> or click on <img src="hwguide4.png" /> located on the right corner of the chunk. For example, let’s say the first question in an assignment is (1) Add one plus one. In your R Markdown document, type in the following to answer question 1</p>
-<pre><code>```{r, warning=FALSE, message = FALSE}}
-1+1
-```</code></pre>
-<p>Run that code chunk first to make sure it works (you should get 2!). <em>Then</em> proceed to the next question.</p>
-<p>Note that you when you run an R code chunk, its output is embedded within your R Markdown document as in Figure 1</p>
-<center>
-<div class="figure">
-<img src="hwguide1.JPG" alt="Figure 1: Output within R Markdown document." />
-<p class="caption">Figure 1: Output within R Markdown document.</p>
-</div>
-</center>
-<p>When you are testing your code, it is better that code results are shown in your RStudio Console (the bottom left window). To get RStudio to do this, select the “Tools” menu and select “Global Options”. Select “R Markdown” from the left-hand side and deselect the check box “Show output inline for all R Markdown documents”. The output from your code should now be shown in the console.</p>
-<center>
-<div class="figure">
-<img src="hwguide2.JPG" alt="Figure 2: R Markdown options." />
-<p class="caption">Figure 2: R Markdown options.</p>
-</div>
-</center>
-<div style="margin-bottom:25px;">
-
-</div>
-</div>
-<div id="text-answers" class="section level3">
-<h3><strong>Text answers</strong></h3>
-<p><br />
-Explain results and answer questions by inserting text into your document. For example, let’s say you see this in one of your assignments</p>
+After you’ve set the YAML, you start answering the Assignment questions. When answering an assignment question, you’ll have the following sequence of components in your R Markdown document: Question text, R code answering the question, and your text to explain the results. Let’s say you see this in one of your assignments</p>
 <pre><code>1+1
 
-1. What does the above code do?
-2. What is the result of 2+2?</code></pre>
+1. What does the above code do?</code></pre>
 <p><br />
-To get full credit, you would type in your R Markdown document the following</p>
+You would type in your R Markdown document the following</p>
 <pre><code>1. What does the above code do?
 
 The code adds 1 + 1
+</code></pre>
+<p><br></p>
+<p>There is nothing special about the text in terms of its format or placement.</p>
+<div style="margin-bottom:25px;">
 
-2. What is the result of 2+2?
+</div>
+</div>
+<div id="r-code-chunks" class="section level3">
+<h3><strong>R Code chunks</strong></h3>
+<p><br />
+Assignments will also ask you to write R code to accomplish a data analysis task. You present and execute your R code inside R code chunks. R code is inserted in between <code>```{r}</code> and <code>```</code>. For example, let’s say we ask you to use R code to add <code>1 + 1</code> and show the result. To designate <code>1+1</code> as R code, it will look like the following in your R Markdown document.</p>
+<pre><code>```{r}
+1+1
+```</code></pre>
+<p><br></p>
+<p>By putting code into a chunk, R will execute the code when knitting the markdown file (i.e. the html file will show your code and its result). Your R code must reside inside an R code chunk in order for it to be processed as R code (otherwise R Markdown will think it is text).</p>
+<p>Do not put all of your code in one single chunk. For example, let’s say you see the following in your homework assignment.</p>
+<pre><code>1+1
 
-```{r, warning=FALSE, message = FALSE}
+2+2
+
+1. Run each line of code above.  What does each line of code accomplish?</code></pre>
+<p>Instead of including both lines of code in one chunk like as follows</p>
+<pre><code>```{r}
+1+1
+
+2+2
+```</code></pre>
+<p>Break it up and add text after each to explain the result.</p>
+<pre><code>```{r}
+1+1
+```
+
+The code adds one plus one to yield two.
+
+```{r}
 2+2
 ```
 
-The result of 2+2 is 4.</code></pre>
-<p>Notice that the text “The code adds 1 + 1” and “The result of 2+2 is 4” are <strong>not</strong> inside the R code chunk.</p>
+The code adds two plus two to yield four.</code></pre>
+<p><br></p>
+<p>Think of writing a script as similar to writing an essay. You don’t write an essay in one single paragraph. You break it up into several paragraphs, where paragraph breaks are used to separate major points and ideas. On the other end of the spectrum, do not break up every single line of code like you would not break up every single sentence in an essay.</p>
+<p>You will notice near the top of every HW template the following R code chunk.</p>
+<pre><code>```{r}
+knitr::opts_chunk$set(warning=FALSE, message = FALSE)
+```</code></pre>
+<p><br></p>
+<p><strong>Do not delete or edit this</strong>. The above code tells R Markdown to hide non error messages for every single R code chunk in your file. These non error messages are unnecessary for the purposes of this class. Note that R Markdown will treat each option that you pass into the parentheses in <code>knitr::opts_chunk$set</code> as a global default. Other chunk options can be found <a href="https://r4ds.had.co.nz/r-markdown.html#chunk-options">here</a>. You can also set options for individual chunks. For example, you can add the options <code>warning=TRUE</code> and <code>message=TRUE</code> to an individual R code chunk as follows to show the messages for the R code in that chunk.</p>
+<pre><code>```{r, warning=TRUE, message = TRUE}
+1+1
+```</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="always-test-each-chunk" class="section level3">
+<h3><strong>Always test each chunk</strong></h3>
+<p><br />
+After you write code in a chunk, you’ll need to test the code to make sure it is running properly. In other words, rather than writing all the code and then running it at the end of the assignment, run the chunks one at a time. To elaborate, let’s say the first question in an assignment is (1) Add one plus one. In your R Markdown document, type in the following to answer this question.</p>
+<pre><code>```{r, warning=FALSE, message = FALSE}
+1+1
+```</code></pre>
+<p>Run that code chunk to make sure it works (you should get 2!). <em>Then</em> proceed to the next question. Let me emphasize: <strong>Do not write all of your code and run it at the very end.</strong></p>
+<p>There are a number of ways to run code in R Markdown. First, you can place your mouse cursor in the R code chunk you want to run and click on <img src="hwguide3.png" /> located at the top of the R Markdown window and select <em>Run Current Chunk</em>.</p>
+<p>Second, you can place your mouse cursor in the R code chunk and click on <img src="hwguide4.png" /> located on the right corner of the chunk. See Figure below.</p>
+<center>
+<div class="figure">
+<img src="chunk2.png" />
+
+</div>
+</center>
+<p><br></p>
+<p>In each R chunk, pressing the button <img src="rchunkbutton.png" /> will run all previous R chunks. See Figure below.</p>
+<center>
+<div class="figure">
+<img src="chunk4.png" />
+
+</div>
+</center>
+<p><br></p>
+<p>Third, you can highlight the code and select <em>Code</em> from the R Studio menu and select (among many options) <em>Run Selected Lines(s)</em>. See Figure below (from a Mac OS). Note that this method allows you to run just selected lines of code within a chunk rather than all the code in the chunk.</p>
+<center>
+<div class="figure">
+<img src="chunk3.png" />
+
+</div>
+</center>
+<p><br></p>
+<p>Fourth, you can highlight code and use a keyboard shortcut to run the code. As you can see in the figure above, the keyboard shortcut to run code on a Mac is command + return. See <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">here</a> for other shortcuts for both Mac and Windows.</p>
+<p>Note that you when you first run an R code chunk, its output will be embedded within your R Markdown document as shown in Figure 2</p>
+<center>
+<div class="figure">
+<img src="hwguide1.JPG" alt="Figure 2: Output within R Markdown document." />
+<p class="caption">Figure 2: Output within R Markdown document.</p>
+</div>
+</center>
+<p>When you are testing your code, it is better that the code results are shown in your RStudio Console (the bottom left window). To get RStudio to do this, select the “Tools” menu and select “Global Options”. Select “R Markdown” from the left-hand side and deselect the check box “Show output inline for all R Markdown documents”. The output from your code should now be shown in the console (bottom left window).</p>
+<center>
+<div class="figure">
+<img src="hwguide2.JPG" alt="Figure 3: R Markdown options." />
+<p class="caption">Figure 3: R Markdown options.</p>
+</div>
+</center>
 <div style="margin-bottom:25px;">
 
 </div>
 </div>
 </div>
-<div id="knitting" class="section level2">
-<h2><strong>Knitting</strong></h2>
+<div id="knitting-an-r-markdown-document" class="section level2">
+<h2><strong>Knitting an R Markdown document</strong></h2>
 <p><br />
-Once you’re done writing up your assignment, you’ll need to submit your <code>.Rmd</code> document and the knitted <code>.html</code> document through <a href="https://login.canvas.ucdavis.edu/">Canvas</a>. RStudio’s “Knit HTML” button will compile the document to an HTML and open a preview. To Knit your document click <img src="hwguide6.png" />. A preview will pop up in a new window and the <code>.html</code> file will be saved in the folder where your Rmd file resides. If your R Markdown file has some issues, an error will pop up in the bottom left window of RStudio. Carefully read the description of the error, which will also contain the line number of the offending code.</p>
-<p>If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded <a href="http://xquartz.macosforge.org">here</a></p>
+In addition to the R Markdown Rmd file, you will need to submit its knitted html result. Knitting puts an assignment’s main components - code, output, and text - in a nicely formatted document. You can create three types of knitted documents: html, Microsoft Word, and a pdf. We ask you to knit to an html file. Go back to the YAML example I showed above. <em>output:</em> <em>html_document</em> tells R to produce an html document. If you want a word document, <em>output:</em> will be <em>word_document</em>. A pdf is <em>pdf_document</em>. Once again, <strong>always knit to an html document</strong> for this class.</p>
+<p>To Knit your document click <img src="hwguide6.png" />, which will be located at the top of the upper left R Markdown window. Note that you can select your document type when knitting by clicking the pull down menu next to <img src="hwguide6.png" /> and selecting your document choice (default is html). When you start knitting, you will notice that a new window on the bottom left will appear in place of the console. The window will show the progress in your knitting. R is going through each R code chunk one at a time. The percentages you will see will be based on the proportion of your R Markdown file that R has successfully knitted. See Figure 4 below.</p>
+<center>
+<div class="figure">
+<img src="knitprog.png" alt="Figure 4: R Markdown knitting progress window" />
+<p class="caption">Figure 4: R Markdown knitting progress window</p>
+</div>
+</center>
+<p>If it has a problem knitting, R will stop at the chunk that contains the problem. R will produce an error statement in red. Carefully read the description of the error, which will contain the R code chunk number and may also contain the line number of the offending code. Go to the chunk or line of the offending code in your Markdown document and fix the problem. Sometimes, the error statement is illuminating, and it will allow you to fix your problem with little effort. For example, Figure 5 shows knitting was stopped because we did not have the package <strong>tidycensus</strong> installed.</p>
+<center>
+<div class="figure">
+<img src="kniterror.png" alt="Figure 5: R Markdown knitting stopped by an error" />
+<p class="caption">Figure 5: R Markdown knitting stopped by an error</p>
+</div>
+</center>
+<p>If the error is not illuminating (oh oh), you’ll need to figure out what you did wrong. See the <strong>Having problems knitting?</strong> section below.</p>
+<p>Note that when you are knitting, progress and any errors will be shown not in the regular R console window, but in a special R Markdown window. To toggle back to the Console (and back to the R Markdown window), just click on the Console (or R Markdown) tab as shown below.</p>
+<p><br><br></p>
+<center>
+<div class="figure">
+<img src="consoletab.png" />
+
+</div>
+</center>
+<p><br><br></p>
+<p>If you encounter no errors, a preview of your knitted document will pop up in a new window and the <code>.html</code> file will be saved in the folder where your Rmd file resides. I recommend not waiting till the very end of an assignment to knit. When you finish one question, knit your document to see if everything is working properly. If it is working for that question, move on to the next question.</p>
+<p>Let’s be clear: There are two things you’ll have to deal with: (1) Making sure the R code is working correctly to get the results you need in order to answer the question (2) Making sure the code is working correctly to knit a final document. These two issues may be related (if your R code is producing an error, R Markdown will not knit), but sometimes they are not. So, check both your R code <em>and</em> your knitting results often.</p>
+<p>When you’re satisfied with the end product, submit your <code>.Rmd</code> document and a knitted <code>.html</code> document on <a href="https://login.canvas.ucdavis.edu/">Canvas</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="file-management" class="section level2">
+<h2><strong>File Management</strong></h2>
+<p><br />
+File management is key to preventing R programming frustration. Here are a few guidelines to follow in file management when doing the homework.</p>
+<ul>
+<li>Set up a clear and understandable hierarchical file system for this class on your hard drive. For example, create a class folder (CRD 150). Within that class folder, create two folders, one for Labs and another for Assignments. Within the Lab folder, create separate folders for each Lab (Lab 1, Lab 2, …). Ditto for the Assignments folder. You might end having a system that looks like the following</li>
+</ul>
+<center>
+<div class="figure">
+<img src="lab1fig1.png" alt="This is what file organization looks like" />
+<p class="caption">This is what file organization looks like</p>
+</div>
+</center>
+<ul>
+<li>Try to keep all your files that are related to a lab or assignment in one folder. That is, don’t have an Assignment 3 folder that contains data files specific to Assignment 1. Keep everything in one folder, including the R Markdown for that assignment or lab.</li>
+</ul>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="having-problems-knitting" class="section level2">
+<h2><strong>Having problems knitting?</strong></h2>
+<p><br></p>
+<ul>
+<li>A major source of error for most new R Markdown users is that they call up a data object in their R Markdown file that has not been created within the R Markdown file. Treat the R Markdown as its own separate system - even if you’ve created an object through the R Console, and you can see it sitting in your Environment window, R Markdown won’t recognize it because it was not created within the R Markdown document.</li>
+</ul>
+<p>To be clear, let’s say you typed directly in the R console the following code:</p>
+<pre><code>myobject &lt;- 2</code></pre>
+<p><br></p>
+<p>You see the object <em>myobject</em> pop up in your Environment window in the top right window. Let’s say you write in your R Markdown file the code:</p>
+<pre><code>```{r}
+myobject*10
+```</code></pre>
+<p><br></p>
+<p>You then click on <img src="hwguide6.png" /> to knit. You will get an error because R will not be able to knit because <em>myobject</em> was not created inside the R Markdown. Both lines of code should be in the R Markdown file as follows:</p>
+<pre><code>```{r}
+myobject &lt;- 2
+
+myobject*10
+```</code></pre>
+<p><br></p>
+<p>Once again, <strong>treat the R Markdown file as a self-contained, stand alone script</strong>. This is an important concept to understand because many students get tripped up on it when first starting out.</p>
+<ul>
+<li>Are you trying to bring in a data file that is not located in the directory your R Markdown is pointed to? Remember, don’t scatter your data files for a lab or assignment across different folders. Keep them in one folder - the folder where your R Markdown document resides.</li>
+<li>Do you have an <code>install.packages()</code> in your R Markdown script? Take it out! You only need to do it once - and never inside an R Markdown (or a regular R) script.</li>
+<li>Do you have a <code>View()</code> command in your R Markdown script? Take it out! Sometimes R Markdown will have problems when trying to view an R data object.</li>
+<li>Are you using functions for a package that you need to load into R and haven’t loaded it in your R Markdown using <code>library()</code>. If so, load it in R Markdown!</li>
+<li>If you change a piece of code somewhere in the middle because you caught an error, make sure that change is reflected throughout the code. For example, let’s say you decide to rename the object <em>hisobject</em> to <em>herobject</em>. There may be code later on in the document that uses <em>hisobject</em>. So, you’ll need to change <strong>every</strong> line of code in your R Markdown that uses <em>hisobject</em> to now use <em>herobject</em>.</li>
+<li>As I mentioned above, don’t wait till the last minute to knit. Knit after every question.</li>
+<li>The first place to check when you get a knitting error is the specific chunk or line that the error is pointing to.</li>
+<li>As I mentioned above, check if your R code works one chunk at a time.</li>
+<li>Having problem with a line of R code?
+<ul>
+<li>Did you install the appropriate package?</li>
+<li>Did you load in the appropriate library?</li>
+<li>Are you using the right function?</li>
+<li>Did you specify all the function’s arguments correctly?</li>
+</ul></li>
+<li>Still having problems? Break up your code line by line or even argument by argument to find the error? For example, let’s say you have 4 lines of code that are connected together - i.e. line 4 depends on line 3, line 3 depends on line 2, and so on</li>
+</ul>
+<pre class="r"><code>line 1 code
+line 2 code
+line 3 code
+line 4 code</code></pre>
+<p>If you get an error, run line 1 first. No error? Run line 1 and 2. No error? Keep going until you find the offending line.</p>
+<ul>
+<li>If you have a Mac and you are getting an error when knitting, you may need to download the most recent version of XQuartz, which can be downloaded <a href="http://xquartz.macosforge.org">here</a></li>
+<li>If you’re still stuck, more than likely someone else also had a similar problem in the past. So, ask Google and it might help you out.</li>
+</ul>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -485,39 +721,48 @@ Once you’re done writing up your assignment, you’ll need to submit your <cod
 <div id="summary" class="section level2">
 <h2><strong>Summary</strong></h2>
 <p><br />
-The proper workflow for each assignment will be</p>
+The proper workflow for each assignment will be as follows</p>
 <ol style="list-style-type: decimal">
-<li>Go through the step-by-step lab guide.<br />
-</li>
-<li>Save the R Markdown assignment template linked to each assignment in an appropriate folder on your hard drive.</li>
-<li>Open this R Markdown file in RStudio.</li>
-<li>In this document, answer all the assignment questions.</li>
+<li>Go through the week’s reading and lab guide and make sure you understand the material.</li>
+<li>Create a folder on your hard drive that is specific to the assignment (e.g. Assignment 1, Assignment 2, etc.).</li>
+<li>Save the R Markdown assignment template linked to each assignment in the appropriate assignment folder on your hard drive.</li>
+<li>Download any data needed for the assignment into the same folder. For most assignments, I will upload most of the assignment data on GitHub, which you can directly link to in R, so you won’t have to download data.</li>
+<li>Open the R Markdown assignment file in RStudio.</li>
+<li>In the R Markdown document, answer the first assignment question.</li>
 </ol>
 <ul>
-<li>Most of the questions will ask you to run code. Show that code in an R Markdown chunk. Bottom line: Any code you used to get a result should be in your assignment.<br />
-</li>
-<li>Make sure your code works. If it doesn’t, then partial to no credit. Run code one chunk at a time to make sure it is working. Note that there are multiple ways to get to an answer in R - <strong>we will not grade on how efficient your code is unless stated so in the question</strong>.</li>
-<li>Most of the questions will ask you to explain your code/results.</li>
+<li>Most of the questions will ask you to run code. Show that code in R Markdown chunks. Bottom line: Any code you used to get a result should be in your assignment. Otherwise, you will get points off, and for some questions, get <em>all</em> points off.</li>
+<li>Break up your code into different chunks where it makes sense. For some questions, you might include all code for a question in one single chunk. For other questions, you might break up the code into several chunks.</li>
+<li>Make sure your code works. Run code one chunk at a time to make sure it is working. Note that there are multiple ways to get to an answer in R. <strong>We will not grade on how efficient your code is unless stated so in the question</strong>.</li>
+<li>Most of the questions will ask you to explain your results. Write your explanations outside of the R code chunks. Please - <em>please</em> - take these interpretation questions seriously. This is a not a programming or Data Science course - you may have taken 40 hours to produce super elegant code to answer a question, but your results won’t be worth much to anyone if you can’t properly interpret them.</li>
 </ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Once you feel good about your answers, knit it.</li>
-<li>Submit the <code>.Rmd</code> and <code>.html</code> files on Canvas <strong>before</strong> the designated due time.</li>
-<li>Smile, pat yourself on the back, and have some ice cream.</li>
+<ol start="7" style="list-style-type: decimal">
+<li>After you’ve completed the first question, knit to an html file. Make sure it knits properly. If it does not, examine the error, and fix the problem.</li>
+<li>If you’re satisfied with your code and its results for the first question, and the document properly knitted, move on to the next question. Repeat steps 6 and 7.</li>
+<li>Once you’ve completed all questions and successfully knitted, submit the <code>.Rmd</code> and <code>.html</code> files on Canvas <strong>before</strong> the designated due time.</li>
+<li>Smile, pat yourself on the back, and have some ice cream (I like these <a href="https://threetwinsicecream.com/">folks</a>).</li>
 </ol>
 <div style="margin-bottom:25px;">
 
 </div>
 </div>
-<div id="others-things-to-know" class="section level2">
-<h2><strong>Others things to know</strong></h2>
-<div style="margin-bottom:20px;">
+<div id="grading" class="section level2">
+<h2><strong>Grading</strong></h2>
+<p><br></p>
+<ul>
+<li>Answers should be correct. This is not to say that we will not take into consideration how much of your code is correct. But, if you do get the wrong answer we will take at least something off.</li>
+<li>We will not grade on how efficient your code is unless stated so in the question. We will never take points off for accomplishing things differently than expected as long as it produces the correct result. However, if the answer is incorrect <em>and</em> your code indicates little effort (e.g. blank or a few lines of code that yield nothing) or is completely incomprehensible (e.g. 20 lines of mish mash), expect few to no points.</li>
+<li>Interpretation of results is very important. This is not a programming class. You might have the fanciest code in the world, but it will not matter much if you do not understand what the results are telling you.</li>
+</ul>
+<div style="margin-bottom:25px;">
 
 </div>
+</div>
+<div id="other-things-to-know" class="section level2">
+<h2><strong>Other things to know</strong></h2>
+<p><br></p>
 <ul>
-<li>You can spell-check your assignment before handing it in by navigating the menu Edit -&gt; Check Spelling</li>
-<li>If you have Microsoft Word installed on your system you can pull down the menu associated with the Knit button and select the Knit to Word option and, if all goes well, you will be presented with a Word document.</li>
-<li>You can also create a pdf document, but you’ll need to download. <a href="http://www.ams.org/publications/what-is-tex">Tex</a> on your system. Here’s an <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html">explanation</a> on how to get a pdf.</li>
-<li>Your R Markdown file needs to have the extension <code>.Rmd</code> (don’t create arbitrarily named files).</li>
+<li>Please spell-check your assignment before handing it in (Edit -&gt; Check Spelling from the top menu bar).</li>
 <li>The default editor settings are to insert matching parentheses and quotes; if you find that this intrudes on your workflow, you can disable it via Tools -&gt; Global Options -&gt; Code then uncheck Insert matching parens/quotes.</li>
 </ul>
 <div style="margin-bottom:25px;">
@@ -527,7 +772,7 @@ The proper workflow for each assignment will be</p>
 <div id="getting-r-markdown-help" class="section level2">
 <h2><strong>Getting R Markdown Help</strong></h2>
 <p><br />
-Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheat sheet by going to Help &gt; Cheatsheets &gt; R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in Chapter 21 in <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a>.</p>
+Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheat sheet by going to Help -&gt; Cheatsheets -&gt; R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in Chapter 21 in <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a>. R Studio has a quick <a href="https://rmarkdown.rstudio.com/authoring_quick_tour.html">introduction</a> to R Markdown. And, of course, there is the Google machine. Use it to get help.</p>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 </div>
@@ -550,6 +795,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 

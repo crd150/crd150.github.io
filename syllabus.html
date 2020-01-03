@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -74,9 +74,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -90,7 +88,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -100,6 +97,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -115,7 +115,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -135,6 +134,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -156,47 +192,66 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -210,6 +265,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -245,8 +306,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -255,6 +314,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -276,7 +345,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -289,22 +358,8 @@ div.tocify {
 <li>
   <a href="hw_guidelines.html">Assignment Guidelines</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Labs/Assignments
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Lab 1</li>
-    <li class="dropdown-header">Lab 2</li>
-    <li class="dropdown-header">Lab 3</li>
-    <li class="dropdown-header">Lab 4</li>
-    <li class="dropdown-header">Lab 5</li>
-    <li class="dropdown-header">Lab 6</li>
-    <li class="dropdown-header">Lab 7</li>
-    <li class="dropdown-header">Lab 8</li>
-  </ul>
+<li>
+  <a href="index.html">Labs/Assignments</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -331,19 +386,45 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Syllabus</h1>
-<h3 class="subtitle"><em><h4 style="font-style:normal">
+<h3 class="subtitle"><h4 style="font-style:normal">
 CRD 150 - Quantitative Methods in Community Research
-</h4></em></h3>
-<h4 class="date"><em><h4 style="font-style:normal">
-Fall 2018
-</h4></em></h4>
+</h4></h3>
+<h4 class="date"><h4 style="font-style:normal">
+Winter 2020
+</h4></h4>
 
 </div>
 
 
 <style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
 }
 </style>
 <p><br />
@@ -356,11 +437,12 @@ The following is an abridged version of the course syllabus. A full course sylla
 <ul>
 <li>Lecture:
 <ul>
-<li>Tuesday and Thursday, 3:10-5:00 pm, 158 Olson</li>
+<li>Monday and Wednesday, 10:00-11:50 am, 204 Art</li>
 </ul></li>
 <li>Labs:
 <ul>
 <li>Friday, 9:00-9:50 am, 2020 Science Lab</li>
+<li>Friday, 10:00-10:50 am, 2020 Science Lab</li>
 </ul></li>
 </ul>
 <div style="margin-bottom:25px;">
@@ -371,16 +453,16 @@ The following is an abridged version of the course syllabus. A full course sylla
 <h2><strong>Instructor</strong></h2>
 <p>Dr. Noli Brazil<br />
 <em>Contact</em>: nbrazil.at.ucdavis.edu<br />
-<em>Office hours</em>: Tuesdays from 1:00-2:30 pm or by appointment, in 2325 Hart Hall. Please sign up for a slot <a href="https://www.wejoinin.com/sheets/gsewa">here</a>. Out of courtesy to other students, please do not sign up for more than two 15-minute blocks. If you do, I will keep only the first two blocks.</p>
+<em>Office hours</em>: Wednesday from 4:00-5:30 pm or by appointment, in 2325 Hart Hall. Please sign up for a slot <a href="https://www.wejoinin.com/sheets/gsewa">here</a>. Out of courtesy to other students, please do not sign up for more than two 15-minute blocks. If you do, I will keep only the first two blocks.</p>
 <div style="margin-bottom:25px;">
 
 </div>
 </div>
 <div id="teaching-assistant" class="section level2">
 <h2><strong>Teaching Assistant</strong></h2>
-<p>Carlos Becerra<br />
-<em>Contact</em>: cabecerra.at.ucdavis.edu<br />
-<em>Office hours</em>: Thursday from 1:00-2:00pm in 2318 Hart Hall.</p>
+<p>Jake Dialesandro<br />
+<em>Contact</em>: jdiales.at.ucdavis.edu<br />
+<em>Office hours</em>: TBD</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -406,22 +488,22 @@ The following is an abridged version of the course syllabus. A full course sylla
 <h2><strong>Course Format</strong></h2>
 <p>The course is organized into two phases.</p>
 <ul>
-<li><p>Part 1: Analyzing communities using nonspatial data. Topics include descriptive statistics, exploratory data analysis, data presentation, and visualization. As the major source of national community-level data in the United States, the U.S. Census will be extensively covered.</p></li>
-<li><p>Part 2: Analyzing communities using spatial data. Topics include exploratory spatial data analysis, U.S. Census geography, mapping, big data, government open data, participatory mapping, geodemographic modelling, spatial clustering, and site suitability analysis.</p></li>
+<li><p>Part 1: Analyzing communities using nonspatial data. Topics include descriptive statistics, exploratory data analysis, data presentation, and visualization. As the major source of national community-level data in the United States, the U.S. Census will be covered extensively.</p></li>
+<li><p>Part 2: Analyzing communities using spatial data. Topics include big data, government open data, participatory mapping, opportunity modelling, spatial clustering, residential segregation, and story mapping.</p></li>
 </ul>
 <div style="margin-bottom:25px;">
 
 </div>
 <div id="lecture" class="section level3">
 <h3><strong>Lecture</strong></h3>
-<p>The Tuesday/Thursday classes will be a combination of lecture, in-class exercises and examples covering the week’s substantive topics. For some lectures, I will ask you to bring your laptops to go through some data acquisition examples and software program exercises.</p>
+<p>The Monday/Wednesday classes will be a combination of lecture, in-class computer mini labs, and exercises covering the week’s substantive topics. For some lectures, I will ask you to bring your laptops to go through data acquisition examples and software program exercises. I will also ask you to solve questions with pen and paper, usually in groups. The exercises during lecture are meant to be less about learning how to do a task in R, and more about deepening your understanding of the week’s substantive topics.</p>
 <div style="margin-bottom:25px;">
 
 </div>
 </div>
 <div id="lab" class="section level3">
 <h3><strong>Lab</strong></h3>
-<p>The Friday lab will provide hands on practice using real data. Each lab will provide guides that will be released on the lab website at the beginning of lab. The guides will provide step-by-step instructions on executing specific tasks using a software program. Lab guides may go over the 1-hour lab time; you will then need to complete the guide on your own time.</p>
+<p>The Friday lab will provide hands on practice using real data. Each lab will provide guides that will be released on the course website after the Wednesday lecture. The guides will provide step-by-step instructions on executing specific tasks using a software program. Although you do not need to turn in lab guides for a grade, it is expected that you will go through each guide and master its contents. If the guides are released before the lab and are not due for a grade, then why attend lab? Besides being mandatory, lab is where (1) the TA will go through higher level points and (2) you can get more refined feedback and help from the TA and your peers. As such, it is to your benefit to come to lab having already gone through at least a portion of the lab guide, just like it is beneficial to come into lecture having read all the course readings assigned for that day.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -431,21 +513,24 @@ The following is an abridged version of the course syllabus. A full course sylla
 <h2><strong>Required Readings</strong></h2>
 <p>Required reading material is composed of a combination of the following</p>
 <ol style="list-style-type: decimal">
-<li>(OSU) O’Sullivan, David &amp; David Unwin (2010). Geographic Information Analysis. Hoboken, NJ: Wiley &amp; Sons</li>
+<li>Chapters from textbooks.</li>
 </ol>
-<p>This is the only required textbook for the class. Luckily, the textbook is free and can be found <a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9780470549094">here</a>. I will also provide the assigned chapters as pdfs on Canvas. A hard copy of the book can be purchased through the campus bookstore or your favorite online book vendor.</p>
+<p>There is no single official textbook for the course. Instead, I’ve selected chapters from various textbooks, which I’ve scanned and uploaded onto Canvas.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Journal articles, research reports, and book chapters.</li>
+<li>Journal articles and research reports.</li>
 </ol>
-<p>These are available on Canvas.</p>
+<p>These are available on Canvas. There are also occasional optional readings that provide applications of a method or a deeper look into a data source.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>My handouts</li>
 </ol>
-<p>For some topics, in lieu of an article or book chapter, I will provide lecture notes on Canvas in advance of the assigned class.</p>
+<p>For some topics, in lieu of an article or book chapter, I will provide lecture handouts on Canvas in advance of the assigned class.</p>
+<div style="margin-bottom:25px;">
+
+</div>
 </div>
 <div id="additional-readings" class="section level2">
 <h2><strong>Additional Readings</strong></h2>
-<p>The other major course material are lab guides, which will be released at the beginning of each lab on the lab website. Many of the R lab guides will closely follow two textbooks. These textbooks are not required, but are great resources.</p>
+<p>The other major course material are lab guides, which will be released immediately after the Wednesday lecture. Many of the R lab guides will closely follow two textbooks. These textbooks are not required, but are great resources.</p>
 <p>The first textbook covers the first part of the course (nonspatial data)</p>
 <ul>
 <li>(RDS) Wickham, Hadley &amp; Garret Grolemund. (2017). R for Data Science. Sebastopol, CA: O’Reilly Media.</li>
@@ -463,7 +548,7 @@ The following is an abridged version of the course syllabus. A full course sylla
 <div id="course-software" class="section level2">
 <h2><strong>Course Software</strong></h2>
 <p><a href="https://www.r-project.org/">R</a> is the only statistical language used in this course, as it has become an increasingly popular program for data analysis in the social sciences. R is freeware and you can download it on your personal laptop and desktop computers. We will use <a href="https://www.rstudio.com/">RStudio</a> as a user friendly interface for R. Lab computers will also have R and RStudio.</p>
-<p>We will also introduce the mapping programs <a href="https://storymap.knightlab.com/">StoryMapJS</a>, and <a href="https://carto.com/">Carto</a>.</p>
+<p>We will also introduce the programs <a href="https://qgis.org/en/site/">QGIS</a> and <a href="https://storymaps.arcgis.com/">ArcGIS Online Story Maps</a>.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -473,20 +558,28 @@ The following is an abridged version of the course syllabus. A full course sylla
 <ol style="list-style-type: decimal">
 <li>Assignments (35%)</li>
 </ol>
-<p>Assignments will be released on the lab website each week at the beginning of lab and will be due the following week on Canvas. Assignment questions are located at the end of each lab guide. They will contain a combination of programming tasks and theoretical questions that you will need to answer on your own. For each assignment, you will need to submit R Markdown Rmd and html files on Canvas. Assignment guidelines can be found <a href="https://crd150.github.io/hw_guidelines.html">here</a>. If you get stuck you can seek help from the TA, who will be available in the scheduled lab sessions and during office hours. We also encourage you to work with other students, <strong>but you must submit your own assignment</strong>.</p>
-<p>Late submissions will be deducted 10% per 24 hours until 72 hours after the submission due time. After 72 hours your submission will not be graded. No exception unless you provide documentation of your illness or bereavement before the due date. If you cannot upload the assignment on Canvas due to technical issues, you must email it as an attachment to your assigned lab TA by the submission due time.</p>
+<p>Assignments will be released on the lab website each week at the beginning of lab and will be due the following week on Canvas. Assignment questions are located at the end of each lab guide. They will contain a combination of programming tasks and theoretical questions that you will need to answer on your own. For each assignment, you will need to submit an R Markdown Rmd and html file on Canvas. Complete assignment guidelines can be found <a href="https://crd150.github.io/hw_guidelines.html">here</a>. If you get stuck you can seek help from the TA, who will be available in the scheduled lab sessions and during office hours. We also encourage you to work with other students, <strong>but you must submit your own assignment</strong>.</p>
+<p>Late submissions will be deducted 10% per 24 hours until 72 hours after the submission due time. After 72 hours your submission will not be graded. No exception unless you provide documentation of your illness or bereavement before the due date. If you cannot upload the assignment on Canvas due to technical issues, you must email it as an attachment to the TA by the submission due time.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Midterm exam (25%)</li>
 </ol>
-<p>There will be a comprehensive in-class midterm examination that will test conceptual material covered in lecture, readings and lab. The exam will be written and will consist of multiple choice and short answer questions. You will not be expected to write or interpret code. If you fail to show up for the exam, you will receive a grade of zero. The only exception made is for a documented illness (yours) or bereavement (others) provided prior to the time of the examination.</p>
+<p>There will be a comprehensive in-class midterm examination that will test conceptual material covered in lecture, readings and lab. The exam will be written and will consist of hand-written computational, multiple choice and short answer questions. You will not be expected to write or interpret code. See the full syllabus and the Canvas exam folder for more information.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Final course paper (35%)</li>
+<li>Final course project (35%)</li>
 </ol>
-<p>The purpose of the final course project is to provide students the opportunity to apply the concepts and methods learned in class on a real-world problem of their choice. You can work alone or in a group of at most two people. The project will be completed in phases, which are designed to ensure progress throughout the quarter. The project will involve choosing a specific community (city, metro area, or county) and answering a question about that community. The project will involve (i) identifying a community of interest (city, metropolitan area or county that has a population size greater than 250,000); (ii) identifying a question you want to answer for that community; (iii) finding some data that pertain to the community and topic of interest; (iv) organizing those data so that you can analyze them; (iv) performing some analysis on the data; and (v) presenting your results to the class (in a lightning talk) and (vi) in a short final term paper. More detailed information of project parameters are provided on Canvas in the document <em>final_project_description.pdf</em> in the Final Project folder.</p>
+<p>The purpose of the final course project is to provide students the opportunity to apply the concepts and methods learned in class on a real-world problem of their choice. The project is an individual project. The project will involve choosing at least one specific community (city or county) and answering a question about that community. It will be completed in phases, which are designed to ensure progress throughout the quarter. See the full syllabus and the Canvas final project folder for detailed information.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Class participation/attendance (5%)</li>
 </ol>
-<p>Attendance in all classes and labs are strongly encouraged. However, we will not take attendance. If you miss a class it is your responsibility to get the lecture/lab notes from classmates. Note that I will be introducing material in lecture that extends material covered in the readings. You will be responsible for understanding this extended material for assignments and the midterm. Also note that given the class size I will know each of your names. This means don’t take the 5% class attendance/participation lightly as that can sway your grade one way or another.</p>
+<p>Attendance in all classes and labs are required. However, we will not take attendance. We will take note of a substantial number of absences. If you miss a class it is your responsibility to get the lecture/lab notes from classmates. You are expected to stay until the end of lecture and lab. If you need to leave early, please confirm with us at the beginning of lecture and sit somewhere where your departure will be minimally disruptive. Note that I will be introducing material in lecture that extends material covered in the readings. You will be responsible for understanding this extended material for assignments and the midterm. Also note that given the class size I will know each of your names. This means don’t take the 5% class attendance/participation lightly as that can sway your grade one way or another.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="other-information" class="section level2">
+<h2><strong>Other Information</strong></h2>
+<p><br />
+Please see the full syllabus on the Canvas website for information regarding course communication, code of conduct, and grades.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -494,7 +587,7 @@ The following is an abridged version of the course syllabus. A full course sylla
 <div id="course-agenda" class="section level2">
 <h2><strong>Course Agenda</strong></h2>
 <p><br />
-The schedule is subject to revision throughout the quarter. Please see the full syllabus for a more detailed version of the agenda</p>
+The schedule is subject to revision throughout the quarter. Please see the full syllabus for a more detailed version of the agenda. *This lecture has optional readings. See full syllabus.</p>
 <table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -521,7 +614,7 @@ Project
 <tbody>
 <tr>
 <td style="text-align:left;width: 5em; ">
-27-Sep
+6-Jan
 </td>
 <td style="text-align:left;">
 Lecture
@@ -538,13 +631,31 @@ Introduction to class
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-28-Sep
+8-Jan
+</td>
+<td style="text-align:left;">
+Lecture
+</td>
+<td style="text-align:left;">
+Data Analysis Framework. Intro to R
+</td>
+<td style="text-align:left;width: 13em; ">
+Handout 1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5em; ">
+10-Jan
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Introduction to R
+Intro to R
 </td>
 <td style="text-align:left;width: 13em; ">
 Optional: RDS Ch. 2, 4, 7, 21
@@ -556,16 +667,16 @@ Optional: RDS Ch. 2, 4, 7, 21
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-2-Oct
+13-Jan
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Data Analysis Framework. Introduction to US Census
+Data wrangling and the U.S. Census
 </td>
 <td style="text-align:left;width: 13em; ">
-Handout
+Handout 2*
 </td>
 <td style="text-align:left;">
 </td>
@@ -574,16 +685,16 @@ Handout
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-4-Oct
+15-Jan
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Data wrangling
+Descriptive statistics and the U.S. Census
 </td>
 <td style="text-align:left;width: 13em; ">
-Hoffman Ch. 8-9
+Handout 3*
 </td>
 <td style="text-align:left;">
 </td>
@@ -592,13 +703,13 @@ Hoffman Ch. 8-9
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-5-Oct
+17-Jan
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-US Census data in R
+Working with U.S. Census data in R
 </td>
 <td style="text-align:left;width: 13em; ">
 Optional: RDS Ch. 3, 8-10, 14
@@ -607,21 +718,19 @@ Optional: RDS Ch. 3, 8-10, 14
 HW 1
 </td>
 <td style="text-align:left;">
-Finalize groups
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-9-Oct
+20-Jan
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Neighborhood data
+Martin Luther King Jr. Day: No class
 </td>
 <td style="text-align:left;width: 13em; ">
-Wilson (2012)
 </td>
 <td style="text-align:left;">
 </td>
@@ -630,16 +739,16 @@ Wilson (2012)
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-11-Oct
+22-Jan
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Descriptive statistics
+Descriptive statistics, tables and graphs
 </td>
 <td style="text-align:left;width: 13em; ">
-Handout
+Hoffmann Ch. 8-9
 </td>
 <td style="text-align:left;">
 </td>
@@ -648,16 +757,16 @@ Handout
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-12-Oct
+24-Jan
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Neighborhood data in R
+Describing your data in R
 </td>
 <td style="text-align:left;width: 13em; ">
-Optional: RDS Ch. 1, 5, 22
+Optional: RDS 1, 3, 5, 22
 </td>
 <td style="text-align:left;">
 HW 2
@@ -667,7 +776,7 @@ HW 2
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-16-Oct
+27-Jan
 </td>
 <td style="text-align:left;">
 Lecture
@@ -676,7 +785,7 @@ Lecture
 Intro to spatial data
 </td>
 <td style="text-align:left;width: 13em; ">
-OSU Ch. 2
+OSU Ch. 1-2
 </td>
 <td style="text-align:left;">
 </td>
@@ -685,13 +794,13 @@ OSU Ch. 2
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-18-Oct
+29-Jan
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Exploratory spatial data analysis
+Map making
 </td>
 <td style="text-align:left;width: 13em; ">
 OSU Ch. 3
@@ -703,27 +812,44 @@ OSU Ch. 3
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-19-Oct
+31-Jan
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Making maps in R
+Spatial data in R
 </td>
 <td style="text-align:left;width: 13em; ">
-Optional: GWR Ch. 2.1, 4.2, 8
+Optional: GWR Ch. 2.1, 2.2, 8
 </td>
 <td style="text-align:left;">
 HW 3
 </td>
 <td style="text-align:left;">
-Proposal I
+Prop I
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-23-Oct
+3-Feb
+</td>
+<td style="text-align:left;">
+Lecture
+</td>
+<td style="text-align:left;">
+Spatial data wrangling
+</td>
+<td style="text-align:left;width: 13em; ">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5em; ">
+5-Feb
 </td>
 <td style="text-align:left;">
 Lecture
@@ -732,7 +858,7 @@ Lecture
 Spatial autocorrelation
 </td>
 <td style="text-align:left;width: 13em; ">
-OSU Ch. 7 (skip 7.3 &amp; 7.6)
+OSU Ch. 7
 </td>
 <td style="text-align:left;">
 </td>
@@ -741,33 +867,16 @@ OSU Ch. 7 (skip 7.3 &amp; 7.6)
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-25-Oct
-</td>
-<td style="text-align:left;">
-Lecture
-</td>
-<td style="text-align:left;">
-Spatial clusters
-</td>
-<td style="text-align:left;width: 13em; ">
-OSU Ch. 8 (skip 8.4 &amp; 8.5)
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-26-Oct
+7-Feb
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Spatial clusters in R
+Spatial autocorrelation in R
 </td>
 <td style="text-align:left;width: 13em; ">
+Optional: GWR: Ch. 4.1, 4.2
 </td>
 <td style="text-align:left;">
 HW 4
@@ -777,16 +886,16 @@ HW 4
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-30-Oct
+10-Feb
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Big data/Open data
+Big data/open data; Intro to point data
 </td>
 <td style="text-align:left;width: 13em; ">
-Arribas-Bel (2014); Kitchin &amp; McArdle (2016)
+UA Ch. 1-2*
 </td>
 <td style="text-align:left;">
 </td>
@@ -795,13 +904,13 @@ Arribas-Bel (2014); Kitchin &amp; McArdle (2016)
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-1-Nov
+12-Feb
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Spatial point pattern analysis
+Spatial point patterns
 </td>
 <td style="text-align:left;width: 13em; ">
 OSU Ch. 5
@@ -813,16 +922,16 @@ OSU Ch. 5
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-2-Nov
+14-Feb
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Point analysis in R
+Spatial point pattern analysis in R
 </td>
 <td style="text-align:left;width: 13em; ">
-Optional: GWR Ch. 2.3, 2.4, 4.2, 5.2, 6
+Optional: GWR Ch. 2.4, 2.5, 4.2, 6
 </td>
 <td style="text-align:left;">
 HW 5
@@ -832,16 +941,15 @@ HW 5
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-6-Nov
+17-Feb
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Measuring segregation and inequity
+President’s Day: No class
 </td>
 <td style="text-align:left;width: 13em; ">
-Handout
 </td>
 <td style="text-align:left;">
 </td>
@@ -850,16 +958,16 @@ Handout
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-8-Nov
+19-Feb
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Site suitability analysis
+Neighborhood segregation
 </td>
 <td style="text-align:left;width: 13em; ">
-Handout
+Handout 4; Logan and Stults (2011)*
 </td>
 <td style="text-align:left;">
 </td>
@@ -868,33 +976,32 @@ Handout
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-9-Nov
+21-Feb
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Site suitability analysis in R
+Neighborhood segregation in R
 </td>
 <td style="text-align:left;width: 13em; ">
-Optional: GWR Ch. 4.2
 </td>
 <td style="text-align:left;">
 HW 6
 </td>
 <td style="text-align:left;">
-Proposal II
+Prop II
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-13-Nov
+24-Feb
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Cancelled
+Midterm
 </td>
 <td style="text-align:left;width: 13em; ">
 </td>
@@ -905,15 +1012,16 @@ Cancelled
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-15-Nov
+26-Feb
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Cancelled
+Opportunity mapping
 </td>
 <td style="text-align:left;width: 13em; ">
+Handout 5; Lung-Amam et al. (2018)*
 </td>
 <td style="text-align:left;">
 </td>
@@ -922,30 +1030,16 @@ Cancelled
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-16-Nov
+28-Feb
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-Cancelled
+Opportunity mapping in R
 </td>
 <td style="text-align:left;width: 13em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-19-Nov
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;width: 13em; ">
+Optional: GWR Ch. 4.2, 5.2
 </td>
 <td style="text-align:left;">
 HW 7
@@ -955,111 +1049,7 @@ HW 7
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-20-Nov
-</td>
-<td style="text-align:left;">
-Lecture
-</td>
-<td style="text-align:left;">
-Cancelled
-</td>
-<td style="text-align:left;width: 13em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-22-Nov
-</td>
-<td style="text-align:left;">
-Lecture
-</td>
-<td style="text-align:left;">
-Thanksgiving Holiday
-</td>
-<td style="text-align:left;width: 13em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-23-Nov
-</td>
-<td style="text-align:left;">
-Lab
-</td>
-<td style="text-align:left;">
-Thanksgiving Holiday
-</td>
-<td style="text-align:left;width: 13em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-27-Nov
-</td>
-<td style="text-align:left;">
-Lecture
-</td>
-<td style="text-align:left;">
-Exam
-</td>
-<td style="text-align:left;width: 13em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-29-Nov
-</td>
-<td style="text-align:left;">
-Lecture
-</td>
-<td style="text-align:left;">
-Opportunity Mapping/Web GIS
-</td>
-<td style="text-align:left;width: 13em; ">
-UA Ch. 5; Handout
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-30-Nov
-</td>
-<td style="text-align:left;">
-Lab
-</td>
-<td style="text-align:left;">
-Opportunity Mapping
-</td>
-<td style="text-align:left;width: 13em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Proposal III
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 5em; ">
-4-Dec
+2-Mar
 </td>
 <td style="text-align:left;">
 Lecture
@@ -1068,7 +1058,7 @@ Lecture
 Participatory GIS
 </td>
 <td style="text-align:left;width: 13em; ">
-Lung-Amam et al. (2017)
+Goodchild (2007); Mukherjee (2015)
 </td>
 <td style="text-align:left;">
 </td>
@@ -1077,31 +1067,31 @@ Lung-Amam et al. (2017)
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-6-Dec
+4-Mar
 </td>
 <td style="text-align:left;">
 Lecture
 </td>
 <td style="text-align:left;">
-Presentations
+Story Maps &amp; Web GIS
 </td>
 <td style="text-align:left;width: 13em; ">
+Lung-Amam &amp; Dawkins (2019)
 </td>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Presentations
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-7-Dec
+6-Mar
 </td>
 <td style="text-align:left;">
 Lab
 </td>
 <td style="text-align:left;">
-No lab
+Story Maps using ArcGIS online
 </td>
 <td style="text-align:left;width: 13em; ">
 </td>
@@ -1113,18 +1103,72 @@ HW 8
 </tr>
 <tr>
 <td style="text-align:left;width: 5em; ">
-11-Dec
+9-Mar
 </td>
 <td style="text-align:left;">
+Lecture
 </td>
 <td style="text-align:left;">
+Intro to QGIS; StoryMap workshop
 </td>
 <td style="text-align:left;width: 13em; ">
 </td>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Paper
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5em; ">
+11-Mar
+</td>
+<td style="text-align:left;">
+Lecture
+</td>
+<td style="text-align:left;">
+Data ethics
+</td>
+<td style="text-align:left;width: 13em; ">
+Kitchin (2016)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5em; ">
+13-Mar
+</td>
+<td style="text-align:left;">
+Lab
+</td>
+<td style="text-align:left;">
+Share your StoryMap
+</td>
+<td style="text-align:left;width: 13em; ">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+StoryMap
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5em; ">
+17-Mar
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Paper due 1:00 pm
+</td>
+<td style="text-align:left;width: 13em; ">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+StoryMap evals
 </td>
 </tr>
 </tbody>
@@ -1151,6 +1195,49 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 

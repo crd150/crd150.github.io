@@ -1,4 +1,9 @@
 
+/* Whole document: */
+body{
+  font-family: Arial;
+}
+
 .screenshot {
   border: 1px solid #ccc;
 }

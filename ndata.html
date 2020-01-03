@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -86,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -96,6 +93,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -111,7 +111,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -131,6 +130,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -152,19 +188,74 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -177,7 +268,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -190,38 +281,8 @@ $(document).ready(function () {
 <li>
   <a href="hw_guidelines.html">Assignment Guidelines</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Labs/Assignments
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lab1.html">Lab 1</a>
-    </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7.html">Lab 7</a>
-    </li>
-    <li>
-      <a href="lab8ec.html">Lab 8</a>
-    </li>
-  </ul>
+<li>
+  <a href="index.html">Labs/Assignments</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -232,30 +293,6 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="eligible.html">Project Eligible Communities</a>
-    </li>
-    <li>
-      <a href="censusgeography.html">Census Geographies</a>
-    </li>
-    <li>
-      <a href="nhgis.html">Download data from NHGIS</a>
-    </li>
-    <li>
-      <a href="policymap.html">Download data from PolicyMap</a>
-    </li>
-    <li>
-      <a href="missingdata.html">Dealing with Missing Data</a>
-    </li>
-    <li>
-      <a href="georeferencing.html">Coordinate Reference Systems</a>
-    </li>
-    <li>
-      <a href="buffers.html">Point Proximity Buffers</a>
-    </li>
-    <li>
-      <a href="ndata.html">Neighborhood Data Sources</a>
-    </li>
-    <li>
-      <a href="bigopendata.html">Big/Open Data Sources</a>
     </li>
   </ul>
 </li>
@@ -272,12 +309,12 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Neighborhood Data Sources</h1>
-<h3 class="subtitle"><em><h4 style="font-style:normal">
+<h3 class="subtitle"><h4 style="font-style:normal">
 CRD 150 - Quantitative Methods in Community Research
-</h4></em></h3>
-<h4 class="date"><em><h4 style="font-style:normal">
-Fall 2018
-</h4></em></h4>
+</h4></h3>
+<h4 class="date"><h4 style="font-style:normal">
+Winter 2020
+</h4></h4>
 
 </div>
 
@@ -294,16 +331,27 @@ font-style: italic;
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
 <p><br />
-This guide is a reference tool describing online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract. A census tract generally encompasses a population between 2,000 to 8,000 residents. Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment. However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice. Below are online data sources organized by topic or theme.</p>
+This guide lists and describes online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract. A census tract generally encompasses a population between 2,000 to 8,000 residents. Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment. However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice. Below are online data sources organized by topic or theme.</p>
 <p><strong>Comprehensive neighborhood data sources</strong></p>
 <ul>
 <li><a href="https://ucdavis.policymap.com/maps">PolicyMap</a>
 <ul>
-<li>PolicyMap is a data and mapping resource that provides a wealth of policy, education, socioeconomic, demographic, health and neighborhood dimension data at various geographic scales including census tracts. As UC Davis affiliates, we have access to the subscription or paid edition. You either need to be on campus or on <a href="https://www.library.ucdavis.edu/service/connect-from-off-campus/">VPN</a> setup. Although allowing the user to upload and map shapefiles, the site does not all you to download shapefiles.</li>
+<li>PolicyMap is a data and mapping resource that provides a wealth of policy, education, socioeconomic, demographic, health and neighborhood dimension data at various geographic scales including census tracts. As UC Davis affiliates, we have access to the subscription or paid edition. You either need to be on campus or on <a href="https://www.library.ucdavis.edu/service/connect-from-off-campus/">VPN</a> setup. Although allowing the user to upload and map shapefiles, the site does not allow you to download shapefiles.</li>
 </ul></li>
 <li><a href="https://www.socialexplorer.com/">Social Explorer</a>
 <ul>
@@ -320,12 +368,12 @@ This guide is a reference tool describing online sources that provide data typic
 </ul>
 <p>You can download Census tract shapefiles (and other spatial data formats) at the following sites</p>
 <ul>
-<li><p><a href="https://www.census.gov/geo/maps-data/data/cbf/cbf_tracts.html">United States Census</a></p></li>
+<li><p><a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">United States Census</a></p></li>
 <li><p><a href="https://www.nhgis.org/">National Historical Geographic Information System</a></p></li>
 </ul>
-<p>If you want to evaluate tract characteristics over an extensive time period, you’ll need to account for changes in tract boundary definitions. Social explorer allows you to get historical census data in 2010 tract boundaries. Other resources for getting data normalized to a certain year’s boundary definition include</p>
+<p>If you want to evaluate tract characteristics over a long time period, you’ll need to account for changes in tract boundary definitions. Social explorer allows you to get historical census data in 2010 tract boundaries. Other resources for getting data normalized to a certain year’s boundary definition include</p>
 <ul>
-<li><a href="https://www.census.gov/geo/maps-data/data/relationship.html">United States Census</a>
+<li><a href="https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html">United States Census</a>
 <ul>
 <li>The U.S. Census provides relationship files that allow you to normalize data to a specific year for the tract (and other small scale geographies).</li>
 </ul></li>
@@ -399,6 +447,7 @@ This guide is a reference tool describing online sources that provide data typic
 <p>A data warehouse created by the <a href="https://socialinnovation.usc.edu/">University of Southern California</a> that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles. Check the site out <a href="https://data.myneighborhooddata.org/stories/s/xs7g-jqmb">here</a>.</p>
 <p><strong>Looking for data?</strong></p>
 <ul>
+<li><p>The <a href="https://www.openicpsr.org/openicpsr/nanda">National Neighborhood Data Archive</a> is a publicly available data archive containing contextual measures for locations across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.</p></li>
 <li><p>Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on. Check it out <a href="https://toolbox.google.com/datasetsearch">here</a></p></li>
 <li><p>Kaggle is a crowd-sourced platform for all things data science. This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources. A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets <a href="https://www.kaggle.com/datasets">here</a>.</p></li>
 </ul>
@@ -422,6 +471,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 
 </body>
