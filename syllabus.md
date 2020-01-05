@@ -65,7 +65,7 @@ The following is an abridged version of the course syllabus.  A full course syll
 
 Dr. Noli Brazil  
 *Contact*: nbrazil.at.ucdavis.edu  
-*Office hours*: Wednesday from 4:00-5:30 pm or by appointment, in 2325 Hart Hall.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/gsewa). Out of courtesy to other students, please do not sign up for more than two 15-minute blocks.  If you do, I will keep only the first two blocks.
+*Office hours*: Monday from 4:00-5:30 pm or by appointment, in 2325 Hart Hall.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/gsewa). Out of courtesy to other students, please do not sign up for more than two 15-minute blocks.  If you do, I will keep only the first two blocks.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -73,7 +73,7 @@ Dr. Noli Brazil
 
 Jake Dialesandro  
 *Contact*: jdiales.at.ucdavis.edu  
-*Office hours*: TBD
+*Office hours*: Wednesday: 12:00-2:00 pm, TBD
 
 <div style="margin-bottom:25px;">
 </div>
