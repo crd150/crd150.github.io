@@ -441,6 +441,7 @@ The proper workflow for each assignment will be as follows
 * Answers should be correct. This is not to say that we will not take into consideration how much of your code is correct. But, if you do get the wrong answer we will take at least something off.
 * We will not grade on how efficient your code is unless stated so in the question.  We will never take points off for accomplishing things differently than expected as long as it produces the correct result.  However, if the answer is incorrect *and* your code indicates little effort (e.g. blank or a few lines of code that yield nothing) or is completely incomprehensible (e.g. 20 lines of mish mash), expect few to no points.
 * Interpretation of results is very important.  This is not a programming class. You might have the fanciest code in the world, but it will not matter much if you do not understand what the results are telling you.  
+* You must submit both an Rmd and html file.  If you don't, we will take significant points off.
 
 <div style="margin-bottom:25px;">
 </div>
