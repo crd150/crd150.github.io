@@ -73,7 +73,7 @@ Dr. Noli Brazil
 
 Jake Dialesandro  
 *Contact*: jdiales.at.ucdavis.edu  
-*Office hours*: Wednesday: 12:00-2:00 pm, TBD
+*Office hours*: Wednesday: 1:00-3:00 pm, TBD
 
 <div style="margin-bottom:25px;">
 </div>
