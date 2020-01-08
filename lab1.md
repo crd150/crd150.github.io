@@ -2,7 +2,7 @@
 title: "Lab 1: Introduction to R"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
 author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
-date: <h4 style="font-style:normal">September 28, 2018</h4>
+date: <h4 style="font-style:normal">January 10, 2020</h4>
 output: 
   html_document:
     toc: true
@@ -25,9 +25,24 @@ font-style: italic;
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
+
 \
 
 
@@ -43,14 +58,15 @@ In this guide you will learn the basic fundamentals of processing nonspatial dat
 
 This lab guide follows closely and supplements the material presented in Chapters 2, 4, 7 and 21 in the textbook [R for Data Science](http://r4ds.had.co.nz/index.html) (RDS).
 
-<p class="comment", style="font-style:normal">**Assignment 1 is due by 12:00 am, October 5th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn01. For example: brazil_n_asgn01</p>
+<p class="comment", style="font-style:normal">**Assignment 1 is due by 11:59 pm, January 16th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn01. For example: brazil_n_asgn01</p>
 
 <div style="margin-bottom:25px;">
 </div>
 ## **A note on lab guides**
 \
 
-Lab guides are self-contained and self-guided.  The expectation for each guide is to get through as much of it as possible during lab time. If you are unable to finish the guide during the lab, please complete it on your own. If you finish before the end of lab, start on the assignment.  It is important that you do not skip guides as class material build on one another. 
+Lab guides are self-contained and self-guided.  The expectation for each guide is to get through all of it either on your own or collaboratively.  If you finish the guide before the end of lab, start on the assignment.  It is important that you do not skip guides as class material builds on one another. **You do not need to turn in labs.**
+
 
 <div style="margin-bottom:25px;">
 </div>
@@ -71,7 +87,7 @@ R offers a very basic user interface. RStudio gives you a true integrated develo
 ##**Downloading R and RStudio**
 \
 
-The lab computers should already be equipped with R and RStudio.  However, the benefit of R is that it is free, so you can download it onto your personal computers. You need to first download and install R
+The lab computers should already be equipped with R and RStudio.  However, the benefit of R is that it is free, so you can download it onto your personal computers. I urge you to go through the lab guides using your personal laptops if possible.  That way, it will be a seamless transition when you start doing your homework assignments.  If you have not already done so, download and install R
 
 https://www.r-project.org/
 
@@ -95,28 +111,27 @@ Open up RStudio.  You should see the interface shown in Figure 1 which has three
 
 \
 
-Now may be a good time to read through the [class assignment guidelines](https://crd150.github.io/hw_guidelines.html) as they detail what is an R Markdown file.  After you read through the guidelines, open up an R Markdown file.  You should now see four windows in RStudio.
 
-* **Console** (lower-left) - allows you to run code interactively in R. This is where you type code in, press enter to execute the code, and see the results.
-* **Editor** (upper-left) - where you write R Markdown files.
+* **Console** (left) - The way R works is you write a line of code to execute some kind of task on a data object.  The R Console allows you to run code interactively. The screen prompt `>` is an invitation from R to enter its world. This is where you type code in, press enter to execute the code, and see the results.
 * **Environment, History, and Connections tabs** (upper-right)
-    + **Environment** - shows all the R objects that are currently open in your workspace.  This is the place, for example, where you will see any data you've loaded into R. When you exit RStudio, R will clear all objects in this window.  
+    + **Environment** - shows all the R objects that are currently open in your workspace.  This is the place, for example, where you will see any data you've loaded into R. When you exit RStudio, R will clear all objects in this window.  You can also click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/broom.png) to clear out all the objects loaded and created in your current session.
     + **History** - shows a list of executed commands in the current session.
     + **Connections** - you can connect to a variety of data sources, and explore the objects and data inside the connection.  I typically don't use this window, but you [can](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).    
 * **Files, Plots, Packages, Help and Viewer tabs** (lower-right)
-    + **Files** - shows all the files and folders in your current working directory.
+    + **Files** - shows all the files and folders in your current working directory (more on what this means later).
     + **Plots** - shows any charts, graphs, maps and plots you've successfully executed.     
     + **Packages** - tells you all the R packages that you have access to (more on this later).
     + **Help** - shows help documentation for R commands that you've called up.  
     + **Viewer** - allows you to view local web content (won't be using this much).
 
+There is actually fourth window. But, we'll get to this window a little later.
 
 <div style="margin-bottom:25px;">
 </div>
 ##**R Data Types**
 \
 
-R is really just a big fancy calculator. For example, type in the following mathematical expression in the R console
+R is really just a big fancy calculator. For example, type in the following mathematical expression next to the `>` in the R console (left window)
 
 
 ```r
@@ -149,44 +164,159 @@ Nope. What is the problem here?  We need to put quotes around it.
 ## [1] "hello world"
 ```
 
-"hello world" is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R.  There are three basic data types in R: character, logical, and numeric (there are two others - complex and raw - but we won't cover them because they are rarely used). 
+"hello world" is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R.  There are four basic data types in R: character, logical, numeric, and factors (there are two others - complex and raw - but we won't cover them because they are rarely used). 
 
-* **Character** - used to represent string values in R.  We saw this above with "hello world". Anything with quotes will be interpreted as a character.  Another example of a character is the state you live in.
-* **Logical** - takes on two values: FALSE or TRUE. Logicals are usually constructed with comparison operators, which we'll go through more carefully in Lab 2.  Think of a logical as the answer to a question like "Is this value greater than (lower than/equal to) this other value?"
-* **Numeric** - separated into two types: integer and double.  The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type.  
+<div style="margin-bottom:25px;">
+</div>
+###**Characters**
+\
 
-A special value used across all data types is NA. The value NA indicates a missing value. Doubles also use other special values, in particular to handle problematic values after division.  R spits out `-Inf` and `Inf` when dividing a negative and positive value by 0, respectively, and `NaN` when dividing 0 by 0.
+Characters are used to represent words or letters in R.  We saw this above with "hello world". Character values are also known as strings.  You might think that the value `"1"` is a number. Well, with quotes around, it isn't! Anything with quotes will be interpreted as a character.  No ifs, ands or buts about it.
+
+<div style="margin-bottom:25px;">
+</div>
+###**Logicals**
+\
+
+A logical takes on two values: FALSE or TRUE. Logicals are usually constructed with comparison operators, which we'll go through more carefully in Lab 2.  Think of a logical as the answer to a question like "Is this value greater than (lower than/equal to) this other value?" The answer will be either TRUE or FALSE. TRUE and FALSE are logical values in R.  For example, typing in the following 
 
 
 ```r
--1/0
+3 > 2
+```
+
+```
+## [1] TRUE
+```
+
+Gives you a true. What about the following?
+
+
+```r
+"ryan" == "catherine"
+```
+
+```
+## [1] FALSE
+```
+
+<div style="margin-bottom:25px;">
+</div>
+###**Numeric**
+\
+
+Numerics are separated into two types: integer and double.  The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type.  You can do any mathematical operation on numeric values.  We added above. We can multiply
+
+
+```r
+2*3
+```
+
+```
+## [1] 6
+```
+
+Divide
+
+
+```r
+4/2
+```
+
+```
+## [1] 2
+```
+
+And even take the logarithm!
+
+
+```r
+log(1)
+```
+
+```
+## [1] 0
+```
+
+```r
+log(0)
 ```
 
 ```
 ## [1] -Inf
 ```
 
-```r
-1/0
-```
+Uh oh. What is `-Inf`?  Well, you can't take the logarithm of 0, so R is telling you that you're getting a non numeric value in return.  The value `-Inf` is another type of value type that you can get in R.  We'll go through this and other weirdo values in Lab 2.
 
-```
-## [1] Inf
-```
 
-```r
-0/0
-```
+<div style="margin-bottom:25px;">
+</div>
+###**Factors**
+\
 
+Think of a factor as a categorical variable.  It is sort of like a character, but not really. It is actually a numeric code with character-valued levels. Think of a character as a true string and a factor as a set of categories represented as characters. We won't use factors too much in this course.
+
+
+<div style="margin-bottom:25px;">
+</div>
+##**R Scripting**
+\
+
+In running the few lines of code above, we've asked you to work directly in the R Console and issue commands in an *interactive* way.  That is, you type a command after `>`, you hit enter/return, R responds, you type the next command, hit enter/return, R responds, and so on. As described in Handout 1, instead of writing the command directly into the console, you should write it in a script.  The process is now: Type your command in the script. Run the code from the script.  R responds. You get results. You can write two commands in a script. Run both simultaneously. R responds.  You get results.  This is the basic flow. In your homework assignments, we will be asking you to submit code in an R Markdown file.  R Markdown allows you to create documents that serve as a neat record of your analysis. Think of it as a text file, but instead of sentences in an essay, you are writing code for a data analysis.  
+
+<br>
+
+Rather than copying and pasting code from the lab guides onto the R Console as you've been doing up to this point, type it onto an R Markdown file and then run the code from there.  Doing this will give you practice for your assignments.  Plus, the code is in **your** document, so you can add explanatory text or supplement the guide's code with your own code.   If you haven't already done so, now may be a good time to read through the class [assignment guidelines](https://crd150.github.io/hw_guidelines.html) as they go through the basics of R Markdown files.  
+
+<br>
+
+Download the R Markdown [Lab template](https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd) into an appropriate folder on your hard drive.  If you are using your laptop for this guide, it's best to set up a clean and efficient file management structure as described in the [assignment guidelines](https://crd150.github.io/hw_guidelines.html).  For example, below is where I would save Lab 1's R Markdown file in my Mac laptop (I named the file "Lab 1").  Save all other files used in this lab in this same folder. 
+
+<center>
+![This is what file organization looks like](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/lab1fig1.png)
+</center>
+
+Open the file in R Studio by clicking on *File* from the top menu, click on *Open File*, navigate to your Lab 1 folder, and click on the Lab 1 R Markdown file you downloaded.  Once you do this, if there isn't already one on your console, a fourth window should pop up in the top left showing you an R Markdown file. 
+
+<br>
+
+<center>
+![This is what file organization looks like](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/chunk1.png)
+</center>
+
+<br>
+
+In this file, change the title ("Lab 1") and insert your name and date. Don't change anything else inside the YAML (the stuff at the top in between the `---`).  Also don't change the following chunk. 
+
+````
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 ```
-## [1] NaN
+````
+
+All your code should go inside areas designated as
+
+````
+```{r}
+#Type your code here
 ```
+````
+
+For example, you would write the code `1+1` as
+
+````
+```{r}
+1+1
+```
+````
+
+From here on out, I recommend typing your code from the lab guides into your own R Markdown rather than directly into the R console. This will get you in the habit of using R Markdown for all your R related tasks. From the file, run the code. R responds. You get results.  How do you run code from your R Markdown menu? See the [assignment guidelines](https://crd150.github.io/hw_guidelines.html). 
 
 <div style="margin-bottom:25px;">
 </div>
 ##**R Data Structures**
 \
-You just learned that R has three basic data types. Now, let's go through how we can store data in R. You do this by using R's various data structures.
+You learned that R has three basic data types. Now, let's go through how we can store data in R. That is, you type in the character "hello world" or the number 3, and you want to store these values. You do this by using R's various data structures.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -227,6 +357,8 @@ b
 ## [1] "hello world"
 ```
 
+You can pronounce the above as “b becomes 'hello world'”.
+
 Similarly, you can save the numbers 4, 16 and 9 into a vector called *v1*
 
 
@@ -239,7 +371,14 @@ v1
 ## [1]  4 16  9
 ```
 
-You should see the objects *b* and *v1* pop up in the Environment tab on the top right window of your RStudio interface.  Note that the name *v1* is nothing special here. You could have named the object *x* or *crd150* or your pet's name (mine was *charlie*).  You can't, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. *2d2*).  For example, you'll get an error if you save the vector *c(4,16,9)* to an object with the following names
+You should see the objects *b* and *v1* pop up in the Environment tab on the top right window of your RStudio interface.  
+
+<center>
+![Figure 2: Environment window](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/lab0fig.png)
+
+</center>
+
+Note that the name *v1* is nothing special here. You could have named the object *x* or *crd150* or your pet's name (mine was *charlie*).  You can't, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. *2d2*).  For example, you'll get an error if you save the vector *c(4,16,9)* to an object with the following names
 
 
 ```r
@@ -254,6 +393,18 @@ You should see the objects *b* and *v1* pop up in the Environment tab on the top
 ##        ^
 ```
 
+Also note that to distinguish a character value from a variable name, it needs to be quoted.  "v1" is a character value whereas *v1* is a variable.  One of the most common mistakes for beginners is to forget the quotes.
+
+
+```r
+brazil
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'brazil' not found
+```
+
+The error occurs because R tries to print the value of variable *brazil*, but there is no such variable. So remember that any time you get the error message `object 'something' not found`, the most likely reason is that you forgot to quote a character value. If not, it probably means that you have misspelled, or not yet created, the variable that you are referring to.
 
 Every vector has two key properties: *type* and *length*.  The type property indicates the data type that the vector is holding. Use the command `typeof()` to determine the type 
 
@@ -295,6 +446,63 @@ length(v1)
 ## [1] 3
 ```
 
+You can also directly determine if a vector is of a specific data type by using the command `is.X()` where you replace `X` with the data type.  For example, to find out if *v1* is numeric, type in
+
+
+```r
+is.numeric(b)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.numeric(v1)
+```
+
+```
+## [1] TRUE
+```
+
+There is also `is.logical()`, `is.character()`, and `is.factor()`.  You can also coerce a vector of one data type to another.  For example, save the value "1" and "2" (both in quotes) into a vector named *x1*
+
+
+```r
+x1 <- c("1", "2")
+typeof(x1)
+```
+
+```
+## [1] "character"
+```
+
+To convert *x1* into a numeric, use the command `as.numeric()`
+
+
+```r
+x2 <- as.numeric(x1)
+typeof(x2)
+```
+
+```
+## [1] "double"
+```
+
+There is also `as.logical()`, `as.character()`, and `as.factor()`. 
+
+An important practice you should adopt early is to keep only necessary objects in your current R Environment.  For example, we will not be using *x2* any longer in this guide.  To remove this object from R forever, use the command `rm()`
+
+
+```r
+rm(x2)
+```
+
+The data frame object *x2* should have disappeared from the Environment tab. [Bye bye!](https://www.youtube.com/watch?v=Eo-KmOd3i7s)
+
+Also note that when you close down R Studio, the objects you created above will disappear for good. Unless you save them onto your hard drive (we'll touch on saving data in Lab 2), all data objects you create in your current R session will go [bye bye](https://www.youtube.com/watch?v=UqfLVDIZcP8) when you exit the program.
+
+
 <div style="margin-bottom:25px;">
 </div>
 ###**Data Frames**
@@ -328,7 +536,19 @@ Store this data frame in an object called *df1*
 df1<-data.frame(v1, v2)
 ```
 
-We can store different types of vectors in data frame.  For example:
+*df1* should pop up in your Environment window.  You'll notice a ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/lab0fig2.png) next to *df1*.  This tells you that *df1* possesses or holds more than one object. Click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/lab0fig2.png) and you'll see the two vectors we saved into *df1*.  Another neat thing you can do is directly click on *df1* from the Environment window to bring up an Excel style worksheet on the top left window of your RStudio interface.  You can't edit this worksheet directly, but it allows you to see the values that a higher level R data object contains.
+
+Now we know that the the upper left window shows your R Markdown files and a view of your data in an excel style format.  Let's update Figure 1 now that we've gone through the main window elements in RStudio. Upper left - Data view and R Markdown files. Bottom left -  Console and R Markdown knitting progress. Upper right - Environment (objects in current session) and History. Bottom right - File directory, plots, packages, and help documentation.  Credit the website [Crime mapping in R](https://maczokni.github.io/crimemapping_textbook_bookdown/) for inspiration in creating the updated figure below.
+
+<br>
+
+<center>
+![Figure 3: The four faces of RStudio](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/consolefig.png)
+
+</center>
+\
+
+OK, back to business. We can store different types of vectors in data frame.  For example:
 
 
 ```r
@@ -370,7 +590,7 @@ colnames(df1)
 ## [1] "v1" "v2"
 ```
 
-In this case, the data frame used the vector names for the column names. We can change these names 
+In this case, the data frame used the vector names for the column names. We can change these variable names.
 
 
 ```r
@@ -424,29 +644,21 @@ df1[2,1]
 ## [1] 16
 ```
 
-To delete an object from your current R session, use the command `rm()`
 
-
-```r
-rm(df1)
-```
-
-The data frame object *df1* should have dissappeared from the Environment tab.
-
-We've been talking about the values in vectors and data frames rather abstractly.  In practice, values, vectors and data frames have specific meaning in the context of data analysis.  Let's make things concrete.  Take a look at this [website](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls) showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences.  This is a data value (numeric!).  The collection of violent crime counts for each city is a vector. The data frame has California cities as rows and the population, violent crime, homicide, and so on as columns.  We'll learn more about how all of these pieces fit together in Week 2.
+We've been talking about the values in vectors and data frames rather abstractly.  In practice, values, vectors and data frames have specific meaning in the context of data analysis.  Let's make things concrete.  Take a look at this [website](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls) showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences.  This is a data value (numeric!).  The collection of violent crime counts for each city is a vector. The data frame has California cities as rows and the population, violent crime, homicide, and so on as columns.  You learned about these elements in Handout 1.  Now you see them in action in the R environment.
 
 <div style="margin-bottom:25px;">
 </div>
 ###**Commands/Functions**
 \
 
-Let's take a step back and talk about functions (also known as commands).  You execute many of your tasks in R using functions  We have already used a couple of functions above including `typeof()` and `colnames()`. Every function in R will have the following basic format
+Let's take a step back and talk about functions (also known as commands).  An R function is a packaged recipe that converts one or more inputs (called arguments) into a single output. You execute most of your tasks in R using functions  We have already used a couple of functions above including `typeof()` and `colnames()`. Every function in R will have the following basic format
 
-`functionName(arg1 = val1, arg2 = val2, and so on)`
+`functionName(arg1 = val1, arg2 = val2, ...)`
 
 In R, you type in the function's name and set a number of options or parameters within parentheses that are separated by commas. Some options **need** to be set by the user - i.e. the function will spit out an error because a required option is blank - whereas others can be set but are not required because there is a default value established. 
 
-Let’s try using `seq()` which makes regular sequences of numbers.  You can find out what the options are for a function by calling up its help documentation by typing `?` and the function name
+Let’s use the function `seq()` which makes regular sequences of numbers.  You can find out what the options are for a function by calling up its help documentation by typing `?` and the function name
 
 
 ```r
@@ -475,7 +687,7 @@ seq(1, 10)
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
-The above also demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. So in the code above, it is assumed that we want a sequence `from = 1` that goes `to = 10` because we typed 1 before 10. Type in 10 before 1 and see what happens.  Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. 
+The code above demonstrates something about how R resolves function arguments. When you use a function, you can always specify all the arguments in `arg = value` form. But if you do not, R attempts to resolve by position. So in the code above, it is assumed that we want a sequence `from = 1` that goes `to = 10` because we typed 1 before 10. Type in 10 before 1 and see what happens.  Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. 
 
 Each argument requires a certain type of data type.  For example, you'll get an error when you use a character in `seq()`
 
@@ -497,12 +709,14 @@ seq("p", "w")
 ###**R Packages**
 \
 
-Functions do not exist in a vacuum.  They are a part of R packages.  R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. At the top left of a function's help documentation, you'll find in curly brackets the package that the function is housed in.  For example, `seq()` is in the package **base**. In order to use functions in a package, you first need to install the package using the `install.packages()` command. For example, we will be using commands from the package **tidyverse** in this lab 
+Functions do not exist in a vacuum.  They are a part of R packages.  R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. At the top left of a function's help documentation, you'll find in curly brackets the package that the function is housed in.  For example, `seq()` is in the package **base**. All the functions we have used so far are part of packages that have been pre-installed and pre-loaded into R. In order to use functions in a brand new package, you first need to install the package using the `install.packages()` command. For example, we will be using commands from the package **tidyverse** in every lab.
 
 
 ```r
-install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+install.packages("tidyverse")
 ```
+
+You should see a bunch of gobbledygook roll through your console screen.  Don't worry, that's just R downloading all of the other packages and applications that **tidyverse** relies on.  These are known as [dependencies](http://r-pkgs.had.co.nz/description.html#dependencies).  Unless you get a message in red that indicates there is an error (like we saw above when we typed in hello world without quotes), you should be fine.
 
 Next, you will need to load packages in your working environment (every time you start RStudio). We do this with the `library()` function.
 
@@ -511,9 +725,33 @@ Next, you will need to load packages in your working environment (every time you
 library(tidyverse)
 ```
 
-Don't worry about all those messages - your system is just downloading **all** of the tidy packages in R.  Unless you get a message in red that indicates there is an error (like we saw above when we typed in hello world without quotes), you should be fine.
+The Packages window at the lower-right shows you all the packages you currently have installed.  If you don't have a package listed in this window, you'll need to use the `install.packages()` function to install it.  Alternatively, you can click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/install.png) from the Packages window and install the package using the window that pops up. Any package that has a check mark next to it is loaded in.  If you want to load in a package, I recommend **always** using the `library()` function.
 
-Note that you only need to install packages once, but you need to load them each time you relaunch RStudio.  Also note that R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
+For example, here is a section of my Packages window
+
+<br>
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/windows1.png)
+
+</center>
+\
+
+<br>
+
+The only packages loaded into my current session is **methods**, a package that is loaded every time you open an R session.  Let's say we use `install.packages()` to install the package **matrixStats**. The window now looks like
+
+<br>
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/windows2.png)
+
+</center>
+\
+
+<br>
+
+**Note that you only need to install packages once (`install.pacakges()`), but you need to load them each time you relaunch RStudio (`library()`)**.  Repeat after me: Install once, library every time. As I mentioned above, R has several packages already preloaded into your working environment.  These are known as base packages and a list of their functions can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html).
 
 <div style="margin-bottom:25px;">
 </div>
@@ -524,7 +762,14 @@ Let's take a step back and assess where we are in our journey into R land.  We l
 
 An integral component of the tidyverse are tibbles.  Tibbles are data frames, but they tweak some older behaviors to make life a little easier. There are two main differences in the usage of a data frame vs a tibble: printing and subsetting. Let's be clear here - tibbles are just a special kind of data frame. They just makes things a little "tidier."
 
-Let's bring in some actual data to illustrate the differences and similarities between data frames and tibbles.  Install the package **nycflights13** using `install.packages("nycflights13")`.  Make sure you also load the package.
+Let's bring in some actual data to illustrate the differences and similarities between data frames and tibbles.  Install the package **nycflights13** using `install.packages()`.  
+
+
+```r
+install.packages("nycflights13")
+```
+
+Then load the package using `library()`.
 
 
 ```r
@@ -545,7 +790,7 @@ This dataset is a tibble. Let's also save it as a data frame by using the `as.da
 nycdf <- as.data.frame(flights)
 ```
 
-The first difference between data frames and tibbles is how the dataset "looks."  Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen.  In addition, each column reports its name and type.
+The first difference between regular data frames and tibbles is how the dataset "looks."  Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen.  In addition, each column reports its name and type.
 
 
 ```r
@@ -554,22 +799,21 @@ nyctib
 
 ```
 ## # A tibble: 336,776 x 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    <int> <int> <int>    <int>          <int>     <dbl>    <int>
-##  1  2013     1     1      517            515         2      830
-##  2  2013     1     1      533            529         4      850
-##  3  2013     1     1      542            540         2      923
-##  4  2013     1     1      544            545        -1     1004
-##  5  2013     1     1      554            600        -6      812
-##  6  2013     1     1      554            558        -4      740
-##  7  2013     1     1      555            600        -5      913
-##  8  2013     1     1      557            600        -3      709
-##  9  2013     1     1      557            600        -3      838
-## 10  2013     1     1      558            600        -2      753
-## # ... with 336,766 more rows, and 12 more variables: sched_arr_time <int>,
-## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
-## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-## #   minute <dbl>, time_hour <dttm>
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+## #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
 Tibbles are designed so that you don't accidentally overwhelm your console when you print large data frames.  Compare the print output above to what you get with a data frame
@@ -579,38 +823,9 @@ Tibbles are designed so that you don't accidentally overwhelm your console when 
 nycdf
 ```
 
-Ugly, right? You can shorten the print output on data frames by using the `head()` command, but the output is still not as "tidy" as a tibble
+Ugly, right? 
 
-
-```r
-head(nycdf)
-```
-
-```
-##   year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-## 1 2013     1   1      517            515         2      830            819
-## 2 2013     1   1      533            529         4      850            830
-## 3 2013     1   1      542            540         2      923            850
-## 4 2013     1   1      544            545        -1     1004           1022
-## 5 2013     1   1      554            600        -6      812            837
-## 6 2013     1   1      554            558        -4      740            728
-##   arr_delay carrier flight tailnum origin dest air_time distance hour
-## 1        11      UA   1545  N14228    EWR  IAH      227     1400    5
-## 2        20      UA   1714  N24211    LGA  IAH      227     1416    5
-## 3        33      AA   1141  N619AA    JFK  MIA      160     1089    5
-## 4       -18      B6    725  N804JB    JFK  BQN      183     1576    5
-## 5       -25      DL    461  N668DN    LGA  ATL      116      762    6
-## 6        12      UA   1696  N39463    EWR  ORD      150      719    5
-##   minute           time_hour
-## 1     15 2013-01-01 05:00:00
-## 2     29 2013-01-01 05:00:00
-## 3     40 2013-01-01 05:00:00
-## 4     45 2013-01-01 05:00:00
-## 5      0 2013-01-01 06:00:00
-## 6     58 2013-01-01 05:00:00
-```
-
-You can also use `head()` on tibbles, but it isn't necessary since tibbles automatically shorten the output.  If you insist on seeing the **entire** tibble on your Console screen, type the tibble into the function `print.data.frame()`.
+If you insist on seeing the **entire** tibble on your Console screen, type the tibble into the function `print.data.frame()`.
 
 You can identify the names of the columns (and hence the variables in the dataset) by using the function `names()`
 
@@ -636,58 +851,80 @@ as_tibble(nycdf)
 
 ```
 ## # A tibble: 336,776 x 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    <int> <int> <int>    <int>          <int>     <dbl>    <int>
-##  1  2013     1     1      517            515         2      830
-##  2  2013     1     1      533            529         4      850
-##  3  2013     1     1      542            540         2      923
-##  4  2013     1     1      544            545        -1     1004
-##  5  2013     1     1      554            600        -6      812
-##  6  2013     1     1      554            558        -4      740
-##  7  2013     1     1      555            600        -5      913
-##  8  2013     1     1      557            600        -3      709
-##  9  2013     1     1      557            600        -3      838
-## 10  2013     1     1      558            600        -2      753
-## # ... with 336,766 more rows, and 12 more variables: sched_arr_time <int>,
-## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
-## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-## #   minute <dbl>, time_hour <dttm>
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 336,766 more rows, and 11 more variables: arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+## #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
-Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and regular data frames throughout the class, with a preference towards tibbles where possible.
+Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we'll be using a combination of tibbles and regular data frames throughout the class, with a preference towards tibbles where possible.  Note that when you search on the Google machine for how to do something in R, you will likely get non tidy ways of doing things.  Most of these suggestions are fine, but some are not and may screw you up down the road.  My advice is to try to stick with tidy functions to do things in R. This is why our textbook RDS is a valuable resource. When there is either no way to do it in tidy (as we will encounter when we do spatial data analysis) or it's 11:15 pm and you need to get your assignment done and the only advice you are getting is something non tidy, do it the non tidy way.
+
+<div style="margin-bottom:25px;">
+</div>
+##**Other things to know**
+\
+
+You will need to submit an R Markdown Rmd and its knitted html file for all assignments.  To get some practice, knit your R Markdown file for this lab.  How do you knit? See the [assignment guidelines](https://crd150.github.io/hw_guidelines.html).
+
+Try to keep the most updated version of R installed. If you've used R before this class, make sure it is the most recent version.  To check your version of R, type in 
+
+
+```r
+sessionInfo()$R.version$version.string
+```
+
+```
+## [1] "R version 3.6.2 (2019-12-12)"
+```
+
+Check the [CRAN website](https://www.r-project.org/) to see if you need to install a newer version.
+
+You will also need to make sure your packages are up to date. To check the version of a package by using the following code, which checks the version for the package **tidyverse**, which you just installed above.
+
+
+```r
+packageDescription("tidyverse")$Version
+```
+
+```
+## [1] "1.3.0"
+```
+
+You can update a package by using the function `update.packages()`, where you type in quotes inside the parentheses the package you want to update.
+
+When you install a package, sometimes R will ask you to restart.  Say yes (what else are you going to do?).  After the restart, all the objects in your Environment remains the same.  However, you will need to reload (using `library()`) all the packages you previously loaded into the session.
 
 <div style="margin-bottom:25px;">
 </div>
 ##**Other resources**
 \
 
-Although the guides we will provide and the RDS textbook should get you through a lot of the functions needed to successfully accomplish tasks for this class, there are a number of useful online resources on R and RStudio that you can look into if you get stuck or want to learn more.  
+Although the lab guides and course textbooks should get you through a lot of the functions that are needed to successfully accomplish tasks for this class, there are a number of useful online resources on R and RStudio that you can look into if you get stuck or want to learn more.  
 
 - [RStudio IDE cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
 - [Data wrangling cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/r)
+
+And the Google machine will be an important friend in your journey into R land. Google your R related question and you’re bound to find some guidance. If you get an R error that is baffling you, Google the error itself inside quotations to get a more directed response to your issue.
+
 
 <div style="margin-bottom:25px;">
 </div>
 ##**Assignment 1**
 \
 
-Download and open the [Assignment 1 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn1.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). Submit the `Rmd` and its knitted `html` files on Canvas.
-
-1. Look up the help documentation for the function `rep()`. Use this function to create the following 3 vectors. (Each question is worth 1 point).
-a. [1] 0 0 0 0 0
-b. [1] 1 2 3 1 2 3 1 2 3 1 2 3
-c. [1] 4 5 5 6 6 6
-2. What are the differences and similarities between the output produced by a data frame and the equivalent tibble for the following operations. (Each question is worth 1 point).
-a. nyctib\$year, nycdf\$year
-b. nyctib[,1], nycdf[,1]
-3. How much programming experience do you have? Select one: (a) Never programmed before, (b) Some experience, (c) Extensive experience. (1 point)
-4. How would you rate your familiarity with the R programming language? Select one: (a) Never used, (b) Installed on machine but don't really use, (c) Basic competence, (d) R Wizard. (1 point)
-5. Which of the following statistics concepts have you covered in previous classes? Select all that apply: means and medians, standard deviations, statistical hypothesis testing, t-tests, analysis of variance, linear regression, pvalues, geographic information systems, spatial autocorrelation. (1 point)
-6. What are you hoping to get out of this class? (1 point)
-7. In this class we will be studying cities.  Identify one U.S. city you would like to learn more about and *briefly* explain why. (1 point)
-
-
+Assignment questions will be posted here Friday morning.
 
 ***
 

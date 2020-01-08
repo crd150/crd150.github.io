@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 1: Introduction to R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Eligible Communities</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 1: Introduction to R</h1>
+<h3 class="subtitle"><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></h3>
+<h4 class="author"><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></h4>
+<h4 class="date"><h4 style="font-style:normal">
+January 10, 2020
+</h4></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+<p><br />
+</p>
+<p>In this guide you will learn the basic fundamentals of processing nonspatial data in R. Because R is not a prerequisite for the class, this guide assumes no background in the language. The objectives of the guide are as follows</p>
+<ol style="list-style-type: decimal">
+<li>Get familiar with the RStudio interface</li>
+<li>Understand R Markdown and the process for submitting assignments</li>
+<li>Understand R data types</li>
+<li>Understand R data structures, in particular vectors, data frames and tibbles</li>
+<li>Understand R functions and commands</li>
+</ol>
+<p>This lab guide follows closely and supplements the material presented in Chapters 2, 4, 7 and 21 in the textbook <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> (RDS).</p>
+<p class="comment" , style="font-style:normal">
+<strong>Assignment 1 is due by 11:59 pm, January 16th on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn01. For example: brazil_n_asgn01
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="a-note-on-lab-guides" class="section level2">
+<h2><strong>A note on lab guides</strong></h2>
+<p><br />
+Lab guides are self-contained and self-guided. The expectation for each guide is to get through all of it either on your own or collaboratively. If you finish the guide before the end of lab, start on the assignment. It is important that you do not skip guides as class material builds on one another. <strong>You do not need to turn in labs.</strong></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="what-is-r" class="section level2">
+<h2><strong>What is R?</strong></h2>
+<p><br />
+R is an environment for data analysis and graphics. R is an interpreted language, not a compiled one. This means that you type something into R and it does it. It is both a command line software and a programming environment. It is an extensible, open-source language and computing environment for Windows, Macintosh, UNIX, and Linux platforms, which allows for the user to freely distribute, study, change, and improve the software.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="what-is-rstudio" class="section level2">
+<h2><strong>What is RStudio?</strong></h2>
+<p><br />
+R offers a very basic user interface. RStudio gives you a true integrated development environment (IDE), where you can write code in a window, see results in other windows, see locations of files, see objects you’ve created, and so on.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="downloading-r-and-rstudio" class="section level2">
+<h2><strong>Downloading R and RStudio</strong></h2>
+<p><br />
+The lab computers should already be equipped with R and RStudio. However, the benefit of R is that it is free, so you can download it onto your personal computers. I urge you to go through the lab guides using your personal laptops if possible. That way, it will be a seamless transition when you start doing your homework assignments. If you have not already done so, download and install R</p>
+<p><a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></p>
+<p>And then download and install RStudio</p>
+<p><a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></p>
+<p>To clarify which is which: R is the name of the programming language itself and RStudio is a convenient interface.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="the-rstudio-interface" class="section level2">
+<h2><strong>The RStudio Interface</strong></h2>
+<p><br />
+Open up RStudio. You should see the interface shown in Figure 1 which has three windows.</p>
+<center>
+<div class="figure">
+<img src="rgui.png" alt="Figure 1: RStudio Interface." />
+<p class="caption">Figure 1: RStudio Interface.</p>
+</div>
+</center>
+<p><br />
+</p>
+<ul>
+<li><strong>Console</strong> (left) - The way R works is you write a line of code to execute some kind of task on a data object. The R Console allows you to run code interactively. The screen prompt <code>&gt;</code> is an invitation from R to enter its world. This is where you type code in, press enter to execute the code, and see the results.</li>
+<li><strong>Environment, History, and Connections tabs</strong> (upper-right)
+<ul>
+<li><strong>Environment</strong> - shows all the R objects that are currently open in your workspace. This is the place, for example, where you will see any data you’ve loaded into R. When you exit RStudio, R will clear all objects in this window. You can also click on <img src="broom.png" /> to clear out all the objects loaded and created in your current session.</li>
+<li><strong>History</strong> - shows a list of executed commands in the current session.</li>
+<li><strong>Connections</strong> - you can connect to a variety of data sources, and explore the objects and data inside the connection. I typically don’t use this window, but you <a href="https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections">can</a>.<br />
+</li>
+</ul></li>
+<li><strong>Files, Plots, Packages, Help and Viewer tabs</strong> (lower-right)
+<ul>
+<li><strong>Files</strong> - shows all the files and folders in your current working directory (more on what this means later).</li>
+<li><strong>Plots</strong> - shows any charts, graphs, maps and plots you’ve successfully executed.<br />
+</li>
+<li><strong>Packages</strong> - tells you all the R packages that you have access to (more on this later).</li>
+<li><strong>Help</strong> - shows help documentation for R commands that you’ve called up.<br />
+</li>
+<li><strong>Viewer</strong> - allows you to view local web content (won’t be using this much).</li>
+</ul></li>
+</ul>
+<p>There is actually fourth window. But, we’ll get to this window a little later.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="r-data-types" class="section level2">
+<h2><strong>R Data Types</strong></h2>
+<p><br />
+R is really just a big fancy calculator. For example, type in the following mathematical expression next to the <code>&gt;</code> in the R console (left window)</p>
+<pre class="r"><code>1+1</code></pre>
+<p>Note that spacing does not matter: <code>1+1</code> will generate the same answer as <code>1      +       1</code>. Can you say hello to the world?<br />
+</p>
+<pre class="r"><code>hello world</code></pre>
+<pre><code>## Error: &lt;text&gt;:1:7: unexpected symbol
+## 1: hello world
+##           ^</code></pre>
+<p>Nope. What is the problem here? We need to put quotes around it.</p>
+<pre class="r"><code>&quot;hello world&quot;</code></pre>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<p>“hello world” is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R. There are four basic data types in R: character, logical, numeric, and factors (there are two others - complex and raw - but we won’t cover them because they are rarely used).</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="characters" class="section level3">
+<h3><strong>Characters</strong></h3>
+<p><br />
+Characters are used to represent words or letters in R. We saw this above with “hello world”. Character values are also known as strings. You might think that the value <code>&quot;1&quot;</code> is a number. Well, with quotes around, it isn’t! Anything with quotes will be interpreted as a character. No ifs, ands or buts about it.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="logicals" class="section level3">
+<h3><strong>Logicals</strong></h3>
+<p><br />
+A logical takes on two values: FALSE or TRUE. Logicals are usually constructed with comparison operators, which we’ll go through more carefully in Lab 2. Think of a logical as the answer to a question like “Is this value greater than (lower than/equal to) this other value?” The answer will be either TRUE or FALSE. TRUE and FALSE are logical values in R. For example, typing in the following</p>
+<pre class="r"><code>3 &gt; 2</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Gives you a true. What about the following?</p>
+<pre class="r"><code>&quot;ryan&quot; == &quot;catherine&quot;</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="numeric" class="section level3">
+<h3><strong>Numeric</strong></h3>
+<p><br />
+Numerics are separated into two types: integer and double. The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type. You can do any mathematical operation on numeric values. We added above. We can multiply</p>
+<pre class="r"><code>2*3</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>Divide</p>
+<pre class="r"><code>4/2</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>And even take the logarithm!</p>
+<pre class="r"><code>log(1)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>log(0)</code></pre>
+<pre><code>## [1] -Inf</code></pre>
+<p>Uh oh. What is <code>-Inf</code>? Well, you can’t take the logarithm of 0, so R is telling you that you’re getting a non numeric value in return. The value <code>-Inf</code> is another type of value type that you can get in R. We’ll go through this and other weirdo values in Lab 2.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="factors" class="section level3">
+<h3><strong>Factors</strong></h3>
+<p><br />
+Think of a factor as a categorical variable. It is sort of like a character, but not really. It is actually a numeric code with character-valued levels. Think of a character as a true string and a factor as a set of categories represented as characters. We won’t use factors too much in this course.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="r-scripting" class="section level2">
+<h2><strong>R Scripting</strong></h2>
+<p><br />
+In running the few lines of code above, we’ve asked you to work directly in the R Console and issue commands in an <em>interactive</em> way. That is, you type a command after <code>&gt;</code>, you hit enter/return, R responds, you type the next command, hit enter/return, R responds, and so on. As described in Handout 1, instead of writing the command directly into the console, you should write it in a script. The process is now: Type your command in the script. Run the code from the script. R responds. You get results. You can write two commands in a script. Run both simultaneously. R responds. You get results. This is the basic flow. In your homework assignments, we will be asking you to submit code in an R Markdown file. R Markdown allows you to create documents that serve as a neat record of your analysis. Think of it as a text file, but instead of sentences in an essay, you are writing code for a data analysis.</p>
+<p><br></p>
+<p>Rather than copying and pasting code from the lab guides onto the R Console as you’ve been doing up to this point, type it onto an R Markdown file and then run the code from there. Doing this will give you practice for your assignments. Plus, the code is in <strong>your</strong> document, so you can add explanatory text or supplement the guide’s code with your own code. If you haven’t already done so, now may be a good time to read through the class <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a> as they go through the basics of R Markdown files.</p>
+<p><br></p>
+<p>Download the R Markdown <a href="https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd">Lab template</a> into an appropriate folder on your hard drive. If you are using your laptop for this guide, it’s best to set up a clean and efficient file management structure as described in the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>. For example, below is where I would save Lab 1’s R Markdown file in my Mac laptop (I named the file “Lab 1”). Save all other files used in this lab in this same folder.</p>
+<center>
+<img src="lab1fig1.png" alt="This is what file organization looks like" />
+</center>
+<p>Open the file in R Studio by clicking on <em>File</em> from the top menu, click on <em>Open File</em>, navigate to your Lab 1 folder, and click on the Lab 1 R Markdown file you downloaded. Once you do this, if there isn’t already one on your console, a fourth window should pop up in the top left showing you an R Markdown file.</p>
+<p><br></p>
+<center>
+<img src="chunk1.png" alt="This is what file organization looks like" />
+</center>
+<p><br></p>
+<p>In this file, change the title (“Lab 1”) and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>). Also don’t change the following chunk.</p>
+<pre><code>```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```</code></pre>
+<p>All your code should go inside areas designated as</p>
+<pre><code>```{r}
+#Type your code here
+```</code></pre>
+<p>For example, you would write the code <code>1+1</code> as</p>
+<pre><code>```{r}
+1+1
+```</code></pre>
+<p>From here on out, I recommend typing your code from the lab guides into your own R Markdown rather than directly into the R console. This will get you in the habit of using R Markdown for all your R related tasks. From the file, run the code. R responds. You get results. How do you run code from your R Markdown menu? See the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="r-data-structures" class="section level2">
+<h2><strong>R Data Structures</strong></h2>
+<p><br />
+You learned that R has three basic data types. Now, let’s go through how we can store data in R. That is, you type in the character “hello world” or the number 3, and you want to store these values. You do this by using R’s various data structures.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="vectors" class="section level3">
+<h3><strong>Vectors</strong></h3>
+<p><br />
+A vector is the most common and basic R data structure and is pretty much the workhorse of the language. A vector is simply a sequence of values which can be of any data type but all of the same type. There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command <code>c()</code>. For example, to represent the values 4, 16 and 9 in a vector type in</p>
+<pre class="r"><code>c(4, 16, 9)</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>You can also have a vector of character values</p>
+<pre class="r"><code>c(&quot;luis&quot;, &quot;anne&quot;, &quot;ryan&quot;)</code></pre>
+<pre><code>## [1] &quot;luis&quot; &quot;anne&quot; &quot;ryan&quot;</code></pre>
+<p>The above code does not actually “save” the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out <code>c(4, 16, 9)</code>, you can save it in a data object. You assign data to an object using the arrow sign <code>&lt;-</code>. This will create an object in R’s memory that can be called back into the command window at any time. For example, you can save “hello world” to a vector called <em>b</em> by typing in</p>
+<pre class="r"><code>b &lt;- &quot;hello world&quot;
+b</code></pre>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<p>You can pronounce the above as “b becomes ‘hello world’”.</p>
+<p>Similarly, you can save the numbers 4, 16 and 9 into a vector called <em>v1</em></p>
+<pre class="r"><code>v1 &lt;- c(4, 16, 9)
+v1</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>You should see the objects <em>b</em> and <em>v1</em> pop up in the Environment tab on the top right window of your RStudio interface.</p>
+<center>
+<div class="figure">
+<img src="lab0fig.png" alt="Figure 2: Environment window" />
+<p class="caption">Figure 2: Environment window</p>
+</div>
+</center>
+<p>Note that the name <em>v1</em> is nothing special here. You could have named the object <em>x</em> or <em>crd150</em> or your pet’s name (mine was <em>charlie</em>). You can’t, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. <em>2d2</em>). For example, you’ll get an error if you save the vector <em>c(4,16,9)</em> to an object with the following names</p>
+<pre class="r"><code>123 &lt;- c(4, 16, 9)
+!!! &lt;- c(4, 16, 9)</code></pre>
+<pre><code>## Error: &lt;text&gt;:2:5: unexpected assignment
+## 1: 123 &lt;- c(4, 16, 9)
+## 2: !!! &lt;-
+##        ^</code></pre>
+<p>Also note that to distinguish a character value from a variable name, it needs to be quoted. “v1” is a character value whereas <em>v1</em> is a variable. One of the most common mistakes for beginners is to forget the quotes.</p>
+<pre class="r"><code>brazil</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;brazil&#39; not found</code></pre>
+<p>The error occurs because R tries to print the value of variable <em>brazil</em>, but there is no such variable. So remember that any time you get the error message <code>object 'something' not found</code>, the most likely reason is that you forgot to quote a character value. If not, it probably means that you have misspelled, or not yet created, the variable that you are referring to.</p>
+<p>Every vector has two key properties: <em>type</em> and <em>length</em>. The type property indicates the data type that the vector is holding. Use the command <code>typeof()</code> to determine the type</p>
+<pre class="r"><code>typeof(b)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>typeof(v1)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>Note that a vector cannot hold values of different types. If different data types exist, R will coerce the values into the highest type based on its internal hierarchy: logical &lt; integer &lt; double &lt; character. Type in <code>test &lt;- c(&quot;r&quot;, 6, TRUE)</code> in your R console. What is the vector type of <code>test</code>?</p>
+<p>The command <code>length()</code> determines the number of data values that the vector is storing</p>
+<pre class="r"><code>length(b)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>length(v1)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>You can also directly determine if a vector is of a specific data type by using the command <code>is.X()</code> where you replace <code>X</code> with the data type. For example, to find out if <em>v1</em> is numeric, type in</p>
+<pre class="r"><code>is.numeric(b)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>is.numeric(v1)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>There is also <code>is.logical()</code>, <code>is.character()</code>, and <code>is.factor()</code>. You can also coerce a vector of one data type to another. For example, save the value “1” and “2” (both in quotes) into a vector named <em>x1</em></p>
+<pre class="r"><code>x1 &lt;- c(&quot;1&quot;, &quot;2&quot;)
+typeof(x1)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>To convert <em>x1</em> into a numeric, use the command <code>as.numeric()</code></p>
+<pre class="r"><code>x2 &lt;- as.numeric(x1)
+typeof(x2)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>There is also <code>as.logical()</code>, <code>as.character()</code>, and <code>as.factor()</code>.</p>
+<p>An important practice you should adopt early is to keep only necessary objects in your current R Environment. For example, we will not be using <em>x2</em> any longer in this guide. To remove this object from R forever, use the command <code>rm()</code></p>
+<pre class="r"><code>rm(x2)</code></pre>
+<p>The data frame object <em>x2</em> should have disappeared from the Environment tab. <a href="https://www.youtube.com/watch?v=Eo-KmOd3i7s">Bye bye!</a></p>
+<p>Also note that when you close down R Studio, the objects you created above will disappear for good. Unless you save them onto your hard drive (we’ll touch on saving data in Lab 2), all data objects you create in your current R session will go <a href="https://www.youtube.com/watch?v=UqfLVDIZcP8">bye bye</a> when you exit the program.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="data-frames" class="section level3">
+<h3><strong>Data Frames</strong></h3>
+<p><br />
+We learned that data values can be stored in data structures known as vectors. The next step is to learn how to store vectors into an even higher level data structure. The data frame can do this. Data frames store vectors of the same length. Create a vector called <em>v2</em> storing the values 5, 12, and 25</p>
+<pre class="r"><code>v2 &lt;- c(5,12,25)</code></pre>
+<p>We can create a data frame using the command <code>data.frame()</code> storing the vectors <em>v1</em> and <em>v2</em> as columns</p>
+<pre class="r"><code>data.frame(v1, v2)</code></pre>
+<pre><code>##   v1 v2
+## 1  4  5
+## 2 16 12
+## 3  9 25</code></pre>
+<p>Store this data frame in an object called <em>df1</em></p>
+<pre class="r"><code>df1&lt;-data.frame(v1, v2)</code></pre>
+<p><em>df1</em> should pop up in your Environment window. You’ll notice a <img src="lab0fig2.png" /> next to <em>df1</em>. This tells you that <em>df1</em> possesses or holds more than one object. Click on <img src="lab0fig2.png" /> and you’ll see the two vectors we saved into <em>df1</em>. Another neat thing you can do is directly click on <em>df1</em> from the Environment window to bring up an Excel style worksheet on the top left window of your RStudio interface. You can’t edit this worksheet directly, but it allows you to see the values that a higher level R data object contains.</p>
+<p>Now we know that the the upper left window shows your R Markdown files and a view of your data in an excel style format. Let’s update Figure 1 now that we’ve gone through the main window elements in RStudio. Upper left - Data view and R Markdown files. Bottom left - Console and R Markdown knitting progress. Upper right - Environment (objects in current session) and History. Bottom right - File directory, plots, packages, and help documentation. Credit the website <a href="https://maczokni.github.io/crimemapping_textbook_bookdown/">Crime mapping in R</a> for inspiration in creating the updated figure below.</p>
+<p><br></p>
+<center>
+<div class="figure">
+<img src="consolefig.png" alt="Figure 3: The four faces of RStudio" />
+<p class="caption">Figure 3: The four faces of RStudio</p>
+</div>
+</center>
+<p><br />
+OK, back to business. We can store different types of vectors in data frame. For example:</p>
+<pre class="r"><code>v3 &lt;- c(&quot;luis&quot;, &quot;anne&quot;, &quot;ryan&quot;)
+df2 &lt;- data.frame(v1, v3)
+df2</code></pre>
+<p>For higher level data structures like a data frame, use the function <code>class()</code> to figure out what kind of object you’re working with.</p>
+<pre class="r"><code>class(df2)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>We can’t use <code>length()</code> on a data frame because it has more than one vector. Instead, it has <em>dimensions</em> - the number of rows and columns. You can find the number of rows and columns that a data frame has by using the command <code>dim()</code></p>
+<pre class="r"><code>dim(df1)</code></pre>
+<pre><code>## [1] 3 2</code></pre>
+<p>Here, the data frame <em>df1</em> has 3 rows and 2 columns. Data frames also have column names, which are characters.</p>
+<pre class="r"><code>colnames(df1)</code></pre>
+<pre><code>## [1] &quot;v1&quot; &quot;v2&quot;</code></pre>
+<p>In this case, the data frame used the vector names for the column names. We can change these variable names.</p>
+<pre class="r"><code>colnames(df1) &lt;- c(&quot;col1&quot;, &quot;col2&quot;)
+colnames(df1)</code></pre>
+<pre><code>## [1] &quot;col1&quot; &quot;col2&quot;</code></pre>
+<p>We can extract columns from data frames by referring to their names using the <code>$</code> sign or index values</p>
+<pre class="r"><code>df1$col1</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<pre class="r"><code>df1[,1]</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>The last piece of code shows how you can extract data from data frames using brackets <code>[ , ]</code>. The value before the comma indicates the row, which you leave empty if you are not selecting by row, which we did above. The value after the comma indicates the column, which you leave empty if you are not selecting by column</p>
+<pre class="r"><code>df1[2,]</code></pre>
+<pre><code>##   col1 col2
+## 2   16   12</code></pre>
+<p>What is the value in the 2nd row and 1st column?</p>
+<pre class="r"><code>df1[2,1]</code></pre>
+<pre><code>## [1] 16</code></pre>
+<p>We’ve been talking about the values in vectors and data frames rather abstractly. In practice, values, vectors and data frames have specific meaning in the context of data analysis. Let’s make things concrete. Take a look at this <a href="https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls">website</a> showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences. This is a data value (numeric!). The collection of violent crime counts for each city is a vector. The data frame has California cities as rows and the population, violent crime, homicide, and so on as columns. You learned about these elements in Handout 1. Now you see them in action in the R environment.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="commandsfunctions" class="section level3">
+<h3><strong>Commands/Functions</strong></h3>
+<p><br />
+Let’s take a step back and talk about functions (also known as commands). An R function is a packaged recipe that converts one or more inputs (called arguments) into a single output. You execute most of your tasks in R using functions We have already used a couple of functions above including <code>typeof()</code> and <code>colnames()</code>. Every function in R will have the following basic format</p>
+<p><code>functionName(arg1 = val1, arg2 = val2, ...)</code></p>
+<p>In R, you type in the function’s name and set a number of options or parameters within parentheses that are separated by commas. Some options <strong>need</strong> to be set by the user - i.e. the function will spit out an error because a required option is blank - whereas others can be set but are not required because there is a default value established.</p>
+<p>Let’s use the function <code>seq()</code> which makes regular sequences of numbers. You can find out what the options are for a function by calling up its help documentation by typing <code>?</code> and the function name</p>
+<pre class="r"><code>? seq</code></pre>
+<p>The help documentation should have popped up in the bottom right window of your RStudio interface. The documentation should also provide some examples of the function at the bottom of the page. Type the arguments <code>from = 1, to = 10</code> inside the parentheses</p>
+<pre class="r"><code>seq(from = 1, to = 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>You should get the same result if you type in</p>
+<pre class="r"><code>seq(1, 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>The code above demonstrates something about how R resolves function arguments. When you use a function, you can always specify all the arguments in <code>arg = value</code> form. But if you do not, R attempts to resolve by position. So in the code above, it is assumed that we want a sequence <code>from = 1</code> that goes <code>to = 10</code> because we typed 1 before 10. Type in 10 before 1 and see what happens. Since we didn’t specify step size, the default value of <code>by</code> in the function definition is used, which ends up being 1 in this case.</p>
+<p>Each argument requires a certain type of data type. For example, you’ll get an error when you use a character in <code>seq()</code></p>
+<pre class="r"><code>seq(&quot;p&quot;, &quot;w&quot;)</code></pre>
+<pre><code>## Warning in seq.default(&quot;p&quot;, &quot;w&quot;): NAs introduced by coercion</code></pre>
+<pre><code>## Error in seq.default(&quot;p&quot;, &quot;w&quot;): &#39;from&#39; must be a finite number</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="r-packages" class="section level3">
+<h3><strong>R Packages</strong></h3>
+<p><br />
+Functions do not exist in a vacuum. They are a part of R packages. R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. At the top left of a function’s help documentation, you’ll find in curly brackets the package that the function is housed in. For example, <code>seq()</code> is in the package <strong>base</strong>. All the functions we have used so far are part of packages that have been pre-installed and pre-loaded into R. In order to use functions in a brand new package, you first need to install the package using the <code>install.packages()</code> command. For example, we will be using commands from the package <strong>tidyverse</strong> in every lab.</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>You should see a bunch of gobbledygook roll through your console screen. Don’t worry, that’s just R downloading all of the other packages and applications that <strong>tidyverse</strong> relies on. These are known as <a href="http://r-pkgs.had.co.nz/description.html#dependencies">dependencies</a>. Unless you get a message in red that indicates there is an error (like we saw above when we typed in hello world without quotes), you should be fine.</p>
+<p>Next, you will need to load packages in your working environment (every time you start RStudio). We do this with the <code>library()</code> function.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>The Packages window at the lower-right shows you all the packages you currently have installed. If you don’t have a package listed in this window, you’ll need to use the <code>install.packages()</code> function to install it. Alternatively, you can click on <img src="install.png" /> from the Packages window and install the package using the window that pops up. Any package that has a check mark next to it is loaded in. If you want to load in a package, I recommend <strong>always</strong> using the <code>library()</code> function.</p>
+<p>For example, here is a section of my Packages window</p>
+<p><br></p>
+<center>
+<div class="figure">
+<img src="windows1.png" />
+
+</div>
+</center>
+<p><br />
+<br></p>
+<p>The only packages loaded into my current session is <strong>methods</strong>, a package that is loaded every time you open an R session. Let’s say we use <code>install.packages()</code> to install the package <strong>matrixStats</strong>. The window now looks like</p>
+<p><br></p>
+<center>
+<div class="figure">
+<img src="windows2.png" />
+
+</div>
+</center>
+<p><br />
+<br></p>
+<p><strong>Note that you only need to install packages once (<code>install.pacakges()</code>), but you need to load them each time you relaunch RStudio (<code>library()</code>)</strong>. Repeat after me: Install once, library every time. As I mentioned above, R has several packages already preloaded into your working environment. These are known as base packages and a list of their functions can be found <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">here</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="tibbles" class="section level3">
+<h3><strong>Tibbles</strong></h3>
+<p><br />
+Let’s take a step back and assess where we are in our journey into R land. We learned that there are three basic data types in R. We learned that we can store data values in vectors. We can then store vectors into data frames. And we run many tasks in R using commands/functions, which are created and stored in packages, which we need to install and load. For a long time, this was how R users worked with their data. Recently, a new framework for organizing data in R has emerged. This revolution is known as <em>tidy</em>, and you can read more about its principles in Chapter 9, pages 147-151 in RDS.</p>
+<p>An integral component of the tidyverse are tibbles. Tibbles are data frames, but they tweak some older behaviors to make life a little easier. There are two main differences in the usage of a data frame vs a tibble: printing and subsetting. Let’s be clear here - tibbles are just a special kind of data frame. They just makes things a little “tidier.”</p>
+<p>Let’s bring in some actual data to illustrate the differences and similarities between data frames and tibbles. Install the package <strong>nycflights13</strong> using <code>install.packages()</code>.</p>
+<pre class="r"><code>install.packages(&quot;nycflights13&quot;)</code></pre>
+<p>Then load the package using <code>library()</code>.</p>
+<pre class="r"><code>library(nycflights13)</code></pre>
+<p>There is a dataset called <em>flights</em> included in this package. It includes information on all 336,776 flights that departed from New York City in 2013. Let’s save this file in the local R environment</p>
+<pre class="r"><code>nyctib &lt;- flights</code></pre>
+<p>This dataset is a tibble. Let’s also save it as a data frame by using the <code>as.data.frame()</code> function</p>
+<pre class="r"><code>nycdf &lt;- as.data.frame(flights)</code></pre>
+<p>The first difference between regular data frames and tibbles is how the dataset “looks.” Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen. In addition, each column reports its name and type.</p>
+<pre class="r"><code>nyctib</code></pre>
+<pre><code>## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>Tibbles are designed so that you don’t accidentally overwhelm your console when you print large data frames. Compare the print output above to what you get with a data frame</p>
+<pre class="r"><code>nycdf</code></pre>
+<p>Ugly, right?</p>
+<p>If you insist on seeing the <strong>entire</strong> tibble on your Console screen, type the tibble into the function <code>print.data.frame()</code>.</p>
+<p>You can identify the names of the columns (and hence the variables in the dataset) by using the function <code>names()</code></p>
+<pre class="r"><code>names(nyctib)</code></pre>
+<pre><code>##  [1] &quot;year&quot;           &quot;month&quot;          &quot;day&quot;            &quot;dep_time&quot;      
+##  [5] &quot;sched_dep_time&quot; &quot;dep_delay&quot;      &quot;arr_time&quot;       &quot;sched_arr_time&quot;
+##  [9] &quot;arr_delay&quot;      &quot;carrier&quot;        &quot;flight&quot;         &quot;tailnum&quot;       
+## [13] &quot;origin&quot;         &quot;dest&quot;           &quot;air_time&quot;       &quot;distance&quot;      
+## [17] &quot;hour&quot;           &quot;minute&quot;         &quot;time_hour&quot;</code></pre>
+<p>Finally, you can convert a regular data frame to a tibble using the <code>as_tibble()</code> function</p>
+<pre class="r"><code>as_tibble(nycdf)</code></pre>
+<pre><code>## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+##  1  2013     1     1      517            515         2      830            819
+##  2  2013     1     1      533            529         4      850            830
+##  3  2013     1     1      542            540         2      923            850
+##  4  2013     1     1      544            545        -1     1004           1022
+##  5  2013     1     1      554            600        -6      812            837
+##  6  2013     1     1      554            558        -4      740            728
+##  7  2013     1     1      555            600        -5      913            854
+##  8  2013     1     1      557            600        -3      709            723
+##  9  2013     1     1      557            600        -3      838            846
+## 10  2013     1     1      558            600        -2      753            745
+## # … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we’ll be using a combination of tibbles and regular data frames throughout the class, with a preference towards tibbles where possible. Note that when you search on the Google machine for how to do something in R, you will likely get non tidy ways of doing things. Most of these suggestions are fine, but some are not and may screw you up down the road. My advice is to try to stick with tidy functions to do things in R. This is why our textbook RDS is a valuable resource. When there is either no way to do it in tidy (as we will encounter when we do spatial data analysis) or it’s 11:15 pm and you need to get your assignment done and the only advice you are getting is something non tidy, do it the non tidy way.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="other-things-to-know" class="section level2">
+<h2><strong>Other things to know</strong></h2>
+<p><br />
+You will need to submit an R Markdown Rmd and its knitted html file for all assignments. To get some practice, knit your R Markdown file for this lab. How do you knit? See the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>.</p>
+<p>Try to keep the most updated version of R installed. If you’ve used R before this class, make sure it is the most recent version. To check your version of R, type in</p>
+<pre class="r"><code>sessionInfo()$R.version$version.string</code></pre>
+<pre><code>## [1] &quot;R version 3.6.2 (2019-12-12)&quot;</code></pre>
+<p>Check the <a href="https://www.r-project.org/">CRAN website</a> to see if you need to install a newer version.</p>
+<p>You will also need to make sure your packages are up to date. To check the version of a package by using the following code, which checks the version for the package <strong>tidyverse</strong>, which you just installed above.</p>
+<pre class="r"><code>packageDescription(&quot;tidyverse&quot;)$Version</code></pre>
+<pre><code>## [1] &quot;1.3.0&quot;</code></pre>
+<p>You can update a package by using the function <code>update.packages()</code>, where you type in quotes inside the parentheses the package you want to update.</p>
+<p>When you install a package, sometimes R will ask you to restart. Say yes (what else are you going to do?). After the restart, all the objects in your Environment remains the same. However, you will need to reload (using <code>library()</code>) all the packages you previously loaded into the session.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="other-resources" class="section level2">
+<h2><strong>Other resources</strong></h2>
+<p><br />
+Although the lab guides and course textbooks should get you through a lot of the functions that are needed to successfully accomplish tasks for this class, there are a number of useful online resources on R and RStudio that you can look into if you get stuck or want to learn more.</p>
+<ul>
+<li><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio IDE cheatsheet</a></li>
+<li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">Data wrangling cheatsheet</a></li>
+<li><a href="https://stackoverflow.com/questions/tagged/r">Stackoverflow</a></li>
+</ul>
+<p>And the Google machine will be an important friend in your journey into R land. Google your R related question and you’re bound to find some guidance. If you get an R error that is baffling you, Google the error itself inside quotations to get a more directed response to your issue.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="assignment-1" class="section level2">
+<h2><strong>Assignment 1</strong></h2>
+<p><br />
+Assignment questions will be posted here Friday morning.</p>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>

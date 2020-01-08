@@ -211,7 +211,7 @@ knitr::opts_chunk$set(warning=FALSE, message = FALSE)
 **Do not delete or edit this**. The above code tells R Markdown to hide non error messages for every single R code chunk in your file. These non error messages are unnecessary for the purposes of this class.  Note that R Markdown will treat each option that you pass into the parentheses in `knitr::opts_chunk$set` as a global default.  Other chunk options can be found [here](https://r4ds.had.co.nz/r-markdown.html#chunk-options). You can also set options for individual chunks.  For example, you can add the options `warning=TRUE` and `message=TRUE` to an individual R code chunk as follows to show the messages for the R code in that chunk.
 
 ````
-```{r, warning=TRUE, message = TRUE}`r ''`
+```{r}`r ''`
 1+1
 ```
 ````
