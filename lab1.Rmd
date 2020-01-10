@@ -671,7 +671,7 @@ a. [1] 0 0 0 0 0
 b. [1] 1 2 3 1 2 3 1 2 3 1 2 3
 c. [1] 4 5 5 6 6 6
 
-2. Load the *mtcars* dataset by using the code `data(mtcars)`.  What are the units of observations? How many units of observations does this dataset have? How many variables? What data type (numeric or categorical) and sub type (nominal, ordinal, etc.) is the variable *am*? The dataset's help documentation `? mtcars` might be useful.  (2 points)
+2. Load the *mtcars* dataset by using the code `data(mtcars)`.  What are the unit of observations? How many unit of observations does this dataset have? How many variables? What data type (numeric or categorical) and sub type (nominal, ordinal, etc.) is the variable *am*? The dataset's help documentation `? mtcars` might be useful.  (2 points)
 
 3. Find the minimum, mean, median and maximum of the variable *mpg* in the *mtcars* dataset using just one line of code. We have not covered a function that does this yet, so the main point of this question is to get you used to using the resources you have available to find an answer.  Describe the process you used (searched online? use the class textbook?) to find the answer. (4 points)
 
