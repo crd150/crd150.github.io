@@ -924,7 +924,28 @@ And the Google machine will be an important friend in your journey into R land. 
 ##**Assignment 1**
 \
 
-Assignment questions will be posted here Friday morning.
+
+
+Download and open the [Assignment 1 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn1.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
+
+1. Look up the help documentation for the function `rep()`. Use this function to create the following 3 vectors. (Each question is worth 2 points).
+
+a. [1] 0 0 0 0 0
+b. [1] 1 2 3 1 2 3 1 2 3 1 2 3
+c. [1] 4 5 5 6 6 6
+
+2. Load the *mtcars* dataset by using the code `data(mtcars)`.  What are the units of observations? How many units of observations does this dataset have? How many variables? What data type (numeric or categorical) and sub type (nominal, ordinal, etc.) is the variable *am*? The dataset's help documentation `? mtcars` might be useful.  (2 points)
+
+3. Find the minimum, mean, median and maximum of the variable *mpg* in the *mtcars* dataset using just one line of code. We have not covered a function that does this yet, so the main point of this question is to get you used to using the resources you have available to find an answer.  Describe the process you used (searched online? use the class textbook?) to find the answer. (4 points)
+
+4. Explain what is the problem in each line of code below. Fix the code so it will run properly. (2 points each)
+
+a. my variable <- 3
+b. ngears <- mtcars$Gear
+
+5. Have you ever used R before? If so, to what extent? Have you used any of the following programs: Excel, SPSS, Stata, SAS, Python, Matlab. If so, to what extent?  For each program, choose one of the following options: (a) Never used, (b) Beginner, (c) Basic competence, (d) Intermediate, (e) Advanced. (2 points)
+
+6. Describe what you are hoping to get out of this class? (2 points)
 
 ***
 
