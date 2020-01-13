@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -74,9 +74,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -90,7 +88,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -100,6 +97,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -115,7 +115,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -135,6 +134,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -156,55 +192,69 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 
-
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -218,6 +268,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -253,8 +309,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -263,6 +317,16 @@ div.tocify {
 
 
 </style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
@@ -284,7 +348,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Fall 2018</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -307,27 +371,6 @@ div.tocify {
     <li>
       <a href="lab1.html">Lab 1</a>
     </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7.html">Lab 7</a>
-    </li>
-    <li>
-      <a href="lab8ec.html">Lab 8</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -338,31 +381,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="eligible.html">Project Eligible Communities</a>
-    </li>
-    <li>
-      <a href="censusgeography.html">Census Geographies</a>
-    </li>
-    <li>
-      <a href="nhgis.html">Download data from NHGIS</a>
-    </li>
-    <li>
-      <a href="policymap.html">Download data from PolicyMap</a>
-    </li>
-    <li>
-      <a href="missingdata.html">Dealing with Missing Data</a>
-    </li>
-    <li>
-      <a href="georeferencing.html">Coordinate Reference Systems</a>
-    </li>
-    <li>
-      <a href="buffers.html">Point Proximity Buffers</a>
+      <a href="eligible.html">Eligible Communities</a>
     </li>
     <li>
       <a href="ndata.html">Neighborhood Data Sources</a>
     </li>
     <li>
-      <a href="bigopendata.html">Big/Open Data Sources</a>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Using NHGIS</a>
     </li>
   </ul>
 </li>
@@ -387,12 +415,12 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">National Historical Geographic Information System</h1>
-<h3 class="subtitle"><em><h4 style="font-style:normal">
+<h3 class="subtitle"><h4 style="font-style:normal">
 CRD 150 - Quantitative Methods in Community Research
-</h4></em></h3>
-<h4 class="author"><em><h4 style="font-style:normal">
+</h4></h3>
+<h4 class="author"><h4 style="font-style:normal">
 Professor Noli Brazil
-</h4></em></h4>
+</h4></h4>
 
 </div>
 
@@ -414,23 +442,34 @@ font-style: italic;
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
 <p><br />
 </p>
-<p>This guide provides step-by-step instructions for downloading data from the <a href="https://www.nhgis.org/">National Historical Geographic Information System</a> (NHGIS). The NHGIS provides Census population, housing, agricultural, and economic data, along with GIS-compatible boundary files, for geographic units in the United States from 1790 to the present. NHGIS offers a user-friendly system for selecting and downloading raw data for processing in R.</p>
-<p>We will obtain tabular data that are used in Lab 2. These data are for marital status and educational attainment at the county level. The guide will also describe how to download shapefiles, which won’t be relevant until Week 4.</p>
+<p>This mini guide provides step-by-step instructions for downloading data from the <a href="https://www.nhgis.org/">National Historical Geographic Information System</a> (NHGIS). NHGIS provides Census population, housing, agricultural, and economic data, along with GIS-compatible boundary files, for geographic units in the United States from 1790 to the present. It offers a user-friendly system for selecting and downloading raw data for processing in R.</p>
+<p>We will download the tabular data that was used in <a href="https://crd150.github.io/lab2.html">Lab 2</a>. The guide will also describe how to download shapefiles, which won’t be relevant until Week 4.</p>
 <div style="margin-bottom:25px;">
 
 </div>
 <div id="download-tabular-data" class="section level2">
 <h2><strong>Download tabular data</strong></h2>
 <p><br />
-Go to the NHGIS home page. You will need to sign up for a free account. Click on <em>LOG IN</em> located at the top right of the screen. Click on <em>Create an account</em>, fill out the required info. You should get an email verifying your registration.</p>
+Navigate to the <a href="https://www.nhgis.org/">NHGIS</a> home page. You will need to sign up for a free account. Click on <em>LOG IN</em> located at the top right of the screen. Click on <em>Create an account</em>, fill out the required info. You should get an email verifying your registration.</p>
 <p>Go back to the NHGIS home page. We’re going to download county-level data on marriage and educational attainment.</p>
 <ol style="list-style-type: decimal">
-<li>Click on <em>Get Data</em> next to <em>Create an Extract</em>.</li>
+<li>Click on <em>Get Data</em> next to <em>Start Here</em>.</li>
 <li>On the next page, you should see the following 4 filters</li>
 </ol>
 <center>
@@ -442,7 +481,7 @@ Go to the NHGIS home page. You will need to sign up for a free account. Click on
 <p><br />
 Select on <em>Geographic Levels</em>. A window pops up allowing you to select the level of geography at which you want your data in. Select <img src="nhgis2.png" /> underneath <em>County</em>. Then hit the <em>Submit</em> button.</p>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Select <em>Years</em>. This will bring up a window allowing you to select which years you want to grab data for. We want the most recent 5-year ACS - select the checkbox next to <em>2012-2016</em> underneath the heading <em>5-year ranges</em>. Click <em>Submit</em>.</p></li>
+<li><p>Select <em>Years</em>. This will bring up a window allowing you to select which years you want to grab data for. We want the 2012-2016 5-year ACS - select the checkbox next to <em>2012-2016</em> underneath the heading <em>5-year ranges</em>. Click <em>Submit</em>.</p></li>
 <li><p>Click on <em>Topics</em>. This allows you to filter which variables appear for selection by broad topic. Click <img src="nhgis2.png" /> next to <em>Marriage</em> under <em>Core Demographics</em> and <em>Educational Attainment</em> under <em>Education</em> in the <em>Table Topic Filter</em> column (not the <em>Breakdown Filter</em>). Click on <em>Submit</em>.</p></li>
 <li><p>On the next page you should see the following</p></li>
 </ol>
@@ -480,7 +519,7 @@ Select on <em>Geographic Levels</em>. A window pops up allowing you to select th
 <p><br />
 You can also download spatial shapefiles of different Census boundaries through NHGIS. To download Census tract shapefile boundaries, follow the steps below</p>
 <ol style="list-style-type: decimal">
-<li>Click on <em>Get Data</em> next to <em>Create an Extract</em> from the NHGIS homepage.</li>
+<li>Click on <em>Get Data</em> next to <em>Start Here</em> from the NHGIS homepage.</li>
 <li>On the next page, select the <em>Geographic Levels</em> filter at the top.</li>
 <li>A window pops up allowing you to select the level of geography at which you want your data in. Select <img src="nhgis2.png" /> underneath <em>Census Tract</em>. Click on the <em>Submit</em> button.</li>
 <li>Click on the <em>Years</em> filter.</li>
@@ -501,6 +540,14 @@ You can also download spatial shapefiles of different Census boundaries through 
 <li><p>When the data are ready to download, you will get an email. In that email, click on the link it provides to download the data. On that page, select <em>tables</em> under <em>Download Table Data</em>. This will download your data in a zipped folder. Save this download in an appropriate folder on your hard drive.</p></li>
 <li><p>Unzip the folder you downloaded. You will likely need to unzip another folder found within that unzipped folder. After that you should find Census tract shapefiles. Note that you will get a shapefile of census tracts for the entire United States. Unlike with the Census API, you can’t subset your geometry to a lower scale of geography like the state. You’ll need to use a function like <code>st_within()</code> in the <strong>sf</strong> package or <code>ms_clip()</code> in the <em>rmapshaper</em>.</p></li>
 </ol>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2><strong>Resources</strong></h2>
+<p><br />
+Check out NHGIS’ <a href="https://nhgis.org/user-resources">User Resources</a> page for more tutorials, answers to Frequently Asked Questions, and other information.</p>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 </div>
@@ -523,6 +570,54 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 

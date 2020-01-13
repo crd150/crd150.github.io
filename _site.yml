@@ -20,7 +20,9 @@ navbar:
         - text: "Neighborhood Data Sources"
           href: ndata.html   
         - text: "Big and Open Data Sources"
-          href: bigopendata.html             
+          href: bigopendata.html       
+        - text: "Using NHGIS"
+          href: nhgis.html
 output:
   html_document:
     theme: cosmo
