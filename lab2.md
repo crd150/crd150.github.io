@@ -651,7 +651,56 @@ The first argument is the name of the R object you want to save. The second argu
 ## **Assignment 2**
 \
 
-Assignment 2 will be posted here on Friday.
+
+Download and open the [Assignment 2 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn02.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
+
+<br>
+
+1. Identify the type (numeric or categorical) and sub type (nominal, ordinal, etc.) that each of the following variables represent. You are not using R to answer this question. (1 point each).
+
+a. The number of vacant housing units 
+b. Percent of persons 25 years and older with a college degree
+c. Crimes per population
+d. [Census region](https://www.census.gov/programs-surveys/economic-census/guidance-geographies/levels.html#par_textimage_34) 
+e. A variable with the following values
+
+    + Low income tract, low percent black
+    + Low income tract, moderate percent black
+    + Low income tract, high percent black 
+    + Middle income tract, low percent black
+    + Middle income tract, moderate percent black
+    + Middle income tract, high percent black 
+    + High income tract, low percent black
+    + High income tract, moderate percent black
+    + High income tract, high percent black 
+
+<br>
+
+2. How many years of median income will it take to buy a home in California? And how did the [Great Recession](https://en.wikipedia.org/wiki/Great_Recession) affect this measure of housing affordability? Let's answer these questions by examining [house-price-to-income ratios](https://www.citylab.com/equity/2018/05/where-the-house-price-to-income-ratio-is-most-out-of-whack/561404/) in California counties pre and post recession.  Run the following data wrangling tasks.  Submit all the code you used to accomplish these tasks.  Where possible, use the pipe operator `%>%`. (5 points)
+
+a. Using either the Census API or NHGIS, bring into R the following county-level variables from the 2006-2010 and 2013-2017 American Community Surveys (ACS): median housing value (variable ID "B25077_001") and median household income (variable ID "B19013_001"). 
+b. Calculate the ratio of median housing value to median household income for each period of data.
+c. Merge the data objects into the lab2_file.csv dataset you saved from the lab guide.
+d. Calculate the change in the housing value-to-income ratio from 2006-10 to 2013-17.
+f. Keep the following variables: County, GEOID, pnhwhite, phasn, pnhblk, phisp, and the housing value-to-income ratio in 2006-10, 2013-17, and the change from 2006-10 to 2013-17.
+
+<br>
+
+3. From the dataset you created in Question 2, answer the following questions. 
+
+a. How many years will it take for a household to pay off a house in Yolo County in 2013-17? What about before the recession?  Don't just print the entire data frame to answer these questions - use R code to help you find Yolo County in your dataset. (2 points)
+
+b. Which county has the largest housing value-to-income ratio pre recession (2006-10)? Smallest? Which counties had the largest and smallest post recession (2013-17)? Which county experienced the greatest decrease? Which counties experienced an increase? Use the function `arrange()` to answer these questions. (2 points)
+
+<br>
+
+4. California has experienced a number of historically devastating wildfires in recent years.  One of the most destructive fires occurred in [Sonoma County in October 2017](https://en.wikipedia.org/wiki/Tubbs_Fire).  Some [news](https://www.latimes.com/politics/la-pol-ca-housing-problems-wildfires-20181205-story.html) [articles](https://www.citylab.com/equity/2017/11/wildfires-have-worsened-the-bay-areas-housing-crisis/546647/) posited that the wild fires will have severe immediate consequences on the local housing market.  Because the fires burned down a large proportion of homes, reducing housing stock, housing and rental prices will increase because of the low supply and the high demand. The Census released the 2018 1-year ACS data a few months ago, allowing us to test whether rental and housing values in Sonoma County increased approximately one year after the fires.
+
+a. Use the Census API to bring in 1-year ACS estimates of median housing values ("B25077_001") and median gross rent ("B25064_001") for California counties in 2017.  Do the same for 2018 and merge these files together using their GEOID. Filter to keep just Sonoma county. (2 points)
+
+b. You will need to adjust for [inflation](https://www.census.gov/topics/income-poverty/income/guidance/current-vs-constant-dollars.html) to put 2017 dollar values into 2018 dollar values.  To do this, multiply the 2017 values by the inflation factor 1.02.  After doing this, take the difference between the 2017 and 2018 values.  Did housing values go up in Sonoma county? What about rent? (2 points)
+
+c.  We need an appropriate comparison to Sonoma county to determine whether the changes we calculated in (b) are large.  Repeat (a) and (b) but for California to get the increase in the state's median housing value and median gross rent from 2017 to 2018. How do the values you calculated in (b) compare to California?  (2 points)
 
 ***
 
