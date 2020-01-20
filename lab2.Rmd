@@ -89,7 +89,7 @@ Run the above code directly in your console, not in your R Markdown.  You only n
 
 <div style="margin-bottom:25px;">
 </div>
-## **Loading Libraries**
+## **Loading Packages**
 \
 
 Installing a package does not mean its functions are accessible during a given R session.  As described in [Lab 1](https://crd150.github.io/lab1.html), you'll need to load packages using the function `library()`.  Unlike installing, you need to use `library()` every time you start an R session, so it should be in your R Markdown file. A good practice is to load all the packages you will be using in a given R Markdown at the top of the file.  Let's load the packages we'll be using in this lab.
