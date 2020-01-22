@@ -12,6 +12,7 @@ output:
 ---
 
 
+
 <style>
 p.comment {
 background-color: #DBDBDB;
@@ -23,15 +24,30 @@ font-style: italic;
 }
 
 .figure {
-   margin-top: 30px;
-   margin-bottom: 30px;
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
+
 \
 
 ```{r setup, include=FALSE}
@@ -39,7 +55,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-This guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/maps). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
+This mini guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/maps). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
 
 In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median household income, percent Hispanic, percent black, a categorical variable of whether the tract is designated as an [Opportunity Zone](http://dof.ca.gov/Forecasting/Demographics/opportunity_zones/) (a federally funded neighborhood-based economic development program initiated earlier this year) and the home mortgage loan-to-income leverage ratio. This is the same data we used in [Lab 3](https://crd150.github.io/lab3.html) except just for Oakland.   UC Davis provides full access to all PolicyMap tools for staff, students, and faculty.  You can access the full site only if you are on campus or logged onto the UC Davis [VPN](https://www.library.ucdavis.edu/service/connect-from-off-campus/). We will download data from the UCD PolicyMap portal and clean up the files in Excel and R.
 
@@ -49,7 +65,7 @@ In this guide, we will download PolicyMap census tract data for the City of Oakl
 \
 
 
-1. Navigate to the UC Davis [PolicyMap portal](https://ucdavis.policymap.com/maps).  You should see a webpage that looks like the figure below.  Note the UC Davis logo on the top right.  
+1. Navigate to the UC Davis [PolicyMap portal](https://ucdavis.policymap.com/maps).  You should see a webpage that looks like the figure below.  Note the UC Davis logo on the top right.  Go Aggies!
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmpage.png)
@@ -144,7 +160,7 @@ Save the file into an appropriate folder, such as below (Mac laptop)
 </center>
 
 
-10. PolicyMap allows you to download only one variable at the time.  So, you'll need to go through the above steps again to get the other variables.  To download Opportunity Zone designation, navigate to the *Federal Guidelines* tab, then under *Additional CDFI Fund Data* select *Opportunity Zones (QOZ)* and then select *Designated Tracts*.  
+10. PolicyMap allows you to download only one variable at the time.  So, you'll need to go through the above steps again to get the other variables.  To download Opportunity Zone designation, navigate to the *Federal Guidelines* tab, then under *Additional CDFI Fund Data* select *Opportunity Zones (QOZ)*.  
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmozone.png)
@@ -185,12 +201,12 @@ After you've deleted the footers, save the file.
 
 <div style="margin-bottom:25px;">
 </div>
-##  **Bring into R**
+##  **Bring data into R**
 \
 
 The next step is to bring the PolicyMap csv files into R one at a time.  
 
-1. First thing to do is load in the necessary R packages
+1. First thing to do is load in the necessary R packages.
 
 ```{r warning=FALSE, message = FALSE}
 library(tidyverse)
@@ -203,7 +219,7 @@ setwd("/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io")
 ```
 
 ```{r warning=FALSE, message = FALSE, eval=FALSE}
-setwd(##file path to your PolicyMap csvs##)
+setwd("file path to your PolicyMap csvs")
 ```
 
 3. Next, bring in the csv files using the function `read_csv()`.  Note in the code below that the file names in parentheses will differ from yours, but *file1* contains the Loan to Income ratio data, *file2* contains the Opportunity Zone data, *file3* contains percent Hispanic, *file4* contains percent black, and *file5* contains median household income.
@@ -262,7 +278,7 @@ What did we just do?
 
 * `rename()` renames some of the variables such that labels are easier to process in R (e.g. no spaces, concise).
 * The `select()` function keeps only the necessary variables to reduce the clutter.
-* R read the variable *Median leverage ratio for all loans in 2016* as a characteristic and not a numeric, which is incorrect.  This happened because missing values are designated as "N/A" in PolicyMap not "NA", which is how R designates missing values.  In order to get the variable into its proper numeric form, convert "N/A" to "NA". The `replace()` function tells R to replace values in *levratio* that are equal to "N/A" to the value "NA". The function `as.double()` then tells R to convert the character variable *levratio* to a double. 
+* R read the variable *Median leverage ratio for all loans in 2016* as a character and not a numeric, which is incorrect.  This happened because missing values are designated as "N/A" in PolicyMap not "NA", which is how R designates missing values.  In order to get the variable into its proper numeric form, convert "N/A" to "NA". The `replace()` function tells R to replace values in *levratio* that are equal to "N/A" to the value "NA". The function `as.double()` then tells R to convert the character variable *levratio* to a double. 
 
 The tibble should now look like the following
 
@@ -275,9 +291,9 @@ oakland
 ### **Dealing with missing values**
 \
 
-Missing values are a part of a data scientist's life.  You can't avoid them.  To deal with missing data systematically, go through the following steps
+Missing values are a part of a social scientist's life.  You can't avoid them.  Read the mini lab [dealing with missing data](https://crd150.github.io/missingdata.html) for a tutorial on how to deal with missing data. Briefly, below are the steps to tackle missing data in our PolicyMap data set.
 
-1. The first step is to determine what percentage of your cases are missing data.  The best function for doing this in R is `aggr()`, which is in the **VIM** package.  Install this package using `install.packages()` and load it into R. 
+1. The first step is to determine what percentage of your cases are missing data.  The best function for doing this in R is `aggr()`, which is in the **VIM** package.  If you already haven't, install this package using `install.packages()`.  Then load it into R using `library()`. 
 
 ```{r warning = FALSE, eval=FALSE}
 install.packages("VIM")
@@ -314,7 +330,7 @@ oakland <- oakland %>%
     impute_mean(levratio)
 ```
 
-We should now have no missing values
+We should now have no missing values (I suppressed the plot using the argument `plot=FALSE`).
 
 ```{r warning = FALSE, message = FALSE}
 summary(aggr(oakland, plot=FALSE))
@@ -322,7 +338,7 @@ summary(aggr(oakland, plot=FALSE))
 
 Note that you can impute more than one variable within `impute_mean()`. 
 
-Save the data set using the function `write_csv()` in an appropriate folder on your hard drive.  The data set is now ready for analysis!
+Save the data set using the function `write_csv()` in an appropriate folder on your hard drive.  The data set is now ready for analysis!  [Applause](https://www.youtube.com/watch?v=pco91kroVgQ).
 
 ***
 

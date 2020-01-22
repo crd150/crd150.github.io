@@ -12,6 +12,7 @@ output:
 ---
 
 
+
 <style>
 p.comment {
 background-color: #DBDBDB;
@@ -23,21 +24,36 @@ font-style: italic;
 }
 
 .figure {
-   margin-top: 30px;
-   margin-bottom: 30px;
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
 }
 
 </style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
+
 \
 
 
 
 
-This guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/maps). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
+This mini guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/maps). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
 
 In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median household income, percent Hispanic, percent black, a categorical variable of whether the tract is designated as an [Opportunity Zone](http://dof.ca.gov/Forecasting/Demographics/opportunity_zones/) (a federally funded neighborhood-based economic development program initiated earlier this year) and the home mortgage loan-to-income leverage ratio. This is the same data we used in [Lab 3](https://crd150.github.io/lab3.html) except just for Oakland.   UC Davis provides full access to all PolicyMap tools for staff, students, and faculty.  You can access the full site only if you are on campus or logged onto the UC Davis [VPN](https://www.library.ucdavis.edu/service/connect-from-off-campus/). We will download data from the UCD PolicyMap portal and clean up the files in Excel and R.
 
@@ -47,7 +63,7 @@ In this guide, we will download PolicyMap census tract data for the City of Oakl
 \
 
 
-1. Navigate to the UC Davis [PolicyMap portal](https://ucdavis.policymap.com/maps).  You should see a webpage that looks like the figure below.  Note the UC Davis logo on the top right.  
+1. Navigate to the UC Davis [PolicyMap portal](https://ucdavis.policymap.com/maps).  You should see a webpage that looks like the figure below.  Note the UC Davis logo on the top right.  Go Aggies!
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmpage.png)
@@ -142,7 +158,7 @@ Save the file into an appropriate folder, such as below (Mac laptop)
 </center>
 
 
-10. PolicyMap allows you to download only one variable at the time.  So, you'll need to go through the above steps again to get the other variables.  To download Opportunity Zone designation, navigate to the *Federal Guidelines* tab, then under *Additional CDFI Fund Data* select *Opportunity Zones (QOZ)* and then select *Designated Tracts*.  
+10. PolicyMap allows you to download only one variable at the time.  So, you'll need to go through the above steps again to get the other variables.  To download Opportunity Zone designation, navigate to the *Federal Guidelines* tab, then under *Additional CDFI Fund Data* select *Opportunity Zones (QOZ)*.  
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmozone.png)
@@ -183,12 +199,12 @@ After you've deleted the footers, save the file.
 
 <div style="margin-bottom:25px;">
 </div>
-##  **Bring into R**
+##  **Bring data into R**
 \
 
 The next step is to bring the PolicyMap csv files into R one at a time.  
 
-1. First thing to do is load in the necessary R packages
+1. First thing to do is load in the necessary R packages.
 
 
 ```r
@@ -201,7 +217,7 @@ library(tidyverse)
 
 
 ```r
-setwd(##file path to your PolicyMap csvs##)
+setwd("file path to your PolicyMap csvs")
 ```
 
 3. Next, bring in the csv files using the function `read_csv()`.  Note in the code below that the file names in parentheses will differ from yours, but *file1* contains the Loan to Income ratio data, *file2* contains the Opportunity Zone data, *file3* contains percent Hispanic, *file4* contains percent black, and *file5* contains median household income.
@@ -214,19 +230,19 @@ file1
 
 ```
 ## # A tibble: 113 x 4
-##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Median leverage ratio fo…
-##    <chr>                 <dbl> <chr>            <chr>                     
-##  1 06001409000, CA  6001409000 06001409000      3.19                      
-##  2 06001401700, CA  6001401700 06001401700      3.07                      
-##  3 06001408100, CA  6001408100 06001408100      3.11                      
-##  4 06001410000, CA  6001410000 06001410000      3.51                      
-##  5 06001400100, CA  6001400100 06001400100      3.01                      
-##  6 06001981900, CA  6001981900 06001981900      N/A                       
-##  7 06001404600, CA  6001404600 06001404600      3.31                      
-##  8 06001409900, CA  6001409900 06001409900      3.37                      
-##  9 06001404400, CA  6001404400 06001404400      3.04                      
-## 10 06001404502, CA  6001404502 06001404502      3.1                       
-## # ... with 103 more rows
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Median leverage ratio for all …
+##    <chr>                 <dbl> <chr>            <chr>                           
+##  1 06001409000, CA  6001409000 06001409000      3.19                            
+##  2 06001401700, CA  6001401700 06001401700      3.07                            
+##  3 06001408100, CA  6001408100 06001408100      3.11                            
+##  4 06001410000, CA  6001410000 06001410000      3.51                            
+##  5 06001400100, CA  6001400100 06001400100      3.01                            
+##  6 06001981900, CA  6001981900 06001981900      N/A                             
+##  7 06001404600, CA  6001404600 06001404600      3.31                            
+##  8 06001409900, CA  6001409900 06001409900      3.37                            
+##  9 06001404400, CA  6001404400 06001404400      3.04                            
+## 10 06001404502, CA  6001404502 06001404502      3.1                             
+## # … with 103 more rows
 ```
 
 ```r
@@ -236,19 +252,19 @@ file2
 
 ```
 ## # A tibble: 113 x 4
-##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Designated Qualified Opp…
-##    <chr>                 <dbl> <chr>            <chr>                     
-##  1 06001409000, CA  6001409000 06001409000      Designated Qualified Oppo…
-##  2 06001401700, CA  6001401700 06001401700      Designated Qualified Oppo…
-##  3 06001408100, CA  6001408100 06001408100      Not Designated            
-##  4 06001410000, CA  6001410000 06001410000      Not Designated            
-##  5 06001400100, CA  6001400100 06001400100      Not Designated            
-##  6 06001981900, CA  6001981900 06001981900      Not Designated            
-##  7 06001404600, CA  6001404600 06001404600      Not Designated            
-##  8 06001409900, CA  6001409900 06001409900      Not Designated            
-##  9 06001404400, CA  6001404400 06001404400      Not Designated            
-## 10 06001404502, CA  6001404502 06001404502      Not Designated            
-## # ... with 103 more rows
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Designated Qualified Opportuni…
+##    <chr>                 <dbl> <chr>            <chr>                           
+##  1 06001409000, CA  6001409000 06001409000      Designated Qualified Opportunit…
+##  2 06001401700, CA  6001401700 06001401700      Designated Qualified Opportunit…
+##  3 06001408100, CA  6001408100 06001408100      Not Designated                  
+##  4 06001410000, CA  6001410000 06001410000      Not Designated                  
+##  5 06001400100, CA  6001400100 06001400100      Not Designated                  
+##  6 06001981900, CA  6001981900 06001981900      Not Designated                  
+##  7 06001404600, CA  6001404600 06001404600      Not Designated                  
+##  8 06001409900, CA  6001409900 06001409900      Not Designated                  
+##  9 06001404400, CA  6001404400 06001404400      Not Designated                  
+## 10 06001404502, CA  6001404502 06001404502      Not Designated                  
+## # … with 103 more rows
 ```
 
 ```r
@@ -258,19 +274,19 @@ file3
 
 ```
 ## # A tibble: 113 x 4
-##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated percent of all…
-##    <chr>                 <dbl> <chr>                                 <dbl>
-##  1 06001409000, CA  6001409000 06001409000                           53.2 
-##  2 06001401700, CA  6001401700 06001401700                           31.4 
-##  3 06001408100, CA  6001408100 06001408100                           11.2 
-##  4 06001410000, CA  6001410000 06001410000                            6.36
-##  5 06001400100, CA  6001400100 06001400100                            2.75
-##  6 06001981900, CA  6001981900 06001981900                            0   
-##  7 06001404600, CA  6001404600 06001404600                            3.77
-##  8 06001409900, CA  6001409900 06001409900                           14.7 
-##  9 06001404400, CA  6001404400 06001404400                            6.62
-## 10 06001404502, CA  6001404502 06001404502                            8.13
-## # ... with 103 more rows
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated percent of all peopl…
+##    <chr>                 <dbl> <chr>                                       <dbl>
+##  1 06001409000, CA  6001409000 06001409000                                 53.2 
+##  2 06001401700, CA  6001401700 06001401700                                 31.4 
+##  3 06001408100, CA  6001408100 06001408100                                 11.2 
+##  4 06001410000, CA  6001410000 06001410000                                  6.36
+##  5 06001400100, CA  6001400100 06001400100                                  2.75
+##  6 06001981900, CA  6001981900 06001981900                                  0   
+##  7 06001404600, CA  6001404600 06001404600                                  3.77
+##  8 06001409900, CA  6001409900 06001409900                                 14.7 
+##  9 06001404400, CA  6001404400 06001404400                                  6.62
+## 10 06001404502, CA  6001404502 06001404502                                  8.13
+## # … with 103 more rows
 ```
 
 ```r
@@ -280,19 +296,19 @@ file4
 
 ```
 ## # A tibble: 113 x 4
-##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated percent of all…
-##    <chr>                 <dbl> <chr>                                 <dbl>
-##  1 06001409000, CA  6001409000 06001409000                           34.9 
-##  2 06001401700, CA  6001401700 06001401700                           24.0 
-##  3 06001408100, CA  6001408100 06001408100                           22.4 
-##  4 06001410000, CA  6001410000 06001410000                           44.3 
-##  5 06001400100, CA  6001400100 06001400100                            3.05
-##  6 06001981900, CA  6001981900 06001981900                            0   
-##  7 06001404600, CA  6001404600 06001404600                            4.65
-##  8 06001409900, CA  6001409900 06001409900                           46.9 
-##  9 06001404400, CA  6001404400 06001404400                            2.04
-## 10 06001404502, CA  6001404502 06001404502                            4.9 
-## # ... with 103 more rows
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated percent of all peopl…
+##    <chr>                 <dbl> <chr>                                       <dbl>
+##  1 06001409000, CA  6001409000 06001409000                                 34.9 
+##  2 06001401700, CA  6001401700 06001401700                                 24.0 
+##  3 06001408100, CA  6001408100 06001408100                                 22.4 
+##  4 06001410000, CA  6001410000 06001410000                                 44.3 
+##  5 06001400100, CA  6001400100 06001400100                                  3.05
+##  6 06001981900, CA  6001981900 06001981900                                  0   
+##  7 06001404600, CA  6001404600 06001404600                                  4.65
+##  8 06001409900, CA  6001409900 06001409900                                 46.9 
+##  9 06001404400, CA  6001404400 06001404400                                  2.04
+## 10 06001404502, CA  6001404502 06001404502                                  4.9 
+## # … with 103 more rows
 ```
 
 ```r
@@ -302,19 +318,19 @@ file5
 
 ```
 ## # A tibble: 113 x 4
-##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated typical (media…
-##    <chr>                 <dbl> <chr>                                 <int>
-##  1 06001409000, CA  6001409000 06001409000                           44125
-##  2 06001401700, CA  6001401700 06001401700                           66308
-##  3 06001408100, CA  6001408100 06001408100                          103670
-##  4 06001410000, CA  6001410000 06001410000                          107083
-##  5 06001400100, CA  6001400100 06001400100                          177417
-##  6 06001981900, CA  6001981900 06001981900                          105714
-##  7 06001404600, CA  6001404600 06001404600                          163322
-##  8 06001409900, CA  6001409900 06001409900                           97689
-##  9 06001404400, CA  6001404400 06001404400                          150074
-## 10 06001404502, CA  6001404502 06001404502                          133068
-## # ... with 103 more rows
+##    `Census Tract`  `FIPS Code` `Formatted FIPS` `Estimated typical (median) inc…
+##    <chr>                 <dbl> <chr>                                       <dbl>
+##  1 06001409000, CA  6001409000 06001409000                                 44125
+##  2 06001401700, CA  6001401700 06001401700                                 66308
+##  3 06001408100, CA  6001408100 06001408100                                103670
+##  4 06001410000, CA  6001410000 06001410000                                107083
+##  5 06001400100, CA  6001400100 06001400100                                177417
+##  6 06001981900, CA  6001981900 06001981900                                105714
+##  7 06001404600, CA  6001404600 06001404600                                163322
+##  8 06001409900, CA  6001409900 06001409900                                 97689
+##  9 06001404400, CA  6001404400 06001404400                                150074
+## 10 06001404502, CA  6001404502 06001404502                                133068
+## # … with 103 more rows
 ```
 
 4. Using the function `left_join()`, we then merge all the files together using the Census tract ID *FIPS Code* (the variables *Census Tract* or *Formatted FIPS* also work as IDs).  We save the merged files into a tibble named *oakland*.
@@ -343,15 +359,14 @@ oakland
 ##  8 06001409900, CA   6001409900 06001409900      3.37            
 ##  9 06001404400, CA   6001404400 06001404400      3.04            
 ## 10 06001404502, CA   6001404502 06001404502      3.1             
-## # ... with 103 more rows, and 12 more variables: `Census Tract.y` <chr>,
-## #   `Formatted FIPS.y` <chr>, `Designated Qualified Opportunity Zones, as
-## #   of 2018.` <chr>, `Census Tract.x.x` <chr>, `Formatted FIPS.x.x` <chr>,
-## #   `Estimated percent of all people who were Hispanic between
-## #   2012-2` <dbl>, `Census Tract.y.y` <chr>, `Formatted FIPS.y.y` <chr>,
-## #   `Estimated percent of all people who were Black between
-## #   2012-2016` <dbl>, `Census Tract` <chr>, `Formatted FIPS` <chr>,
-## #   `Estimated typical (median) income of a household between
-## #   2012-20` <int>
+## # … with 103 more rows, and 12 more variables: `Census Tract.y` <chr>,
+## #   `Formatted FIPS.y` <chr>, `Designated Qualified Opportunity Zones, as of
+## #   2018.` <chr>, `Census Tract.x.x` <chr>, `Formatted FIPS.x.x` <chr>,
+## #   `Estimated percent of all people who were Hispanic between 2012-2` <dbl>,
+## #   `Census Tract.y.y` <chr>, `Formatted FIPS.y.y` <chr>, `Estimated percent of
+## #   all people who were Black between 2012-2016` <dbl>, `Census Tract` <chr>,
+## #   `Formatted FIPS` <chr>, `Estimated typical (median) income of a household
+## #   between 2012-20` <dbl>
 ```
 
 <div style="margin-bottom:25px;">
@@ -385,7 +400,7 @@ What did we just do?
 
 * `rename()` renames some of the variables such that labels are easier to process in R (e.g. no spaces, concise).
 * The `select()` function keeps only the necessary variables to reduce the clutter.
-* R read the variable *Median leverage ratio for all loans in 2016* as a characteristic and not a numeric, which is incorrect.  This happened because missing values are designated as "N/A" in PolicyMap not "NA", which is how R designates missing values.  In order to get the variable into its proper numeric form, convert "N/A" to "NA". The `replace()` function tells R to replace values in *levratio* that are equal to "N/A" to the value "NA". The function `as.double()` then tells R to convert the character variable *levratio* to a double. 
+* R read the variable *Median leverage ratio for all loans in 2016* as a character and not a numeric, which is incorrect.  This happened because missing values are designated as "N/A" in PolicyMap not "NA", which is how R designates missing values.  In order to get the variable into its proper numeric form, convert "N/A" to "NA". The `replace()` function tells R to replace values in *levratio* that are equal to "N/A" to the value "NA". The function `as.double()` then tells R to convert the character variable *levratio* to a double. 
 
 The tibble should now look like the following
 
@@ -396,19 +411,19 @@ oakland
 
 ```
 ## # A tibble: 113 x 6
-##    levratio oppzone                        phisp  pblk medincome      fips
-##       <dbl> <chr>                          <dbl> <dbl>     <int>     <dbl>
-##  1     3.19 Designated Qualified Opportun… 53.2  34.9      44125    6.00e9
-##  2     3.07 Designated Qualified Opportun… 31.4  24.0      66308    6.00e9
-##  3     3.11 Not Designated                 11.2  22.4     103670    6.00e9
-##  4     3.51 Not Designated                  6.36 44.3     107083    6.00e9
-##  5     3.01 Not Designated                  2.75  3.05    177417    6.00e9
-##  6    NA    Not Designated                  0     0       105714    6.00e9
-##  7     3.31 Not Designated                  3.77  4.65    163322    6.00e9
-##  8     3.37 Not Designated                 14.7  46.9      97689    6.00e9
-##  9     3.04 Not Designated                  6.62  2.04    150074    6.00e9
-## 10     3.1  Not Designated                  8.13  4.9     133068    6.00e9
-## # ... with 103 more rows
+##    levratio oppzone                              phisp  pblk medincome      fips
+##       <dbl> <chr>                                <dbl> <dbl>     <dbl>     <dbl>
+##  1     3.19 Designated Qualified Opportunity Zo… 53.2  34.9      44125    6.00e9
+##  2     3.07 Designated Qualified Opportunity Zo… 31.4  24.0      66308    6.00e9
+##  3     3.11 Not Designated                       11.2  22.4     103670    6.00e9
+##  4     3.51 Not Designated                        6.36 44.3     107083    6.00e9
+##  5     3.01 Not Designated                        2.75  3.05    177417    6.00e9
+##  6    NA    Not Designated                        0     0       105714    6.00e9
+##  7     3.31 Not Designated                        3.77  4.65    163322    6.00e9
+##  8     3.37 Not Designated                       14.7  46.9      97689    6.00e9
+##  9     3.04 Not Designated                        6.62  2.04    150074    6.00e9
+## 10     3.1  Not Designated                        8.13  4.9     133068    6.00e9
+## # … with 103 more rows
 ```
 
 <div style="margin-bottom:25px;">
@@ -416,9 +431,9 @@ oakland
 ### **Dealing with missing values**
 \
 
-Missing values are a part of a data scientist's life.  You can't avoid them.  To deal with missing data systematically, go through the following steps
+Missing values are a part of a social scientist's life.  You can't avoid them.  Read the mini lab [dealing with missing data](https://crd150.github.io/missingdata.html) for a tutorial on how to deal with missing data. Briefly, below are the steps to tackle missing data in our PolicyMap data set.
 
-1. The first step is to determine what percentage of your cases are missing data.  The best function for doing this in R is `aggr()`, which is in the **VIM** package.  Install this package using `install.packages()` and load it into R. 
+1. The first step is to determine what percentage of your cases are missing data.  The best function for doing this in R is `aggr()`, which is in the **VIM** package.  If you already haven't, install this package using `install.packages()`.  Then load it into R using `library()`. 
 
 
 ```r
@@ -474,7 +489,7 @@ oakland <- oakland %>%
     impute_mean(levratio)
 ```
 
-We should now have no missing values
+We should now have no missing values (I suppressed the plot using the argument `plot=FALSE`).
 
 
 ```r
@@ -499,7 +514,7 @@ summary(aggr(oakland, plot=FALSE))
 
 Note that you can impute more than one variable within `impute_mean()`. 
 
-Save the data set using the function `write_csv()` in an appropriate folder on your hard drive.  The data set is now ready for analysis!
+Save the data set using the function `write_csv()` in an appropriate folder on your hard drive.  The data set is now ready for analysis!  [Applause](https://www.youtube.com/watch?v=pco91kroVgQ).
 
 ***
 

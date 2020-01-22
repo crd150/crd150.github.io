@@ -12,6 +12,7 @@ output:
 ---
 
 
+
 <style>
 p.comment {
 background-color: #DBDBDB;
@@ -22,10 +23,28 @@ border-radius: 5px;
 font-style: italic;
 }
 
-h1.title {
-  font-weight: bold;
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
 </style>
 \
 
@@ -33,14 +52,14 @@ h1.title {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This guide briefly outlines what to do when you encounter missing data in your data set.  This is not meant to be a comprehensive treatment of how to deal with missing data.  One can teach a whole class or write a [whole book](https://us.sagepub.com/en-us/nam/missing-data/book9419) on this subject.  Instead, the guide provides a brief overview, complementing the discussion from lecture and readings in Week 2.
+This guide outlines what to do when you encounter missing values in your data set.  This is not meant to be a comprehensive treatment of how to deal with missing data.  One can teach a [whole class](https://www.coursera.org/learn/missing-data) or write a [whole book](https://us.sagepub.com/en-us/nam/missing-data/book9419) on this subject.  Instead, the guide provides a brief overview, complementing Handout 2.
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Bringing data into R**
 \
 
-First, let's load in the required packages for this guide.  Depending on when you read this guide, you may need to install some of these packages before calling `library()`.
+First, let's load in the required packages for this guide.  Depending on when you read this guide, you may need to install some of these packages using the function `install.packages()` before calling `library()`. You may also encounter some unfamiliar packages.  In particular, we are using spatial data in this lab, and hence using packages that deal with the processing and analysis of spatial data.  
 
 ```{r warning = FALSE, message = FALSE}
 library(sf)
@@ -49,6 +68,8 @@ library(spdep)
 library(tidyverse)
 library(tmap)
 ```
+
+If you are reading this guide before the class has not gone through the [introduction to spatial data](https://crd150.github.io/lab4.html) and [spatial clustering](https://crd150.github.io/lab5.html) labs, don't pay too much attention to the why and how certain spatial functions work, and instead focus on the methods and functions that are pertinent to dealing with missing data in R.  These functions can be used on both spatial and nonspatial data.
 
 We'll be using the shapefile *saccity.shp*. The file contains Sacramento City census tracts with the percent of the tract population living in subsidized housing, which was taken from the U.S. Department of Housing and Urban Development [data portal](https://www.huduser.gov/portal/datasets/pdrdatas.html). 
 
@@ -60,13 +81,13 @@ setwd("path to the folder containing saccity.shp")
 
 I saved the file in Github as a zip file.  Download that zip file using the function `download.file()`, unzip it using the function `unzip()`, and read the file into R using `st_read()`
 
-```{r warning = FALSE, message = FALSE}
+```{r warning = FALSE, message = FALSE, result = "hide"}
 download.file(url = "https://raw.githubusercontent.com/crd150/data/master/saccity.zip", destfile = "saccity.zip")
 unzip(zipfile = "saccity.zip")
 sac.city.tracts.sf <- st_read("saccity.shp")
 ```
 
-In case you are having problems with the above code, try installing the package **utils**.  If you are still having problems, download the zip file from Canvas (Week 5 folder).  Save that file into the folder you set your working directory to. Then use `st_read()`.
+In case you are having problems with the above code, try installing the package **utils**.  If you are still having problems, download the zip file from Canvas (Additional data).  Save that file into the folder you set your working directory to. Then use `st_read()`.
 
 Let's look at the tibble. 
 
@@ -94,9 +115,9 @@ The variable *psubhous* gives us the percent of the tract population living in s
 sac.city.tracts.sf %>% summarize(mean = mean(psubhous))
 ```
 
-Oh oh.  We get "NA" which tells us that there are some neighborhoods with missing data.  If a variable has an NA, most R functions summarizing that variable automatically yield an NA.
+Oh oh, no bueno.  We get "NA". If a variable has an NA, most R functions summarizing that variable will automatically yield an NA.  This means we have missing data.
 
-What if we try to do some kind of spatial data analysis on the data? Surely, R won't give us a problem, right?  Let's calculate the Moran's I (see [Lab 5]()) for *psubhous*.
+What if we try to do some kind of spatial data analysis on the data? Surely, R won't give us a problem, right?  Let's calculate the Moran's I for *psubhous*.
 
 ```{r, warning = FALSE, error=TRUE}
 #Turn sac.city.tracts.sf into an sp object.
@@ -114,14 +135,15 @@ Similar to nonspatial data functions, R will force you to deal with your missing
 ## **Summarizing the extent of missingness**
 \
 
-Before you do any analysis on your data, it's a good idea to check the extent of missingness in your data set. The best way to do this is to use the function `aggr()`, which is a part of the **VIM** package. Install this package and load it into R.
+Before you do any analysis on your data, it's a good idea to check the extent of missingness in your data set. The best way to do this is to use the function `aggr()`, which is a part of the **VIM** package. Install this package if you have not already done so.
 
 ```{r message = FALSE, warning = FALSE, eval = FALSE}
 install.packages("VIM")
-library(VIM)
 ```
 
-```{r message = FALSE, warning = FALSE, include = FALSE}
+Load it into your current R session.
+
+```{r message = FALSE, warning = FALSE}
 library(VIM)
 ```
 
@@ -138,12 +160,12 @@ The results show two tables and two plots. The left-hand side plot shows the pro
 ## **Exclude missing data**
 \
 
-Recall from Week 2 the two basic methods for dealing with missing values: (1) Ignore the observations with missing values or (2) Impute the mean.
+Recall from Handout 2 that the two basic methods for dealing with missing values are: (1) Ignore the observations with missing values or (2) Impute the mean.
 
-You can implement method (1) two ways.  In the first way, you physically remove the offending missing value tracts from the data set.  You do this using the `filter()` command
+You can implement method (1) two ways.  In the first way, you physically remove the offending missing value tracts from the data set.  You do this using the `drop_na()` command.
 
 ```{r}
-sac.city.tracts.sf.rm <- filter(sac.city.tracts.sf, is.na(psubhous) != TRUE)
+sac.city.tracts.sf.rm <- drop_na(sac.city.tracts.sf, psubhous)
 ```
 
 You now get your mean 
@@ -180,22 +202,23 @@ moran.test(sac.city.tracts.sp$psubhous, sacw, na.action=na.omit)
 ## **Impute the mean**
 \
 
-Usually, it is better to keep observations than discard or ignore them, so strategy (2), imputing the mean, is often the better approach. In the case of *psubhous*, were missing almost 20% of the data, which is a lot of cases to exclude.  Moreover, not **all** functions have the built in `na.rm` or `na.action` options. Plus, look at this map 
+Usually, it is better to keep observations than discard or ignore them, so strategy (2), imputing the mean, is often the better approach. In the case of *psubhous*, were missing almost 20% of the data, which is a lot of cases to exclude.  Moreover, not **all** functions have the built in `na.rm` or `na.action` options. Also, look at the map of the **sf** object without the tracts missing data.
 
 ```{r}
 tm_shape(sac.city.tracts.sf.rm) + tm_polygons(col="blue")
 ```
 
-We've got permanent holes in Sacramento because we physically removed census tracts with missing values.  
+We've got permanent holes in Sacramento because we've physically removed census tracts with missing values.  Of course, we can shade the missing tracts a certain color and label this in the legend.  We'll do that in [Lab 4](https://crd150.github.io/lab4.html).  But, let's see how imputing the mean works.
 
-To impute the mean, we need to use the tidy friendly `impute_mean()` function in the **tidyimpute** package. Install this package and load it into R.
+To impute the mean, we need to use the tidy friendly `impute_mean()` function in the **tidyimpute** package. Install this package if you haven't already done so.
 
 ```{r, eval = FALSE}
 install.packages("tidyimpute")
-library(tidyimpute)
 ```
 
-```{r include=FALSE}
+and load it into R.
+
+```{r message = FALSE, warning = FALSE}
 library(tidyimpute)
 ```
 
@@ -206,7 +229,9 @@ sac.city.tracts.sf.mn <- sac.city.tracts.sf %>%
     impute_mean(psubhous)
 ```
 
-Note that you can impute more than one variable within `impute_mean()`. We should now have no missing values
+Note that you can impute more than one variable within `impute_mean()` using the comma separator. 
+
+We should now have no missing values
 
 ```{r message = FALSE, warning = FALSE}
 summary(aggr(sac.city.tracts.sf.mn))
@@ -237,6 +262,26 @@ tm_shape(sac.city.tracts.sf.mn) +
   tm_polygons(col = "psubhous", style = "quantile")
 ```
 
+
+<div style="margin-bottom:25px;">
+</div>
+## **Other Imputation Methods**
+\
+
+The **tidyimpute** package has a set of functions for imputing missing values in your data.  The functions are categorized as univariate and multivariate, where the former imputes a single value  for all missing observations (like the mean) whereas the latter imputes a value based on a set of non-missing characteristics.  Univariate methods include
+
+* `impute_max` - maximum
+* `impute_minimum` - minimum
+* `impute_median` - median value
+* `impute_quantile` - quantile value
+* `impute_sample` - randomly sampled value via bootstrap
+
+Multivariate methods include
+
+* `impute_fit`,`impute_predict` - use a regression model to predict the value
+* `impute_by_group` - use by-group imputation
+
+Some of the multivariate functions may not be fully developed at the moment, but their test versions may be available for download.  These methods go beyond the scope of this class, but you can check a number of user created vignettes, include the official R [vignette](https://cran.r-project.org/web/packages/naniar/vignettes/exploring-imputed-values.html).
 
 
 ***
