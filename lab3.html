@@ -919,7 +919,36 @@ What if you wanted to summarize the relationship between multiple variables in o
 <div id="assignment-3" class="section level2">
 <h2><strong>Assignment 3</strong></h2>
 <p><br />
-Assignment 3 will be posted here on Friday.</p>
+</p>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn03.Rmd">Assignment 3 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas.</p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>As a comprehensive source for neighborhood data, PolicyMap allows you to examine interesting associations across different dimensions of neighborhood health and well-being. Let’s utilize this important feature by examining potential predictors of resident health in the City of Sacramento. Bring into R the dataset <a href="https://raw.githubusercontent.com/crd150/data/master/sac_health_policymap.csv">sac_health_policymap.csv</a>, which contains census-tract level data on Sacramento downloaded from PolicyMap. Consider the dataset to be cleaned and ready for analysis. A record layout of the data can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assgn3_question1_codebook.txt">here</a>. Make sure any plots and tables you construct follow the design principles outlined in Hoffman.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Create an appropriate plot that shows the shape of the distribution for the variable <em>health</em>, which measures the percent of residents reporting very good to excellent health. Describe the shape of the distribution. (2 points)</p></li>
+<li><p>Examine the association between <em>health</em> and the variable <em>phys</em>. Based on this examination, briefly describe the relationship between the variable <em>health</em> and <em>phys</em>. (2 points)</p></li>
+<li><p>Create the appropriate plots showing the association between <em>health</em> and the following variables: <em>foodaccess</em>, <em>hburden</em>, <em>unemp</em>, and <em>medinc</em>. Based on these plots, briefly describe the relationship between <em>health</em> and the four variables. Describe any nonlinearities in the relationships. (4 points)</p></li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The following questions investigate housing structure in Yolo County. Bring into R the dataset <a href="https://raw.githubusercontent.com/crd150/data/master/ca_border_tracts.csv">ca_border_tracts.csv</a>, which contains 2012-2016 American Community Survey (ACS) data for census tracts in California and states sharing a boundary with California (Arizona, Nevada, and Oregon). Consider the dataset to be cleaned and ready for analysis. A record layout of the data can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assgn3_question2_codebook.txt">here</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>What is the mean, median, interquartile range, and standard deviation of the percentage of houses built since 2000 in Yolo County? (2 points)</p></li>
+<li><p>What is the correlation between median household income and percentage of houses built since 2000 in Yolo County? (1 point)</p></li>
+<li><p>Show a plot investigating any potential outliers in the percentage of houses built since 2000 in Yolo County. (1 point)</p></li>
+<li><p>Did you find any outliers? If so, how many? What is the mean, median and standard deviation of the percentage of houses built since 2000 in Yolo County <em>without</em> these outliers? What about the correlation between median household income and percentage of houses built since 2000? (3 points)</p></li>
+<li><p>Briefly comment on what you learned in this question. (1 point)</p></li>
+</ol>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>The following questions use the same dataset from Question 2 to investigate differences across major California regions and states sharing a boundary with California. Because California is so large, we separated the state into three regions: Bay Area, Southern California, and the rest of California.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Calculate 90/10 percentile ratios for median household income for each region (Bay Area, Southern California, Other California, Arizona, Nevada, and Oregon). Which region exhibits the highest neighborhood income inequality? Lowest? (2 points)</p></li>
+<li><p>What is the association between median household income and percent white, black, and Hispanic for all regions combined? Are there any specific regions that noticeably differ from these associations? If so, which ones and how do they differ? An appropriate answer to this question includes both showing your code, its results, and some text explaining your results. (2 points).</p></li>
+</ol>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 </div>
