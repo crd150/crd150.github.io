@@ -300,7 +300,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Spatial data in R </td>
    <td style="text-align:left;width: 13em; "> Optional: GWR Ch. 2.1, 2.2, 8 </td>
    <td style="text-align:left;"> HW 3 </td>
-   <td style="text-align:left;"> Prop I </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 3-Feb </td>
@@ -308,7 +308,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Spatial data wrangling </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Prop I </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 5-Feb </td>
@@ -372,7 +372,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Neighborhood segregation in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;"> HW 6 </td>
-   <td style="text-align:left;"> Prop II </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 24-Feb </td>
@@ -388,7 +388,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Opportunity mapping </td>
    <td style="text-align:left;width: 13em; "> Handout 5; Lung-Amam et al. (2018)* </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Prop II </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 28-Feb </td>
