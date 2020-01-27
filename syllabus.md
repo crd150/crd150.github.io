@@ -305,15 +305,15 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   <tr>
    <td style="text-align:left;width: 5em; "> 3-Feb </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Spatial data wrangling </td>
-   <td style="text-align:left;width: 13em; ">  </td>
+   <td style="text-align:left;"> Spatial data wrangling; Spatial autocorrelation </td>
+   <td style="text-align:left;width: 13em; "> OSU Ch. 7 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Prop I </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 5-Feb </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Spatial autocorrelation </td>
+   <td style="text-align:left;"> Spatial autocorrelation cont. </td>
    <td style="text-align:left;width: 13em; "> OSU Ch. 7 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
