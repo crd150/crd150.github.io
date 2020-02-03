@@ -10,18 +10,18 @@
 24-Jan,Lab,Describing your data in R,"Optional: RDS 1, 3, 5, 22",HW 2,
 27-Jan,Lecture,Intro to spatial data,OSU Ch. 1-2,,
 29-Jan,Lecture,Map making,OSU Ch. 3,,
-31-Jan,Lab,Spatial data in R,"Optional: GWR Ch. 2.1, 2.2, 8",HW 3,Prop I
-3-Feb,Lecture,Spatial data wrangling,,,
-5-Feb,Lecture,Spatial autocorrelation ,OSU Ch. 7,,
+31-Jan,Lab,Spatial data in R,"Optional: GWR Ch. 2.1, 2.2, 8",HW 3,
+3-Feb,Lecture,Spatial data wrangling; Spatial autocorrelation,OSU Ch. 7,,Prop I
+5-Feb,Lecture,Spatial autocorrelation cont.,OSU Ch. 7,,
 7-Feb,Lab,Spatial autocorrelation in R ,"Optional: GWR: Ch. 4.1, 4.2",HW 4,
 10-Feb,Lecture,Big data/open data; Intro to point data,UA Ch. 1-2*,,
 12-Feb,Lecture,Spatial point patterns,OSU Ch. 5,,
 14-Feb,Lab,Spatial point pattern analysis in R,"Optional: GWR Ch. 2.4, 2.5, 4.2, 6",HW 5,
 17-Feb,Lecture,President’s Day: No class,,,
 19-Feb,Lecture,Neighborhood segregation,Handout 4; Logan and Stults (2011)*,,
-21-Feb,Lab,Neighborhood segregation in R,,HW 6,Prop II
+21-Feb,Lab,Neighborhood segregation in R,,HW 6,
 24-Feb,Lecture,Midterm,,,
-26-Feb,Lecture,Opportunity mapping,Handout 5; Lung-Amam et al. (2018)*,,
+26-Feb,Lecture,Opportunity mapping,Handout 5; Lung-Amam et al. (2018)*,,Prop II
 28-Feb,Lab,Opportunity mapping in R,"Optional: GWR Ch. 4.2, 5.2",HW 7,
 2-Mar,Lecture,Participatory GIS,Goodchild (2007); Mukherjee (2015),,
 4-Mar,Lecture,Story Maps & Web GIS,Lung-Amam & Dawkins (2019) ,,
