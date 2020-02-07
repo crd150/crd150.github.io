@@ -597,7 +597,9 @@ b. Present a scatterplot showing the relationship between household income and e
 c. Present Moran scatterplots for median household income and eviction rates. Also calculate the Moran's I for each variable. Explain your results. (2 points)
 d. Explain the conceptual difference between the plot and correlation you calculated in 3b and the plots and correlations you calculated in 3c. (2 points)
 
+
 ***
+
 
 
 Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
