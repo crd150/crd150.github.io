@@ -537,7 +537,7 @@ We will be working with census tract data on the foreign-born population in Sacr
               select(-(moe)) %&gt;%
               spread(key = variable, value = estimate) %&gt;%
               mutate(pfb = fb/totp) %&gt;%
-              select(GEOID, pfb)</code></pre>
+              select(GEOID, totp, pfb)</code></pre>
 <p>Next, let’s bring in the Sacramento metropolitan area boundary using <code>core_based_statistical_areas()</code> from the <strong>tigris</strong> package.</p>
 <pre class="r"><code>cb &lt;- core_based_statistical_areas(cb = TRUE, year=2017)
 sac.metro &lt;- filter(cb, grepl(&quot;Sacramento&quot;, NAME))</code></pre>
@@ -597,8 +597,8 @@ ggplot() +
 <p><br></p>
 <p>If you look at the at <em>sac.metro.tracts.w</em>’s attribute table, you’ll see it includes all the variables from both <em>ca.tracts</em> and <em>sac.metro</em>. We don’t need these variables, so use <code>select()</code> to eliminate them. You’ll also notice that if variables share the same name, R will keep both and attach a <em>.x</em> and <em>.y</em> to the end. For example, <em>GEOID</em> was found in both <em>ca.tracts</em> and <em>sac.metro</em>, so R named one <em>GEOID.x</em> and the other that was merged in was named <em>GEOID.y</em>.</p>
 <pre class="r"><code>names(sac.metro.tracts.w)</code></pre>
-<pre><code>##  [1] &quot;GEOID.x&quot;  &quot;pfb&quot;      &quot;CSAFP&quot;    &quot;CBSAFP&quot;   &quot;AFFGEOID&quot; &quot;GEOID.y&quot; 
-##  [7] &quot;NAME&quot;     &quot;LSAD&quot;     &quot;ALAND&quot;    &quot;AWATER&quot;   &quot;geometry&quot;</code></pre>
+<pre><code>##  [1] &quot;GEOID.x&quot;  &quot;totp&quot;     &quot;pfb&quot;      &quot;CSAFP&quot;    &quot;CBSAFP&quot;   &quot;AFFGEOID&quot;
+##  [7] &quot;GEOID.y&quot;  &quot;NAME&quot;     &quot;LSAD&quot;     &quot;ALAND&quot;    &quot;AWATER&quot;   &quot;geometry&quot;</code></pre>
 <p>Keep the necessary variables and rename <em>GEOID.x</em> back to <em>GEOID</em>.</p>
 <pre class="r"><code>sac.metro.tracts.w &lt;- sac.metro.tracts.w %&gt;%
       select(GEOID.x:pfb) %&gt;%
@@ -673,9 +673,9 @@ Another useful <code>st_</code> function is <code>st_area()</code>, which calcul
 <pre class="r"><code>sac.city.tracts.w &lt;- mutate(sac.city.tracts.w, area = as.numeric(st_area(sac.city.tracts.w)))</code></pre>
 <p>You should find that the variable <em>area</em> is now in your dataset.</p>
 <pre class="r"><code>names(sac.city.tracts.w)</code></pre>
-<pre><code>##  [1] &quot;GEOID.x&quot;  &quot;pfb&quot;      &quot;STATEFP&quot;  &quot;PLACEFP&quot;  &quot;PLACENS&quot;  &quot;AFFGEOID&quot;
-##  [7] &quot;GEOID.y&quot;  &quot;NAME&quot;     &quot;LSAD&quot;     &quot;ALAND&quot;    &quot;AWATER&quot;   &quot;geometry&quot;
-## [13] &quot;area&quot;</code></pre>
+<pre><code>##  [1] &quot;GEOID.x&quot;  &quot;totp&quot;     &quot;pfb&quot;      &quot;STATEFP&quot;  &quot;PLACEFP&quot;  &quot;PLACENS&quot; 
+##  [7] &quot;AFFGEOID&quot; &quot;GEOID.y&quot;  &quot;NAME&quot;     &quot;LSAD&quot;     &quot;ALAND&quot;    &quot;AWATER&quot;  
+## [13] &quot;geometry&quot; &quot;area&quot;</code></pre>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -697,6 +697,203 @@ sac.metro.tracts.sp &lt;- as(sac.metro.tracts.w, &quot;Spatial&quot;)</code></pr
 <p>We find out that <em>sac.metro.tracts.sp</em> is a <strong>SpatialPolygonsDataFrame</strong> object. <strong>SpatialPolygonsDataFrame</strong> objects are almost like regular R data frames. However, unlike an <strong>sf</strong> spatial object, the attribute and feature data in an <strong>sp</strong> object are stored separately in what are known as <a href="https://stat.ethz.ch/R-manual/R-devel/library/methods/html/slot.html">data slots</a>. To see the complexity of data slots, do a <code>View()</code> of the data set</p>
 <pre class="r"><code>View(sac.metro.tracts.sp)</code></pre>
 <p>Delving into the feature data slot reveals a series of nested lists and S4 objects, which can be confusing to work with directly. We won’t go into the messy details of <strong>sp</strong> objects and how they differ from <strong>sf</strong> objects. We’ll stick with <strong>sf</strong> objects when possible, but shift to <strong>sp</strong> when needed, dancing around the details as much as possible and only talking about them when necessary. If you are interested, you can learn more about the <strong>sp</strong> package <a href="https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf">here</a>, <a href="https://cran.r-project.org/web/packages/sp/vignettes/over.pdf">here</a> and <a href="http://www.nickeubank.com/gis-in-r/">here</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="wednesday-lecture-setup" class="section level2">
+<h2><strong>Wednesday lecture setup</strong></h2>
+<p><br />
+We went through spatial data wrangling operations during Monday’s lecture. Using these operations, we created a spatial dataset containing census tracts within the Sacramento metropolitan area. Let’s now use that dataset to calculate the spatial autocorrelation of percent foreign born.</p>
+<p>First, install the following packages if you have not already done so (we did this during Monday’s lecture)</p>
+<pre class="r"><code>install.packages(&quot;sp&quot;)
+install.packages(&quot;spdep&quot;)</code></pre>
+<p>If you get the question “Do you want to install from sources the package which needs compilation?”, type in “no” and press return/enter.</p>
+<p>Next, load the following packages</p>
+<pre class="r"><code>library(tidyverse)
+library(sf)
+library(tmap)
+library(sp)
+library(spdep)</code></pre>
+<p>Next, bring into R the Sacramento metropolitan area tract shapefile that we created on Monday. For your convenience, I uploaded the file onto GitHub and you can download it onto your hard drive using the following code.</p>
+<pre class="r"><code>download.file(url = &quot;https://raw.githubusercontent.com/crd150/data/master/week5wedfiles.zip&quot;, destfile = &quot;week5wedfiles.zip&quot;)
+unzip(zipfile = &quot;week5wedfiles.zip&quot;)</code></pre>
+<p>Read the shapefile into R using <code>st_read()</code>.</p>
+<pre class="r"><code>sac.metro.tracts.w &lt;- st_read(&quot;sacmetrotractsw.shp&quot;, stringsAsFactors = FALSE)</code></pre>
+<p>There are two census tracts with zero population. An example of a zero population tract would be something like an airport or a tract located within a state or national forest. Because nobody lives there, let’s take these tracts out using the <code>filter()</code> function.</p>
+<pre class="r"><code>sac.metro.tracts.w &lt;- filter(sac.metro.tracts.w, totp != 0)</code></pre>
+<p>Now convert <em>sac.metro.tracts.w</em> to an <strong>sp</strong> object, which we need to do because the remaining functions in this lab only work with <strong>sp</strong> objects.</p>
+<pre class="r"><code>sac.metro.tracts.sp &lt;- as(sac.metro.tracts.w, &quot;Spatial&quot;)</code></pre>
+<p><em>sac.metro.tracts.w</em> contains percent foreign born and total population for tracts in the Sacramento metropolitan area. <em>sac.metro.tracts.sp</em> is the <strong>sp</strong> version of <em>sac.metro.tracts.w</em>. Go through the first half of the lab to determine how these objects were created.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="spatial-autocorrelation" class="section level2">
+<h2><strong>Spatial autocorrelation</strong></h2>
+<p><br />
+Our next goal is to determine whether the foreign-born population in Sacramento geographically clusters. Let’s focus on the Sacramento metropolitan area. We can explore clustering by examining maps and scatterplots. We can also formally test for clustering by calculating the Moran’s I, which was covered in OSU Ch. 7.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="exploratory-mapping" class="section level3">
+<h3><strong>Exploratory mapping</strong></h3>
+<p><br />
+Before computing spatial autocorrelation, you should map your variable to see if it <em>looks</em> like it clusters across space. Using the function <code>tm_shape()</code> and the mapping principles we learned in last week’s lecture, let’s make a nice map showing the proportion (or percent) foreign-born in the Sacramento metro area using quantile breaks.</p>
+<pre class="r"><code>tm_shape(sac.metro.tracts.w, unit = &quot;mi&quot;) +
+  tm_polygons(col = &quot;pfb&quot;, style = &quot;quantile&quot;,palette = &quot;Reds&quot;, 
+              border.alpha = 0, title = &quot;&quot;) +
+  tm_scale_bar(breaks = c(0, 10, 20), size = 1) +
+  tm_compass(type = &quot;4star&quot;, position = c(&quot;left&quot;, &quot;bottom&quot;)) + 
+  tm_layout(main.title = &quot;Percent foreign-born in Sacramento Metropolitan Area 
+            Tracts&quot;,  main.title.size = 0.95, frame = FALSE)</code></pre>
+<p><img src="lab5_files/figure-html/unnamed-chunk-30-1.png" /><!-- --></p>
+<p>It does look like the foreign-born population clusters. In particular, there appears to be high concentrations of foreign-born residents in South and North Sacramento city and the more fringe areas of the metro in the North.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="spatial-weights-matrix" class="section level3">
+<h3><strong>Spatial weights matrix</strong></h3>
+<p><br />
+Before we can formally model the spatial dependency shown in the above map, we must first cover how neighborhoods are spatially connected to one another. That is, what does “near” mean when we say “near things are more related than distant things”? You need to define</p>
+<ol style="list-style-type: decimal">
+<li>Neighbor connectivity (who is you neighbor?)</li>
+<li>Neighbor weights (how much does your neighbor matter?)</li>
+</ol>
+<p>The functions we will use below are specific to <strong>sp</strong> objects. As a general rule, we’ll stick with our <strong>sf</strong> object <em>sac.metro.tracts.w</em> when possible, but shift to <em>sac.metro.tracts.sp</em> when needed.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="neighbor-connectivity" class="section level4">
+<h4><strong>Neighbor connectivity</strong></h4>
+<p><br />
+A common way of defining neighbors is to see who shares a border. The two most common ways of defining contiguity is Rook and Queen adjacency (Figure 3). Rook adjacency refers to neighbors that share a line segment. Queen adjacency refers to neighbors that share a line segment (or border) or a point (or vertex).</p>
+<center>
+<div class="figure">
+<img src="fig1.png" alt="Figure 3: Geographic contiguity" />
+<p class="caption">Figure 3: Geographic contiguity</p>
+</div>
+</center>
+<p>Neighbor relationships in R are represented by neighbor <em>nb</em> objects. An <em>nb</em> object identifies the neighbors for each feature in the dataset. We use the command <code>poly2nb()</code> from the <strong>spdep</strong> package to create a contiguity-based neighbor object.</p>
+<p>Let’s specify Queen connectivity. The function <code>poly2nb()</code> only takes in <strong>sp</strong> objects, so we’ll need to use <em>sac.metro.tracts.sp</em> here.</p>
+<pre class="r"><code>sacb&lt;-poly2nb(sac.metro.tracts.sp, queen=T)</code></pre>
+<p>You plug the object <em>sac.metro.tracts.sp</em> into the first argument of <code>poly2nb()</code> and then specify Queen contiguity using the argument <code>queen=T</code>. To get Rook adjacency, change the argument to <code>queen=F</code>.</p>
+<p>The function <code>summary()</code> tells us something about the neighborhood.</p>
+<pre class="r"><code>summary(sacb)</code></pre>
+<p>The average number of neighbors (adjacent polygons) is 6.3, 1 polygon has 1 neighbor and 1 has 18 neighbors.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="neighbor-weights" class="section level4">
+<h4><strong>Neighbor weights</strong></h4>
+<p><br />
+We’ve established who our neighbors are by creating an <em>nb</em> object. The next step is to assign weights to each neighbor relationship. The weight determines <em>how much</em> each neighbor counts. You will need to employ the <code>nb2listw()</code> command, which will you give you a spatial weights object.</p>
+<pre class="r"><code>sacw&lt;-nb2listw(sacb, style=&quot;W&quot;, zero.policy = TRUE)</code></pre>
+<p>In the command, you first put in your neighbor <em>nb</em> object (<em>sacb</em>) and then define the weights <code>style = &quot;W&quot;</code>. Here, <code>style = &quot;W&quot;</code> indicates that the weights for each spatial unit are standardized to sum to 1 (this is known as row standardization - see page 49 in OSU). For example, if census tract 1 has 3 neighbors, each of those neighbors will have weights of 1/3. This allows for comparability between areas with different numbers of neighbors.</p>
+<p>The <code>zero.policy = TRUE</code> argument tells R to ignore cases that have <strong>no</strong> neighbors. How can this occur? Figure 4 provides an example. It shows tracts in Los Angeles county. You’ll notice two tracts that are not geographically adjacent to other tracts - they are literally islands (Catalina and San Clemente). So, if you specify queen adjacency, these islands would have no neighbors. If you conduct a spatial analysis of Los Angeles county tracts in R, most functions will spit out an error indicating that you have polygons with no neighbors. To avoid that, specify <code>zero.policy = TRUE</code>, which will ignore all cases without neighbors.</p>
+<center>
+<div class="figure">
+<img src="lacounty.png" alt="Figure 4: Los Angeles county tracts" />
+<p class="caption">Figure 4: Los Angeles county tracts</p>
+</div>
+</center>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="moran-scatterplot" class="section level3">
+<h3><strong>Moran Scatterplot</strong></h3>
+<p><br />
+We’ve now defined what we mean by neighbor by creating an <em>nb</em> object and the influence of each neighbor by creating a spatial weights matrix. The map of percent foreign born showed that neighborhood percent foreign born appears to be clustered in Sacramento. We can visually explore this a little more by plotting percent foreign-born on the x-axis and the average percent foreign born of one’s neighbors (also known as the spatial lag) on the y-axis. This plot is known as a Moran scatterplot.</p>
+<p>You can create a Moran scatterplot using the function <code>moran.plot()</code>.</p>
+<pre class="r"><code>moran.plot(sac.metro.tracts.sp$pfb, sacw,
+           xlab = &quot;% foreign born&quot;,
+           ylab = &quot;Neighbors % foreign born&quot;)</code></pre>
+<p><img src="lab5_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
+<p>The first argument is the variable you want to calculate spatial autocorrelation for. Because we are in the <strong>sp</strong> world, which is not tidy friendly, we refer to variables in <em>sac.metro.tracts.sp</em>’s using the dollar sign <code>$</code>. <em>sac.metro.tracts.sp$pfb</em> will give you the percent foreign born as a vector.</p>
+<pre class="r"><code>sac.metro.tracts.sp$pfb</code></pre>
+<p>The second argument is the spatial weights matrix that defines neighbor and interaction. The <code>xlab</code> and <code>ylab</code> arguments provides clean labels for the x and y axes.</p>
+<p>The x-axis is a tract’s percent foreign born and the y-axis is the average percent foreign born of that tract’s neighbors. Looks like a fairly strong positive association - the higher your neighbors’ percent foreign born, the higher your own neighborhood’s percent foreign born. As we discussed in lecture, you can separate the plot into four quadrants based on positive and negative spatial autocorrelation.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="morans-i" class="section level3">
+<h3><strong>Moran’s I</strong></h3>
+<p><br />
+The map and Moran scatterplot provide descriptive visualizations of spatial clustering (autocorrelation) in the percent foreign born. But, rather than eyeballing the correlation, we need a quantitative and objective approach to measuring the degree to which places cluster. This is where measures of spatial autocorrelation step in. An index of spatial autocorrelation provides a summary over the entire study area of the level of spatial similarity observed among neighboring observations.</p>
+<p>The most popular test of spatial autocorrelation is the Moran’s I test. Use the command <code>moran.test()</code> in the <strong>spdep</strong> package to calculate the Moran’s I.</p>
+<pre class="r"><code>moran.test(sac.metro.tracts.sp$pfb, sacw)    </code></pre>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  sac.metro.tracts.sp$pfb  
+## weights: sacw    
+## 
+## Moran I statistic standard deviate = 23.926, p-value &lt; 2.2e-16
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##      0.6255551789     -0.0020703934      0.0006881139</code></pre>
+<p>We find that the Moran’s I is positive (0.63) and statistically significant (p-value &lt; 0.05). Remember from lecture that the Moran’s I is simply a correlation, and we learned from Handout 3 that correlations go from -1 to 1. A 0.63 correlation is fairly high (meeting the rule of thumb of 0.30 that OSU states on page 206), indicating strong positive clustering. Moreover, we find that this correlation is statistically significant (p-value basically at 0).</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="assignment-5" class="section level2">
+<h2><strong>Assignment 5</strong></h2>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn05.Rmd">Assignment 5 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas.</p>
+<ol style="list-style-type: decimal">
+<li>The figure below shows 25 neighborhoods in a hypothetical city. A white square represents 100% white residents and a black square represents 100% black residents. (1 point each)</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>If you use a Rook definition of contiguity, what is the spatial autocorrelation for percent black (don’t actually calculate a value, just describe what the autocorrelation should be)?</li>
+<li>What about if you use a Queen definition of contiguity?</li>
+<li>A Bishop measure of contiguity joins squares diagonally. What is the spatial autocorrelation if you use a Bishop definition of contiguity?</li>
+</ol>
+<center>
+<img src="hw5fig1.png" />
+</center>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Let’s examine the spatial autocorrelation of neighborhood race/ethnicity in the <a href="https://www.oaklandca.gov/">City of Oakland</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Use the <code>get_acs()</code> and <code>places()</code> functions to create an Oakland City <strong>sf</strong> object containing the following 2013-17 American Community Survey census-tract level variables: median household income, percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic. The ID variable name for income is “B19013_001”. The IDs for the number of white, black, Asian, and Hispanic residents are “B03002_003”, “B03002_004”, “B03002_006” and “B03002_012”, respectively. The ID for total population is “B03002_001”.</li>
+</ol>
+<p>Also merge in 2016 <a href="http://evictionlab.org/">housing eviction rates</a>, which I’ve uploaded on Github. Read the file using the following code</p>
+<pre><code>evictions &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/oakevict.csv&quot;) </code></pre>
+<p>This file contains only two variables: the tract ID <em>GEOID</em> and eviction rate <em>evrate</em>. Merge <em>evictions</em> into the Oakland city tract file you created using the <code>left_join()</code> function. (3 points)</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>Create maps of percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic using quantile breaks. Based on these maps, briefly explain whether you think spatial autocorrelation exists for each of these variables. (2 points)</p></li>
+<li><p>Convert your <strong>sf</strong> object into an <strong>sp</strong> object named <em>oak.tracts.sp</em>. Create an <em>nb</em> object and name it <em>oakb</em>. Create a spatial weights matrix object and name it <em>oakw</em>. Use Queen contiguity and row standardized weights.</p></li>
+</ol>
+<ul>
+<li>Run the following code and explain what the resulting plot is showing. (1 point)</li>
+</ul>
+<pre><code>plot(oak.tracts.sp)
+plot(oakb, coordinates(oak.tracts.sp), add=TRUE, col=&quot;red&quot;)</code></pre>
+<ul>
+<li>Run the following code and explain what the resulting vector is showing. (1 point)</li>
+</ul>
+<pre><code>oakw$weights[[13]]</code></pre>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Calculate Moran’s I for each percent race/ethnicity variable. Which race/ethnicity exhibits spatial autocorrelation? Why? (2 points)</li>
+</ol>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Let’s now examine median household income and housing eviction rates. Housing eviction has received significant <a href="https://www.citylab.com/equity/2017/10/where-evictions-hurt-the-most/544238/">public attention</a> especially in <a href="https://www.citylab.com/equity/2020/01/moms-4-housing-eviction-oakland-homeless-crisis-real-estate/605263/">Oakland</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Create maps of median household income and eviction rates using quantile breaks. Based on these maps, briefly explain whether you think spatial autocorrelation exists for each of these variables. (2 points)</li>
+<li>Present a scatterplot showing the relationship between household income and eviction rates. Also calculate the non-spatial correlation between the two variables. Explain your results. (2 points)</li>
+<li>Present Moran scatterplots for median household income and eviction rates. Also calculate the Moran’s I for each variable. Explain your results. (2 points)</li>
+<li>Explain the conceptual difference between the plot and correlation you calculated in 3b and the plots and correlations you calculated in 3c. (2 points)</li>
+</ol>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 </div>
