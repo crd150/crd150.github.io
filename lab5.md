@@ -129,7 +129,7 @@ ca.tracts <- get_acs(geography = "tract",
               select(-(moe)) %>%
               spread(key = variable, value = estimate) %>%
               mutate(pfb = fb/totp) %>%
-              select(GEOID, pfb)
+              select(GEOID, totp, pfb)
 ```
 
 Next, let's bring in the Sacramento metropolitan area boundary using `core_based_statistical_areas()` from the **tigris** package.
@@ -237,8 +237,8 @@ names(sac.metro.tracts.w)
 ```
 
 ```
-##  [1] "GEOID.x"  "pfb"      "CSAFP"    "CBSAFP"   "AFFGEOID" "GEOID.y" 
-##  [7] "NAME"     "LSAD"     "ALAND"    "AWATER"   "geometry"
+##  [1] "GEOID.x"  "totp"     "pfb"      "CSAFP"    "CBSAFP"   "AFFGEOID"
+##  [7] "GEOID.y"  "NAME"     "LSAD"     "ALAND"    "AWATER"   "geometry"
 ```
 
 Keep the necessary variables and rename *GEOID.x* back to *GEOID*.
@@ -369,9 +369,9 @@ names(sac.city.tracts.w)
 ```
 
 ```
-##  [1] "GEOID.x"  "pfb"      "STATEFP"  "PLACEFP"  "PLACENS"  "AFFGEOID"
-##  [7] "GEOID.y"  "NAME"     "LSAD"     "ALAND"    "AWATER"   "geometry"
-## [13] "area"
+##  [1] "GEOID.x"  "totp"     "pfb"      "STATEFP"  "PLACEFP"  "PLACENS" 
+##  [7] "AFFGEOID" "GEOID.y"  "NAME"     "LSAD"     "ALAND"    "AWATER"  
+## [13] "geometry" "area"
 ```
 
 <div style="margin-bottom:25px;">
@@ -413,8 +413,288 @@ View(sac.metro.tracts.sp)
 
 Delving into the feature data slot reveals a series of nested lists and S4 objects, which can be confusing to work with directly.  We won't go into the messy details of **sp** objects and how they differ from **sf** objects.  We'll stick with  **sf** objects when possible, but shift to **sp** when needed, dancing around the details as much as possible and only talking about them when necessary. If you are interested, you can learn more about the **sp** package [here](https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf), [here](https://cran.r-project.org/web/packages/sp/vignettes/over.pdf) and [here](http://www.nickeubank.com/gis-in-r/).  
 
+<div style="margin-bottom:25px;">
+</div>
+## **Wednesday lecture setup**
+\
+
+We went through spatial data wrangling operations during Monday's lecture.  Using these operations,  we created a spatial dataset containing census tracts within the Sacramento metropolitan area. Let's now use that dataset to calculate the spatial autocorrelation of percent foreign born.
+
+First, install the following packages if you have not already done so (we did this during Monday's lecture)
+
+
+```r
+install.packages("sp")
+install.packages("spdep")
+```
+
+If you get the question "Do you want to install from sources the package which needs compilation?", type in "no" and press return/enter.
+
+Next, load the following packages
+
+
+```r
+library(tidyverse)
+library(sf)
+library(tmap)
+library(sp)
+library(spdep)
+```
+
+Next, bring into R the Sacramento metropolitan area tract shapefile that we created on Monday.  For your convenience,  I uploaded the file onto GitHub and you can download it onto your hard drive using the following code.
+
+
+```r
+download.file(url = "https://raw.githubusercontent.com/crd150/data/master/week5wedfiles.zip", destfile = "week5wedfiles.zip")
+unzip(zipfile = "week5wedfiles.zip")
+```
+
+Read the shapefile into R using `st_read()`.
+
+
+```r
+sac.metro.tracts.w <- st_read("sacmetrotractsw.shp", stringsAsFactors = FALSE)
+```
+
+There are two census tracts with zero population.  An example of a zero population tract would be something like an airport or a tract located within a state or national forest.  Because nobody lives there, let's take these tracts out using the `filter()` function.
+
+
+```r
+sac.metro.tracts.w <- filter(sac.metro.tracts.w, totp != 0)
+```
+
+Now convert *sac.metro.tracts.w* to an **sp** object, which we need to do because the remaining functions in this lab only work with **sp** objects.  
+
+
+```r
+sac.metro.tracts.sp <- as(sac.metro.tracts.w, "Spatial")
+```
+
+*sac.metro.tracts.w* contains percent foreign born and total population for tracts in the Sacramento metropolitan area.  *sac.metro.tracts.sp* is the **sp** version of *sac.metro.tracts.w*.  Go through the first half of the lab to determine how these objects were created.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Spatial autocorrelation**
+\
+
+Our next goal is to determine whether the foreign-born population in Sacramento geographically clusters. Let's focus on the Sacramento metropolitan area.  We can explore clustering by examining maps and scatterplots. We can also formally test for clustering by calculating the Moran's I, which was covered in OSU Ch. 7.
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Exploratory mapping**
+\
+
+ Before computing spatial autocorrelation, you should map your variable to see if it *looks* like it clusters across space.  Using the function `tm_shape()` and the mapping principles we learned in last week's lecture, let's make a nice map showing the proportion (or percent) foreign-born in the Sacramento metro area using quantile breaks.
+
+
+```r
+tm_shape(sac.metro.tracts.w, unit = "mi") +
+  tm_polygons(col = "pfb", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "") +
+  tm_scale_bar(breaks = c(0, 10, 20), size = 1) +
+  tm_compass(type = "4star", position = c("left", "bottom")) + 
+  tm_layout(main.title = "Percent foreign-born in Sacramento Metropolitan Area 
+            Tracts",  main.title.size = 0.95, frame = FALSE)
+```
+
+![](lab5_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+  
+It does look like the foreign-born population clusters.  In particular, there appears to be high concentrations of foreign-born residents in South and North Sacramento city and the more fringe areas of the metro in the North.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Spatial weights matrix**
+\
+
+Before we can formally model the spatial dependency shown in the above map, we must first cover how neighborhoods are spatially connected to one another.  That is, what does "near" mean when we say "near things are more related than distant things"?   You need to define
+
+1. Neighbor connectivity (who is you neighbor?)
+2. Neighbor weights (how much does your neighbor matter?)
+
+The functions we will use below are specific to **sp** objects.  As a general rule, we’ll stick with our **sf** object *sac.metro.tracts.w* when possible, but shift to *sac.metro.tracts.sp* when needed.  
+
+<div style="margin-bottom:25px;">
+</div>
+#### **Neighbor connectivity**
+\
+
+A common way of defining neighbors is to see who shares a border.  The two most common ways of defining contiguity is Rook and Queen adjacency (Figure 3).  Rook adjacency refers to neighbors that share a line segment.  Queen adjacency refers to neighbors that share a line segment (or border) or a point (or vertex).
+
+
+<center>
+![Figure 3: Geographic contiguity](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/fig1.png)
+
+</center>
+
+Neighbor relationships in R are represented by neighbor *nb* objects.  An *nb* object identifies the neighbors for each feature in the dataset.  We use the command `poly2nb()` from the **spdep** package to create a contiguity-based neighbor object.  
+
+Let's specify Queen connectivity.  The function `poly2nb()` only takes in **sp** objects, so we'll need to use *sac.metro.tracts.sp* here.
+
+
+```r
+sacb<-poly2nb(sac.metro.tracts.sp, queen=T)
+```
+
+You plug the object *sac.metro.tracts.sp* into the first argument of `poly2nb()` and then specify Queen contiguity using the argument `queen=T`. To get Rook adjacency, change the argument to `queen=F`. 
+
+The function `summary()` tells us something about the neighborhood. 
+
+
+```r
+summary(sacb)
+```
+
+The average number of neighbors (adjacent polygons) is 6.3, 1 polygon has 1 neighbor and 1 has 18 neighbors.
+
+
+<div style="margin-bottom:25px;">
+</div>
+#### **Neighbor weights**
+\
+
+We've established who our neighbors are by creating an *nb* object.  The next step is to assign weights to each neighbor relationship. The weight determines *how much* each neighbor counts.  You will need to employ the `nb2listw()` command, which will you give you a spatial weights object.
+
+
+```r
+sacw<-nb2listw(sacb, style="W", zero.policy = TRUE)
+```
+
+In the command, you first put in your neighbor *nb* object (*sacb*) and then define the weights `style = "W"`. Here, `style = "W"` indicates that the weights for each spatial unit are standardized to sum to 1 (this is known as row standardization - see page 49 in OSU).  For example, if census tract 1 has 3 neighbors, each of those neighbors will have weights of 1/3. This allows for comparability between areas with different numbers of neighbors.
+
+The `zero.policy = TRUE` argument tells R to ignore cases that have **no** neighbors.  How can this occur?  Figure 4 provides an example.  It shows tracts in Los Angeles county.  You'll notice two tracts that are not geographically adjacent to other tracts - they are literally islands (Catalina and San Clemente). So, if you specify queen adjacency, these islands would have no neighbors.   If you conduct a spatial analysis of Los Angeles county tracts in R, most functions will spit out an error indicating that you have polygons with no neighbors.  To avoid that, specify `zero.policy = TRUE`, which will ignore all cases without neighbors.
+
+
+<center>
+![Figure 4: Los Angeles county tracts](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/lacounty.png)
+
+</center>
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Moran Scatterplot**
+\
+
+We've now defined what we mean by neighbor by creating an *nb* object and the influence of each neighbor by creating a spatial weights matrix.  The map of percent foreign born showed that neighborhood percent foreign born appears to be clustered in Sacramento. We can visually explore this a little more by plotting percent foreign-born on the x-axis and the average percent foreign born of one's neighbors (also known as the spatial lag) on the y-axis.  This plot is known as a Moran scatterplot.  
+
+You can create a Moran scatterplot using the function `moran.plot()`. 
+
+
+```r
+moran.plot(sac.metro.tracts.sp$pfb, sacw,
+           xlab = "% foreign born",
+           ylab = "Neighbors % foreign born")
+```
+
+![](lab5_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
+
+
+The first argument is the variable you want to calculate spatial autocorrelation for. Because we are in the **sp** world, which is not tidy friendly, we refer to variables in *sac.metro.tracts.sp*'s using the dollar sign `$`. *sac.metro.tracts.sp$pfb* will give you the percent foreign born as a vector.
+
+
+```r
+sac.metro.tracts.sp$pfb
+```
+
+The second argument is the spatial weights matrix that defines neighbor and interaction.  The `xlab` and `ylab` arguments provides clean labels for the x and y axes.
+
+The x-axis is a tract's percent foreign born and the y-axis is the average percent foreign born of that tract's neighbors. Looks like a fairly strong positive association - the higher your neighbors' percent foreign born, the higher your own neighborhood's percent foreign born.  As we discussed in lecture, you can separate the plot into four quadrants based on positive and negative spatial autocorrelation. 
+
+<div style="margin-bottom:25px;">
+</div>
+### **Moran's I**
+\
+
+The map and Moran scatterplot provide descriptive visualizations of spatial clustering (autocorrelation) in the percent foreign born.  But, rather than eyeballing the correlation, we need a quantitative and objective approach to measuring the degree to which places cluster.  This is where measures of spatial autocorrelation step in.  An index of spatial autocorrelation provides a summary over the entire study area of the level of spatial similarity observed among neighboring observations.  
+
+The most popular test of spatial autocorrelation is the Moran’s I test.  Use the command `moran.test()` in the **spdep** package to calculate the Moran's I.
+
+
+```r
+moran.test(sac.metro.tracts.sp$pfb, sacw)    
+```
+
+```
+## 
+## 	Moran I test under randomisation
+## 
+## data:  sac.metro.tracts.sp$pfb  
+## weights: sacw    
+## 
+## Moran I statistic standard deviate = 23.926, p-value < 2.2e-16
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##      0.6255551789     -0.0020703934      0.0006881139
+```
+
+We find that the Moran's I is positive (0.63) and statistically significant (p-value < 0.05). Remember from lecture that the Moran's I is simply a correlation, and we learned from Handout 3 that correlations go from -1 to 1.  A 0.63 correlation is fairly high (meeting the rule of thumb of 0.30 that OSU states on page 206), indicating strong positive clustering.  Moreover, we find that this correlation is statistically significant (p-value basically at 0).
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Assignment 5**
+
+
+Download and open the [Assignment 5 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn05.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
+
+1. The figure below shows 25 neighborhoods in a hypothetical city.  A white square represents 100% white residents and a black square represents 100% black residents.  (1 point each)
+
+a. If you use a Rook definition of contiguity, what is the spatial autocorrelation for percent black (don't actually calculate a value, just describe what the autocorrelation should be)? 
+b. What about if you use a Queen definition of contiguity? 
+c. A Bishop measure of contiguity joins squares diagonally.  What is the spatial autocorrelation if you use a Bishop definition of contiguity? 
+
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hw5fig1.png)
+</center>
+
+<br>
+
+2. Let's examine the spatial autocorrelation of neighborhood race/ethnicity in the [City of Oakland](https://www.oaklandca.gov/).
+
+a. Use the `get_acs()` and `places()` functions to create an Oakland City **sf** object containing the following 2013-17 American Community Survey census-tract level variables: median household income, percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic. The ID variable name for income is "B19013_001". The IDs for the number of white, black, Asian, and Hispanic residents are "B03002_003", "B03002_004", "B03002_006" and "B03002_012", respectively.  The ID for total population is "B03002_001". 
+
+Also merge in 2016 [housing eviction rates](http://evictionlab.org/), which I've uploaded on Github. Read the file using the following code
+
+````
+evictions <- read_csv("https://raw.githubusercontent.com/crd150/data/master/oakevict.csv") 
+````
+
+This file contains only two variables: the tract ID *GEOID* and eviction rate *evrate*.  Merge *evictions* into the Oakland city tract file you created using the `left_join()` function. (3 points) 
+
+b. Create maps of percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic using quantile breaks. Based on these maps, briefly explain whether you think spatial autocorrelation exists for each of these variables. (2 points)
+
+c. Convert your **sf** object into an **sp** object named *oak.tracts.sp*. Create an *nb* object and name it *oakb*. Create a spatial weights matrix object and name it *oakw*. Use Queen contiguity and row standardized weights.
+
+  + Run the following code and explain what the resulting plot is showing. (1 point)
+
+````
+plot(oak.tracts.sp)
+plot(oakb, coordinates(oak.tracts.sp), add=TRUE, col="red")
+````
+
+  + Run the following code and explain what the resulting vector is showing. (1 point)
+
+````
+oakw$weights[[13]]
+````
+
+d. Calculate Moran's I for each percent race/ethnicity variable. Which race/ethnicity exhibits spatial autocorrelation? Why? (2 points)
+
+<br>
+
+3. Let's now examine median household income and housing eviction rates. Housing eviction has received significant [public attention](https://www.citylab.com/equity/2017/10/where-evictions-hurt-the-most/544238/) especially in [Oakland](https://www.citylab.com/equity/2020/01/moms-4-housing-eviction-oakland-homeless-crisis-real-estate/605263/).  
+
+a. Create maps of median household income and eviction rates using quantile breaks. Based on these maps, briefly explain whether you think spatial autocorrelation exists for each of these variables. (2 points)
+b. Present a scatterplot showing the relationship between household income and eviction rates. Also calculate the non-spatial correlation between the two variables. Explain your results. (2 points)
+c. Present Moran scatterplots for median household income and eviction rates. Also calculate the Moran's I for each variable. Explain your results. (2 points)
+d. Explain the conceptual difference between the plot and correlation you calculated in 3b and the plots and correlations you calculated in 3c. (2 points)
+
 
 ***
+
 
 
 Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
