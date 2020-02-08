@@ -430,7 +430,7 @@ install.packages("spdep")
 
 If you get the question "Do you want to install from sources the package which needs compilation?", type in "no" and press return/enter.
 
-Next, load the following packages
+Next, load the following packages.
 
 
 ```r
@@ -691,6 +691,7 @@ a. Create maps of median household income and eviction rates using quantile brea
 b. Present a scatterplot showing the relationship between household income and eviction rates. Also calculate the non-spatial correlation between the two variables. Explain your results. (2 points)
 c. Present Moran scatterplots for median household income and eviction rates. Also calculate the Moran's I for each variable. Explain your results. (2 points)
 d. Explain the conceptual difference between the plot and correlation you calculated in 3b and the plots and correlations you calculated in 3c. (2 points)
+
 
 
 ***
