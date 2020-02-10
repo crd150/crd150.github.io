@@ -380,6 +380,12 @@ div.tocify {
     <li>
       <a href="lab4.html">Lab 4</a>
     </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -406,6 +412,9 @@ div.tocify {
     </li>
     <li>
       <a href="missingdata.html">Missing Data</a>
+    </li>
+    <li>
+      <a href="georeferencing.html">Mapping Coordinates</a>
     </li>
   </ul>
 </li>
@@ -473,7 +482,7 @@ h2.title {
 </style>
 <p><br />
 </p>
-<p>In this guide we will cover the spatial data wrangling task of converting point data from a nonspatial to a spatial format. This process involves using geographic coordinates (longitude and latitude) to place points on a map. This task is intimately related to the concept of projection and reprojection, and underlying all of these concepts is a Coordinate Reference System. In this guide, we will go through the process of using geographic coordinates to place points on a map using the San Francisco car break in data used in [Lab 6]9https://crd150.github.io/lab6.html).</p>
+<p>In this guide we will cover the spatial data wrangling task of converting point data from a nonspatial to a spatial format. This process involves using geographic coordinates (longitude and latitude) to place points on a map. This task is intimately related to the concept of projection and reprojection, and underlying all of these concepts is a Coordinate Reference System. In this guide, we will go through the process of using geographic coordinates to place points on a map using the San Francisco car break in data used in <a href="https://crd150.github.io/lab6.html">Lab 6</a>.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -580,7 +589,7 @@ We won’t go through the <em>real</em> nuts and bolts of CRS, which you can rea
 <div id="reprojecting-points" class="section level3">
 <h3><strong>Reprojecting points</strong></h3>
 <p><br />
-The third important thing is your CRS should be compatible with the functions you plan to use on your data. An important compatability issue is that your spatial data should have the appropriate distance metric like meters or miles. Distance in longitude/latitude is in <a href="https://en.wikipedia.org/wiki/Decimal_degrees">decimal degrees</a> which (1) most people don’t understand and (2) is not compatible with several spatial functions.</p>
+The third important thing is your CRS should be compatible with the functions you plan to use on your data. An important compatibility issue is that your spatial data should have the appropriate distance metric like meters or miles. Distance in longitude/latitude is in <a href="https://en.wikipedia.org/wiki/Decimal_degrees">decimal degrees</a> which (1) most people don’t understand and (2) is not compatible with several spatial functions.</p>
 <p>We can find out the units of a spatial data set by using the <code>st_crs()</code> function and calling up units as follows</p>
 <pre class="r"><code>st_crs(break.sf)$units</code></pre>
 <pre><code>## NULL</code></pre>

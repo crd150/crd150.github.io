@@ -51,6 +51,266 @@ h2.title {
 
 
 
+In our journey into spatial R, we've been exclusively working with polygon data. In this guide you will learn how to handle and descriptively analyze point data in R.  The objectives of the guide are as follows 
+
+1. Learn basic spatial point data operations 
+2. Learn how to map point data
+3. Learn how to examine point patterns
+
+The guide will use data from the [San Francisco Open Data Portal](https://datasf.org/opendata/). Specifically, we will examine the spatial distribution of car break ins, which has gotten a lot of recent [public attention](https://www.sfchronicle.com/news/article/Gone-in-5-seconds-SF-neighborhood-police-12545144.php).
+
+
+This lab guide follows closely and supplements the material presented in Chapters 2.4, 2.5, 4.2 and 6  in the textbook [Geocomputation with R](https://geocompr.robinlovelace.net/) (GWR) and Chapter 5 in the textbook [Geographic Information Analysis](https://onlinelibrary.wiley.com/doi/book/10.1002/9780470549094). 
+
+<p class="comment", style="font-style:normal">**Assignment 6 is due by 11:59 pm, February 20th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn06. For example: brazil_n_asgn06.</p>
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Open up a R Markdown file**
+\
+
+Download the [Lab template](https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd) into an appropriate folder on your hard drive (preferably, a folder named 'Lab 6'), open it in R Studio, and type and run your code there.  Change the title ("Lab 6") and insert your name and date. Don't change anything else inside the YAML (the stuff at the top in between the `---`).  
+
+<div style="margin-bottom:25px;">
+</div>
+## **Installing and loading packages**
+\
+
+You’ll need to install the following package in R. We’ll talk about what this package provides as its relevant functions come up in the guide.
+
+
+```r
+install.packages("spatstat")
+install.packages("tmaptools")
+```
+
+When you install, R might ask you the following question: Do you want to install from sources the package which needs compilation?
+
+<br>
+
+Politely type in "no" and press enter/return.
+
+<br>
+
+You’ll need to load the following packages. Unlike installing, you will always need to load packages whenever you start a new R session. You’ll also always need to use `library()` in your R Markdown file.
+
+
+```r
+library(sf)
+library(sp)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+options(tigris_class = "sf")
+library(tmap)
+library(rmapshaper)
+library(units)
+library(tmaptools)
+library(spatstat)
+```
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Bringing in data**
+\
+
+First, download a zipped file of the shapefile data we will be using in this lab from GitHub using the following code. 
+
+
+```r
+download.file(url = "https://raw.githubusercontent.com/crd150/data/master/lab6files.zip", destfile = "lab6files.zip")
+unzip(zipfile = "lab6files.zip")
+```
+
+The files were downloaded into your current working directory folder (see `getwd()`).
+
+Second, read San Francisco city boundary shapefile data into R using the function `st_read()`
+
+
+```r
+sanfran.city <- st_read("sfcity.shp")
+```
+
+Third, read San Francisco city tract shapefile data 
+
+
+```r
+sanfran.tracts <- st_read("sftracts.shp")
+```
+
+The file contains total population (*tpop*), percent non-Hispanic white (*pnhwhite*), percent non-Hispanic Asian (*pnhasn*), percent non-Hispanic black (*pnhblk*), and percent Hispanic (*phisp*).
+
+Finally, read in San Francisco point data of car break ins in 2017
+
+
+```r
+sanfran.breakins <- st_read("sfbreakins.shp")
+```
+
+Notice that we have 27,444 break ins with 8 attributes. The geometry type is *POINT*.  Do a `View()` of the data to see the data.
+
+In lecture, I went through the steps for downloading a csv file of car break ins from the San Francisco open data portal.  The next step is to use the longitude (X) and latitude (Y) information to transform the data into a point spatial object.  How do you do that? It is a bit complex, as you need to understand the concept of a Coordinate Reference System (CRS). Check the mini lab on [georeferencing](https://crd150.github.io/georeferencing.html) to understand how we converted the csv into the *sfbreakins.shp* file you read in above. We also uploaded a brief handout on Canvas (Week 6 readings folder - OverviewCoordinateReferenceSystems.pdf) that briefly describes CRS.  Although this lab guide and all assignments will not require you to understand the material presented in the CRS mini lab and handout, I encourage you to read them carefully if you are planning to use point data in your final project.
+
+You should get a map that looks like
+
+
+```r
+tm_shape(sanfran.city) +
+  tm_polygons() +
+tm_shape(sanfran.breakins) +  
+  tm_dots(col="red")
+```
+
+![](lab6_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
+
+Welcome to [San](https://www.youtube.com/watch?v=tNG62fULYgI) [Francisco!](https://www.youtube.com/watch?v=SC73kdOL5hk)
+
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **spatstat package**
+\
+
+As we learned in [Lab 5](https://crd150.github.io/lab5.html) when we calculated spatial autocorrelation, **sf** spatial objects are not compatible with many spatial functions. This is the case here with spatial point pattern analysis methods.  We will be using the package **spatstat**, which has a number of useful functions for point pattern analysis.  The downside is that it introduces yet another object class: **ppp** objects.  Fortunately, the package is [well documented](http://spatstat.github.io/) and is not too difficult to get used to. As we have done with **sp**, we'll limit the nuts and bolts of how **ppp** objects work, and we'll stick to **sf** point objects whenever possible.  
+
+There is no function that directly converts **sf** to **ppp**.  We'll need to convert *sanfran.breakins* first to an **sp** object using the `as()` function, which is a part of the **sf** package and was described in [Lab 5](https://crd150.github.io/lab5.html#sf_vs_sp_spatial_objects).
+
+
+```r
+sanfran.breakins.sp <- as(sanfran.breakins, "Spatial")
+```
+
+Then convert this **sp** point object to a **ppp** object using `as()`
+
+
+```r
+sanfran.breakins.ppp <- as(sanfran.breakins.sp, "ppp")
+```
+
+Before we start running the point pattern analyses described in OSU Chapter 5, we need to clean the *sanfran.breakins.ppp* a bit.
+
+First, note that a *ppp* object may or may not have variables or attribute information.  In the **spatstat** world, variables are referred to as *marks*.
+
+In this lab we will only concern ourselves with the pattern generated by the points and not their attributes. We therefore remove all variables or marks from the point object by using the `marks()` function and setting it to `NULL`
+
+
+```r
+marks(sanfran.breakins.ppp)  <- NULL
+```
+
+Second, many point pattern analyses need to have their study boundaries explicitly defined. This is the window through which we are observing the points. In this lab's case study, the City of San Francisco is our study boundary or window. **spatstat** uses a special boundary object - an *owin*, which stands for observation window.  We will need to coerce *sanfran.city* to an object of class *owin* using the function `as.owin()`.  Similar to the **sf** to **ppp** conversion, you need to convert **sf** objects first to **sp** to coerce it into a *owin* object
+
+
+```r
+sanfran.city.sp <- as(sanfran.city, "Spatial")
+```
+
+And then use the function `as.owin()` to convert *sanfran.city.sp* to an *owin* object
+
+
+```r
+sanfran.city.owin <- as.owin(sanfran.city.sp)
+class(sanfran.city.owin)
+```
+
+```
+## [1] "owin"
+```
+
+Third, you need to set or “bind” the city boundary *sanfran.city.owin* to the *sanfran.breakins.ppp* point feature object to establish the study window. Use the `Window()` function, which is a **spatstat** function. 
+
+
+
+```r
+Window(sanfran.breakins.ppp) <- sanfran.city.owin
+```
+
+Let's plot *sanfran.breakins.ppp* and  *sanfran.city.owin* and see what we get.
+
+
+```r
+plot(sanfran.city.owin, col='light blue')
+points(sanfran.breakins.ppp, col='red', cex=.5, pch='+')
+```
+
+![](lab6_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+
+It might take some time before the break ins appear because there are over 27,000 of them.  You'll notice that rather than `ggplot()` or `tm_shape()`, we rely on the basic `plot()` function to map the points.  Part of this is due to **ppp** and *owin* objects not working well with `ggplot()` and `tm_shape()`.  Another reason is that the purpose of this specific lab is to do analysis and less about presenting your results, and `plot()` is a quick and dirty way to visualize our data.  We do provide a few presentation-ready maps below using `tm_shape()` where applicable.
+
+Were now ready to do some point pattern analyses. Huzzah! 
+
+<div style="margin-bottom:25px;">
+</div>
+## **Centrography**
+\
+
+Before considering more complex approaches, let's compute the mean center and standard distance for the break in data as described on page 125 of OSU.  To calculate these values, you'll need to extract the x and y coordinates from the *sanfran.breakins.ppp* object using the function `coords()`
+
+
+```r
+xy <- coords(sanfran.breakins.ppp)
+xy
+```
+
+And then compute the mean center following equation 5.1 on page 125.  We'll use our best bud `summarize()` to help us out here.
+
+
+```r
+# mean center
+mc <- summarize(xy, xmean = mean(x), ymean = mean(y))
+mc
+```
+
+```
+##      xmean   ymean
+## 1 550552.1 4181222
+```
+
+And then standard distance using equation 5.2 on page 125.
+
+
+```r
+# standard distance
+sqrt(sum((xy[,1] - mc[1])^2 + (xy[,2] - mc[2])^2) / nrow(xy))
+```
+
+```
+## [1] 19.80844
+```
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Point density**
+\
+
+Centrography is rather dull because it ignores spatial variation in the data.  Instead, we can explicitly examine the distribution of points across a geographic area. This is measuring first-order effects.  First-order effects or patterns look at trends over space and are typically measured by point density.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Overall density**
+\
+
+The overall density given in equation 5.3 in OSU on page 126 can be calculated as follows
+
+
+```r
+CityArea <- as.numeric(st_area(sanfran.city))
+nrow(xy) / CityArea
+```
+
+```
+## [1] 0.0002223546
+```
+
+The code `as.numeric(st_area(sanfran.city))` calculates the area (in meters squared) of San Francisco city, which represents the value *a* in formula 5.3. `nrow(xy)` represents the number of break ins in the city, which represents the value *n*.
+
+Overall density is a little bit better than the centrography measures, but it is still a single number, and thus we can do better. As OSU states on page 127, we lose a lot of information when we calculate a single summary statistic like overall density.  Let's go through the two "local" density approaches covered in OSU: Quadrat and Kernel density. We'll also go back to our old friend the census tract to discuss an important spatial point operation, summing up points in polygons.
+
 
 ***
 

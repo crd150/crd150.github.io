@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 6: Point Pattern Analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Eligible Communities</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+    <li>
+      <a href="nhgis.html">Using NHGIS</a>
+    </li>
+    <li>
+      <a href="policymap.html">Using PolicyMap</a>
+    </li>
+    <li>
+      <a href="missingdata.html">Missing Data</a>
+    </li>
+    <li>
+      <a href="georeferencing.html">Mapping Coordinates</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 6: Point Pattern Analysis</h1>
+<h3 class="subtitle"><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></h3>
+<h4 class="author"><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></h4>
+<h4 class="date"><h4 style="font-style:normal">
+February 14, 2020
+</h4></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+<p><br />
+</p>
+<p>In our journey into spatial R, we’ve been exclusively working with polygon data. In this guide you will learn how to handle and descriptively analyze point data in R. The objectives of the guide are as follows</p>
+<ol style="list-style-type: decimal">
+<li>Learn basic spatial point data operations</li>
+<li>Learn how to map point data</li>
+<li>Learn how to examine point patterns</li>
+</ol>
+<p>The guide will use data from the <a href="https://datasf.org/opendata/">San Francisco Open Data Portal</a>. Specifically, we will examine the spatial distribution of car break ins, which has gotten a lot of recent <a href="https://www.sfchronicle.com/news/article/Gone-in-5-seconds-SF-neighborhood-police-12545144.php">public attention</a>.</p>
+<p>This lab guide follows closely and supplements the material presented in Chapters 2.4, 2.5, 4.2 and 6 in the textbook <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> (GWR) and Chapter 5 in the textbook <a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9780470549094">Geographic Information Analysis</a>.</p>
+<p class="comment" , style="font-style:normal">
+<strong>Assignment 6 is due by 11:59 pm, February 20th on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn06. For example: brazil_n_asgn06.
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="open-up-a-r-markdown-file" class="section level2">
+<h2><strong>Open up a R Markdown file</strong></h2>
+<p><br />
+Download the <a href="https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd">Lab template</a> into an appropriate folder on your hard drive (preferably, a folder named ‘Lab 6’), open it in R Studio, and type and run your code there. Change the title (“Lab 6”) and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>).</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="installing-and-loading-packages" class="section level2">
+<h2><strong>Installing and loading packages</strong></h2>
+<p><br />
+You’ll need to install the following package in R. We’ll talk about what this package provides as its relevant functions come up in the guide.</p>
+<pre class="r"><code>install.packages(&quot;spatstat&quot;)
+install.packages(&quot;tmaptools&quot;)</code></pre>
+<p>When you install, R might ask you the following question: Do you want to install from sources the package which needs compilation?</p>
+<p><br></p>
+<p>Politely type in “no” and press enter/return.</p>
+<p><br></p>
+<p>You’ll need to load the following packages. Unlike installing, you will always need to load packages whenever you start a new R session. You’ll also always need to use <code>library()</code> in your R Markdown file.</p>
+<pre class="r"><code>library(sf)
+library(sp)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+options(tigris_class = &quot;sf&quot;)
+library(tmap)
+library(rmapshaper)
+library(units)
+library(tmaptools)
+library(spatstat)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="bringing-in-data" class="section level2">
+<h2><strong>Bringing in data</strong></h2>
+<p><br />
+First, download a zipped file of the shapefile data we will be using in this lab from GitHub using the following code.</p>
+<pre class="r"><code>download.file(url = &quot;https://raw.githubusercontent.com/crd150/data/master/lab6files.zip&quot;, destfile = &quot;lab6files.zip&quot;)
+unzip(zipfile = &quot;lab6files.zip&quot;)</code></pre>
+<p>The files were downloaded into your current working directory folder (see <code>getwd()</code>).</p>
+<p>Second, read San Francisco city boundary shapefile data into R using the function <code>st_read()</code></p>
+<pre class="r"><code>sanfran.city &lt;- st_read(&quot;sfcity.shp&quot;)</code></pre>
+<p>Third, read San Francisco city tract shapefile data</p>
+<pre class="r"><code>sanfran.tracts &lt;- st_read(&quot;sftracts.shp&quot;)</code></pre>
+<p>The file contains total population (<em>tpop</em>), percent non-Hispanic white (<em>pnhwhite</em>), percent non-Hispanic Asian (<em>pnhasn</em>), percent non-Hispanic black (<em>pnhblk</em>), and percent Hispanic (<em>phisp</em>).</p>
+<p>Finally, read in San Francisco point data of car break ins in 2017</p>
+<pre class="r"><code>sanfran.breakins &lt;- st_read(&quot;sfbreakins.shp&quot;)</code></pre>
+<p>Notice that we have 27,444 break ins with 8 attributes. The geometry type is <em>POINT</em>. Do a <code>View()</code> of the data to see the data.</p>
+<p>In lecture, I went through the steps for downloading a csv file of car break ins from the San Francisco open data portal. The next step is to use the longitude (X) and latitude (Y) information to transform the data into a point spatial object. How do you do that? It is a bit complex, as you need to understand the concept of a Coordinate Reference System (CRS). Check the mini lab on <a href="https://crd150.github.io/georeferencing.html">georeferencing</a> to understand how we converted the csv into the <em>sfbreakins.shp</em> file you read in above. We also uploaded a brief handout on Canvas (Week 6 readings folder - OverviewCoordinateReferenceSystems.pdf) that briefly describes CRS. Although this lab guide and all assignments will not require you to understand the material presented in the CRS mini lab and handout, I encourage you to read them carefully if you are planning to use point data in your final project.</p>
+<p>You should get a map that looks like</p>
+<pre class="r"><code>tm_shape(sanfran.city) +
+  tm_polygons() +
+tm_shape(sanfran.breakins) +  
+  tm_dots(col=&quot;red&quot;)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-7-1.png" /><!-- --></p>
+<p>Welcome to <a href="https://www.youtube.com/watch?v=tNG62fULYgI">San</a> <a href="https://www.youtube.com/watch?v=SC73kdOL5hk">Francisco!</a></p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="spatstat-package" class="section level3">
+<h3><strong>spatstat package</strong></h3>
+<p><br />
+As we learned in <a href="https://crd150.github.io/lab5.html">Lab 5</a> when we calculated spatial autocorrelation, <strong>sf</strong> spatial objects are not compatible with many spatial functions. This is the case here with spatial point pattern analysis methods. We will be using the package <strong>spatstat</strong>, which has a number of useful functions for point pattern analysis. The downside is that it introduces yet another object class: <strong>ppp</strong> objects. Fortunately, the package is <a href="http://spatstat.github.io/">well documented</a> and is not too difficult to get used to. As we have done with <strong>sp</strong>, we’ll limit the nuts and bolts of how <strong>ppp</strong> objects work, and we’ll stick to <strong>sf</strong> point objects whenever possible.</p>
+<p>There is no function that directly converts <strong>sf</strong> to <strong>ppp</strong>. We’ll need to convert <em>sanfran.breakins</em> first to an <strong>sp</strong> object using the <code>as()</code> function, which is a part of the <strong>sf</strong> package and was described in <a href="https://crd150.github.io/lab5.html#sf_vs_sp_spatial_objects">Lab 5</a>.</p>
+<pre class="r"><code>sanfran.breakins.sp &lt;- as(sanfran.breakins, &quot;Spatial&quot;)</code></pre>
+<p>Then convert this <strong>sp</strong> point object to a <strong>ppp</strong> object using <code>as()</code></p>
+<pre class="r"><code>sanfran.breakins.ppp &lt;- as(sanfran.breakins.sp, &quot;ppp&quot;)</code></pre>
+<p>Before we start running the point pattern analyses described in OSU Chapter 5, we need to clean the <em>sanfran.breakins.ppp</em> a bit.</p>
+<p>First, note that a <em>ppp</em> object may or may not have variables or attribute information. In the <strong>spatstat</strong> world, variables are referred to as <em>marks</em>.</p>
+<p>In this lab we will only concern ourselves with the pattern generated by the points and not their attributes. We therefore remove all variables or marks from the point object by using the <code>marks()</code> function and setting it to <code>NULL</code></p>
+<pre class="r"><code>marks(sanfran.breakins.ppp)  &lt;- NULL</code></pre>
+<p>Second, many point pattern analyses need to have their study boundaries explicitly defined. This is the window through which we are observing the points. In this lab’s case study, the City of San Francisco is our study boundary or window. <strong>spatstat</strong> uses a special boundary object - an <em>owin</em>, which stands for observation window. We will need to coerce <em>sanfran.city</em> to an object of class <em>owin</em> using the function <code>as.owin()</code>. Similar to the <strong>sf</strong> to <strong>ppp</strong> conversion, you need to convert <strong>sf</strong> objects first to <strong>sp</strong> to coerce it into a <em>owin</em> object</p>
+<pre class="r"><code>sanfran.city.sp &lt;- as(sanfran.city, &quot;Spatial&quot;)</code></pre>
+<p>And then use the function <code>as.owin()</code> to convert <em>sanfran.city.sp</em> to an <em>owin</em> object</p>
+<pre class="r"><code>sanfran.city.owin &lt;- as.owin(sanfran.city.sp)
+class(sanfran.city.owin)</code></pre>
+<pre><code>## [1] &quot;owin&quot;</code></pre>
+<p>Third, you need to set or “bind” the city boundary <em>sanfran.city.owin</em> to the <em>sanfran.breakins.ppp</em> point feature object to establish the study window. Use the <code>Window()</code> function, which is a <strong>spatstat</strong> function.</p>
+<pre class="r"><code>Window(sanfran.breakins.ppp) &lt;- sanfran.city.owin</code></pre>
+<p>Let’s plot <em>sanfran.breakins.ppp</em> and <em>sanfran.city.owin</em> and see what we get.</p>
+<pre class="r"><code>plot(sanfran.city.owin, col=&#39;light blue&#39;)
+points(sanfran.breakins.ppp, col=&#39;red&#39;, cex=.5, pch=&#39;+&#39;)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<p>It might take some time before the break ins appear because there are over 27,000 of them. You’ll notice that rather than <code>ggplot()</code> or <code>tm_shape()</code>, we rely on the basic <code>plot()</code> function to map the points. Part of this is due to <strong>ppp</strong> and <em>owin</em> objects not working well with <code>ggplot()</code> and <code>tm_shape()</code>. Another reason is that the purpose of this specific lab is to do analysis and less about presenting your results, and <code>plot()</code> is a quick and dirty way to visualize our data. We do provide a few presentation-ready maps below using <code>tm_shape()</code> where applicable.</p>
+<p>Were now ready to do some point pattern analyses. Huzzah!</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="centrography" class="section level2">
+<h2><strong>Centrography</strong></h2>
+<p><br />
+Before considering more complex approaches, let’s compute the mean center and standard distance for the break in data as described on page 125 of OSU. To calculate these values, you’ll need to extract the x and y coordinates from the <em>sanfran.breakins.ppp</em> object using the function <code>coords()</code></p>
+<pre class="r"><code>xy &lt;- coords(sanfran.breakins.ppp)
+xy</code></pre>
+<p>And then compute the mean center following equation 5.1 on page 125. We’ll use our best bud <code>summarize()</code> to help us out here.</p>
+<pre class="r"><code># mean center
+mc &lt;- summarize(xy, xmean = mean(x), ymean = mean(y))
+mc</code></pre>
+<pre><code>##      xmean   ymean
+## 1 550552.1 4181222</code></pre>
+<p>And then standard distance using equation 5.2 on page 125.</p>
+<pre class="r"><code># standard distance
+sqrt(sum((xy[,1] - mc[1])^2 + (xy[,2] - mc[2])^2) / nrow(xy))</code></pre>
+<pre><code>## [1] 19.80844</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="point-density" class="section level2">
+<h2><strong>Point density</strong></h2>
+<p><br />
+Centrography is rather dull because it ignores spatial variation in the data. Instead, we can explicitly examine the distribution of points across a geographic area. This is measuring first-order effects. First-order effects or patterns look at trends over space and are typically measured by point density.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="overall-density" class="section level3">
+<h3><strong>Overall density</strong></h3>
+<p><br />
+The overall density given in equation 5.3 in OSU on page 126 can be calculated as follows</p>
+<pre class="r"><code>CityArea &lt;- as.numeric(st_area(sanfran.city))
+nrow(xy) / CityArea</code></pre>
+<pre><code>## [1] 0.0002223546</code></pre>
+<p>The code <code>as.numeric(st_area(sanfran.city))</code> calculates the area (in meters squared) of San Francisco city, which represents the value <em>a</em> in formula 5.3. <code>nrow(xy)</code> represents the number of break ins in the city, which represents the value <em>n</em>.</p>
+<p>Overall density is a little bit better than the centrography measures, but it is still a single number, and thus we can do better. As OSU states on page 127, we lose a lot of information when we calculate a single summary statistic like overall density. Let’s go through the two “local” density approaches covered in OSU: Quadrat and Kernel density. We’ll also go back to our old friend the census tract to discuss an important spatial point operation, summing up points in polygons.</p>
+<hr />
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>

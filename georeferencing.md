@@ -52,7 +52,7 @@ h2.title {
 
 
 
-In this guide we will cover the spatial data wrangling task of converting point data from a nonspatial to a spatial format.  This process involves using geographic coordinates (longitude and latitude) to place points on a map.   This task is intimately related to the concept of projection and reprojection, and underlying all of these concepts is a Coordinate Reference System.  In this guide, we will go through the process of using geographic coordinates to place points on a map using the San Francisco car break in data used in [Lab 6]9https://crd150.github.io/lab6.html).  
+In this guide we will cover the spatial data wrangling task of converting point data from a nonspatial to a spatial format.  This process involves using geographic coordinates (longitude and latitude) to place points on a map.   This task is intimately related to the concept of projection and reprojection, and underlying all of these concepts is a Coordinate Reference System.  In this guide, we will go through the process of using geographic coordinates to place points on a map using the San Francisco car break in data used in [Lab 6](https://crd150.github.io/lab6.html).  
 
 
 <div style="margin-bottom:25px;">
@@ -232,7 +232,7 @@ Yes!
 ### **Reprojecting points**
 \
 
-The third important thing is your CRS should be compatible with the functions you plan to use on your data.  An important compatability issue is that your spatial data should have the appropriate distance metric like meters or miles. Distance in longitude/latitude is in [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees) which (1) most people don't understand and (2) is not compatible with several spatial functions. 
+The third important thing is your CRS should be compatible with the functions you plan to use on your data.  An important compatibility issue is that your spatial data should have the appropriate distance metric like meters or miles. Distance in longitude/latitude is in [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees) which (1) most people don't understand and (2) is not compatible with several spatial functions. 
 
 We can find out the units of a spatial data set by using the `st_crs()` function and calling up units as follows
 

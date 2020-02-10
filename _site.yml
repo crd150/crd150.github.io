@@ -20,7 +20,9 @@ navbar:
         - text: "Lab 4"
           href: lab4.html       
         - text: "Lab 5"
-          href: lab5.html           
+          href: lab5.html  
+        - text: "Lab 6"
+          href: lab6.html            
     - text: "Other"
       menu: 
         - text: "Eligible Communities"
@@ -35,6 +37,8 @@ navbar:
           href: policymap.html   
         - text: "Missing Data"
           href: missingdata.html            
+        - text: "Mapping Coordinates"
+          href: georeferencing.html 
 output:
   html_document:
     theme: cosmo
