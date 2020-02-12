@@ -251,6 +251,66 @@ sqrt(sum((xy[,1] - mc[1])^2 + (xy[,2] - mc[2])^2) / nrow(xy))
 ```
 
 
+
+<div style="margin-bottom:25px;">
+</div>
+## **Wednesday lecture setup**
+\
+
+We went through the **spatstat** package during Monday's lecture. We brought in car break in shapefile data, converted the data into a **ppp** object, and cleaned it up for analysis by unmarking it and setting its observation window.  We'll now go through the different methods to analyze point data.  Before we do so, we'll need to recreate our data from Monday.  
+
+First, install the following packages if you have not already done so (we did this during Monday's lecture)
+
+```{r message = FALSE, warning = FALSE, eval = FALSE}
+install.packages("spatstat")
+install.packages("tmaptools")
+```
+
+If you get the question "Do you want to install from sources the package which needs compilation?", type in "no" and press return/enter.
+
+Next, load the following packages
+
+```{r message = FALSE, warning=FALSE}
+library(sf)
+library(sp)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+options(tigris_class = "sf")
+library(tmap)
+library(rmapshaper)
+library(units)
+library(tmaptools)
+library(spatstat)
+```
+
+Next, bring in the data
+
+```{r warning = FALSE, message = FALSE, results = "hide"}
+download.file(url = "https://raw.githubusercontent.com/crd150/data/master/lab6files.zip", destfile = "lab6files.zip")
+unzip(zipfile = "lab6files.zip")
+
+sanfran.city <- st_read("sfcity.shp")
+sanfran.tracts <- st_read("sftracts.shp")
+sanfran.breakins <- st_read("sfbreakins.shp")
+```
+
+
+Finally, convert data to **ppp**, unmark and set window.  
+
+```{r warning = FALSE, message = FALSE, results = "hide"}
+sanfran.breakins.sp <- as(sanfran.breakins, "Spatial")
+sanfran.breakins.ppp <- as(sanfran.breakins.sp, "ppp")
+marks(sanfran.breakins.ppp)  <- NULL
+sanfran.city.sp <- as(sanfran.city, "Spatial")
+sanfran.city.owin <- as.owin(sanfran.city.sp)
+class(sanfran.city.owin)
+Window(sanfran.breakins.ppp) <- sanfran.city.owin
+```
+
+Read the section **spatstat package** to understand what each function is doing.
+
+
 <div style="margin-bottom:25px;">
 </div>
 ## **Point density**
@@ -273,6 +333,225 @@ nrow(xy) / CityArea
 The code `as.numeric(st_area(sanfran.city))` calculates the area (in meters squared) of San Francisco city, which represents the value *a* in formula 5.3. `nrow(xy)` represents the number of break ins in the city, which represents the value *n*.
 
 Overall density is a little bit better than the centrography measures, but it is still a single number, and thus we can do better. As OSU states on page 127, we lose a lot of information when we calculate a single summary statistic like overall density.  Let's go through the two "local" density approaches covered in OSU: Quadrat and Kernel density. We'll also go back to our old friend the census tract to discuss an important spatial point operation, summing up points in polygons.
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Quadrat counts**
+\
+
+A popular first-order method is to calculate quadrat counts, as is discussed on page 127 in OSU.  Here, we break up the area into equally sized cells and count the number of points that fall into each cell.  
+
+We can carry out a simple quadrat analysis on our data using the `quadratcount()` function in the **spatstat** package.  You have to specify the number of cells in your area.  Here, we make a 6 x 6 grid (`nx = 6, ny = 6`), count the number of points within each of the 36 cells.
+
+```{r}
+qcounts1<-quadratcount(sanfran.breakins.ppp, nx = 6, ny = 6)
+```
+
+The object *qcounts1* stores the number of points inside each quadrat. You can plot the quadrats along with the counts as follows.  
+
+```{r}  
+#First, plot the city and points
+plot(sanfran.breakins.ppp, pch=20, cols="grey70", main=NULL)
+#The plot the cells and counts 
+plot(qcounts1, col = "red", add=TRUE)
+```
+
+
+The plot tells us that there are 63 break ins in the cell located on the bottom left corner of the city grid.
+
+Six-by-six might be too small.  Let's instead make a 40 by 40 grid.
+
+```{r}
+#dont plot qcounts - 40 x 40 grid wont show you much
+qcounts2<-quadratcount(sanfran.breakins.ppp, nx = 40, ny = 40)
+```
+
+In real life one should always try a range of row and column sizes to get a sense of how sensitive the results are.
+
+These are neat plots, but let's try to numerically summarize them.  One measure that OSU offers is the variance-mean ratio (VMR), which is described on page 130. We'll need to convert the resulting *qcounts2* object into a regular data frame to calculate the VMR. Use the `data.frame()` function.
+
+```{r}
+Qcount<-data.frame(qcounts2)
+```
+
+Following page 130 in OSU, we can get a basic measure of the spatial arrangement of points by calculating the VMR of the quadrat counts
+
+```{r}
+var(Qcount$Freq)/mean(Qcount$Freq)
+```
+
+OSU states a VMR greater than 1.0 indicates a tendency towards clustering.  We get 171.6. Wow, that is super duper huge!  
+
+We can employ the Chi-square test for spatial randomness that OSU describes on page 142-43 using the handy dandy `quadrat.test()` function. The null is spatial randomness. 
+
+```{r warning = FALSE, message = FALSE}
+quadrat.test(sanfran.breakins.ppp, nx = 40, ny = 40)
+```
+
+Do we reject the null? Why?
+
+<div style="margin-bottom:25px;">
+</div>
+### **Points in polygons**
+\
+
+Rather than use quadrats, we can instead use census tracts, which is the standard definition of a neighborhood in the United States. We want to count the number of break ins in each census tract.  To do this, we need to use a combination of the functions `lengths()` and `st_intersects()`. We won't need any **spatstat** functions, so we go back to our **sf** objects *sanfran.tracts* and *sanfran.breakins*.
+
+```{r}
+sanfran.tracts <- mutate(sanfran.tracts, breakins = lengths(st_intersects(sanfran.tracts, sanfran.breakins)))
+```
+
+Let's break this code down to understand what was done. The code  `st_intersects(x = sanfran.tracts, y = sanfran.breakins)` produces a [list](http://r4ds.had.co.nz/lists.html) object.  Let's actually view it so we have a clear idea of what this code is producing
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+View(st_intersects(sanfran.tracts, sanfran.breakins))
+```
+
+We have a list of 194 vectors, which corresponds to the number of census tracts in San Francisco. Each vector specifies the row number of the car break ins that are intersecting with the tract corresponding to the *sanfran.breakins*.  For example, the first tract contains 1,558 car break ins.  In the *sanfran.breakins* object, these break ins are individually located in row numbers 40, 43, 56 and so on.  
+
+The code `lengths(st_intersects(sanfran.tracts, sanfran.breakins))` provides the length of each vector in the list. Length of each vector corresponds to the number of car break ins in each tract.
+
+```{r}
+lengths(st_intersects(sanfran.tracts, sanfran.breakins))
+```
+
+The first tract has 1,558 break ins, the second has 1,069, and so on.
+
+The code `breakins = lengths(st_intersects(sanfran.tracts, sanfran.breakins))` saves the number of car break ins as a new variable *breakins*.  Putting this code within `mutate()` saves the new variable in the data frame *sanfran.tracts*.  Type in `View(sanfran.tracts)`, scroll all the way right, and you should see the variable *breakins*.
+
+We can map the count of break ins by census tract, but counts do not take into consideration exposure.  In this case, tracts that are larger in size or greater in population will likely have more break ins. Let's calculate the number of break ins per 100 population.
+
+
+```{r warning=FALSE, message=FALSE}
+sanfran.tracts<-mutate(sanfran.tracts,bpop = (breakins/tpop)*100)
+```
+
+The code creates the variable *bpop* in the tibble *sanfran.tracts*, which represents the number of break ins per 100 population.
+
+Let's create a presentable choropleth map of break ins per 100 population.
+
+```{r}
+tm_shape(sanfran.tracts, unit = "mi") +
+  tm_polygons(col = "bpop", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = expression("break ins per 100 pop")) +
+  tm_compass(position = c("left", "bottom")) +
+  tm_scale_bar(position = c("left", "bottom")) +
+  tm_style("natural", title = "Car break ins in San Francisco\nTracts 2017",  title.size = 0.95, frame=FALSE)
+```                    
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Point intensity heat maps**
+\
+
+In Chapter 3 of OSU, the authors describe the use of kernel density (heat) maps to show the spatial patterns of points. Because there is a bit of math behind the creation of these maps, we won't go into the specifics in super detail.  But, they are cool looking and as long as you understand broadly how these maps are created and what they are showing, they are a good exploratory tool. Also, a benefit of using a kernel density map to visually present your point data is that it does away with predefined areas like quadrats or census tracts.  Your point space becomes continuous.
+
+We use the function `smooth_map()` to create a kernel density map.  This function is in the package **tmaptools**.  Here, we don't need to stay within the **ppp** world, so let's revert back to our **sf** objects.
+
+```{r message=FALSE, warning=FALSE, results="hide"}
+ds <- smooth_map(sanfran.breakins, bandwidth = 0.5, cover = sanfran.city, unit = "mi", style = "quantile")
+class(ds)
+```
+
+The most important parameter we need to set in `smooth_map()` is the `bandwidth`, which represents the radius of the kernel function. Think of the bandwidth as a smoothing parameter, where the larger it is, the smoother the map.  We set this to 0.5, which represents 0.5 miles (we'll specify miles using `unit = "mi"` as an option within the function).  We'll also need to specify the argument `cover` which specifies the boundaries of the map (SF boundaries). We use `quantile` to define the color style, but as outlined in [Week 4's lab](https://crd150.github.io/lab4.html#tmap), there are other methods.  You must save the result of `smooth_map()` into an object, which in our case is *ds*.
+
+The resulting object is a list. The specific object in *ds* that you'll need to map is *ds\$polygons* and the variable within *ds\$polygons* that contains the smoothed values is *level*.    Let's map *ds\$polygons* on top of *sanfran.city* to see what we get.
+
+```{r warning = FALSE, message = FALSE}
+tm_shape(ds$polygons) + tm_fill(col = "level",
+  palette = "YlOrRd", border.alpha = 0) +
+  tm_shape(sanfran.city) + tm_borders()
+```
+
+and make the map look more presentable
+
+```{r message=FALSE}
+tm_shape(ds$polygons) + tm_fill(col = "level",
+  palette = "YlOrRd", border.alpha = 0, title = expression("break ins")) +
+  tm_shape(sanfran.city) + tm_borders() +
+  tm_compass(position = c("left", "bottom")) +
+  tm_scale_bar(position = c("right", "bottom")) +
+  tm_style("natural", title = "Car break ins San Francisco Tracts\n2017",  title.size = 0.95, frame=FALSE, legend.position = c("right", "top"))
+```
+
+Setting the bandwidth can really change your results.  My suggestion is to test different bandwidth values. Or choose a bandwidth that makes sense given the city (e.g. big vs. small) and/or context (e.g. walking vs. driving) you are studying.  In Los Angeles, you might use a larger bandwidth because it is a large city and people typically drive from place-to-place.  In contrast, you might use a smaller bandwidth in New York because it is dense and people typically go from place-to-place by foot or subway.
+
+To summarize, quadrats capture density by cutting up the study area into equally sized cells. Point in polygons capture density by using a pre-defined administrative boundary like census tracts (that should make contextual sense). Kernel density maps also use cells, but smooths (or [interpolates](https://mgimond.github.io/Spatial/interpolation-in-r.html)) values across the study area to make a continuous surface.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Distance based methods**
+\
+
+As detailed in OSU Ch. 5 page 130, there are a handful of distance (nearest neighbor) based methods for determining whether spatial points are clustered across a geographic space.  Methods that measure the relationship between points, in this case their distance from one another, are capturing second-order effects.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Mean nearest-neighbor distance**
+\
+
+The first distance-based method that OSU goes through is calculating the average nearest neighbor distance.  Here, you calculate for each point the distance to its nearest neighbor.  You do this using the function `nndist()`, which is a part of the **spatstat** package. 
+
+We first plug *sanfran.breakins.ppp* into `nndist()`, save that result into an object
+
+```{r}
+break.ndist <- nndist(sanfran.breakins.ppp)
+```
+
+The object *break.ndist* contains 27,444 values, corresponding to the 27,444 break ins in San Francisco. Each value represents  the distance of each break in to the nearest break in. For example the distance to the nearest break in to the 14th break in listed in *break.ndist* is
+
+```{r}
+break.ndist[14]
+```
+
+Take the mean of these values to get the average nearest-neighbor distance.
+
+```{r}
+mean(break.ndist)
+```
+
+We find that the mean nearest distance is 9.24 meters.  That's pretty darn small, but small enough to suggest clustering?  
+
+We can formally test whether the mean nearest distance value indicates significant point clustering by using the Clark and Evan's R statistic described on OSU page 143.  The **spatstat** package has the function `clarkevans.test()` for calculating this statistic and testing whether it is statistically significant from 1 (which indicates no clustering).  An R less than 1 that is statistically significant indicates clustering.
+
+```{r}
+clarkevans.test(sanfran.breakins.ppp)
+```
+
+<div style="margin-bottom:25px;">
+</div>
+### **K function**
+\
+
+OSU introduces a set of functions - G, F, and K - that describe the distribution of nearest neighbor distances.  Our good friend **spatstat** provides canned functions for estimating these distributions.  Let's calculate K.
+
+Before we do so, two things.  First, OSU describes ways to assess spatial clustering inferentially by comparing the observed distribution of nearest neighbor distances to a theoretically derived expectation with "envelopes".  We can do this in R using the `envelope()` function. Second, OSU on page 137 warns us about edge effects.  We went through edge effects as a spatial pitfall back in OSU Ch. 2, so this should not be new to us. R offers 5 edge effect corrections.  We'll use the guard zone correction, which we specify using `correction = "border"` in the `envelope()` function.   Let's calculate K and its envelope.
+
+```{r message=FALSE, results="hide"}
+#this will take a bit
+envK <- envelope(sanfran.breakins.ppp, fun = Kest, correction="border", nsim = 49)
+```
+
+The argument `fun = Kest` tells R to calculate the K function (as opposed to the F, G and L functions).  The argument `nsim = 49` tells R to run 49 simulations to get the envelopes.  For large point datasets, like break ins in San Francisco, I recommend setting `nsim` to something less than 100.
+
+Let's plot the K function to get a figure like the ones shown on OSU page 151.
+
+```{r message=FALSE}
+plot(envK, main = "K Function")
+```
+
+It's hard to see, but R is plotting the envelopes around the dashed red line.  They are just really narrow.  To calculate G and F, use `envelope()` in the same way, replacing `Kest` with `Gest` and `Fest`, respectively, in the `fun` argument. 
+
+All the evidence provided thus far - quadrats, Clark Evans test, nearest-neighbor distance, the K function - indicate that break ins significantly cluster.  The maps we created help you identify where this clustering occurs.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Assignment 6**
+\
+
+Assignment 6 will be posted here Friday morning.
 
 
 ***
