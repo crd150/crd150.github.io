@@ -365,7 +365,7 @@ Map the LQRSSs for Sacramento metro.  How does it visually compare with the Los 
 
 
 
-Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/assgn7.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
 
 
 1. In [Assignment 4](https://crd150.github.io/lab4.html#assignment_4), we descriptively examined the claim that Houston is the most diverse city in the United States. Let's employ the segregation tools we learned this week to explore this claim in a more rigorous manner.  Let's also compare Houston to Sacramento, a city that has been proclaimed as [among most diverse in the nation](https://www.sacbee.com/news/local/article226876944.html). In this question, we examine metropolitan areas rather than cities. The Houston and Sacramento data sets are in csv format and can be downloaded [here](https://raw.githubusercontent.com/crd150/data/master/houstondems.csv) and [here](https://raw.githubusercontent.com/crd150/data/master/sacdems.csv).
