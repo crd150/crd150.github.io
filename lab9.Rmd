@@ -129,7 +129,8 @@ To add these files onto your ArcGIS Online cloud, do the following
 
 2. On the Content page, click on "Add Item" on the left of the screen. Click on "From my Computer"
 
-3. Under "File:", click on the "Browse..." button. Navigate to the folder where you downloaded the files from Canvas.  Select the file la_tract_groc_dist.zip. Leave all the defaults. 
+3. Under "File:", click on the "Browse..." button. Navigate to the folder where you downloaded the files from Canvas.  Select the file la_tract_groc_dist.zip. Provide a descriptive title for the file (don't use the default). Leave "Shapefile" under contents and the checkmark next to 
+"Publish this file as a hosted layer."
 
 4. Tags are required when adding new items.  These are like keywords in a sense.  Check this [Esri blog article](https://www.esri.com/arcgis-blog/products/arcgis-online/data-management/using-tags-effectively/) for some best practices for naming tags.  For now, just type in "Los Angeles".  Hit return/enter on your keyboard. Then click on Add Item.
 
