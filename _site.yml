@@ -28,7 +28,9 @@ navbar:
         - text: "Lab 8"
           href: lab8.html 
         - text: "Lab 9"
-          href: lab9.html           
+          href: lab9.html    
+        - text: "Extra Lab - QGIS"
+          href: qgis.html  
     - text: "Other"
       menu: 
         - text: "Eligible Communities"
