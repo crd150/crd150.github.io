@@ -133,7 +133,7 @@ First thing to do is to read the Read Me.rtf file.  You must install Python, GDA
 
 We'll be working with Sacramento county tracts in this lab.  Go to the Week 10 Canvas folder and download the zip file qgisdata.zip onto a convenient place on your hard drive that you can readily access. Unzip the folder. The folder will contain the following shapefiles and csv files.
 
-* California_Tracts.shp
+* Sacramento_County_Tracts.shp
 * tract_demographics.csv
 
 <div style="margin-bottom:25px;">
