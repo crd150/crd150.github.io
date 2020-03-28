@@ -358,34 +358,6 @@ The map indicates that there are some neighborhoods in the metro that have a per
 Map the LQRSSs for Sacramento metro.  How does it visually compare with the Los Angeles map? What about the other metro areas?
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 7**
-\
-
-
-
-Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
-
-
-1. In [Assignment 4](https://crd150.github.io/lab4.html#assignment_4), we descriptively examined the claim that Houston is the most diverse city in the United States. Let's employ the segregation tools we learned this week to explore this claim in a more rigorous manner.  Let's also compare Houston to Sacramento, a city that has been proclaimed as [among most diverse in the nation](https://www.sacbee.com/news/local/article226876944.html). In this question, we examine metropolitan areas rather than cities. The Houston and Sacramento data sets are in csv format and can be downloaded [here](https://raw.githubusercontent.com/crd150/data/master/houstondems.csv) and [here](https://raw.githubusercontent.com/crd150/data/master/sacdems.csv).
-
-**You do not need to convert the data sets used in this question into sf objects**.  Keep them as regular data frames (tibbles). The files are clean and ready for analysis. We've also given you the metro level race/ethnic percentages that you will need to calculate the segregation indices. We took out all tracts that have a zero population. A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn7_q2_record_layout.txt).
-
-a. Calculate the multigroup (white, black, Asian, Hispanic and other) entropy index for each metro area. According to this metric, which metro wins the "most diverse" award? (2 points)
-b. Let's examine what socioeconomic variables are correlated with neighborhood diversity in each metro. Calculate the correlation between the entropy score and percent with a college degree, percent of residents under 18 years old, percent of residents between 22 and 35, and percent foreign born in Houston. Do the same for Sacramento.  Summarize your results, noting any differences between the two cities. (2 points)
-
-<br>
-
-2. You will be calculating two-group segregation indices for the cities of Detroit and Los Angeles.  **You do not need to convert the data sets used in this question into sf objects**.  Keep them as regular data frames (tibbles). A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn7_q3_record_layout.txt)
-
-
-a. Load into R racial/ethnic composition at the census tract level for Detroit.  The data set is in csv format and can be downloaded [here](https://raw.githubusercontent.com/crd150/data/master/detroit_tracts.csv).  Calculate the Black/White, Hispanic/White, and Asian/White Dissimilarity and Interaction indices. In your own words, explain the value of the Asian/White Interaction index. (2 points)
-b. Load into R racial/ethnic composition at the tract level for Los Angeles. The data set is in csv format and can be downloaded [here](https://raw.githubusercontent.com/crd150/data/master/los_angeles_tracts.csv). Calculate the Black/White, Hispanic/White, and Asian/White Dissimilarity and Interaction indices. In your own words, explain the value of the Black/White Dissimilarity index. (2 points)
-c. Intuitively, if you get a high Dissimilarity index, you should get a low Interaction index.  Comparing Detroit and Los Angeles Asian/White and Hispanic/White segregation, we find this to be the case. For example, Hispanic/White Dissimilarity is higher in Los Angeles than in Detroit, and Hispanic/White Interaction is lower in Los Angeles than in Detroit.  However, we find that Los Angeles has a larger Black/White Dissimilarity index than Detroit (indicating higher segregation), but has a higher Interaction index than Detroit (indicating lower segregation).  What is a good explanation for this finding? (2 points)
-
-
-
 
 ***
 

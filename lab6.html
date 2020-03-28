@@ -835,89 +835,9 @@ envK &lt;- envelope(sanfran.breakins.ppp, fun = Kest, correction=&quot;border&qu
 <p><img src="lab6_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
 <p>It’s hard to see, but R is plotting the envelopes around the dashed red line. They are just really narrow. To calculate G and F, use <code>envelope()</code> in the same way, replacing <code>Kest</code> with <code>Gest</code> and <code>Fest</code>, respectively, in the <code>fun</code> argument.</p>
 <p>All the evidence provided thus far - quadrats, Clark Evans test, nearest-neighbor distance, the K function - indicate that break ins significantly cluster. The maps we created help you identify where this clustering occurs.</p>
-<div style="margin-bottom:25px;">
-
-</div>
-</div>
-</div>
-<div id="assignment-6" class="section level2">
-<h2><strong>Assignment 6</strong></h2>
-<p><br />
-Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn06.Rmd">Assignment 6 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.).</p>
-<ol style="list-style-type: decimal">
-<li>The following figures show plots of the G function for different sets of points. Indicate the point pattern - Complete Spatial Randomness or Clustered - in each plot. (1 point each)</li>
-</ol>
-<center>
-<div class="figure">
-<img src="hw6fig1.png" />
-
-</div>
-</center>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>For the plot shown in (b), explain what is causing the G function’s staircase shape. (1 point)</li>
-</ol>
-<p><br></p>
-<ol start="2" style="list-style-type: decimal">
-<li>The purpose of this question is to introduce you to the world of open data. Specifically, we explore <a href="https://www.govtech.com/dc/articles/What-is-311.html">311 calls for service</a>. 311 is a non-emergency phone number that people can call in many cities to find information about services, make complaints, or report problems like graffiti or road damage. Pick <strong>one</strong> of the following cities and examine its open data readiness for 311 calls by answering the questions that follow.</li>
-</ol>
-<ul>
-<li>New York, NY <a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9">(link)</a></li>
-<li>San Francisco, CA <a href="https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6">(link)</a></li>
-<li>Baltimore, MD <a href="https://data.baltimorecity.gov/City-Services/311-Customer-Service-Requests/9agw-sxsr">(link)</a></li>
-<li>Kansas City, MO <a href="https://data.kcmo.org/311/311-Call-Center-Service-Requests/7at3-sxhp">(link)</a></li>
-</ul>
-<ol style="list-style-type: lower-alpha">
-<li>Data Quality (2 points)</li>
-</ol>
-<ul>
-<li>Which city did you pick? How many years of data are available?</li>
-<li>Can you understand the variables? Is there a codebook that allows you to identify what these variables mean?</li>
-<li>Does it have 4 key variables: (1) Date and time of request; (2) Location (is it coordinates, addresses or both?) (3) Description of the call (4) Has the city addressed this call? Describe one other variable from the data that you think might be useful for an analysis.</li>
-</ul>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Usability (2 points)</li>
-</ol>
-<ul>
-<li>Can you filter the data based on variable values?</li>
-<li>Can you map the data from the site? If so, describe one map.</li>
-<li>Can you make graphs and plots of the data from the site? If so, describe one graph/plot.</li>
-<li>Can you download the data as a csv and open it in Excel?</li>
-<li>Can you download the data as a shapefile?</li>
-</ul>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>Data wrangling (2 points)</li>
-</ol>
-<ul>
-<li>Download 2020 data as a csv and open it in Excel. How clean are the data? Do you see any weird characters or major data cleaning needs?</li>
-<li>How clean are the variable (column) names? Any space or weird characters in the variable names?</li>
-</ul>
-<ol start="4" style="list-style-type: lower-alpha">
-<li><p>Bring the file into R. Identify the top three 311 requests in 2020 in your city. You must show your R code for this question. (1 point)</p></li>
-<li><p>Extra credit (2 points): Produce an interesting map using any of the map types we discussed from OSU Ch. 3 and Ch. 4. You must show your R code. If you need to convert your points to <strong>sf</strong> objects, read the <a href="https://crd150.github.io/georeferencing.html">georeferencing mini lab</a>. Describe your results.</p></li>
-</ol>
-<p><br></p>
-<ol start="3" style="list-style-type: decimal">
-<li>In the next two questions, you will be exploring the spatial distribution of Airbnb listings in the City of Oakland. <a href="https://press.airbnb.com/about-us/">Airbnb</a> involves renting an entire home, a room or a shared room, typically from a private citizen. The data were downloaded from Airbnb’s public use <a href="http://insideairbnb.com/get-the-data.html">data site</a>. You will be using the shapefiles <em>oaklandcity.shp</em>, which contains Oakland City boundaries, <em>oaklandtracts.shp</em>, which contains Oakland City tracts, and <em>airbnboak.shp</em>, which contains Airbnb locations in 2017. A record layout of <em>oaklandtracts.shp</em> can be found <a href="https://raw.githubusercontent.com/crd150/data/master/assgn6_tract_codebook.txt">here</a>. I zipped the three shapefiles up and loaded the folder onto GitHub. Use the following code to read the file in.</li>
-</ol>
-<pre><code>download.file(url = &quot;https://raw.githubusercontent.com/crd150/data/master/assign6files.zip&quot;, destfile = &quot;assign6files.zip&quot;)
-unzip(zipfile = &quot;assign6files.zip&quot;)</code></pre>
-<ol style="list-style-type: lower-alpha">
-<li>Use two first-order approaches to examine the spatial distribution of Airbnb locations in the city. What do your results suggest about the pattern of Airbnb locations? (2 points)</li>
-<li>Plot the K function with its envelopes using the <code>correction = &quot;border&quot;</code> correction. What does the K plot suggest about the pattern of Airbnb locations? (2 points)</li>
-<li>Plot the F and G functions with their envelopes using a border correction. What do the F and G plots suggest about the pattern of Airbnb locations? (2 points)</li>
-</ol>
-<p><br></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Airbnb has received criticism regarding its effects on local communities. See this <a href="https://www.citylab.com/equity/2018/03/what-airbnb-did-to-new-york-city/552749/">article</a> outlining the major criticisms. Let’s descriptively explore the validity of these criticisms in Oakland using our data set.</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>Community advocates claim that Airbnb increases rent. What is the correlation between tract-level rent and the number of Airbnb listings per 1,000 housing units? (1 point)</li>
-<li>This <a href="https://theconversation.com/airbnb-and-empty-houses-whos-responsible-for-managing-the-impacts-on-our-cities-83959">article</a> contends that Airbnb promotes housing vacancy. Calculate the correlation between percent vacant housing and the number of Airbnb listings per 1,000 housing units. (1 point)</li>
-<li>Another claim is that Airbnb locations are in predominantly white, higher income, and gentrifying neighborhoods. What is the correlation between the number of Airbnb listings per 1,000 housing units and percent black, Hispanic, and median household income? (1 point)</li>
-<li>Summarize your findings in (a)-(c). (1 point)</li>
-</ol>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
 </div>
 
 

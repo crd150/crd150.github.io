@@ -648,52 +648,9 @@ ca.map.ind.ec + tm_view(basemaps=&quot;OpenStreetMap&quot;)</code></pre>
 <p><br></p>
 <p>What is the Economic Opportunity landscape like in the City of Davis? Zoom in and find out.</p>
 <p>We’ve just recreated the Regional Opportunity Index! Tell <a href="https://regionalchange.ucdavis.edu/people/jonathan-k-london">Dr. London</a> when you take his class or see him in the hallways. He’ll be proud (and might hire you!).</p>
-<div style="margin-bottom:25px;">
-
-</div>
-</div>
-</div>
-<div id="assignment-8" class="section level2">
-<h2><strong>Assignment 8</strong></h2>
-<p><br />
-</p>
-<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn08.Rmd">Assignment 8 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.).</p>
-<p><br></p>
-<div style="white-space: pre-line;">1. In the lab guide, we created and mapped the Economic domain of the Regional Opportunity Index. For this question, you will create the other four domains and the overall index. You will also conduct some exploratory analyses to examine the socioeconomic and demographic characteristics associated with opportunity. We’re going to examine opportunity in the following counties: El Dorado, Placer, Sacramento, and Yolo. These are the non-rural counties that make up <a href="https://regionalchange.ucdavis.edu/sites/g/files/dgvnsk986/files/inline-files/Capital_Region_Place_In_Progress.pdf">California’s Capital Region</a>.</div>
-<p><br></p>
-<p>Rather than having you recreate <em>ca.tracts</em> from the lab guide, I’ve loaded it up on GitHub. In addition to the original variables from the lab guide, I’ve included the variables percent non-Hispanic black (<em>pblk</em>), percent non-Hispanic Asian (<em>pasn</em>), percent Hispanic (<em>phisp</em>) and percent of residents under 18 year olds (<em>p18und</em>), which I downloaded from the 2013-17 American Community Survey. Use the following code to download the files.</p>
-<pre><code>download.file(url = &quot;https://raw.githubusercontent.com/crd150/data/master/assign8files.zip&quot;, destfile = &quot;assign8files.zip&quot;)
-unzip(zipfile = &quot;assign8files.zip&quot;)</code></pre>
-<p>You should see the file <em>capitaltracts.shp</em> (and the other files associated with the shapefile) in your current working directory (<code>getwd()</code>). Load that file into R using the <code>st_read()</code> function like as follows</p>
-<pre><code>capitaltracts &lt;- st_read(&quot;capitaltracts.shp&quot;, stringsAsFactors = FALSE)</code></pre>
-<p><br></p>
-<div style="white-space: pre-line;">a. Calculate the Education, Housing, Health/Environment, Civic Life and overall ROI indices. The crosswalk between variables and domains is provided in the <a href="https://raw.githubusercontent.com/crd150/data/master/record_layout.xlsx">record layout</a>. (2 points)</div>
-<p><br></p>
-<div style="white-space: pre-line;">b. Using the quintile-based breaks to categorize tracts as Lowest Opportunity, Low, Moderate, High, and Highest Opportunity that we used in the lab guide, map the Education, Housing, Health/Environment, Civic Life, and overall ROI indices for the Capital region. You should have five separate maps for the four domains and the overall index. (3 points)</div>
-<p><br></p>
-<div style="white-space: pre-line;">c. Map percent of residents under 18 year olds for the capital region using <code>style = quantile</code>. Based on a visual comparisons of the maps, do you think that youth are located in high overall opportunity places? (3 points)</div>
-<p><br></p>
-<div style="white-space: pre-line;">d. Calculate the correlation between percent under 18 year olds and all of the indices (overall and the 5 domains). Summarize your results. (Hint: When you use the <code>cor()</code> function to calculate the correlations, use the argument <code>use = &quot;complete.obs&quot;</code> to ignore the missing values). (2 points)</div>
-<p><br></p>
-<div style="white-space: pre-line;">e. Calculate the correlation between percent black, percent Asian, and percent Hispanic and the <em>overall</em> ROI index. Summarize your results. (3 points)</div>
-<p><br> <br></p>
-<div style="white-space: pre-line;">2. Box 1 in Handout 5 describes the opportunity index that the State of California created to help identify high resource neighborhoods to allocate affordable housing units. In this question, we’re going to learn more about their <a href="https://haasinstitute.berkeley.edu/sites/default/files/mappings/TCAC/opportunity_map_2019.html">2019 index</a>.</div>
-<p><br></p>
-<div style="white-space: pre-line;">a. Scan the Task Force’s <a href="https://www.treasurer.ca.gov/ctcac/opportunity/final-opportunity-mapping-methodology.pdf">Opportunity Mapping Methodology</a> and answer the following questions regarding how they constructed the index. (5 points)</div>
-<ul>
-<li>How many domains did the Task Force include? What are they?</li>
-<li>What were the three criteria they used to select the variables that were included to construct the domains?</li>
-<li>What kinds of tracts did they exclude from the index?</li>
-<li>Did they take into account regional differences when calculating the index? If so, how?</li>
-<li>Explain why they incorporated a Poverty and Racial Segregation filter.</li>
-<li>For 2020, the state is planning to make some changes to the map methodology. Read their <a href="https://www.treasurer.ca.gov/ctcac/opportunity/memo-on-2019-updates-with-reasons-2-4-20.pdf">summary of changes</a>. In your own words, succinctly summarize these changes and their reasons.</li>
-</ul>
-<p><br></p>
-<div style="white-space: pre-line;">b. Bring in the State’s opportunity data, which I’ve loaded onto GitHub.</div>
-<pre><code>state &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/lihtccapital.csv&quot;)</code></pre>
-<p>The data contain the index values for all the domains (Economic: <em>economicc</em>, Environment: <em>environc</em>, Education <em>educc</em>) and the composite index (<em>composite</em> with the five categories <em>category</em> and labels <em>label</em>) for urban tracts in the Capital Region. Merge this file with the file used in Question 1 (<em>capitaltracts</em>) using the <em>GEOID</em> as the ID. Map the State’s overall opportunity index (<em>category</em>) using the appropriate labels. (2 points)</p>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
 </div>
 
 

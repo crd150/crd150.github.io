@@ -537,67 +537,6 @@ moran.test(sac.metro.tracts.sp$pfb, sacw)
 We find that the Moran's I is positive (0.63) and statistically significant (p-value < 0.05). Remember from lecture that the Moran's I is simply a correlation, and we learned from Handout 3 that correlations go from -1 to 1.  A 0.63 correlation is fairly high (meeting the rule of thumb of 0.30 that OSU states on page 206), indicating strong positive clustering.  Moreover, we find that this correlation is statistically significant (p-value basically at 0).
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 5**
-
-
-Download and open the [Assignment 5 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn05.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
-
-1. The figure below shows 25 neighborhoods in a hypothetical city.  A white square represents 100% white residents and a black square represents 100% black residents.  (1 point each)
-
-a. If you use a Rook definition of contiguity, what is the spatial autocorrelation for percent black (don't actually calculate a value, just describe what the autocorrelation should be)? 
-b. What about if you use a Queen definition of contiguity? 
-c. A Bishop measure of contiguity joins squares diagonally.  What is the spatial autocorrelation if you use a Bishop definition of contiguity? 
-
-
-<center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hw5fig1.png)
-</center>
-
-<br>
-
-2. Let's examine the spatial autocorrelation of neighborhood race/ethnicity in the [City of Oakland](https://www.oaklandca.gov/).
-
-a. Use the `get_acs()` and `places()` functions to create an Oakland City **sf** object containing the following 2013-17 American Community Survey census-tract level variables: median household income, percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic. The ID variable name for income is "B19013_001". The IDs for the number of white, black, Asian, and Hispanic residents are "B03002_003", "B03002_004", "B03002_006" and "B03002_012", respectively.  The ID for total population is "B03002_001". 
-
-Also merge in 2016 [housing eviction rates](http://evictionlab.org/), which I've uploaded on Github. Read the file using the following code
-
-````
-`r ''`evictions <- read_csv("https://raw.githubusercontent.com/crd150/data/master/oakevict.csv") 
-````
-
-This file contains only two variables: the tract ID *GEOID* and eviction rate *evrate*.  Merge *evictions* into the Oakland city tract file you created using the `left_join()` function. (3 points) 
-
-b. Create maps of percent non-Hispanic white, percent non-Hispanic black, percent non-Hispanic Asian, and percent Hispanic using quantile breaks. Based on these maps, briefly explain whether you think spatial autocorrelation exists for each of these variables. (2 points)
-
-c. Convert your **sf** object into an **sp** object named *oak.tracts.sp*. Create an *nb* object and name it *oakb*. Create a spatial weights matrix object and name it *oakw*. Use Queen contiguity and row standardized weights.
-
-  + Run the following code and explain what the resulting plot is showing. (1 point)
-
-````
-`r ''`plot(oak.tracts.sp)
-plot(oakb, coordinates(oak.tracts.sp), add=TRUE, col="red")
-````
-
-  + Run the following code and explain what the resulting vector is showing. (1 point)
-
-````
-`r ''`oakw$weights[[13]]
-````
-
-d. Calculate Moran's I for each percent race/ethnicity variable. Which race/ethnicity exhibits spatial autocorrelation? Why? (2 points)
-
-<br>
-
-3. Let's now examine median household income and housing eviction rates. Housing eviction has received significant [public attention](https://www.citylab.com/equity/2017/10/where-evictions-hurt-the-most/544238/) especially in [Oakland](https://www.citylab.com/equity/2020/01/moms-4-housing-eviction-oakland-homeless-crisis-real-estate/605263/).  
-
-a. Create maps of median household income and eviction rates using quantile breaks. Based on these maps, briefly explain whether you think spatial autocorrelation exists for each of these variables. (2 points)
-b. Present a scatterplot showing the relationship between household income and eviction rates. Also calculate the non-spatial correlation between the two variables. Explain your results. (2 points)
-c. Present Moran scatterplots for median household income and eviction rates. Also calculate the Moran's I for each variable. Explain your results. (2 points)
-d. Explain the conceptual difference between the plot and correlation you calculated in 3b and the plots and correlations you calculated in 3c. (2 points)
-
-
 ***
 
 

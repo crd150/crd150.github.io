@@ -661,7 +661,7 @@ In running the few lines of code above, we’ve asked you to work directly in th
 <p>Open the file in R Studio by clicking on <em>File</em> from the top menu, click on <em>Open File</em>, navigate to your Lab 1 folder, and click on the Lab 1 R Markdown file you downloaded. Once you do this, if there isn’t already one on your console, a fourth window should pop up in the top left showing you an R Markdown file.</p>
 <p><br></p>
 <center>
-<img src="chunk1.png" alt="This is what file organization looks like" />
+<img src="chunk1.png" alt="The full RStudio interface" />
 </center>
 <p><br></p>
 <p>In this file, change the title (“Lab 1”) and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>). Also don’t change the following chunk.</p>
@@ -943,7 +943,7 @@ Let’s take a step back and assess where we are in our journey into R land. We 
 You will need to submit an R Markdown Rmd and its knitted html file for all assignments. To get some practice, knit your R Markdown file for this lab. How do you knit? See the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>.</p>
 <p>Try to keep the most updated version of R installed. If you’ve used R before this class, make sure it is the most recent version. To check your version of R, type in</p>
 <pre class="r"><code>sessionInfo()$R.version$version.string</code></pre>
-<pre><code>## [1] &quot;R version 3.6.2 (2019-12-12)&quot;</code></pre>
+<pre><code>## [1] &quot;R version 3.6.3 (2020-02-29)&quot;</code></pre>
 <p>Check the <a href="https://www.r-project.org/">CRAN website</a> to see if you need to install a newer version.</p>
 <p>You will also need to make sure your packages are up to date. To check the version of a package by using the following code, which checks the version for the package <strong>tidyverse</strong>, which you just installed above.</p>
 <pre class="r"><code>packageDescription(&quot;tidyverse&quot;)$Version</code></pre>
@@ -964,36 +964,6 @@ Although the lab guides and course textbooks should get you through a lot of the
 <li><a href="https://stackoverflow.com/questions/tagged/r">Stackoverflow</a></li>
 </ul>
 <p>And the Google machine will be an important friend in your journey into R land. Google your R related question and you’re bound to find some guidance. If you get an R error that is baffling you, Google the error itself inside quotations to get a more directed response to your issue.</p>
-<div style="margin-bottom:25px;">
-
-</div>
-</div>
-<div id="assignment-1" class="section level2">
-<h2><strong>Assignment 1</strong></h2>
-<p><br />
-</p>
-<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/assgn1.Rmd">Assignment 1 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas.</p>
-<ol style="list-style-type: decimal">
-<li>Look up the help documentation for the function <code>rep()</code>. Use this function to create the following 3 vectors. (Each question is worth 2 points).</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>[1] 0 0 0 0 0</li>
-<li>[1] 1 2 3 1 2 3 1 2 3 1 2 3</li>
-<li>[1] 4 5 5 6 6 6</li>
-</ol>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Load the <em>mtcars</em> dataset by using the code <code>data(mtcars)</code>. What are the unit of observations? How many unit of observations does this dataset have? How many variables? What data type (numeric or categorical) and sub type (nominal, ordinal, etc.) is the variable <em>am</em>? The dataset’s help documentation <code>? mtcars</code> might be useful. (2 points)</p></li>
-<li><p>Find the minimum, mean, median and maximum of the variable <em>mpg</em> in the <em>mtcars</em> dataset using just one line of code. We have not covered a function that does this yet, so the main point of this question is to get you used to using the resources you have available to find an answer. Describe the process you used (searched online? use the class textbook?) to find the answer. (4 points)</p></li>
-<li><p>Explain what is the problem in each line of code below. Fix the code so it will run properly. (2 points each)</p></li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>my variable &lt;- 3</li>
-<li>ngears &lt;- mtcars$Gear</li>
-</ol>
-<ol start="5" style="list-style-type: decimal">
-<li><p>Have you ever used R before? If so, to what extent? Have you used any of the following programs: Excel, SPSS, Stata, SAS, Python, Matlab. If so, to what extent? For each program, choose one of the following options: (a) Never used, (b) Beginner, (c) Basic competence, (d) Intermediate, (e) Advanced. (2 points)</p></li>
-<li><p>Describe what you are hoping to get out of this class? (2 points)</p></li>
-</ol>
 <hr />
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 </div>
