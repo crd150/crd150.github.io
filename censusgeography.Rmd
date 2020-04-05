@@ -1,7 +1,7 @@
 ---
 title: "Comparing Census Geographies"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Fall 2018</h4>
+date: <h4 style="font-style:normal">Winter 2020</h4>
 output: 
   html_document:
     toc: true
@@ -23,18 +23,27 @@ font-style: italic;
 }
 
 .figure {
-   margin-top: 50px;
-   margin-bottom: 100px;
-}
-
-.html-widget {
-    margin: auto;
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
 h1.title {
   font-weight: bold;
+  font-family: Arial;  
 }
 
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
 </style>
 
 \
@@ -43,7 +52,7 @@ h1.title {
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Your final project involves studying an interesting question about a U.S. community.  We define community as a [metropolitan area](https://www.census.gov/geo/reference/gtc/gtc_cbsa.html#mesa), [city](https://www.census.gov/geo/reference/gtc/gtc_place.html), or [county](https://www.census.gov/geo/reference/gtc/gtc_cou.html).  What is the spatial extent of these communities and how do they compare in size, scale, and area?  Below is a map comparing the Sacramento Metropolitan Area (Grey), Sacramento City (Red), and Sacramento County (Blue).  You can hide and add  layers to see how the geographies compare.   
+Your final project involves studying an interesting question about a U.S. community.  We define community as a [city](https://www.census.gov/geo/reference/gtc/gtc_place.html), or [county](https://www.census.gov/geo/reference/gtc/gtc_cou.html).  What is the spatial extent of these communities and how do they compare in size, scale, and area?  Below is a map comparing the Sacramento Metropolitan Area (Grey), Sacramento City (Red), and Sacramento County (Blue).  You can hide and add  layers to see how the geographies compare.   
 
 We will also work a lot with neighborhoods in this class.  This either means using Census [tracts](https://www.census.gov/geo/reference/gtc/gtc_ct.html) or [blocks](https://www.census.gov/geo/reference/gtc/gtc_block.html), and also sometimes zip codes (or [ZCTAs](https://www.census.gov/geo/reference/zctas.html)).  Below is a map comparing Davis zip codes (Grey), tracts (blue), and blocks (red). Can you find the tract you  currently live in? What about the block?
 
