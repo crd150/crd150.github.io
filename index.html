@@ -22,6 +22,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -291,33 +302,6 @@ $(document).ready(function () {
     <li>
       <a href="lab1.html">Lab 1</a>
     </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7.html">Lab 7</a>
-    </li>
-    <li>
-      <a href="lab8.html">Lab 8</a>
-    </li>
-    <li>
-      <a href="lab9.html">Lab 9</a>
-    </li>
-    <li>
-      <a href="qgis.html">Extra Lab - QGIS</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -341,12 +325,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="policymap.html">Using PolicyMap</a>
-    </li>
-    <li>
-      <a href="missingdata.html">Missing Data</a>
-    </li>
-    <li>
-      <a href="georeferencing.html">Mapping Coordinates</a>
     </li>
   </ul>
 </li>
@@ -456,7 +434,7 @@ h2.title {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
