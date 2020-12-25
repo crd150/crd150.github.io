@@ -22,6 +22,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -268,7 +279,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2021</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -291,33 +302,6 @@ $(document).ready(function () {
     <li>
       <a href="lab1.html">Lab 1</a>
     </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7.html">Lab 7</a>
-    </li>
-    <li>
-      <a href="lab8.html">Lab 8</a>
-    </li>
-    <li>
-      <a href="lab9.html">Lab 9</a>
-    </li>
-    <li>
-      <a href="qgis.html">Extra Lab - QGIS</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -335,18 +319,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="bigopendata.html">Big and Open Data Sources</a>
-    </li>
-    <li>
-      <a href="nhgis.html">Using NHGIS</a>
-    </li>
-    <li>
-      <a href="policymap.html">Using PolicyMap</a>
-    </li>
-    <li>
-      <a href="missingdata.html">Missing Data</a>
-    </li>
-    <li>
-      <a href="georeferencing.html">Mapping Coordinates</a>
     </li>
   </ul>
 </li>
@@ -367,7 +339,7 @@ $(document).ready(function () {
 CRD 150 - Quantitative Methods in Community Research
 </h4></h3>
 <h4 class="date"><h4 style="font-style:normal">
-Winter 2020
+Winter 2021
 </h4></h4>
 
 </div>
@@ -380,7 +352,7 @@ padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
-font-style: italic;
+font-style: normal;
 }
 
 h1.title {
@@ -400,13 +372,16 @@ h2.title {
 }
 </style>
 <p><br />
-This guide lists and describes online sources that provide <a href="https://en.wikipedia.org/wiki/Big_data">Big Data</a> or <a href="https://ash.harvard.edu/files/open_government.pdf">Open Data</a>. Remember to look at the meta data to figure out what kinds of information you can download.<br />
+</p>
+<p><br />
+</p>
+<p>This guide lists and describes online sources that provide <a href="https://en.wikipedia.org/wiki/Big_data">Big Data</a> or <a href="https://ash.harvard.edu/files/open_government.pdf">Open Data</a>. Remember to look at the meta data to figure out what kinds of information you can download.<br />
 </p>
 <ul>
 <li><p><a href="http://insideairbnb.com/get-the-data.html">Airbnb</a>: Provides csv files containing detailed information on data on airbnb hosts. The data are in longitude/latitude. They don’t provide historical data.</p></li>
-<li>Bikesharing: Web sites providing public use data on bikesharing. Provides station-to-station data.
+<li><p>Bikesharing: Web sites providing public use data on bikesharing. Provides station-to-station data.</p>
 <ul>
-<li><a href="https://www.fordgobike.com/system-data">San Francisco</a>.<br />
+<li><a href="https://www.lyft.com/bikes/bay-wheels/system-data">San Francisco</a>.<br />
 </li>
 <li><a href="https://www.citibikenyc.com/system-data">New York City</a></li>
 <li><a href="https://www.divvybikes.com/system-data">Chicago</a>.</li>
@@ -427,7 +402,7 @@ This guide lists and describes online sources that provide <a href="https://en.w
 <li><p><a href="https://opendatainception.io/">Open Data Inception</a></p></li>
 <li><p><a href="http://us-cities.survey.okfn.org/">US City Open Data Census</a></p></li>
 </ul>
-<p>Here are links to various open data portals in US cities (updated 12/25/19)</p>
+<p>Here are links to various open data portals in US cities (updated 12/25/20)</p>
 <p><em>California</em></p>
 <ul>
 <li><p><a href="http://gisdata-scag.opendata.arcgis.com/">Southern California Association of Governments</a></p></li>
@@ -436,7 +411,7 @@ This guide lists and describes online sources that provide <a href="https://en.w
 <li><p><a href="http://data-sacramentocounty.opendata.arcgis.com/">Sacramento County</a></p></li>
 <li><p><a href="https://datasf.org/opendata/">San Francisco City</a></p></li>
 <li><p><a href="https://data.acgov.org/">Alameda County</a></p></li>
-<li><p><a href="https://data.oaklandnet.com/">Oakland City</a></p></li>
+<li><p><a href="https://data.oaklandca.gov/">Oakland City</a></p></li>
 <li><p><a href="http://data.openoakland.org/">Oakland City</a></p></li>
 <li><p><a href="http://www.longbeach.gov/openlb/">Long Beach City</a></p></li>
 <li><p><a href="https://data.sanjoseca.gov/home">San Jose City</a></p></li>
@@ -444,6 +419,7 @@ This guide lists and describes online sources that provide <a href="https://en.w
 <li><p><a href="https://chulavista-cvgis.opendata.arcgis.com/">Chula Vista City</a></p></li>
 <li><p><a href="http://data-anaheim.opendata.arcgis.com/">Anaheim City</a></p></li>
 <li><p><a href="https://data.countyofriverside.us/">Riverside County</a></p></li>
+<li><p><a href="https://gis-cityoffresno.hub.arcgis.com/">Fresno City</a></p></li>
 <li><p><a href="https://data.lacity.org/">Los Angeles City</a></p></li>
 <li><p><a href="http://geohub.lacity.org/">Los Angeles City</a></p></li>
 <li><p><a href="https://data.lacounty.gov/">Los Angeles County</a></p></li>
@@ -465,16 +441,19 @@ This guide lists and describes online sources that provide <a href="https://en.w
 <li><p><a href="https://www.phoenixopendata.com/">Phoenix</a></p></li>
 <li><p><a href="https://data.detroitmi.gov/">Detroit</a></p></li>
 <li><p><a href="https://data.baltimorecity.gov/">Baltimore</a></p></li>
-<li><p><a href="https://datasf.org/">San Francisco City/County</a></p></li>
+<li><p><a href="https://gis-pdx.opendata.arcgis.com/">Portland</a></p></li>
 <li><p><a href="https://data.seattle.gov/">Seattle</a></p></li>
 <li><p><a href="http://opendata.dc.gov/">Washington D.C.</a></p></li>
+<li><p><a href="https://data.milwaukee.gov/">Milwaukee</a></p></li>
+<li><p><a href="http://data.houstontx.gov/">Houston</a></p></li>
 </ul>
 <p>Your city/county not listed above? Use Google. It’s your friend.</p>
 <p><strong>Looking for data?</strong></p>
 <ul>
-<li><p>Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on. Check it out <a href="https://toolbox.google.com/datasetsearch">here</a>.</p></li>
 <li><p>Kaggle is a crowd-sourced platform for all things data science. This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources. A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets <a href="https://www.kaggle.com/datasets">here</a>.</p></li>
 <li><p>Esri provides a repository that many of its members use to store various big and open data all in shapefile format. Check out what’s available <a href="http://hub.arcgis.com/pages/open-data">here</a>.</p></li>
+<li><p><a href="https://github.com/awesomedata/awesome-public-datasets">Awesome Public Datasets</a></p></li>
+<li><p><a href="https://registry.opendata.aws/">Amazon AWS Public Data Sets</a></p></li>
 </ul>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
@@ -489,7 +468,7 @@ This guide lists and describes online sources that provide <a href="https://en.w
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

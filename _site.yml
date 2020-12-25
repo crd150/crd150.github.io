@@ -21,10 +21,6 @@ navbar:
           href: ndata.html   
         - text: "Big and Open Data Sources"
           href: bigopendata.html       
-        - text: "Using NHGIS"
-          href: nhgis.html
-        - text: "Using PolicyMap"
-          href: policymap.html   
 output:
   html_document:
     theme: cosmo

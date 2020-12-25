@@ -1,7 +1,7 @@
 ---
 title: "Eligible Cities and Counties"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2020</h4>
+date: <h4 style="font-style:normal">Winter 2021</h4>
 output: 
   html_document:
     toc: true
@@ -18,12 +18,7 @@ padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
-font-style: italic;
-}
-
-.figure {
-   margin-top: 20px;
-   margin-bottom: 20px;
+font-style: normal;
 }
 
 h1.title {
@@ -44,16 +39,18 @@ h2.title {
   font-family: Arial;
 }
 </style>
-</style>
+
 
 \
 
 
-Your final project involves studying an interesting question about a U.S. community.  We define community as a city or county.  Select one (or more if you want to do a comparison study) city or county from the lists below.  The lists show the 100 largest cities and counties according to total population using data from the 2013-2017 American Community Survey.  You are limited to cities or counties on these lists because data are more difficult to find, have higher margins of errors, or contain more missingness in areas with smaller populations.
+
+
+Your final project involves studying an interesting question about a U.S. community.  We define community as a city or county.  Select one (or more if you want to do a comparison study) city or county from the lists below.  The lists show the 100 largest cities and counties according to total population using data from the 2014-2018 American Community Survey.  You are limited to cities or counties on these lists because data are more difficult to find, have higher margins of errors, or contain more missingness in areas with smaller populations.  [Here](https://www2.census.gov/geo/pdfs/reference/GARM/Ch9GARM.pdf) and [here](https://www2.census.gov/geo/pdfs/reference/GARM/Ch4GARM.pdf) are how the U.S. Census defines cities and counties, respectively.
 
 <div style="margin-bottom:25px;">
 </div>
-#Cities 
+# Cities 
 <table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
@@ -669,7 +666,7 @@ Your final project involves studying an interesting question about a U.S. commun
 
 <div style="margin-bottom:25px;">
 </div>
-#Counties
+# Counties
 
 <table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
  <thead>

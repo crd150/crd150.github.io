@@ -1,7 +1,7 @@
 ---
 title: "Neighborhood Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2020</h4>
+date: <h4 style="font-style:normal">Winter 2021</h4>
 output: 
   html_document:
     theme: cosmo
@@ -15,7 +15,7 @@ padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
-font-style: italic;
+font-style: normal;
 }
 
 h1.title {
@@ -37,7 +37,12 @@ h2.title {
 }
 </style>
 
+
 \
+
+
+
+
 
 This guide lists and describes online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract.  A census tract generally encompasses a population between 2,000 to 8,000 residents.  Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment.  However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice.  Below are online data sources organized by topic or theme.
 
@@ -54,7 +59,7 @@ This guide lists and describes online sources that provide data typically in a c
 
 The Census represents the most comprehensive source for demographic and socioeconomic data at the census tract level.  You can download tract level data from the following sources
 
-* [American Fact Finder](https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml)
+* [U.S. Census Data Repository](https://data.census.gov/cedsci/)
 
 * [Social Explorer](https://www.socialexplorer.com/)
 
@@ -98,7 +103,7 @@ HUD offers a plethora of lower geographic scale datasets on a variety of housing
 **Work commuting patterns**
 
 * [OnTheMap](https://onthemap.ces.census.gov/)
-    + OnTheMap is an application that shows where workers are employed and where they live. The data come from the [Longitudinal Employer-Household Dynamics](https://lehd.ces.census.gov/) Program, specifically from their Origin-Destination Employment Statistics (LODES).  OnTheMap also provides reports on age, earnings, industry distributions, race, ethnicity, educational attainment, and sex.  
+    + OnTheMap is an application that shows where workers are employed and where they live. The data come from the [Longitudinal Employer-Household Dynamics](https://lehd.ces.census.gov/) Program, specifically from their Origin-Destination Employment Statistics (LODES).  OnTheMap also provides reports on age, earnings, industry distributions, race, ethnicity, educational attainment, and sex.  You can use functions from the package **lehdr** to bring in data directly into R using an API.  A brief introduction to the package can be found [here](https://jamgreen.github.io/lehdr/articles/getting_started.html).
 
 **Eviction rates**
 
@@ -108,24 +113,8 @@ HUD offers a plethora of lower geographic scale datasets on a variety of housing
 **Gentrification**
 
 * [Urban Displacement Project](http://www.urbandisplacement.org/)
-    + Developed by researchers at UC Berkeley, the Urban Displacement Project provides census tract level typologies of gentrification in the City of Portland, Southern California, and the San Francisco Bay Area.  They also provide the underlying data that they used to create the typologies.
+    + Developed by researchers at UC Berkeley, the Urban Displacement Project provides census tract level typologies of gentrification in the City of Portland, Southern California, San Francisco Bay Area and other cities.  They also provide the underlying data that they used to create the typologies.
     
-**Opportunity Mapping Indices**
-
-Opportunity mapping is used to illustrate where opportunity rich communities exist (and assess who has access to these communities) and to examine where disadvantage or opportunity poor communities are located.  Rather than present neighborhood characteristics separately, opportunity mapping consolidates characteristics into single indices of opportunity.  This is fast becoming a popular tool in the applied and policy worlds, with indicators being developed for an assortment of different neighborhood dimensions. The indices themselves may not be as relevant for you given the type of question you want to answer; however, all of these indices rely on a consolidation of a bunch of variables that are not available in a clean format at a local level, and many of the websites below provide these variables for download.
-
-* [Regional Opportunity Index (ROI)](https://interact.regionalchange.ucdavis.edu/roi/index.html)
-    + The ROI is developed and maintained by the UC Davis Center for Regional Change.  The ROI is specific to California tracts.  The site provides mapping features but also allows you to download the indices and the underlying data.
-
-* [Diversity Data Kids](http://www.diversitydatakids.org/getdata)
-    + The site provides opportunity indices specific to the school-aged population.
-
-* [Neighborhood Atlas](https://www.neighborhoodatlas.medicine.wisc.edu/)
-    + Another index, this time the Area Deprivation Index, developed by the Health Resources and Services Administration.  You'll need to sign up for a free account to download the data.
-
-* [Social Vulnerability Index](https://svi.cdc.gov/SVIDataToolsDownload.html)
-    + An index maintained by the CDC, it uses Census data to determine tracts that are socially vulnerable to the after effects of a hazardous event.
-
 **Opportunity Atlas**
 
 The Opportunity Atlas is an an interactive, map-based tool that can trace the root of outcomes, such as poverty and incarceration, back to the neighborhoods in which children grew up.  The atlas, in a nutshell, shows “Which neighborhoods in America offer children the best chances of climbing the income ladder?” You can view the tool and download all the census tract data [here](https://www.opportunityatlas.org/).
@@ -133,13 +122,17 @@ The Opportunity Atlas is an an interactive, map-based tool that can trace the ro
 
 **Los Angeles Neighborhood Data for Social Change**
 
-A data warehouse created by the [University of Southern California](https://socialinnovation.usc.edu/) that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles.  Check the site out [here](https://data.myneighborhooddata.org/stories/s/xs7g-jqmb).
+A data warehouse created by the [University of Southern California](https://socialinnovation.usc.edu/) that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles.  Check the site out [here](https://usc.data.socrata.com/stories/s/htr6-r22g).
+
+**CA Neighborhoods and Renter Vulnerability**
+
+This [project](https://knowledge.luskin.ucla.edu/ca-renter-vulnerability/#top) focuses on identifying the broad vulnerabilities to COVID-19 and their disparities across neighborhoods in California.
 
 **Looking for data?**
 
 * The [National Neighborhood Data Archive](https://www.openicpsr.org/openicpsr/nanda)  is a publicly available data archive containing contextual measures for locations across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.
 
-* Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on.  Check it out [here](https://toolbox.google.com/datasetsearch)
+* Google has a site for searching datasets akin to Google Scholar, Images, Books and so on.  Check it out [here](https://toolbox.google.com/datasetsearch)
 
 * Kaggle is a crowd-sourced platform for all things data science.  This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources.  A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets [here](https://www.kaggle.com/datasets).
 

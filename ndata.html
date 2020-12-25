@@ -22,6 +22,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -268,7 +279,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Winter 2020</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2021</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -291,33 +302,6 @@ $(document).ready(function () {
     <li>
       <a href="lab1.html">Lab 1</a>
     </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7.html">Lab 7</a>
-    </li>
-    <li>
-      <a href="lab8.html">Lab 8</a>
-    </li>
-    <li>
-      <a href="lab9.html">Lab 9</a>
-    </li>
-    <li>
-      <a href="qgis.html">Extra Lab - QGIS</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -335,18 +319,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="bigopendata.html">Big and Open Data Sources</a>
-    </li>
-    <li>
-      <a href="nhgis.html">Using NHGIS</a>
-    </li>
-    <li>
-      <a href="policymap.html">Using PolicyMap</a>
-    </li>
-    <li>
-      <a href="missingdata.html">Missing Data</a>
-    </li>
-    <li>
-      <a href="georeferencing.html">Mapping Coordinates</a>
     </li>
   </ul>
 </li>
@@ -367,7 +339,7 @@ $(document).ready(function () {
 CRD 150 - Quantitative Methods in Community Research
 </h4></h3>
 <h4 class="date"><h4 style="font-style:normal">
-Winter 2020
+Winter 2021
 </h4></h4>
 
 </div>
@@ -380,7 +352,7 @@ padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
-font-style: italic;
+font-style: normal;
 }
 
 h1.title {
@@ -400,7 +372,8 @@ h2.title {
 }
 </style>
 <p><br />
-This guide lists and describes online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract. A census tract generally encompasses a population between 2,000 to 8,000 residents. Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment. However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice. Below are online data sources organized by topic or theme.</p>
+</p>
+<p>This guide lists and describes online sources that provide data typically in a csv or shapefile format at a local scale, specifically the United States census tract. A census tract generally encompasses a population between 2,000 to 8,000 residents. Given empirical, software, data, and theoretical advancements, social scientists are utilizing more flexible geographic scales to measure the neighborhood environment. However, as a convenient source used by various stakeholders for making decisions at the local level, census tracts are still quite relevant in research, policy and applied practice. Below are online data sources organized by topic or theme.</p>
 <p><strong>Comprehensive neighborhood data sources</strong></p>
 <ul>
 <li><a href="https://ucdavis.policymap.com/maps">PolicyMap</a>
@@ -415,7 +388,7 @@ This guide lists and describes online sources that provide data typically in a c
 <p><strong>Decennial Census and American Community Survey</strong></p>
 <p>The Census represents the most comprehensive source for demographic and socioeconomic data at the census tract level. You can download tract level data from the following sources</p>
 <ul>
-<li><p><a href="https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml">American Fact Finder</a></p></li>
+<li><p><a href="https://data.census.gov/cedsci/">U.S. Census Data Repository</a></p></li>
 <li><p><a href="https://www.socialexplorer.com/">Social Explorer</a></p></li>
 <li><p><a href="https://www.nhgis.org/">National Historical Geographic Information System</a></p></li>
 <li><p><a href="https://ucdavis.policymap.com/maps">PolicyMap</a></p></li>
@@ -458,7 +431,7 @@ This guide lists and describes online sources that provide data typically in a c
 <ul>
 <li><a href="https://onthemap.ces.census.gov/">OnTheMap</a>
 <ul>
-<li>OnTheMap is an application that shows where workers are employed and where they live. The data come from the <a href="https://lehd.ces.census.gov/">Longitudinal Employer-Household Dynamics</a> Program, specifically from their Origin-Destination Employment Statistics (LODES). OnTheMap also provides reports on age, earnings, industry distributions, race, ethnicity, educational attainment, and sex.</li>
+<li>OnTheMap is an application that shows where workers are employed and where they live. The data come from the <a href="https://lehd.ces.census.gov/">Longitudinal Employer-Household Dynamics</a> Program, specifically from their Origin-Destination Employment Statistics (LODES). OnTheMap also provides reports on age, earnings, industry distributions, race, ethnicity, educational attainment, and sex. You can use functions from the package <strong>lehdr</strong> to bring in data directly into R using an API. A brief introduction to the package can be found <a href="https://jamgreen.github.io/lehdr/articles/getting_started.html">here</a>.</li>
 </ul></li>
 </ul>
 <p><strong>Eviction rates</strong></p>
@@ -472,37 +445,19 @@ This guide lists and describes online sources that provide data typically in a c
 <ul>
 <li><a href="http://www.urbandisplacement.org/">Urban Displacement Project</a>
 <ul>
-<li>Developed by researchers at UC Berkeley, the Urban Displacement Project provides census tract level typologies of gentrification in the City of Portland, Southern California, and the San Francisco Bay Area. They also provide the underlying data that they used to create the typologies.</li>
-</ul></li>
-</ul>
-<p><strong>Opportunity Mapping Indices</strong></p>
-<p>Opportunity mapping is used to illustrate where opportunity rich communities exist (and assess who has access to these communities) and to examine where disadvantage or opportunity poor communities are located. Rather than present neighborhood characteristics separately, opportunity mapping consolidates characteristics into single indices of opportunity. This is fast becoming a popular tool in the applied and policy worlds, with indicators being developed for an assortment of different neighborhood dimensions. The indices themselves may not be as relevant for you given the type of question you want to answer; however, all of these indices rely on a consolidation of a bunch of variables that are not available in a clean format at a local level, and many of the websites below provide these variables for download.</p>
-<ul>
-<li><a href="https://interact.regionalchange.ucdavis.edu/roi/index.html">Regional Opportunity Index (ROI)</a>
-<ul>
-<li>The ROI is developed and maintained by the UC Davis Center for Regional Change. The ROI is specific to California tracts. The site provides mapping features but also allows you to download the indices and the underlying data.</li>
-</ul></li>
-<li><a href="http://www.diversitydatakids.org/getdata">Diversity Data Kids</a>
-<ul>
-<li>The site provides opportunity indices specific to the school-aged population.</li>
-</ul></li>
-<li><a href="https://www.neighborhoodatlas.medicine.wisc.edu/">Neighborhood Atlas</a>
-<ul>
-<li>Another index, this time the Area Deprivation Index, developed by the Health Resources and Services Administration. You’ll need to sign up for a free account to download the data.</li>
-</ul></li>
-<li><a href="https://svi.cdc.gov/SVIDataToolsDownload.html">Social Vulnerability Index</a>
-<ul>
-<li>An index maintained by the CDC, it uses Census data to determine tracts that are socially vulnerable to the after effects of a hazardous event.</li>
+<li>Developed by researchers at UC Berkeley, the Urban Displacement Project provides census tract level typologies of gentrification in the City of Portland, Southern California, San Francisco Bay Area and other cities. They also provide the underlying data that they used to create the typologies.</li>
 </ul></li>
 </ul>
 <p><strong>Opportunity Atlas</strong></p>
 <p>The Opportunity Atlas is an an interactive, map-based tool that can trace the root of outcomes, such as poverty and incarceration, back to the neighborhoods in which children grew up. The atlas, in a nutshell, shows “Which neighborhoods in America offer children the best chances of climbing the income ladder?” You can view the tool and download all the census tract data <a href="https://www.opportunityatlas.org/">here</a>.</p>
 <p><strong>Los Angeles Neighborhood Data for Social Change</strong></p>
-<p>A data warehouse created by the <a href="https://socialinnovation.usc.edu/">University of Southern California</a> that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles. Check the site out <a href="https://data.myneighborhooddata.org/stories/s/xs7g-jqmb">here</a>.</p>
+<p>A data warehouse created by the <a href="https://socialinnovation.usc.edu/">University of Southern California</a> that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles. Check the site out <a href="https://usc.data.socrata.com/stories/s/htr6-r22g">here</a>.</p>
+<p><strong>CA Neighborhoods and Renter Vulnerability</strong></p>
+<p>This <a href="https://knowledge.luskin.ucla.edu/ca-renter-vulnerability/#top">project</a> focuses on identifying the broad vulnerabilities to COVID-19 and their disparities across neighborhoods in California.</p>
 <p><strong>Looking for data?</strong></p>
 <ul>
 <li><p>The <a href="https://www.openicpsr.org/openicpsr/nanda">National Neighborhood Data Archive</a> is a publicly available data archive containing contextual measures for locations across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.</p></li>
-<li><p>Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on. Check it out <a href="https://toolbox.google.com/datasetsearch">here</a></p></li>
+<li><p>Google has a site for searching datasets akin to Google Scholar, Images, Books and so on. Check it out <a href="https://toolbox.google.com/datasetsearch">here</a></p></li>
 <li><p>Kaggle is a crowd-sourced platform for all things data science. This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources. A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets <a href="https://www.kaggle.com/datasets">here</a>.</p></li>
 </ul>
 <hr />
@@ -518,7 +473,7 @@ This guide lists and describes online sources that provide data typically in a c
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

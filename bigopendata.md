@@ -2,11 +2,12 @@
 ---
 title: "Big Data and Open Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2020</h4>
+date: <h4 style="font-style:normal">Winter 2021</h4>
 output: 
   html_document:
     theme: cosmo
 ---
+
 
 
 
@@ -17,7 +18,7 @@ padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
-font-style: italic;
+font-style: normal;
 }
 
 h1.title {
@@ -39,6 +40,11 @@ h2.title {
 }
 </style>
 
+
+\
+
+
+
 \
 
 This guide lists and describes online sources that provide [Big Data](https://en.wikipedia.org/wiki/Big_data) or [Open Data](https://ash.harvard.edu/files/open_government.pdf).  Remember to look at the meta data to figure out what kinds of information you can download.
@@ -48,7 +54,7 @@ This guide lists and describes online sources that provide [Big Data](https://en
 * [Airbnb](http://insideairbnb.com/get-the-data.html): Provides csv files containing detailed information on data on airbnb hosts.  The data are in longitude/latitude.  They don't provide historical data.
 
 * Bikesharing: Web sites providing public use data on bikesharing.  Provides station-to-station data.
-    + [San Francisco](https://www.fordgobike.com/system-data).  
+    + [San Francisco](https://www.lyft.com/bikes/bay-wheels/system-data).  
     + [New York City](https://www.citibikenyc.com/system-data) 
     + [Chicago](https://www.divvybikes.com/system-data). 
     + [Washington D.C.](https://www.capitalbikeshare.com/system-data)
@@ -78,7 +84,7 @@ There are a couple of sites that maintain open data portal directories, includin
 
 * [US City Open Data Census](http://us-cities.survey.okfn.org/)
 
-Here are links to various open data portals in US cities (updated 12/25/19)
+Here are links to various open data portals in US cities (updated 12/25/20)
 
 *California*
 
@@ -94,7 +100,7 @@ Here are links to various open data portals in US cities (updated 12/25/19)
 
 * [Alameda County](https://data.acgov.org/)
 
-* [Oakland City](https://data.oaklandnet.com/)
+* [Oakland City](https://data.oaklandca.gov/)
 
 * [Oakland City](http://data.openoakland.org/)
 
@@ -109,6 +115,8 @@ Here are links to various open data portals in US cities (updated 12/25/19)
 * [Anaheim City](http://data-anaheim.opendata.arcgis.com/)
 
 * [Riverside County](https://data.countyofriverside.us/)
+
+* [Fresno City](https://gis-cityoffresno.hub.arcgis.com/)
 
 * [Los Angeles City](https://data.lacity.org/)
 
@@ -148,22 +156,27 @@ Here are links to various open data portals in US cities (updated 12/25/19)
 
 * [Baltimore](https://data.baltimorecity.gov/)
 
-* [San Francisco City/County](https://datasf.org/)
+* [Portland](https://gis-pdx.opendata.arcgis.com/)
 
 * [Seattle](https://data.seattle.gov/)
 
 * [Washington D.C.](http://opendata.dc.gov/)
 
+* [Milwaukee](https://data.milwaukee.gov/)
+
+* [Houston](http://data.houstontx.gov/)
+
 Your city/county not listed above? Use Google. It's your friend.
 
 **Looking for data?**
-
-* Google released a Beta site for a dataset search site akin to Google Scholar, Images, Books and so on.  Check it out [here](https://toolbox.google.com/datasetsearch).
 
 * Kaggle is a crowd-sourced platform for all things data science.  This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources.  A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets [here](https://www.kaggle.com/datasets).
 
 * Esri provides a repository that many of its members use to store various big and open data all in shapefile format.  Check out what's available [here](http://hub.arcgis.com/pages/open-data).
 
+* [Awesome Public Datasets](https://github.com/awesomedata/awesome-public-datasets)
+
+* [Amazon AWS Public Data Sets](https://registry.opendata.aws/)
 
 
 ***
