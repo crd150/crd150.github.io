@@ -17,6 +17,8 @@ navbar:
       menu: 
         - text: "Eligible Communities"
           href: eligible.html   
+        - text: "R tips"
+          href: tips.html   
         - text: "Neighborhood Data Sources"
           href: ndata.html   
         - text: "Big and Open Data Sources"
