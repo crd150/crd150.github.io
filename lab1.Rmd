@@ -1,0 +1,274 @@
+---
+title: "Lab 1: Introduction to R"
+subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
+author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
+date: <h4 style="font-style:normal">January 7, 2021</h4>
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    theme: cosmo
+    code_folding: show
+---
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
+
+\
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+In this guide you will learn the basic fundamentals of the statistical software program R.  Because R is not a prerequisite for the class, this guide assumes no background in the language.  The objectives of the guide are as follows
+
+1. Download R and RStudio
+2. Get familiar with the RStudio interface
+3. Understand R data types
+4. Understand R data structures, in particular vectors and data frames
+5. Understand R functions
+6. Understand R Markdown and the process for submitting assignments
+
+
+This lab guide follows closely and supplements the material presented in Chapters 2, 4, and 21 in the textbook [R for Data Science](http://r4ds.had.co.nz/index.html) (RDS).
+
+<p class="comment">**Assignment 1 is due by 12:00 pm, January 14th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines.  You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn01. For example: brazil_n_asgn01</p>
+
+<div style="margin-bottom:25px;">
+</div>
+## **A note on lab guides**
+\
+
+Lab guides are self-contained and self-guided.  The expectation for each guide is to get through all of it either on your own or collaboratively.  **You do not need to turn in lab guides.** However, it is important that you do not skip guides as lab material builds on one another. 
+
+<div style="margin-bottom:25px;">
+</div>
+## **What is R?**
+\
+
+R is a free, open source statistical programming language.  It is useful for data cleaning, analysis, and visualization. R is an interpreted language, not a compiled one. This means that you type something into R and it does it.  It is both a command line software and a programming environment.  It is an extensible, open-source language and computing environment for Windows, Macintosh, UNIX, and Linux platforms, which  allows for the user to freely distribute, study, change, and improve the software.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Getting R**
+\
+
+R can be downloaded from one of the “CRAN” (Comprehensive R Archive Network) sites. In the US, the main site is at http://cran.us.r-project.org/.  Look in the “Download and Install R” area. Click on the appropriate link based on your operating system.  
+
+**If you already have R on your computer, make sure you have the most updated version of R on your personal computer (4.0.3 "Bunny-Wunnies Freak Out").**
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Mac OS X**
+
+
+1. On the “R for Mac OS X” page, there are multiple packages that could be downloaded. Click on the most recent version, which should be R-4.0.3.pkg as of January 2021; if you are running an earlier version of OS X, download the prior version of R listed below R-4.0.3.pkg based on your OS X.
+
+2. After the package finishes downloading, locate the installer on your hard drive, double-click on the installer package, and after a few screens, select a destination for the installation of the R framework (the program) and the R.app GUI. Close the window when the installation is done.
+
+3. An application will appear in the Applications folder: R.app. 
+
+4. Browse to the [XQuartz download page](https://www.xquartz.org/). Click on the most recent version of XQuartz to download the application.
+
+5. Run the XQuartz installer. XQuartz is needed to create windows to display many types of R graphics: this used to be included in MacOS until version 10.8 but now must be downloaded separately.
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Windows**
+
+
+1. On the “R for Windows” page, click on the “base” link, which should take you to the “R-4.0.3 for Windows (32/64 bit)” page.
+
+2. On this page, click on either the “base” or “install R for the first time" links.
+
+3. On the next page, click on the “Download R 4.0.3 for Windows” link, and save the exe file to your hard disk when prompted. Saving to the desktop is fine.
+
+4. To begin the installation, double-click on the downloaded file. Don’t be alarmed if you get unknown publisher type warnings. Window’s User Account Control will also worry about an unidentified program wanting access to your computer. Click on “Run”.
+
+5. Select the proposed options in each part of the install dialog. When the “Select Components” screen appears, just accept the standard choices.
+
+Note: Depending on the age of your computer and version of Windows, you may be running either a “32-bit” or “64-bit” version of the Windows operating system. If you have the 64-bit version (most likely), R will install the appropriate version (R x64 3.5.2) and will also (for backwards compatibility) install the 32-bit version (R i386 3.5.2). You can run either, but you will probably just want to run the 64-bit version.
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **What is RStudio?**
+\
+
+If you click on the R program you just downloaded, you will find a very basic user interface. For example, below is what I get on a Mac
+
+<br>
+
+<center>
+![R's Interface.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/rint.png)
+</center>
+
+<br>
+
+We will not use R's direct interface to run analyses. Instead, we will use the program RStudio. RStudio gives you a true integrated development environment (IDE), where you can write code in a window, see results in other windows, see locations of files, see objects you've created, and so on. To clarify which is which: R is the name of the programming language itself and RStudio is a convenient interface.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Getting RStudio**
+\
+
+To download and install RStudio, follow the directions below
+
+1. Navigate to RStudio's download [site](https://rstudio.com/products/rstudio/download/#download)
+2. Click on the appropriate link based on your OS (Windows, Mac, Linux and many others). Do not download anything from the "Zip/Tarballs" section.
+3. Click on the installer that you downloaded.  Follow the installation wizard's directions, making sure to keep all defaults intact.  After installation, RStudio should pop up in your Applications or Programs folder/menu.
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **The RStudio Interface**
+\
+
+Open up RStudio.  You should see the interface shown in the figure below which has three windows.
+
+<center>
+![The RStudio Interface.](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/rgui.png)
+
+</center>
+
+\
+
+
+* **Console** (left) - The way R works is you write a line of code to execute some kind of task on a data object.  The R Console allows you to run code interactively. The screen prompt `>` is an invitation from R to enter its world. This is where you type code in, press enter to execute the code, and see the results.
+* **Environment, History, and Connections tabs** (upper-right)
+    + **Environment** - shows all the R objects that are currently open in your workspace.  This is the place, for example, where you will see any data you've loaded into R. When you exit RStudio, R will clear all objects in this window.  You can also click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/broom.png) to clear out all the objects loaded and created in your current session.
+    + **History** - shows a list of executed commands in the current session.
+    + **Connections** - you can connect to a variety of data sources, and explore the objects and data inside the connection.  I typically don't use this window, but you [can](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).    
+* **Files, Plots, Packages, Help and Viewer tabs** (lower-right)
+    + **Files** - shows all the files and folders in your current working directory (more on what this means later).
+    + **Plots** - shows any charts, graphs, maps and plots you've successfully executed (we'll be using this window starting in Lab 4).     
+    + **Packages** - tells you all the R packages that you have access to (more on this in Lab 2).
+    + **Help** - shows help documentation for R commands that you've called up.  
+    + **Viewer** - allows you to view local web content (won't be using this much).
+
+There is actually fourth window. But, we'll get to this window a little later (if you read the [assignment guidelines](https://crd150.github.io/hw_guidelines.html) you already know what this fourth window is).
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **R Data Types**
+\
+
+Let's now explore what R can do. R is really just a big fancy calculator. For example, type in the following mathematical expression next to the `>` in the R console (left window)
+
+```{r results="hide"}
+1+1
+```
+
+Note that spacing does not matter: `1+1` will generate the same answer as `1      +       1`.  Can you say hello to the world?
+\
+
+```{r, error=TRUE}
+hello world
+```
+
+
+Nope. What is the problem here?  We need to put quotes around it. 
+
+```{r, error=TRUE}
+"hello world"
+```
+
+"hello world" is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R.  There are four basic data types in R: character, logical, numeric, and factors (there are two others - complex and raw - but we won't cover them because they are rarely used). 
+
+<div style="margin-bottom:25px;">
+</div>
+### **Characters**
+\
+
+Characters are used to represent words or letters in R.  We saw this above with "hello world". Character values are also known as strings.  You might think that the value `"1"` is a number. Well, with quotes around, it isn't! Anything with quotes will be interpreted as a character.  No ifs, ands or buts about it.
+
+<div style="margin-bottom:25px;">
+</div>
+### **Logicals**
+\
+
+A logical takes on two values: FALSE or TRUE. Logicals are usually constructed with comparison operators, which we'll go through more carefully in Lab 2.  Think of a logical as the answer to a question like "Is this value greater than (lower than/equal to) this other value?" The answer will be either TRUE or FALSE. TRUE and FALSE are logical values in R.  For example, typing in the following 
+
+```{r}
+3 > 2
+```
+
+gives us a true. What about the following?
+
+```{r}
+"prof visser" == "prof brinkley"
+```
+
+<div style="margin-bottom:25px;">
+</div>
+### **Numeric**
+\
+
+Numerics are separated into two types: integer and double.  The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type.  You can do any mathematical operation on numeric values.  We added one and one above. We can also multiply using the `*` operator
+
+```{r}
+2*3
+```
+
+Divide
+
+```{r}
+4/2
+```
+
+And even take the logarithm!
+
+```{r}
+log(1)
+log(0)
+```
+
+Uh oh. What is `-Inf`?  Well, you can't take the logarithm of 0, so R is telling you that you're getting a non numeric value in return.  The value `-Inf` is another type of value type that you can get in R.  We'll go through this and other weirdo values in Lab 2.
+
+
+<div style="margin-bottom:25px;">
+</div>
+### **Factors**
+\
+
+Think of a factor as a categorical variable.  It is sort of like a character, but not really. It is actually a numeric code with character-valued levels. Think of a character as a true string and a factor as a set of categories represented as characters. We won't use factors too much in this course.
+
+
+***
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
