@@ -518,7 +518,7 @@ The proper workflow for each assignment will be as follows
 1. Go through the week's reading and lab guide and make sure you understand the material.
 2. Create a folder on your hard drive that is specific to the assignment (e.g. Assignment 1, Assignment 2, etc.).
 3. Save the R Markdown assignment template linked to each assignment in the appropriate assignment folder on your hard drive.
-4. Download any data needed for the assignment into the same folder.  For most assignments, I will upload most of the assignment data on GitHub, which you can directly link to in R, so you won't have to download data.
+4. Download any data needed for the assignment into the same folder.  For most assignments, I will upload the assignment data on GitHub, which you can directly link to in R, so you won't have to download data.
 5. Open the R Markdown assignment file in RStudio.
 6. In the R Markdown document, answer the first assignment question.
 * Most of the questions will ask you to run code.  Show that code in R Markdown chunks. Bottom line: Any code you used to get a result should be in your assignment. Otherwise, you will get points off, and for some questions, get *all* points off.

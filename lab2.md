@@ -581,6 +581,7 @@ write_csv(counties2, "lab2_file.csv")
 The first argument is the name of the R object you want to save. The second argument is the name of the csv file in quotes. Make sure to add the .csv extension. The file is saved in the folder you set as the current working directory (remember, use `getwd()` to determine the current directory). You're done! [Time to celebrate](https://www.youtube.com/watch?v=3GwjfUFyY6M).
 
 
+
 ***
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
