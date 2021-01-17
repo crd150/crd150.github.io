@@ -597,7 +597,7 @@ b. How many rows are included in the file? What does each row represent? Remembe
 c. How many columns are included in the file? What does each column represent? (2 points)
 d. Conduct the following data wrangling tasks.  Use the pipe operator to do all of these tasks in one continuous line of code.  Note that you have to decide the appropriate order of the tasks. (4 points)
 
-* Keep the variables NAME, proportion White, Black and Hispanic, total population, and the difference between Black and White income.
+* Keep the variables NAME, proportion White, Black and Hispanic, total population, and the difference between Hispanic and White income.
 * Create variables containing the proportion White, Black and Hispanic.
 * Create a variable subtracting White household income from Hispanic household income.
 * Save the changes into a tibble named *q2clean*
