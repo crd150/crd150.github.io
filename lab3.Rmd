@@ -408,7 +408,7 @@ As we covered in [Lab 2](https://crd150.github.io/lab2.html#Creating_new_variabl
 ```{r}
 cacounty <- cacounty %>%
                     mutate(pwhite = 100*(nhwhiteE/tpoprE), 
-                           pblack = 100*(nhwhiteE/tpoprE), 
+                           pblack = 100*(nhblkE/tpoprE), 
                            pasian = 100*(nhasnE/tpoprE), 
                            phisp = 100*(hispE/tpoprE))
 ```

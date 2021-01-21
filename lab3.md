@@ -476,7 +476,7 @@ As we covered in [Lab 2](https://crd150.github.io/lab2.html#Creating_new_variabl
 ```r
 cacounty <- cacounty %>%
                     mutate(pwhite = 100*(nhwhiteE/tpoprE), 
-                           pblack = 100*(nhwhiteE/tpoprE), 
+                           pblack = 100*(nhblkE/tpoprE), 
                            pasian = 100*(nhasnE/tpoprE), 
                            phisp = 100*(hispE/tpoprE))
 ```
@@ -587,13 +587,13 @@ summary(cacounty)
 ##                                        Mean   :  677302   Mean   :27.29  
 ##                                        3rd Qu.:  692751   3rd Qu.:35.17  
 ##                                        Max.   :10081570   Max.   :59.49  
-##      pwhite          pblack          pasian           phisp       
-##  Min.   :10.64   Min.   :10.64   Min.   : 0.000   Min.   : 7.299  
-##  1st Qu.:35.31   1st Qu.:35.31   1st Qu.: 1.614   1st Qu.:14.680  
-##  Median :51.95   Median :51.95   Median : 4.236   Median :25.531  
-##  Mean   :53.74   Mean   :53.74   Mean   : 7.307   Mean   :30.622  
-##  3rd Qu.:71.77   3rd Qu.:71.77   3rd Qu.: 7.867   3rd Qu.:44.700  
-##  Max.   :87.57   Max.   :87.57   Max.   :36.280   Max.   :84.212
+##      pwhite          pblack             pasian           phisp       
+##  Min.   :10.64   Min.   : 0.06579   Min.   : 0.000   Min.   : 7.299  
+##  1st Qu.:35.31   1st Qu.: 1.03318   1st Qu.: 1.614   1st Qu.:14.680  
+##  Median :51.95   Median : 1.82224   Median : 4.236   Median :25.531  
+##  Mean   :53.74   Mean   : 2.98417   Mean   : 7.307   Mean   :30.622  
+##  3rd Qu.:71.77   3rd Qu.: 3.32593   3rd Qu.: 7.867   3rd Qu.:44.700  
+##  Max.   :87.57   Max.   :13.50115   Max.   :36.280   Max.   :84.212
 ```
 
 The summary provides the minimum, 25th percentile, median, mean, 75th percentile and maximum for each numeric variable.  It will also indicate the number of observations missing values for each variable, which is none in our case. 

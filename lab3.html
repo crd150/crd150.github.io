@@ -776,7 +776,7 @@ names(ca.pm)</code></pre>
 <p>As we covered in <a href="https://crd150.github.io/lab2.html#Creating_new_variables">Lab 2</a>, we use the function <code>mutate()</code> to create new variables in a data frame. Here, we need to calculate the percentage of residents by race/ethnicity. The race/ethnicity counts end with the letter “E”. Remember, we want variable names that are short and clear.</p>
 <pre class="r"><code>cacounty &lt;- cacounty %&gt;%
                     mutate(pwhite = 100*(nhwhiteE/tpoprE), 
-                           pblack = 100*(nhwhiteE/tpoprE), 
+                           pblack = 100*(nhblkE/tpoprE), 
                            pasian = 100*(nhasnE/tpoprE), 
                            phisp = 100*(hispE/tpoprE))</code></pre>
 <p>We multiply each race/ethnic proportion by 100 to convert the values into percentages.</p>
@@ -835,13 +835,13 @@ names(ca.pm)</code></pre>
 ##                                        Mean   :  677302   Mean   :27.29  
 ##                                        3rd Qu.:  692751   3rd Qu.:35.17  
 ##                                        Max.   :10081570   Max.   :59.49  
-##      pwhite          pblack          pasian           phisp       
-##  Min.   :10.64   Min.   :10.64   Min.   : 0.000   Min.   : 7.299  
-##  1st Qu.:35.31   1st Qu.:35.31   1st Qu.: 1.614   1st Qu.:14.680  
-##  Median :51.95   Median :51.95   Median : 4.236   Median :25.531  
-##  Mean   :53.74   Mean   :53.74   Mean   : 7.307   Mean   :30.622  
-##  3rd Qu.:71.77   3rd Qu.:71.77   3rd Qu.: 7.867   3rd Qu.:44.700  
-##  Max.   :87.57   Max.   :87.57   Max.   :36.280   Max.   :84.212</code></pre>
+##      pwhite          pblack             pasian           phisp       
+##  Min.   :10.64   Min.   : 0.06579   Min.   : 0.000   Min.   : 7.299  
+##  1st Qu.:35.31   1st Qu.: 1.03318   1st Qu.: 1.614   1st Qu.:14.680  
+##  Median :51.95   Median : 1.82224   Median : 4.236   Median :25.531  
+##  Mean   :53.74   Mean   : 2.98417   Mean   : 7.307   Mean   :30.622  
+##  3rd Qu.:71.77   3rd Qu.: 3.32593   3rd Qu.: 7.867   3rd Qu.:44.700  
+##  Max.   :87.57   Max.   :13.50115   Max.   :36.280   Max.   :84.212</code></pre>
 <p>The summary provides the minimum, 25th percentile, median, mean, 75th percentile and maximum for each numeric variable. It will also indicate the number of observations missing values for each variable, which is none in our case.</p>
 <p>We were fortunate to have no missing data. However, in many situations, missing data will be present. Check the PolicyMap guide located <a href="https://crd150.github.io/policymap.html">here</a> to see how to deal with missingness in PolicyMap data. We’ll also cover more about what to do with missing data when conducting exploratory data analysis in Lab 4.</p>
 <div style="margin-bottom:25px;">
