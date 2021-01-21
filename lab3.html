@@ -609,9 +609,11 @@ library(VIM)</code></pre>
 <p><img src="pmfolder.png" /></p>
 </center>
 <ol start="10" style="list-style-type: decimal">
-<li>Let’s bring the csv file into R. We covered how to read in data into R in <a href="https://crd150.github.io/lab2.html#Reading_data">Lab 2</a>. If you’re having trouble downloading the file, I uploaded it onto Canvas (Files - Week 3 - Lab). Make sure your <a href="https://crd150.github.io/lab2.html#Reading_data">working directory is pointed to the folder containing the file</a>. Then read in the file using the function <code>read_csv()</code>.</li>
+<li>Let’s bring the csv file into R. We covered how to read in data into R in <a href="https://crd150.github.io/lab2.html#Reading_data">Lab 2</a>. Make sure your <a href="https://crd150.github.io/lab2.html#Reading_data">working directory is pointed to the folder containing the file</a>. Then read in the file using the function <code>read_csv()</code>.</li>
 </ol>
 <pre class="r"><code>ca.pm &lt;- read_csv(&quot;TYPE THE FILE NAME HERE WITH CSV EXTENSION&quot;)</code></pre>
+<p>If you’re having trouble downloading the file from PolicyMap, I uploaded it onto GitHub. Read it in using the following code.</p>
+<pre class="r"><code>ca.pm &lt;- read_csv(&quot;https://raw.githubusercontent.com/crd150/data/master/PolicyMap%20Data%202021-01-20%201623UTC.csv&quot;)</code></pre>
 <p>When you bring in a dataset, the first thing you should always do is view it just to make sure you got what you expected. You can do this directly in the console by using the function <code>glimpse()</code>, which we covered in <a href="https://crd150.github.io/lab2.html#Reading_data">Lab 2</a>.</p>
 <pre class="r"><code>glimpse(ca.pm)</code></pre>
 <pre><code>## Rows: 65
@@ -811,7 +813,7 @@ names(ca.pm)</code></pre>
 <pre><code>## [1] NaN</code></pre>
 <p>You will likely encounter <code>NA</code>, <code>Inf</code>, and <code>NaN</code> values, even in already relatively clean datasets like those produced by the Census. The first step you should take is to determine if you have missing values in your dataset. There are two ways of doing this. First, you can run the function <code>aggr()</code>, which is in the <strong>VIM</strong> package. Run the <code>aggr()</code> function as follows</p>
 <pre class="r"><code>summary(aggr(ca.pm))</code></pre>
-<p><img src="lab3_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
+<p><img src="lab3_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 <pre><code>## 
 ##  Missings per variable: 
 ##        Variable Count
@@ -862,6 +864,35 @@ names(ca.pm)</code></pre>
               survey = &quot;acs5&quot;,
               output = &quot;wide&quot;)</code></pre>
 <p>You’ll find that the code is nearly identical to the code we used to bring in the county data, except we replace <code>county</code> with <code>tract</code> for <code>geography =</code>. We’ll work with tract data more in the next lab when we explore methods and techniques in exploratory data analysis.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="assignment-3" class="section level2">
+<h2><strong>Assignment 3</strong></h2>
+<p><br />
+</p>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn03.Rmd">Assignment 3 R Markdown Script</a>. Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas. We’ve put together some additional R tips <a href="https://crd150.github.io/tips.html">here</a> in the likely case you get stuck.</p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>California housing is super duper <a href="https://www.bloomberg.com/graphics/2019-california-housing-crisis/">expensive!</a> How many years of income will it take to buy a home in California? Let’s answer this question by examining <a href="https://www.citylab.com/equity/2018/05/where-the-house-price-to-income-ratio-is-most-out-of-whack/561404/">house-price-to-income ratios</a> in California counties. The ratio gives you the number of years a household needs in order to completely pay for housing in California assuming it uses all of its income to pay it off. Run the following data wrangling tasks. Submit all the code you used to accomplish these tasks. Where possible, use the pipe operator <code>%&gt;%</code>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Using the Census API, bring into R 2015-19 American Community Survey county-level estimates of <a href="https://www.socialexplorer.com/data/ACS2019_5yr/metadata/?ds=ACS19_5yr&amp;table=B25077">median housing value</a> in California. Make sure the data set is clean - a county should be listed in only one row and the columns should have the county FIPS code, name, and median housing value. (2 points)</li>
+<li>Using PolicyMap, bring into R 2015-19 American Community Survey estimates of median household income for all counties in California. Clean the data set. (3 points)</li>
+<li>Merge the files from (a) and (b) together. Create a variable containing the ratio of median housing value to median household income. That is, the variable should divide the median housing value by the median household income. (2 points)</li>
+<li>How many years will it take for a household to pay off a house in Yolo County in 2015-19? (1 point)</li>
+<li>Which county has the largest housing value-to-income ratio in 2015-2019? Smallest? (3 points)</li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>California has experienced a number of historically devastating wildfires in recent years. One of the most destructive fires occurred in <a href="https://en.wikipedia.org/wiki/Camp_Fire_(2018)">Butte County in November 2018</a>. Some <a href="https://www.npr.org/2019/11/09/777801169/the-camp-fire-destroyed-11-000-homes-a-year-later-only-11-have-been-rebuilt">news</a> <a href="https://www.citylab.com/equity/2017/11/wildfires-have-worsened-the-bay-areas-housing-crisis/546647/">articles</a> posited that the wild fires will have severe immediate consequences on the local housing market. Because the fires burned down a large proportion of homes, reducing housing stock, housing and rental prices will increase because of the low supply and the high demand. The Census released the 2019 1-year ACS data a few months ago, allowing us to test whether rental and housing values in Butte County increased approximately one year after the fires.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Use the Census API to bring in 1-year ACS estimates of median housing values and median gross rent for California counties in 2018. Do the same for 2019 and merge these files together using their GEOID. Filter to keep just Butte county. (3 points)</p></li>
+<li><p>Take the difference between the 2018 and 2019 median housing and median gross rent values. Did housing values go up in Butte county? What about rent? (3 points)</p></li>
+<li><p>We need an appropriate comparison to Butte county to determine whether the changes we calculated in (b) are large. Repeat (a) and (b) but for the state of California to get the increase in the state’s median housing value and median gross rent from 2018 to 2019. How do the values you calculated in (b) compare to California? (3 points)</p></li>
+</ol>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
