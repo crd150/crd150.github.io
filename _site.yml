@@ -14,7 +14,9 @@ navbar:
         - text: "Lab 1"
           href: lab1.html    
         - text: "Lab 2"
-          href: lab2.html          
+          href: lab2.html  
+        - text: "Lab 3"
+          href: lab3.html           
     - text: "Other"
       menu: 
         - text: "Eligible Communities"
@@ -25,6 +27,8 @@ navbar:
           href: ndata.html   
         - text: "Big and Open Data Sources"
           href: bigopendata.html       
+        - text: "PolicyMap"
+          href: policymap.html
 output:
   html_document:
     theme: cosmo
