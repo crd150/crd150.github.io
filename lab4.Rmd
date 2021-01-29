@@ -283,7 +283,6 @@ You can summarize the relationship between two numeric variables with the correl
 
 ```{r}
 ncal.tracts %>%
-  group_by(city) %>%
   summarize(blk_inc = cor(medincome,pblk, use = "complete.obs"))
 ```
 

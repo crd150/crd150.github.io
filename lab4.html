@@ -751,15 +751,11 @@ glimpse(ncal.tracts)</code></pre>
 </p>
 <p>You can summarize the relationship between two numeric variables with the correlation coefficient. To calculate the correlation coefficient, use the function <code>cor()</code>. The first two arguments in <code>cor()</code> are the two numeric variables you want to calculate the correlation for. Let’s calculate the correlation between neighborhood income and percent race, and neighborhood loan-to-income ratio and percent black. Note that the argument <code>use = "complete.obs"</code> removes the missing values in <em>medincome</em>.</p>
 <pre class="r"><code>ncal.tracts %&gt;%
-  group_by(city) %&gt;%
   summarize(blk_inc = cor(medincome,pblk, use = &quot;complete.obs&quot;))</code></pre>
-<pre><code>## # A tibble: 4 x 2
-##   city          blk_inc
-##   &lt;chr&gt;           &lt;dbl&gt;
-## 1 Oakland        -0.487
-## 2 Sacramento     -0.490
-## 3 San Francisco  -0.340
-## 4 San Jose       -0.236</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   blk_inc
+##     &lt;dbl&gt;
+## 1  -0.445</code></pre>
 <p>Group these correlations by city.</p>
 <pre class="r"><code>ncal.tracts %&gt;%
   group_by(city) %&gt;%
