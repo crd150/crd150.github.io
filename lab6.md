@@ -346,7 +346,7 @@ moran.test(sac.city.tracts$pfb, sacw)
 ##       0.612502949      -0.008403361       0.003303473
 ```
 
-We find that the Moran's I is positive (0.61) and statistically significant ([p-value](https://en.wikipedia.org/wiki/P-value) < 0.05). Remember from lecture that the Moran's I is simply a correlation, and we learned from Handout 3 that correlations go from -1 to 1.  A 0.63 correlation is fairly high (meeting the rule of thumb of 0.30  described in Handout 6), indicating strong positive clustering.  Moreover, we find that this correlation is statistically significant (p-value basically at 0).  
+We find that the Moran's I is positive (0.61) and statistically significant ([p-value](https://en.wikipedia.org/wiki/P-value) < 0.05). Remember from lecture that the Moran's I is simply a correlation, and we learned from Handout 3 that correlations go from -1 to 1.  A 0.61 correlation is fairly high (meeting the rule of thumb of 0.30  described in Handout 6), indicating strong positive clustering.  Moreover, we find that this correlation is statistically significant (p-value basically at 0).  
 
 Based on the following evidence
 
