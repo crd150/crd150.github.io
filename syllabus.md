@@ -396,7 +396,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Segregation and gentrification in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> Proposal </td>
+   <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 2-Mar </td>
@@ -404,7 +404,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;"> Guest Lecture </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Proposal </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 4-Mar </td>
@@ -424,16 +424,16 @@ The schedule is subject to revision throughout the quarter.  Please see the full
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 9-Mar </td>
-   <td style="text-align:left;"> Lecture* </td>
-   <td style="text-align:left;"> Final project in-class workshop </td>
+   <td style="text-align:left;"> Lecture </td>
+   <td style="text-align:left;"> No lecture </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 5em; "> 11-Mar </td>
-   <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> No lecture </td>
+   <td style="text-align:left;"> Lecture* </td>
+   <td style="text-align:left;"> Final project in-class workshop </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
