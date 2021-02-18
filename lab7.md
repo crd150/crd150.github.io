@@ -370,7 +370,7 @@ summary(shelters.geo$lat)
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##   33.74   33.98   34.05   34.07   34.13   34.70       5
+##   33.74   33.98   34.05   34.07   34.12   34.70       6
 ```
 
 Six shelters received an `NA`.  This is likely because the addresses are not correct, has errors, or are not fully specified.  You'll have to manually fix these issues, which becomes time consuming if you have a really large data set.  For the purposes of this lab, let's just discard these, but in practice, make sure to double check your address data (See the document Geocoding_Best_Practices.pdf in the Other Resources folder on Canvas for best practices for cleaning address data). We use the `filter()` function to filter out the NAs.
@@ -504,6 +504,42 @@ la.city.tracts %>%
 
 ![](lab7_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
 
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Assignment 7**
+\
+
+Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd). The script can also be found on Canvas (Files - Week 7 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+
+<br>
+
+1. In this question, you will be exploring the spatial distribution of Airbnb listings in the City of Oakland. [Airbnb](https://press.airbnb.com/about-us/) involves renting an entire home, a room or a shared room, typically from a private citizen. The data were downloaded from Airbnb's public use [data site](http://insideairbnb.com/get-the-data.html). You will be using the shapefile *oak_tracts.zip*,  which contains Oakland City tracts with their population sizes downloaded from the 2015-2019 American Community Survey, and the csv file *oakland_airbnb_dec2020.csv*, which contains Airbnb locations in December 2020. The record layout for *oakland_airbnb_dec2020.csv* can be found [here](https://raw.githubusercontent.com/crd150/data/master/oakland_airbnb_record_layout.txt).  The files are located in Canvas (Files - Week 7 - Assignment). Save the files in an appropriate folder. Unzip *oak_tracts.zip* to extract the shapefiles.
+
+
+a. Read the file *oakland_airbnb_dec2020.csv* into R. Create a point dataset of Airbnb listings using their longitudes and latitudes.  (3 points)
+b. Read the file *oak_tracts.shp* into R. Create a variable that represents the number of Airbnb listings in each neighborhood. (3 points)
+c. Create a choropleth map of the number of Airbnb listings per 1,000 residents. (4 points)
+
+<br>
+
+2. The purpose of this question is to increase your exposure to the world of open data. In this exercise, you will explore a city's open data portal, answering questions about one of its data sets and examining the data set in R.  Pick **one** of the following cities and answer the questions that follow.
+
+    + New York, NY [(link)](https://opendata.cityofnewyork.us/)
+    + San Francisco, CA [(link)](https://datasf.org/opendata/)
+    + Los Angeles, CA [(link)](https://geohub.lacity.org/)
+    + Chicago, IL [(link)](https://data.cityofchicago.org/)
+
+a. Which city did you choose?
+b. Find a dataset that looks interesting to you and can be downloaded and brought into R.  Answer the following questions about this dataset.
+
+* Describe the dataset you selected. What are the variables, the year(s) captured by  the data, and the units of observations? (2 points)
+* Are you able to manipulate the data online? This includes filtering rows and selecting columns. (1 point)
+* Are you able to create visualizations online with the data using graphs and charts? If so, what kinds of graphs and charts? (1 point)
+* Are you able to map the data online? If so, what types of maps? (1 point)
+* Is the data set accompanied by a codebook with definitions of terms, variables and fields? (1 point)
+* Bring the data set into R. Create either a single table, chart or graph that we covered in [Lab 4](https://crd150.github.io/lab4.html) or a single map that we covered in [Lab 5](https://crd150.github.io/lab5.html) or Lab 7. Explain what your graphic is showing us. You must show your code to get full points for this question. (4 points)
 
 
 ***
