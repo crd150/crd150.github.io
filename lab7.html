@@ -667,7 +667,10 @@ la.city.tracts &lt;- ms_clip(target = ca.tracts, clip = la.city, remove_slivers 
 <pre class="r"><code>class(shelters.df)</code></pre>
 <pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
 <p>In order to convert these nonspatial objects into spatial objects, we need to geolocate them. To do this, use the geographic coordinates (longitude and latitude) to place points on a map. The file <em>homeless311.df</em> has longitude and latitude coordinates, so we have all the information we need to convert it to a spatial object.</p>
-<p>We will use the function <code>st_as_sf()</code> to create a point <strong>sf</strong> object out of <em>homeless311.df</em> using the geographic coordinates. Geographic coordinates are in the form of a longitude and latitude, where longitude is your X coordinate and spans East/West and latitude is your Y coordinate and spans North/South. The function <code>st_as_sf()</code> requires you to specify the longitude and latitude of each point using the <code>coords =</code> argument, which are conveniently stored in the variables <em>Longitude</em> and <em>Latitude</em> in <em>homeless311.df</em>. You also need to establish the Coordinate Reference System (CRS) using the <code>crs =</code> argument, which I covered in Tuesday’s lecture. To establish a CRS, you will need to specify the Geographic Coordinate System (so you know where your points are on Earth), which encompasses the datum and ellipse, and a Projection (a way of putting points in 2 dimensions or on a flat map).</p>
+<p>We will use the function <code>st_as_sf()</code> to create a point <strong>sf</strong> object out of <em>homeless311.df</em> using the geographic coordinates. Geographic coordinates are in the form of a longitude and latitude, where longitude is your X coordinate and spans East/West and latitude is your Y coordinate and spans North/South. The function <code>st_as_sf()</code> requires you to specify the longitude and latitude of each point using the <code>coords =</code> argument, which are conveniently stored in the variables <em>Longitude</em> and <em>Latitude</em> in <em>homeless311.df</em>. We need to take out any observations with missing values <code>NA</code> for either <em>Longitude</em> or <em>Latitude</em>. Do this by using the function <code>is.na()</code> within the <code>filter()</code> function.</p>
+<pre class="r"><code>homeless311.df &lt;- homeless311.df %&gt;%
+                filter(is.na(Longitude) == FALSE &amp; is.na(Latitude) == FALSE)</code></pre>
+<p>You also need to establish the Coordinate Reference System (CRS) using the <code>crs =</code> argument, which I covered in Tuesday’s lecture. To establish a CRS, you will need to specify the Geographic Coordinate System (so you know where your points are on Earth), which encompasses the datum and ellipse, and a Projection (a way of putting points in 2 dimensions or on a flat map).</p>
 <pre class="r"><code>homeless311.sf &lt;- st_as_sf(homeless311.df, coords = c(&quot;Longitude&quot;, &quot;Latitude&quot;), crs = &quot;+proj=longlat +datum=NAD83 +ellps=WGS84&quot;)</code></pre>
 <p>For <code>crs =</code>, we establish the projection <code>+proj=</code>, datum <code>+datum=</code> and ellipse <code>+ellps</code>. Because we have latitude and longitude, <code>+proj=</code> is established as <code>longlat</code>. We use NAD83 for datum and WGS84 ellipse. The most common datum and ellipsoid combinations are listed in Figure 1 in the Coordinate_Reference_Systems.pdf document on Canvas (Files - Other Resources). For the purposes of this lab and assignment 7 (and in your final project if you choose to use point data), use the crs specified above.</p>
 <p>Note that the CRS should have only have one space in between <code>+proj=longlat</code>, <code>+datum=WGS84</code> and <code>+ellps=WGS84</code>. And you should have no spaces anywhere else. Be careful about this because if you introduce spaces elsewhere you will get an incorrect CRS (and R will not give you an error to let you know). Also note that the longitude will always go before the latitude in <code>coords =</code>.</p>
@@ -676,7 +679,7 @@ la.city.tracts &lt;- ms_clip(target = ca.tracts, clip = la.city, remove_slivers 
   tm_polygons() +
 tm_shape(homeless311.sf) +  
   tm_dots(col=&quot;red&quot;)</code></pre>
-<p><img src="lab7_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
+<p><img src="lab7_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -721,7 +724,7 @@ tm_shape(homeless311.sf) +
   tm_dots(col=&quot;red&quot;) +
 tm_shape(shelters.sf) +  
   tm_dots(col=&quot;blue&quot;)</code></pre>
-<p><img src="lab7_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
+<p><img src="lab7_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -772,7 +775,7 @@ tm_shape(shelters.sf) +
     tm_layout(main.title = &quot;Homeless encampments in Los Angeles Tracts, 2019&quot;,
             main.title.size = 0.95, frame = FALSE,
             legend.outside = TRUE, legend.outside.position = &quot;right&quot;)</code></pre>
-<p><img src="lab7_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
+<p><img src="lab7_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
 <div style="margin-bottom:25px;">
 
 </div>

@@ -12,6 +12,8 @@ output:
 ---
 
 
+
+
 <style>
 p.comment {
 background-color: #DBDBDB;
@@ -19,7 +21,7 @@ padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
 border-radius: 5px;
-font-style: italic;
+font-style: normal;
 }
 
 .figure {
@@ -51,9 +53,9 @@ h2.title {
 
 
 
-This mini guide provides step-by-step instructions for downloading data from the [National Historical Geographic Information System](https://www.nhgis.org/) (NHGIS). NHGIS provides Census population, housing, agricultural, and economic data, along with GIS-compatible boundary files, for geographic units in the United States from 1790 to the present.  It offers a user-friendly system for selecting and downloading raw data for processing in R.
 
-We will download the tabular data that was used in [Lab 2](https://crd150.github.io/lab2.html). The guide will also describe how to download shapefiles, which won't be relevant until Week 4.
+
+This guide provides step-by-step instructions for downloading data from the [National Historical Geographic Information System](https://www.nhgis.org/) (NHGIS). NHGIS provides Census population, housing, agricultural, and economic data, along with GIS-compatible boundary files, for geographic units in the United States from 1790 to the present.  It offers a user-friendly system for selecting and downloading raw data for processing in R.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -76,7 +78,7 @@ Go back to the NHGIS home page.  We're going to download county-level data on ma
 
 Select on *Geographic Levels*.  A window pops up allowing you to select the level of geography at which you want your data in.  Select ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/nhgis2.png) underneath *County*.  Then hit the *Submit* button.
 
-3. Select *Years*.  This will bring up a window allowing you to select which years you want to grab data for.  We want the 2012-2016 5-year ACS - select the checkbox next to *2012-2016* underneath the heading *5-year ranges*. Click *Submit*.
+3. Select *Years*.  This will bring up a window allowing you to select which years you want to grab data for.  We want the 2014-2018 5-year ACS - select the checkbox next to *2014-2018* underneath the heading *5-year ranges*. Click *Submit*.
 
 4. Click on *Topics*. This allows you to filter which variables appear for selection by broad topic.  Click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/nhgis2.png) next to *Marriage* under *Core Demographics* and *Educational Attainment* under *Education* in the *Table Topic Filter* column (not the *Breakdown Filter*). Click on *Submit*.
 
@@ -110,7 +112,58 @@ This will give you variables that contain information on Marriage AND Education.
 
 12. When the data are ready to download, you will get an email.  In that email, click on the link it provides to download the data.  On that page, select *tables* under *Download Table Data*. This will download your data in a zipped folder. Save this download in an appropriate folder on your hard drive.
 
-13. Unzip the folder you downloaded. The unzipped folder should contain two files. A csv file containing your data and a txt file containing meta data.  The record layout/codebook for the file can be found [here](https://raw.githubusercontent.com/crd150/data/master/nhgis0086_ds225_20165_2016_county_codebook.txt).  
+13. You can unizip the file and bring in the csv file by using `read_csv()`.  Or you can use functions from the package **ipumsr** and automatically clean your dataset without even unzipping the zip file! To do this, first install the package **ipumsr**
+
+
+```r
+install.packages("ipumsr")
+```
+
+And then load it in
+
+
+```r
+library(ipumsr)
+```
+
+14. Save the name of the NHGIS zip file you downloaded.  For example, my file is name *nhgis0161_csv.zip* (yours will likely be different).
+
+
+```r
+nhgis_csv_file <- "nhgis0161_csv.zip"
+```
+
+15. All NHGIS downloads also contains metadata (i.e. codebook).  This is a valuable file as it lets you know what each variable in your file represents, among many other importance pieces of information.  Read that in using the function `read_ipums_codebook()`
+
+
+```r
+nhgis_ddi <- read_ipums_codebook(nhgis_csv_file)
+```
+
+16. Finally, read in the data using the function `read_nhgis()`
+
+
+```r
+nhgis <- read_nhgis(
+  data_file = nhgis_csv_file,
+)
+```
+
+```
+## Use of data from NHGIS is subject to conditions including that users should
+## cite the data appropriately. Use command `ipums_conditions()` for more details.
+## 
+## 
+## Reading data file...
+```
+
+View the tibble and you'll find not only the variable names, but their descriptions!
+
+
+```r
+View(nhgis)
+```
+
 
 <div style="margin-bottom:25px;">
 </div>
@@ -123,7 +176,7 @@ You can also download spatial shapefiles of different Census boundaries through 
 2. On the next page, select the *Geographic Levels* filter at the top.
 3. A window pops up allowing you to select the level of geography at which you want your data in.  Select ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/nhgis2.png) underneath *Census Tract*.  Click on the *Submit* button.
 4. Click on the *Years* filter.
-5. Select the year you want your boundaries in.  The Census changes boundaries for most geographies every 10 years. So, if you select, for example, the 5-year range 2012-2016, you will get Census tract boundaries from 2010.  
+5. Select the year you want your boundaries in.  The Census changes boundaries for most geographies every 10 years. So, if you select, for example, the 5-year range 2014-2018, you will get Census tract boundaries from 2010.  
 6. Click on the *GIS FILES* tab (see figure below) under the *Select Data* section.  Then click on ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/nhgis2.png) next to the appropriate Census tract year.
 
 <center>

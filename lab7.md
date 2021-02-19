@@ -280,7 +280,15 @@ class(shelters.df)
 
 In order to convert these nonspatial objects into spatial objects, we need to geolocate them.  To do this, use the geographic coordinates (longitude and latitude) to place points on a map. The file *homeless311.df* has longitude and latitude coordinates, so we have all the information we need to convert it to a spatial object.  
 
-We will use the function `st_as_sf()` to create a point **sf** object out of *homeless311.df* using the  geographic coordinates.  Geographic coordinates are in the form of a longitude and latitude, where longitude is your X coordinate and spans East/West and latitude is your Y coordinate and spans North/South. The function `st_as_sf()` requires you to specify the longitude and latitude of each point using the `coords =` argument, which are conveniently stored in the variables *Longitude* and *Latitude* in *homeless311.df*. You also need to establish the Coordinate Reference System (CRS) using the `crs =` argument, which I covered in Tuesday's lecture. To establish a CRS, you will need to specify the Geographic Coordinate System (so you know where your points are on Earth), which encompasses the datum and ellipse, and a Projection (a way of putting points in 2 dimensions or on a flat map). 
+We will use the function `st_as_sf()` to create a point **sf** object out of *homeless311.df* using the  geographic coordinates.  Geographic coordinates are in the form of a longitude and latitude, where longitude is your X coordinate and spans East/West and latitude is your Y coordinate and spans North/South. The function `st_as_sf()` requires you to specify the longitude and latitude of each point using the `coords =` argument, which are conveniently stored in the variables *Longitude* and *Latitude* in *homeless311.df*. We need to take out any observations with missing values `NA` for either *Longitude* or *Latitude*.  Do this by using the function `is.na()` within the `filter()` function.
+
+
+```r
+homeless311.df <- homeless311.df %>%
+                filter(is.na(Longitude) == FALSE & is.na(Latitude) == FALSE)
+```
+
+You also need to establish the Coordinate Reference System (CRS) using the `crs =` argument, which I covered in Tuesday's lecture. To establish a CRS, you will need to specify the Geographic Coordinate System (so you know where your points are on Earth), which encompasses the datum and ellipse, and a Projection (a way of putting points in 2 dimensions or on a flat map). 
 
 
 ```r
@@ -301,7 +309,7 @@ tm_shape(homeless311.sf) +
   tm_dots(col="red")
 ```
 
-![](lab7_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](lab7_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 
 <div style="margin-bottom:25px;">
@@ -400,7 +408,7 @@ tm_shape(shelters.sf) +
   tm_dots(col="blue")
 ```
 
-![](lab7_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](lab7_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 
 <div style="margin-bottom:25px;">
@@ -502,7 +510,7 @@ la.city.tracts %>%
             legend.outside = TRUE, legend.outside.position = "right")
 ```
 
-![](lab7_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+![](lab7_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 
 
