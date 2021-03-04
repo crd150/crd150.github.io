@@ -403,6 +403,9 @@ div.tocify {
     <li>
       <a href="lab8.html">Lab 8</a>
     </li>
+    <li>
+      <a href="lab9.html">Lab 9</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -589,14 +592,14 @@ h2.title {
 <pre class="r"><code>glimpse(counties)</code></pre>
 <pre><code>## Rows: 58
 ## Columns: 8
-## $ GEOID   &lt;chr&gt; &quot;06001&quot;, &quot;06003&quot;, &quot;06005&quot;, &quot;06007&quot;, &quot;06009&quot;, &quot;06011&quot;, &quot;06013&quot;…
-## $ name    &lt;chr&gt; &quot;Alameda County&quot;, &quot;Alpine County&quot;, &quot;Amador County&quot;, &quot;Butte Co…
-## $ state   &lt;chr&gt; &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;Cali…
-## $ hisp    &lt;dbl&gt; 367041, 117, 4943, 35445, 5166, 12539, 284003, 5281, 23279, 5…
-## $ nhasn   &lt;dbl&gt; 468356, 8, 565, 9852, 527, 328, 177544, 741, 7805, 96128, 729…
-## $ nhblk   &lt;dbl&gt; 175063, 18, 764, 3282, 258, 186, 93140, 484, 1614, 45217, 212…
-## $ nhwhite &lt;dbl&gt; 524881, 777, 29571, 164184, 36932, 7800, 504818, 17233, 14515…
-## $ tpopr   &lt;dbl&gt; 1629615, 1203, 37306, 225207, 45057, 21479, 1123678, 27442, 1…</code></pre>
+## $ GEOID   &lt;chr&gt; &quot;06001&quot;, &quot;06003&quot;, &quot;06005&quot;, &quot;06007&quot;, &quot;06009&quot;, &quot;06011&quot;, &quot;06013&quot;,…
+## $ name    &lt;chr&gt; &quot;Alameda County&quot;, &quot;Alpine County&quot;, &quot;Amador County&quot;, &quot;Butte Cou…
+## $ state   &lt;chr&gt; &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;Calif…
+## $ hisp    &lt;dbl&gt; 367041, 117, 4943, 35445, 5166, 12539, 284003, 5281, 23279, 50…
+## $ nhasn   &lt;dbl&gt; 468356, 8, 565, 9852, 527, 328, 177544, 741, 7805, 96128, 729,…
+## $ nhblk   &lt;dbl&gt; 175063, 18, 764, 3282, 258, 186, 93140, 484, 1614, 45217, 212,…
+## $ nhwhite &lt;dbl&gt; 524881, 777, 29571, 164184, 36932, 7800, 504818, 17233, 145153…
+## $ tpopr   &lt;dbl&gt; 1629615, 1203, 37306, 225207, 45057, 21479, 1123678, 27442, 18…</code></pre>
 <p>You get a quick, compact summary of your data The function takes one argument: the name of a data frame. It then tells us how many rows it has, how many variables there are, what these variables are called, and what kind of data are associated with each variable. This function is useful when we’re working with a data set containing many variables.</p>
 <p>If you like viewing your data through an Excel style worksheet, type in <code>View(counties)</code>, and <em>counties</em> should pop up in the top left window of your R Studio interface. Scroll up and down, left and right. Take some time to understand the format of the data set. What do the columns represent? Rows?</p>
 <p><strong>tidyverse</strong> can read in more than just .csv files. It has a suite of <code>read_</code> functions that are a part of the subpackage <strong>readr</strong>. The goal of <strong>readr</strong> is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. To learn more about these functions, see <strong>readr</strong>’s dedicated <a href="https://readr.tidyverse.org/index.html">site</a>.</p>
@@ -758,18 +761,18 @@ h2.title {
 <p>We use the <code>arrange()</code> function to sort a data frame by one or more variables. You might want to do this to get a sense of which cases have the highest or lowest values in your data set or sort counties by their name. For example, let’s sort in ascending order counties by proportion Hispanic.</p>
 <pre class="r"><code>arrange(counties1, phisp)</code></pre>
 <pre><code>## # A tibble: 58 x 12
-##    GEOID name   hisp nhasn nhblk nhwhite  tpopr pnhwhite  pnhasn  pnhblk  phisp
-##    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-##  1 06105 Trin…   937   141   104   10796  13037    0.828 0.0108  0.00798 0.0719
-##  2 06063 Plum…  1599   148   160   15640  18724    0.835 0.00790 0.00855 0.0854
-##  3 06057 Neva…  9109  1090   541   84389  98838    0.854 0.0110  0.00547 0.0922
-##  4 06089 Shas… 17218  5195  1951  143919 178919    0.804 0.0290  0.0109  0.0962
-##  5 06003 Alpi…   117     8    18     777   1203    0.646 0.00665 0.0150  0.0973
-##  6 06091 Sier…   290     0     4    2509   2885    0.870 0       0.00139 0.101 
-##  7 06043 Mari…  1870   168   215   14309  17658    0.810 0.00951 0.0122  0.106 
-##  8 06023 Humb… 14986  3886  1389  101460 135490    0.749 0.0287  0.0103  0.111 
-##  9 06009 Cala…  5166   527   258   36932  45057    0.820 0.0117  0.00573 0.115 
-## 10 06109 Tuol…  6385   593   924   43565  53899    0.808 0.0110  0.0171  0.118 
+##    GEOID name    hisp nhasn nhblk nhwhite  tpopr pnhwhite  pnhasn  pnhblk  phisp
+##    &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 06105 Trini…   937   141   104   10796  13037    0.828 0.0108  0.00798 0.0719
+##  2 06063 Pluma…  1599   148   160   15640  18724    0.835 0.00790 0.00855 0.0854
+##  3 06057 Nevad…  9109  1090   541   84389  98838    0.854 0.0110  0.00547 0.0922
+##  4 06089 Shast… 17218  5195  1951  143919 178919    0.804 0.0290  0.0109  0.0962
+##  5 06003 Alpin…   117     8    18     777   1203    0.646 0.00665 0.0150  0.0973
+##  6 06091 Sierr…   290     0     4    2509   2885    0.870 0       0.00139 0.101 
+##  7 06043 Marip…  1870   168   215   14309  17658    0.810 0.00951 0.0122  0.106 
+##  8 06023 Humbo… 14986  3886  1389  101460 135490    0.749 0.0287  0.0103  0.111 
+##  9 06009 Calav…  5166   527   258   36932  45057    0.820 0.0117  0.00573 0.115 
+## 10 06109 Tuolu…  6385   593   924   43565  53899    0.808 0.0110  0.0171  0.118 
 ## # … with 48 more rows, and 1 more variable: diff &lt;dbl&gt;</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/Trinity_County,_California">Trinity county</a> has the lowest percent Hispanic with 7.19.</p>
 <p>By default, <code>arrange()</code> sorts in ascending order. We can sort by a variable in descending order by using the <code>desc()</code> function on the variable we want to sort by. For example, to sort the dataframe by <em>phisp</em> in descending order we use</p>

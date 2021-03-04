@@ -403,6 +403,9 @@ div.tocify {
     <li>
       <a href="lab8.html">Lab 8</a>
     </li>
+    <li>
+      <a href="lab9.html">Lab 9</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -588,7 +591,7 @@ glimpse(ncal.tracts)</code></pre>
   summarize(mean(medincome, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 4 x 2
 ##   city          `mean(medincome, na.rm = TRUE)`
-##   &lt;chr&gt;                                   &lt;dbl&gt;
+## * &lt;chr&gt;                                   &lt;dbl&gt;
 ## 1 Oakland                                66559.
 ## 2 Sacramento                             53798.
 ## 3 San Francisco                          91052.
@@ -612,7 +615,7 @@ glimpse(ncal.tracts)</code></pre>
             IQR = IQR(medincome,  na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 4 x 5
 ##   city            Mean Median     SD    IQR
-##   &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## * &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 Oakland       66559. 51438. 41417. 40686.
 ## 2 Sacramento    53798. 49552  24415. 28390.
 ## 3 San Francisco 91052. 89184. 37913. 50444 
@@ -648,7 +651,7 @@ glimpse(ncal.tracts)</code></pre>
   mutate(freq = n / sum(n))</code></pre>
 <pre><code>## # A tibble: 2 x 3
 ##   oppzone                                   n  freq
-##   &lt;chr&gt;                                 &lt;int&gt; &lt;dbl&gt;
+## * &lt;chr&gt;                                 &lt;int&gt; &lt;dbl&gt;
 ## 1 Designated Qualified Opportunity Zone    75 0.125
 ## 2 Not Designated                          524 0.875</code></pre>
 <p>Let’s break up this chunk of code to show exactly what was done here. First, <em>ncal.tracts</em> was piped into the <code>group_by()</code> function. Next, <code>group_by(oppzone)</code> separates the neighborhoods by Opportunity Zone designation. We then used <code>summarize()</code> to count the number of neighborhoods by Opportunity Zone designation. The function to get a count is <code>n()</code>, and we saved this count in a variable named <em>n</em>. This gave us the following table.</p>
@@ -657,7 +660,7 @@ glimpse(ncal.tracts)</code></pre>
   summarize (n = n())</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   oppzone                                   n
-##   &lt;chr&gt;                                 &lt;int&gt;
+## * &lt;chr&gt;                                 &lt;int&gt;
 ## 1 Designated Qualified Opportunity Zone    75
 ## 2 Not Designated                          524</code></pre>
 <p>There are 75 neighborhoods that are designated as an Opportunity Zone. Next, this table is piped into <code>mutate()</code>, which creates a variable showing the proportion of all neighborhoods by Opportunity Zone designation. The code <code>sum(n)</code> adds the values of <em>n</em>: 524+75 = 599. We then divide the value of each <em>n</em> by this sum: 75/599 = 0.125 and 524/599 = 0.875. That yields the final frequency table.</p>
@@ -667,7 +670,7 @@ glimpse(ncal.tracts)</code></pre>
   mutate(freq = n / sum(n))</code></pre>
 <pre><code>## # A tibble: 2 x 3
 ##   oppzone                                   n  freq
-##   &lt;chr&gt;                                 &lt;int&gt; &lt;dbl&gt;
+## * &lt;chr&gt;                                 &lt;int&gt; &lt;dbl&gt;
 ## 1 Designated Qualified Opportunity Zone    75 0.125
 ## 2 Not Designated                          524 0.875</code></pre>
 <p>We can add <em>city</em> to the <code>group_by()</code> function to disaggregate the above result by city.</p>
@@ -734,7 +737,7 @@ glimpse(ncal.tracts)</code></pre>
   summarize(&quot;Mean Income&quot; = mean(medincome, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   oppzone                               `Mean Income`
-##   &lt;chr&gt;                                         &lt;dbl&gt;
+## * &lt;chr&gt;                                         &lt;dbl&gt;
 ## 1 Designated Qualified Opportunity Zone        40694.
 ## 2 Not Designated                               86003.</code></pre>
 <p>Let’s separate by city by adding <em>city</em> to the <code>group_by()</code> function.</p>
@@ -774,7 +777,7 @@ glimpse(ncal.tracts)</code></pre>
   summarize(blk_inc = cor(medincome,pblk, use = &quot;complete.obs&quot;))</code></pre>
 <pre><code>## # A tibble: 4 x 2
 ##   city          blk_inc
-##   &lt;chr&gt;           &lt;dbl&gt;
+## * &lt;chr&gt;           &lt;dbl&gt;
 ## 1 Oakland        -0.487
 ## 2 Sacramento     -0.490
 ## 3 San Francisco  -0.340
