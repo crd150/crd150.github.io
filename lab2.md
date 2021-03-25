@@ -203,14 +203,14 @@ glimpse(counties)
 ```
 ## Rows: 58
 ## Columns: 8
-## $ GEOID   <chr> "06001", "06003", "06005", "06007", "06009", "06011", "06013"…
-## $ name    <chr> "Alameda County", "Alpine County", "Amador County", "Butte Co…
-## $ state   <chr> "California", "California", "California", "California", "Cali…
-## $ hisp    <dbl> 367041, 117, 4943, 35445, 5166, 12539, 284003, 5281, 23279, 5…
-## $ nhasn   <dbl> 468356, 8, 565, 9852, 527, 328, 177544, 741, 7805, 96128, 729…
-## $ nhblk   <dbl> 175063, 18, 764, 3282, 258, 186, 93140, 484, 1614, 45217, 212…
-## $ nhwhite <dbl> 524881, 777, 29571, 164184, 36932, 7800, 504818, 17233, 14515…
-## $ tpopr   <dbl> 1629615, 1203, 37306, 225207, 45057, 21479, 1123678, 27442, 1…
+## $ GEOID   <chr> "06001", "06003", "06005", "06007", "06009", "06011", "06013",…
+## $ name    <chr> "Alameda County", "Alpine County", "Amador County", "Butte Cou…
+## $ state   <chr> "California", "California", "California", "California", "Calif…
+## $ hisp    <dbl> 367041, 117, 4943, 35445, 5166, 12539, 284003, 5281, 23279, 50…
+## $ nhasn   <dbl> 468356, 8, 565, 9852, 527, 328, 177544, 741, 7805, 96128, 729,…
+## $ nhblk   <dbl> 175063, 18, 764, 3282, 258, 186, 93140, 484, 1614, 45217, 212,…
+## $ nhwhite <dbl> 524881, 777, 29571, 164184, 36932, 7800, 504818, 17233, 145153…
+## $ tpopr   <dbl> 1629615, 1203, 37306, 225207, 45057, 21479, 1123678, 27442, 18…
 ```
 
 You get a quick, compact summary of your data The function takes one argument: the name of a data frame.  It then tells us how many rows it has, how many variables there are, what these variables are called, and what kind of data are associated with each variable. This function is useful when we’re working with a data set containing many variables.
@@ -493,18 +493,18 @@ arrange(counties1, phisp)
 
 ```
 ## # A tibble: 58 x 12
-##    GEOID name   hisp nhasn nhblk nhwhite  tpopr pnhwhite  pnhasn  pnhblk  phisp
-##    <chr> <chr> <dbl> <dbl> <dbl>   <dbl>  <dbl>    <dbl>   <dbl>   <dbl>  <dbl>
-##  1 06105 Trin…   937   141   104   10796  13037    0.828 0.0108  0.00798 0.0719
-##  2 06063 Plum…  1599   148   160   15640  18724    0.835 0.00790 0.00855 0.0854
-##  3 06057 Neva…  9109  1090   541   84389  98838    0.854 0.0110  0.00547 0.0922
-##  4 06089 Shas… 17218  5195  1951  143919 178919    0.804 0.0290  0.0109  0.0962
-##  5 06003 Alpi…   117     8    18     777   1203    0.646 0.00665 0.0150  0.0973
-##  6 06091 Sier…   290     0     4    2509   2885    0.870 0       0.00139 0.101 
-##  7 06043 Mari…  1870   168   215   14309  17658    0.810 0.00951 0.0122  0.106 
-##  8 06023 Humb… 14986  3886  1389  101460 135490    0.749 0.0287  0.0103  0.111 
-##  9 06009 Cala…  5166   527   258   36932  45057    0.820 0.0117  0.00573 0.115 
-## 10 06109 Tuol…  6385   593   924   43565  53899    0.808 0.0110  0.0171  0.118 
+##    GEOID name    hisp nhasn nhblk nhwhite  tpopr pnhwhite  pnhasn  pnhblk  phisp
+##    <chr> <chr>  <dbl> <dbl> <dbl>   <dbl>  <dbl>    <dbl>   <dbl>   <dbl>  <dbl>
+##  1 06105 Trini…   937   141   104   10796  13037    0.828 0.0108  0.00798 0.0719
+##  2 06063 Pluma…  1599   148   160   15640  18724    0.835 0.00790 0.00855 0.0854
+##  3 06057 Nevad…  9109  1090   541   84389  98838    0.854 0.0110  0.00547 0.0922
+##  4 06089 Shast… 17218  5195  1951  143919 178919    0.804 0.0290  0.0109  0.0962
+##  5 06003 Alpin…   117     8    18     777   1203    0.646 0.00665 0.0150  0.0973
+##  6 06091 Sierr…   290     0     4    2509   2885    0.870 0       0.00139 0.101 
+##  7 06043 Marip…  1870   168   215   14309  17658    0.810 0.00951 0.0122  0.106 
+##  8 06023 Humbo… 14986  3886  1389  101460 135490    0.749 0.0287  0.0103  0.111 
+##  9 06009 Calav…  5166   527   258   36932  45057    0.820 0.0117  0.00573 0.115 
+## 10 06109 Tuolu…  6385   593   924   43565  53899    0.808 0.0110  0.0171  0.118 
 ## # … with 48 more rows, and 1 more variable: diff <dbl>
 ```
 
@@ -580,37 +580,6 @@ write_csv(counties2, "lab2_file.csv")
 
 The first argument is the name of the R object you want to save. The second argument is the name of the csv file in quotes. Make sure to add the .csv extension. The file is saved in the folder you set as the current working directory (remember, use `getwd()` to determine the current directory). You're done! [Time to celebrate](https://www.youtube.com/watch?v=3GwjfUFyY6M).
 
-
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 2**
-\
-
-Download and open the [Assignment 2 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn02.Rmd). The script can also be found on Canvas (Files - Week 2 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case you get stuck. 
-
-<br>
-
-1. Download the file *q2data.csv* from Canvas (Files -> Week 2 -> Assignment).  Make sure you download it into an appropriate folder on your hard drive. A codebook is also provided.
-
-a. Read the file into R. (1 point)
-b. How many rows are included in the file? What does each row represent? Remember that whenever you can, you need to use code to answer the questions. (2 points)
-c. How many columns are included in the file? What does each column represent? (2 points)
-d. Conduct the following data wrangling tasks.  Use the pipe operator to do all of these tasks in one continuous line of code.  Note that you have to decide the appropriate order of the tasks. (4 points)
-
-* Keep the variables NAME, proportion White, Black and Hispanic, total population, and the difference between Hispanic and White income.
-* Create variables containing the proportion White, Black and Hispanic.
-* Create a variable subtracting White household income from Hispanic household income.
-* Save the changes into a tibble named *q2clean*
-
-e. How many observations have a percent Hispanic greater than 50% *and* have Hispanic households earning more than white households? (2 points)
-
-<br>
-
-2. The data set *babynames* contains the number of children of each sex given each name for each year from 1880 to 2017 as collected by the Social Security Administration. All names with more than 5 uses are given. Let's strengthen your data wrangling skills by exploring this unique data set.  Install the package **babynames**.  Run the code `library(babynames)`, `data(babynames)` and `head(babynames)`. You should see the tibble *babynames* pop up in your global environment window. Type in `? babynames` to get a description of this dataset.
-
-a. What was the most popular female baby name in 2017? What about male? (3 points)
-b. Does your name appear in the dataset? If yes, what year was it the most popular? (3 points)
-c. Is the name "Madison" a more popular Male or Female name in 2017? What about in 1984? (3 points)
 
 ***
 
