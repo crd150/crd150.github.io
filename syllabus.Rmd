@@ -1,7 +1,7 @@
 ---
 title: "Syllabus"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2021</h4>
+date: <h4 style="font-style:normal">Spring 2022</h4>
 output: 
   html_document:
     toc: true
@@ -54,14 +54,15 @@ The following is an abridged version of the course syllabus.  A full course syll
 ## **Lecture and Lab Times**
 
 * Lecture: 
-    + Tuesday and Thursday, 12:10-2:00 pm
-    + Combination of asynchronous and live Zoom sessions. See course agenda for schedule
+    + Monday and Wednesday, 2:10-4:00 pm
+    + 158 Olson
+    + Live, in-person
+    + Combination of lecture, discussion, activities and lab. See course agenda for schedule
 * Labs: 
     + A01: Friday, 10:00-10:50 am
     + A02: Friday, 11:00-11:50 am 
-    + Live Zoom session
-
-Zoom links are located on Canvas and pdf syllabus.
+    + 75 Hutchinson Hall
+    + Live, in-person
 
 <div style="margin-bottom:25px;">
 </div>
@@ -69,15 +70,15 @@ Zoom links are located on Canvas and pdf syllabus.
 
 Dr. Noli Brazil  
 *Contact*: nbrazil.at.ucdavis.edu  
-*Office hours*: Tuesday from 2:00-3:30 pm or by appointment, Zoom.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/wlzxs). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas and pdf syllabus.
+*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vbcaq). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas and pdf syllabus.
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Teaching Assistant**
 
-Mariah Coley  
-*Contact*: mlcoley.at.ucdavis.edu  
-*Office hours*: Wednesday: 12:30-1:30 pm, Zoom
+Charlotte Glennie 
+*Contact*: cfglennie.at.ucdavis.edu  
+*Office hours*: Tuesday: 4:00-6:00 pm, Zoom only, in-person scheduled in advance
 
 Zoom link is located on Canvas and pdf syllabus.
 
@@ -111,17 +112,16 @@ The course is organized into two phases.
 ### **Lecture Format**
 
 
-* **Asynchronous lectures**: Most Tuesday lectures will be prerecorded and released every Monday on Canvas.  The accompanying lecture slides will also be posted on Canvas. The lectures will be approximately 15-45 minutes long and will cover the substantive non-programming topics of the week, typically those covered in the week’s readings.  It will be your responsibility to watch these videos on your own time, ideally before Thursday’s lecture.  
+* Most Monday lectures will be a combination of lecture and ungraded in-class group and individual exercises/questions covering the week’s substantive topics.  The exercises during lecture are meant to be less about learning how to do a task in R, and more about deepening your understanding of the week’s substantive topics. Expect that many of these exercises and questions be reflective of those found in the quizzes. 
 
-* **Synchronous lectures**: Most Thursday lectures will be live computer sessions covering the week’s lab guide, which will be released on the course website every Thursday morning.  The lab guides provide hands on practice using real data. They will provide step-by-step instructions on executing specific tasks using a software program.   Although you do not need to turn in lab guides for a grade, it is expected that you will go through each guide and master its contents.  All sessions will be recorded and uploaded on Canvas to view later. See the document class_zoom_guidelines.pdf on Canvas for complete information regarding Zoom classroom access, etiquette and expectations.
-
+* Most Wednesday lectures will be a combination of some lecture covering the week’s topic but mostly computer sessions covering the week’s lab guide, which will be released on the course website every Wednesday morning.  I will ask you to bring your laptops to Wednesday lectures in order to follow along.  Not all lectures are expected to go the full class period.
 
 
 <div style="margin-bottom:25px;">
 </div>
 ### **Lab Format**
 
-The Friday lab will be held synchronously.  The TA will cover lab guide material that we were not able to get to during the Thursday computer sessions. They will also provide additional guidance on higher level points and provide more refined assignment feedback and help.  Labs will not be recorded.
+The TA will cover lab guide material that we were not able to get to during the Wednesday computer sessions. They will also provide additional guidance on higher level points and provide more refined assignment feedback and help.  The lab guides provide hands on practice using real data. They will provide step-by-step instructions on executing specific tasks using a software program.   Although you do not need to turn in lab guides for a grade, it is expected that you will go through each guide and master its contents.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -131,17 +131,15 @@ Required reading material is composed of a combination of the following
 
 1.	Journal articles and research reports.
 
-There is no single official textbook for the course.  Instead, I’ve selected journal articles and research reports.
-
 2.	My handouts
 
-For most topics, in lieu of an article or book chapter, I will provide lecture handouts on Canvas in advance of the assigned class.  
+There is no single official textbook for the course.  Instead, I’ve selected journal articles and research reports. For most topics, in lieu of an article or book chapter, I will provide lecture handouts on Canvas in advance of the assigned class.  
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Additional Readings**
 
-The other major course material are lab guides, which will be released before the Thursday lecture.  Many of the R lab guides will closely follow two textbooks.  These textbooks are not required, but are great resources. 
+The other major course material are lab guides, which will be released before the Wednesday lecture.  Many of the R lab guides will closely follow two textbooks.  These textbooks are not required, but are great resources. 
 The first textbook covers the first part of the course (nonspatial data)
 
 * (RDS) Wickham, Hadley & Garret Grolemund. (2017). R for Data Science. Sebastopol, CA: O’Reilly Media.
@@ -168,13 +166,13 @@ We will also introduce the  program [ArcGIS Online Story Maps](https://storymaps
 
 1. Assignments (50%)
 
-Assignments will be released on the lab website each week Thursday morning and will be due the following Thursday morning on Canvas.  Assignment questions are located at the end of each lab guide. They will contain a combination of programming tasks and theoretical questions that you will need to answer on your own.  For each assignment, you will need to submit an R Markdown Rmd and html file on Canvas.  Complete assignment guidelines can be found here: https://crd150.github.io/hw_guidelines.html.  Note that assignments will get progressively harder, so it is important that you master the material each week as assignments will build on one another. If you get stuck you can seek help from the TA, who will be available in the scheduled lab sessions and during office hours.  We also encourage you to work with other students, but **you must submit your own assignment.**  
+Assignments will be released on the lab website each week Wednesday afternoon and will be due the following Wednesday afternoon on Canvas.  Assignment questions are located at the end of each lab guide. They will contain a combination of programming tasks and theoretical questions that you will need to answer on your own.  For each assignment, you will need to submit an R Markdown Rmd and html file on Canvas.  Complete assignment guidelines can be found here: https://crd150.github.io/hw_guidelines.html.  Note that assignments will get progressively harder, so it is important that you master the material each week as assignments will build on one another. If you get stuck you can seek help from the TA, who will be available in the scheduled lab sessions and during office hours.  We also encourage you to work with other students, but **you must submit your own assignment.**  
 
 Late submissions will be deducted 10% per 24 hours until 72 hours after the submission due time.  After 72 hours your submission will not be graded.  No exception unless you provide documentation of your illness or bereavement before the due date.  If you cannot upload the assignment on Canvas due to technical issues, you must email it as an attachment to the TA by the submission due time.
 
 2. Quizzes (20%)
 
-There will be two quizzes that will test conceptual material covered in lecture, readings and lab.  Each quiz will be released Thursday morning and will be due the following Tuesday. The quizzes will be take home, open book and done through Canvas. They will consist of computational, multiple choice and short answer questions.  You will not be expected to write or interpret R code. Make-up quizzes will be given ONLY in the case of extreme emergencies (severe illness, death in the immediate family) and when accompanied by appropriate documentation (e.g. doctor’s note). In the case of unexcused absences (travel plans, overslept, etc.), there are no make-up quizzes.
+There will be two quizzes that will test conceptual material covered in lecture and readings.  The quizzes are closed book and will be taken in class during their designated dates and will cover only the material covered since the last quiz. They will consist of short computational, multiple choice and short answer questions.  You will not be expected to write or interpret R code. Make-up quizzes will be given ONLY in the case of extreme emergencies (severe illness, death in the immediate family) and when accompanied by appropriate documentation (e.g. doctor’s note). In the case of unexcused absences (travel plans, overslept, etc.), there are no make-up quizzes.  If you have been tested or have been exposed to COVID, and cannot take the test in class but can take it at home, we will provide accommodations to take the quiz during the same time as the rest of the class.
 
 3. Final course project (30%)
 
@@ -185,14 +183,14 @@ The purpose of the final course project is to provide students the opportunity t
 ## **Other Information**
 \
 
-Please see the full syllabus on the Canvas website for information regarding course communication, code of conduct, and grades.
+Please see the full syllabus on the Canvas website for information regarding masking and other COVID related policies and resources, course communication, code of conduct, and grades.
 
 <div style="margin-bottom:25px;">
 </div>	
 ## **Course Agenda**
 \
 
-The schedule is subject to revision throughout the quarter.  Please see the full syllabus for a more detailed version of the agenda. *Live (synchronous) lecture/lab.
+The schedule is subject to revision throughout the quarter.  Please see the full syllabus for a more detailed version of the agenda. *Live, Zoom lecture/lab.
 
 ```{r echo=  FALSE, warning = FALSE, message = FALSE}
 options(knitr.kable.NA = '')

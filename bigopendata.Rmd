@@ -2,7 +2,7 @@
 ---
 title: "Big Data and Open Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2021</h4>
+date: <h4 style="font-style:normal">Spring 2022</h4>
 output: 
   html_document:
     theme: cosmo
@@ -63,7 +63,7 @@ This guide lists and describes online sources that provide [Big Data](https://en
 
 * [OpenStreetMaps](https://ropensci.github.io/osmdata/).  **osmdata** is an R package for downloading OpenStreetMaps data.  The site provides a couple of vignettes on using the package.
 
-* [Array of things](https://aot-file-browser.plenar.io/).  The City of Chicago installed modular sensor boxes around Chicago to collect real-time data on the city’s environment, infrastructure, and activity for research and public use. Other cities have followed.
+* [Array of things](https://arrayofthings.github.io/).  The City of Chicago installed modular sensor boxes around Chicago to collect real-time data on the city’s environment, infrastructure, and activity for research and public use. Other cities have followed.
 
 * [Zillow](https://www.zillow.com/research/data/). Provides housing price data at the metro, city and zipcode levels.  R has a [package](https://cran.r-project.org/web/packages/ZillowR/index.html) for downloading Zillow data directly.
 
@@ -86,7 +86,7 @@ There are a couple of sites that maintain open data portal directories, includin
 
 * [US City Open Data Census](http://us-cities.survey.okfn.org/)
 
-Here are links to various open data portals in US cities (updated 12/25/20)
+Here are links to various open data portals in US cities (updated 03/15/22)
 
 *California*
 
@@ -126,7 +126,7 @@ Here are links to various open data portals in US cities (updated 12/25/20)
 
 * [Los Angeles County](https://data.lacounty.gov/)
 
-* [Los Angeles County](https://egis3.lacounty.gov/dataportal/)
+* [Los Angeles County](https://egis-lacounty.hub.arcgis.com/)
 
 * [Orange County](http://data-ocpw.opendata.arcgis.com/)
 

@@ -13,12 +13,22 @@
 
 <title>Missing Data in PolicyMap</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -26,8 +36,6 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -36,14 +44,10 @@
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-    </style>
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -56,32 +60,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
@@ -92,10 +71,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -112,40 +87,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -173,7 +121,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -185,7 +133,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -196,10 +144,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -211,7 +172,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -340,7 +300,7 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
+<div class="row">
 <div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
@@ -359,7 +319,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Winter 2021</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Spring 2022</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -379,33 +339,7 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lab1.html">Lab 1</a>
-    </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7.html">Lab 7</a>
-    </li>
-    <li>
-      <a href="lab8.html">Lab 8</a>
-    </li>
-    <li>
-      <a href="lab9.html">Lab 9</a>
-    </li>
+    <li class="dropdown-header">Lab 1</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -440,11 +374,11 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
 </ul>
@@ -496,7 +430,7 @@ h2.title {
 </style>
 <p><br />
 </p>
-<p>This guide provides step-by-step instructions for downloading data from <a href="https://ucdavis.policymap.com/maps">PolicyMap</a>. PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries.</p>
+<p>This guide provides step-by-step instructions for downloading data from <a href="https://ucdavis.policymap.com/newmaps#/">PolicyMap</a>. PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries.</p>
 <p>In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median housing value. UC Davis provides full access to all PolicyMap tools for staff, students, and faculty. You can access the full site only if you are on campus or logged onto the UC Davis VPN Client. Download the PulseSecure VPN app using the directions outlined <a href="https://www.library.ucdavis.edu/service/connect-from-off-campus/">here</a>. We will download data from the UCD PolicyMap portal and clean up the files in R. Much of this we already covered in <a href="https://crd150.github.io/lab3.html">Lab 3</a>. However, we also in this guide how to deal with missing values in PolicyMap data.</p>
 <div style="margin-bottom:25px;">
 
@@ -559,10 +493,11 @@ library(VIM)</code></pre>
 <center>
 <p><img src="pmgeo.png" /></p>
 </center>
-<p>Leave the defaults (Year: 2014-2018, Variable: Median dollars, and Shaded by: Census Tract, 2010).</p>
+<p><strong>Be very careful about the geographic level. Users often do not realize that they are downloading an incorrect geographic scale. For example, you want to download census tract, but instead you download the Zip code. If you find that the geographic scale is greyed out under the pull down menu, Zoom in and out of the map.</strong></p>
+<p>Leave the defaults (Year: 2015-2019, Variable: Median dollars, and Shaded by: Census Tract, 2010).</p>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Let’s download these data. At the top right of the site, click on the download icon <img src="download.png" />.</p></li>
-<li><p>A window should pop up. The first screen asks you what data to download - it should be “Estimated median value of an owner-occupied home, between 2014-2018” under Layer. Click on the <em>Next, Select Location</em> button</p></li>
+<li><p>A window should pop up. The first screen asks you what data to download - it should be “Estimated median value of an owner-occupied home, between 2015-2019” under Layer. Click on the <em>Next, Select Location</em> button</p></li>
 </ol>
 <center>
 <p><img src="pmfirst.png" /></p>
@@ -575,12 +510,8 @@ library(VIM)</code></pre>
 </center>
 <ol start="8" style="list-style-type: decimal">
 <li><p>The next screen asks you to confirm the download - just click on Download CSV <img src="dlcsv.png" /></p></li>
-<li><p>After a minute or two, a screen like below (on a Mac laptop) should pop up (the file name will differ).</p></li>
+<li><p>After a minute or two, a screen will pop up asking you to save the file. Save the file into an appropriate folder, such as below (Mac laptop)</p></li>
 </ol>
-<center>
-<p><img src="downloadcsv.png" /></p>
-</center>
-<p>Save the file into an appropriate folder, such as below (Mac laptop)</p>
 <center>
 <p><img src="pmfolder.png" /></p>
 </center>
@@ -610,10 +541,10 @@ library(VIM)</code></pre>
 <pre><code>## [1] &quot;Census Tract&quot;                                                    
 ## [2] &quot;FIPS Code&quot;                                                       
 ## [3] &quot;Formatted FIPS&quot;                                                  
-## [4] &quot;Estimated median value of an owner-occupied home, between 2014-2&quot;</code></pre>
-<p>The variable <em>Estimated median value of an owner-occupied home, between 2014-2</em> contains median housing values. Let’s shorten the name because we would not want to have to type this long name out everytime we want to refer to this variable. Make the name simple and clear. Here, we rename it <em>medval</em> using the <code>rename()</code> function.</p>
+## [4] &quot;Estimated median value of an owner-occupied home, between 2015-2&quot;</code></pre>
+<p>The variable <em>Estimated median value of an owner-occupied home, between 2015-2</em> contains median housing values. Let’s shorten the name because we would not want to have to type this long name out everytime we want to refer to this variable. Make the name simple and clear. Here, we rename it <em>medval</em> using the <code>rename()</code> function.</p>
 <pre class="r"><code>pm.file &lt;- pm.file %&gt;%
-          rename(medval = &quot;Estimated median value of an owner-occupied home, between 2014-2&quot;)</code></pre>
+          rename(medval = &quot;Estimated median value of an owner-occupied home, between 2015-2&quot;)</code></pre>
 <p>We had to put quotes around the original variable name because it had spaces in between.</p>
 <p>Next, let’s keep the necessary variables: <em>FIPS Code</em> and <em>medinc</em>. <em>FIPS Code</em> is the tract GEOID.</p>
 <pre class="r"><code>pm.file &lt;- pm.file %&gt;%
@@ -627,7 +558,7 @@ library(VIM)</code></pre>
 </p>
 <p>Let’s bring in some census data from the Census API. We covered how to use <code>get_acs()</code> from the <strong>tidycensus</strong> package in <a href="https://crd150.github.io/lab3.html">Lab 3</a>.</p>
 <pre class="r"><code>ca &lt;- get_acs(geography = &quot;tract&quot;, 
-              year = 2018,
+              year = 2019,
               variables = c(tpopr = &quot;B03002_001&quot;, 
                             nhwhite = &quot;B03002_003&quot;, nhblk = &quot;B03002_004&quot;, 
                             nhasn = &quot;B03002_006&quot;, hisp = &quot;B03002_012&quot;), 
@@ -683,7 +614,7 @@ ca &lt;- ca %&gt;%
 <pre><code>## [1] NA</code></pre>
 <p>The mean is <em>NA</em>, which tells you that there are missing values in the variable <em>medval</em> that you need to deal with before R calculates a value. There are many ways that one can deal with missing data. One method is to just simply ignore or discard cases with a missing value. To do this in the <code>mean()</code> function (and in many other R functions), you include the argument <code>na.rm = TRUE</code></p>
 <pre class="r"><code>mean(pm.file$medval, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 589359.5</code></pre>
+<pre><code>## [1] 655940.5</code></pre>
 <p>As long as a large proportion of your data set is not missing data, simply ignoring missing data is often acceptable. Just make sure you are transparent about what you did.</p>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
@@ -720,7 +651,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -734,6 +665,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -56,7 +56,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 ```
 
 
-This guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/maps). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
+This guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/newmaps#/). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
 
 In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median housing value.   UC Davis provides full access to all PolicyMap tools for staff, students, and faculty.  You can access the full site only if you are on campus or logged onto the UC Davis VPN Client. Download the PulseSecure VPN app using the directions outlined [here](https://www.library.ucdavis.edu/service/connect-from-off-campus/).  We will download data from the UCD PolicyMap portal and clean up the files in R.   Much of this we already covered in [Lab 3](https://crd150.github.io/lab3.html).  However, we also in this guide how to deal with missing values in PolicyMap data.  
 
@@ -143,11 +143,14 @@ and the geographic level.
 
 </center>
 
-Leave the defaults (Year: 2014-2018, Variable: Median dollars, and Shaded by: Census Tract, 2010).  
+**Be very careful about the geographic level. Users often do not realize that they are downloading an incorrect geographic scale. For example, you want to download census tract, but instead you download the Zip code. If you find that the geographic scale is greyed out under the pull down menu, Zoom in and out of the map.**
+
+
+Leave the defaults (Year: 2015-2019, Variable: Median dollars, and Shaded by: Census Tract, 2010).  
 
 5. Let's download these data.  At the top right of the site, click on the download icon ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/download.png).  
 
-6. A window should pop up. The first screen asks you what data to download - it should be "Estimated median value of an owner-occupied home, between 2014-2018" under Layer. Click on the *Next, Select Location* button
+6. A window should pop up. The first screen asks you what data to download - it should be "Estimated median value of an owner-occupied home, between 2015-2019" under Layer. Click on the *Next, Select Location* button
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmfirst.png)
@@ -166,14 +169,7 @@ Leave the defaults (Year: 2014-2018, Variable: Median dollars, and Shaded by: Ce
 
 8. The next screen asks you to confirm the download - just click on Download CSV ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/dlcsv.png)
 
-9. After a minute or two, a screen like below (on a Mac laptop) should pop up (the file name will differ).  
-
-<center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/downloadcsv.png)
-
-</center>
-
-Save the file into an appropriate folder, such as below (Mac laptop)
+9. After a minute or two, a screen will pop up asking you to save the file.  Save the file into an appropriate folder, such as below (Mac laptop)
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmfolder.png)
@@ -198,7 +194,7 @@ pm.file <- read_csv("YOUR FILE NAME HERE")
 ```
 
 ```{r echo = FALSE}
-pm.file <- read_csv("PolicyMap Data 2020-12-04 0439UTC.csv")
+pm.file <- read_csv("PolicyMap Data 2022-03-16 2154 UTC.csv")
 ```
 
 We need to clean up the file to get it ready for analysis. The first issue with *pm.file* is the footnotes located at the bottom of the file.  If you view the file in R, the footnotes look like
@@ -224,11 +220,11 @@ We also need to rename variables and keep the ones that are relevant. First, let
 names(pm.file)
 ```
 
-The variable *Estimated median value of an owner-occupied home, between 2014-2* contains median housing values.  Let's shorten the name because we would not want to have to type this long name out everytime we want to refer to this variable.  Make the name simple and clear.  Here, we rename it *medval* using the `rename()` function.
+The variable *Estimated median value of an owner-occupied home, between 2015-2* contains median housing values.  Let's shorten the name because we would not want to have to type this long name out everytime we want to refer to this variable.  Make the name simple and clear.  Here, we rename it *medval* using the `rename()` function.
  
 ```{r}
 pm.file <- pm.file %>%
-          rename(medval = "Estimated median value of an owner-occupied home, between 2014-2")
+          rename(medval = "Estimated median value of an owner-occupied home, between 2015-2")
 ```
 
 We had to put quotes around the original variable name because it had spaces in between.
@@ -250,7 +246,7 @@ Let's bring in some census data from the Census API.  We covered how to use `get
 
 ```{r message = FALSE, warning = FALSE}
 ca <- get_acs(geography = "tract", 
-              year = 2018,
+              year = 2019,
               variables = c(tpopr = "B03002_001", 
                             nhwhite = "B03002_003", nhblk = "B03002_004", 
                             nhasn = "B03002_006", hisp = "B03002_012"), 

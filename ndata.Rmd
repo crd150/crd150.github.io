@@ -1,7 +1,7 @@
 ---
 title: "Neighborhood Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2021</h4>
+date: <h4 style="font-style:normal">Spring 2022</h4>
 output: 
   html_document:
     theme: cosmo
@@ -56,6 +56,10 @@ This guide lists and describes online sources that provide data typically in a c
 
 * [Social Explorer](https://www.socialexplorer.com/)
     + Similar to PolicyMap, but focuses more on historical data, including Census data going back to the first Census in 1790. Also like PolicyMap, UC Davis affiliates have access to all Social Explorer tools. Focuses on census data, but provides data from other sources, including religious organizations.
+    
+
+* [National Neighborhood Data Archive](https://www.openicpsr.org/openicpsr/nanda)  
+  + The National Neighborhood Data Archive is a publicly available data archive containing contextual measures for neighborhoods, typically census tracts, across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.    
 
 **Decennial Census and American Community Survey**
 
@@ -93,9 +97,14 @@ The following datasets provide health related indicators at small scale geograph
 * [500 Cities: Local Data for Better Health](https://www.cdc.gov/500cities/).
     + This dataset, put together by the Centers for Disease Control and Prevention (CDC), provides city- and census tract-level small area estimates for chronic disease risk factors, health outcomes, and clinical preventive service use for the largest 500 cities in the United State.
 
-* [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30)  
+* [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40)  
     + Developed by California's Office of Environmental Health Hazard Assessment, CalEnviroScreen is is a screening tool that evaluates the burden of pollution from multiple sources in California communities while accounting for potential vulnerability to the adverse effects of pollution.  You can also download a shapefile of census tracts with these indicators [here](https://oehha.ca.gov/calenviroscreen/maps-data/download-data).
   
+
+* [EJScreen]([https://www.epa.gov/ejscreen/download-ejscreen-data]) 
+  + Developed by the Environmental Protection Agency, EJScreen is a new nationwide environmental justice (EJ) mapping and screening tool It is based on nationally consistent data and an approach that combines environmental and demographic indicators 
+
+
 
 **Department of Housing and Urban Development (HUD)**
 
@@ -107,10 +116,13 @@ HUD offers a plethora of lower geographic scale datasets on a variety of housing
 * [OnTheMap](https://onthemap.ces.census.gov/)
     + OnTheMap is an application that shows where workers are employed and where they live. The data come from the [Longitudinal Employer-Household Dynamics](https://lehd.ces.census.gov/) Program, specifically from their Origin-Destination Employment Statistics (LODES).  OnTheMap also provides reports on age, earnings, industry distributions, race, ethnicity, educational attainment, and sex.  You can use functions from the package **lehdr** to bring in data directly into R using an API.  A brief introduction to the package can be found [here](https://jamgreen.github.io/lehdr/articles/getting_started.html).
 
+
+
 **Eviction rates**
 
 * [Eviction Lab](https://evictionlab.org/)
     + The Eviction Lab at Princeton University has built the first nationwide database of evictions aggregated to various geographic scales including block groups and tracts. It as an open-source resource, available to researchers, citizen organizers, and journalists to use, disseminate, and even augment with new data that they collect.
+
 
 **Gentrification**
 
@@ -130,9 +142,9 @@ A data warehouse created by the [University of Southern California](https://soci
 
 This [project](https://knowledge.luskin.ucla.edu/ca-renter-vulnerability/#top) focuses on identifying the broad vulnerabilities to COVID-19 and their disparities across neighborhoods in California.
 
-**Looking for data?**
 
-* The [National Neighborhood Data Archive](https://www.openicpsr.org/openicpsr/nanda)  is a publicly available data archive containing contextual measures for locations across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.
+
+**Looking for data?**
 
 * Google has a site for searching datasets akin to Google Scholar, Images, Books and so on.  Check it out [here](https://toolbox.google.com/datasetsearch)
 

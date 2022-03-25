@@ -101,9 +101,13 @@ The [assignment guidelines](https://crd150.github.io/hw_guidelines.html) goes th
 ## **Getting help**
 \
 
-* You should ask your peers for help before you ask your instructor or TA. Relying on a single person to solve all of your problems is dangerous, because that person won’t be available throughout your career as a data scientist.
 
-* When asking for help from your peers, instructor, TA or an online forum, be precise and informative. The more context you can provide about what you’re trying to do and what errors you’re getting, the better. Also describe the steps you took to try to solve the problem yourself.
+* Please try the assignment on your own before turning to other people for help. **If you email the professor or TA for help about a problem with your code, you must include the following**:
+  + A brief explanation of the task or operation you’re trying to accomplish (e.g. “Assignment 2, Question 1 part a” or “Trying to use get_acs() to access census data”)
+  + A description of the error code. Paste the error message into the email or attach a screenshot
+  + A brief explanation of steps you have already taken to try to resolve the issue on your own
+
+* You should ask your peers for help before you ask your instructor or TA. Relying on a single person to solve all of your problems is dangerous, because that person won’t be available throughout your career as a data scientist.
 
 * Read our course textbooks [R for Data Science](http://r4ds.had.co.nz/index.html) and [Geocomputation with R](https://geocompr.robinlovelace.net/)
 
@@ -120,7 +124,7 @@ The [assignment guidelines](https://crd150.github.io/hw_guidelines.html) goes th
   - [RStudio Cheatsheets](https://rstudio.com/resources/cheatsheets/)
   - [Getting Help with R](https://www.r-project.org/help.html)
   - [What they forget to teach you about R](https://rstats.wtf/)
-  - [Data wrangling cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+  - [Data wrangling cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
   - [Stackoverflow](https://stackoverflow.com/questions/tagged/r)
   - Roger Peng's video on [How to get help](https://www.youtube.com/watch?v=ZFaWxxzouCY&feature=youtu.be)
 

@@ -83,6 +83,7 @@ The following websites were used in the construction of this course website. My 
 * Manuel Gimond's [Intro to GIS and Spatial Analysis](https://mgimond.github.io/Spatial/index.html)
 * Claudia Engel's [Using Spatial Data in R](https://cengel.github.io/R-spatial/)
 * Corey Sparks' [RPubs labs](https://rpubs.com/corey_sparks)
+* The Center for Spatial Data Science [Tutorials](https://spatialanalysis.github.io/tutorials/)
 
 
 
