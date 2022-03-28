@@ -47,7 +47,7 @@ h2.title {
 \
 
 
-Welcome to the CRD 150 website!  This website complements the class [Canvas](https://login.canvas.ucdavis.edu/) site  
+Welcome to the CRD 150 website!  This website complements the class [Canvas](https://login.canvas.ucdavis.edu/) site.  
 
 On this website you will find:
 
