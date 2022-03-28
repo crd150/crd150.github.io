@@ -12,7 +12,7 @@ navbar:
     - text: "Labs/Assignments"
       menu:
         - text: "Lab 1"
-          href:     
+          href:  lab1.html    
     - text: "Other"
       menu: 
         - text: "Eligible Communities"
