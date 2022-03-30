@@ -525,6 +525,334 @@ h2.title {
 <li>Click on the appropriate link based on your OS (Windows, Mac, Linux and many others). Do not download anything from the “Zip/Tarballs” section.</li>
 <li>Click on the installer that you downloaded. Follow the installation wizard’s directions, making sure to keep all defaults intact. After installation, RStudio should pop up in your Applications or Programs folder/menu.</li>
 </ol>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="the-rstudio-interface" class="section level2">
+<h2><strong>The RStudio Interface</strong></h2>
+<p><br />
+</p>
+<p>Open up RStudio. You should see the interface shown in the figure below which has three windows.</p>
+<center>
+<div class="figure">
+<img src="rgui.png" alt="" />
+<p class="caption">The RStudio Interface.</p>
+</div>
+</center>
+<p><br />
+</p>
+<ul>
+<li><strong>Console</strong> (left) - The way R works is you write a line of code to execute some kind of task on a data object. The R Console allows you to run code interactively. The screen prompt <code>&gt;</code> is an invitation from R to enter its world. This is where you type code in, press enter to execute the code, and see the results.</li>
+<li><strong>Environment, History, and Connections tabs</strong> (upper-right)
+<ul>
+<li><strong>Environment</strong> - shows all the R objects that are currently open in your workspace. This is the place, for example, where you will see any data you’ve loaded into R. When you exit RStudio, R will clear all objects in this window. You can also click on <img src="broom.png" /> to clear out all the objects loaded and created in your current session.</li>
+<li><strong>History</strong> - shows a list of executed commands in the current session.</li>
+<li><strong>Connections</strong> - you can connect to a variety of data sources, and explore the objects and data inside the connection. I typically don’t use this window, but you <a href="https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections">can</a>.<br />
+</li>
+</ul></li>
+<li><strong>Files, Plots, Packages, Help and Viewer tabs</strong> (lower-right)
+<ul>
+<li><strong>Files</strong> - shows all the files and folders in your current working directory (more on what this means later).</li>
+<li><strong>Plots</strong> - shows any charts, graphs, maps and plots you’ve successfully executed (we’ll be using this window starting in Lab 4).<br />
+</li>
+<li><strong>Packages</strong> - tells you all the R packages that you have access to (more on this in Lab 2).</li>
+<li><strong>Help</strong> - shows help documentation for R commands that you’ve called up.<br />
+</li>
+<li><strong>Viewer</strong> - allows you to view local web content (won’t be using this much).</li>
+</ul></li>
+</ul>
+<p>There is actually fourth window. But, we’ll get to this window a little later (if you read the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a> you already know what this fourth window is).</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="r-data-types" class="section level2">
+<h2><strong>R Data Types</strong></h2>
+<p><br />
+</p>
+<p>Let’s now explore what R can do. R is really just a big fancy calculator. For example, type in the following mathematical expression next to the <code>&gt;</code> in the R console (left window)</p>
+<pre class="r"><code>1+1</code></pre>
+<p>Note that spacing does not matter: <code>1+1</code> will generate the same answer as <code>1      +       1</code>. Can you say hello to the world?<br />
+</p>
+<pre class="r"><code>hello world</code></pre>
+<pre><code>## Error: &lt;text&gt;:1:7: unexpected symbol
+## 1: hello world
+##           ^</code></pre>
+<p>Nope. What is the problem here? We need to put quotes around it.</p>
+<pre class="r"><code>&quot;hello world&quot;</code></pre>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<p>“hello world” is a character and R recognizes characters only if there are quotes around it. This brings us to the topic of basic data types in R. There are four basic data types in R: character, logical, numeric, and factors (there are two others - complex and raw - but we won’t cover them because they are rarely used).</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="characters" class="section level3">
+<h3><strong>Characters</strong></h3>
+<p><br />
+</p>
+<p>Characters are used to represent words or letters in R. We saw this above with “hello world”. Character values are also known as strings. You might think that the value <code>"1"</code> is a number. Well, with quotes around, it isn’t! Anything with quotes will be interpreted as a character. No ifs, ands or buts about it.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="logicals" class="section level3">
+<h3><strong>Logicals</strong></h3>
+<p><br />
+</p>
+<p>A logical takes on two values: FALSE or TRUE. Logicals are usually constructed with comparison operators, which we’ll go through more carefully in Lab 2. Think of a logical as the answer to a question like “Is this value greater than (lower than/equal to) this other value?” The answer will be either TRUE or FALSE. TRUE and FALSE are logical values in R. For example, typing in the following</p>
+<pre class="r"><code>3 &gt; 2</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>gives us a true. What about the following?</p>
+<pre class="r"><code>&quot;prof visser&quot; == &quot;prof brinkley&quot;</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="numeric" class="section level3">
+<h3><strong>Numeric</strong></h3>
+<p><br />
+</p>
+<p>Numerics are separated into two types: integer and double. The distinction between integers and doubles is usually not important. R treats numerics as doubles by default because it is a less restrictive data type. You can do any mathematical operation on numeric values. We added one and one above. We can also multiply using the <code>*</code> operator</p>
+<pre class="r"><code>2*3</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>Divide</p>
+<pre class="r"><code>4/2</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>And even take the logarithm!</p>
+<pre class="r"><code>log(1)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>log(0)</code></pre>
+<pre><code>## [1] -Inf</code></pre>
+<p>Uh oh. What is <code>-Inf</code>? Well, you can’t take the logarithm of 0, so R is telling you that you’re getting a non numeric value in return. The value <code>-Inf</code> is another type of value type that you can get in R. We’ll go through this and other weirdo values in Lab 2.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="factors" class="section level3">
+<h3><strong>Factors</strong></h3>
+<p><br />
+</p>
+<p>Think of a factor as a categorical variable. It is sort of like a character, but not really. It is actually a numeric code with character-valued levels. Think of a character as a true string and a factor as a set of categories represented as characters. We won’t use factors too much in this course.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="r-data-structures" class="section level2">
+<h2><strong>R Data Structures</strong></h2>
+<p><br />
+You learned that R has four basic data types. Now, let’s go through how we can store data in R. That is, you type in the character “hello world” or the number 3, and you want to store these values. You do this by using R’s various data structures.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="vectors" class="section level3">
+<h3><strong>Vectors</strong></h3>
+<p><br />
+</p>
+<p>A vector is the most common and basic R data structure and is pretty much the workhorse of the language. A vector is simply a sequence of values which can be of any data type but all of the same type. There are a number of ways to create a vector depending on the data type, but the most common is to insert the data you want to save in a vector into the command <code>c()</code>. For example, to save the values 4, 16 and 9 in a vector type in</p>
+<pre class="r"><code>c(4, 16, 9)</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>You can also have a vector of character values</p>
+<pre class="r"><code>c(&quot;martin&quot;, &quot;anne&quot;, &quot;ryan&quot;)</code></pre>
+<pre><code>## [1] &quot;martin&quot; &quot;anne&quot;   &quot;ryan&quot;</code></pre>
+<p>The above code does not actually “save” the values 4, 16, and 9 - it just presents it on the screen in a vector. If you want to use these values again without having to type out <code>c(4, 16, 9)</code>, you can save it in a data object. You assign data to an object using the arrow sign <code>&lt;-</code>. This will create an object in R’s memory that can be called back into the command window at any time. For example, you can save “hello world” to a vector called <em>b</em> by typing in</p>
+<pre class="r"><code>b &lt;- &quot;hello world&quot;
+b</code></pre>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<p>You can pronounce the above as “b becomes ‘hello world’”.</p>
+<p>Similarly, you can save the numbers 4, 16 and 9 into a vector called <em>v1</em></p>
+<pre class="r"><code>v1 &lt;- c(4, 16, 9)
+v1</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>You should see the objects <em>b</em> and <em>v1</em> pop up in the Environment tab on the top right window of your RStudio interface.</p>
+<center>
+<div class="figure">
+<img src="lab0fig.png" alt="" />
+<p class="caption">The Environment window</p>
+</div>
+</center>
+<p>Note that the name <em>v1</em> is nothing special here. You could have named the object <em>x</em> or <em>crd150</em> or your pet’s name (mine was <em>charlie</em>). You can’t, however, name objects using special characters (e.g. !, @, $) or only numbers (although you can combine numbers and letters, but a number cannot be at the beginning e.g. <em>2d2</em>). For example, you’ll get an error if you save the vector <em>c(4,16,9)</em> to an object with the following names</p>
+<pre class="r"><code>123 &lt;- c(4, 16, 9)
+!!! &lt;- c(4, 16, 9)</code></pre>
+<pre><code>## Error: &lt;text&gt;:2:5: unexpected assignment
+## 1: 123 &lt;- c(4, 16, 9)
+## 2: !!! &lt;-
+##        ^</code></pre>
+<p>Also note that to distinguish a character value from a variable name, it needs to be quoted. “v1” is a character value whereas <em>v1</em> is a variable. One of the most common mistakes for beginners is to forget the quotes.</p>
+<pre class="r"><code>brazil</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;brazil&#39; not found</code></pre>
+<p>The error occurs because R tries to print the value of the object <em>brazil</em>, but there is no such object. So remember that any time you get the error message <code>object 'something' not found</code>, the most likely reason is that you forgot to quote a character value. If not, it probably means that you have misspelled, or not yet created, the object that you are referring to. I’ve included the common pitfalls and R tips in this class <a href="https://crd150.github.io/tips.html">resource</a>.</p>
+<p>Every vector has two key properties: <em>type</em> and <em>length</em>. The type property indicates the data type that the vector is holding. Use the command <code>typeof()</code> to determine the type</p>
+<pre class="r"><code>typeof(b)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>typeof(v1)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>Note that a vector cannot hold values of different types. If different data types exist, R will coerce the values into the highest type based on its internal hierarchy: logical &lt; integer &lt; double &lt; character. Type in <code>test &lt;- c("r", 6, TRUE)</code> in your R console. What is the vector type of <code>test</code>?</p>
+<p>The command <code>length()</code> determines the number of data values that the vector is storing</p>
+<pre class="r"><code>length(b)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>length(v1)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>You can also directly determine if a vector is of a specific data type by using the command <code>is.X()</code> where you replace <code>X</code> with the data type. For example, to find out if <em>v1</em> is numeric, type in</p>
+<pre class="r"><code>is.numeric(b)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>is.numeric(v1)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>There is also <code>is.logical()</code>, <code>is.character()</code>, and <code>is.factor()</code>. You can also coerce a vector of one data type to another. For example, save the value “1” and “2” (both in quotes) into a vector named <em>x1</em></p>
+<pre class="r"><code>x1 &lt;- c(&quot;1&quot;, &quot;2&quot;)
+typeof(x1)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>To convert <em>x1</em> into a numeric, use the command <code>as.numeric()</code></p>
+<pre class="r"><code>x2 &lt;- as.numeric(x1)
+typeof(x2)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>There is also <code>as.logical()</code>, <code>as.character()</code>, and <code>as.factor()</code>.</p>
+<p>An important practice you should adopt early is to keep only necessary objects in your current R Environment. For example, we will not be using <em>x2</em> any longer in this guide. To remove this object from R forever, use the command <code>rm()</code></p>
+<pre class="r"><code>rm(x2)</code></pre>
+<p>The data frame object <em>x2</em> should have disappeared from the Environment tab. <a href="https://www.youtube.com/watch?v=Eo-KmOd3i7s">Bye bye!</a></p>
+<p>Also note that when you close down R Studio, the objects you created above will disappear for good. Unless you save them onto your hard drive (we’ll touch on saving data in Lab 2), all data objects you create in your current R session will go <a href="https://www.youtube.com/watch?v=UqfLVDIZcP8">bye bye</a> when you exit the program.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="data-frames" class="section level3">
+<h3><strong>Data Frames</strong></h3>
+<p><br />
+</p>
+<p>We learned that data values can be stored in data structures known as vectors. The next step is to learn how to store vectors into an even higher level data structure. The data frame can do this. Data frames store vectors of the same length. Create a vector called <em>v2</em> storing the values 5, 12, and 25</p>
+<pre class="r"><code>v2 &lt;- c(5,12,25)</code></pre>
+<p>We can create a data frame using the command <code>data.frame()</code> storing the vectors <em>v1</em> and <em>v2</em> as columns</p>
+<pre class="r"><code>data.frame(v1, v2)</code></pre>
+<pre><code>##   v1 v2
+## 1  4  5
+## 2 16 12
+## 3  9 25</code></pre>
+<p>Store this data frame in an object called <em>df1</em></p>
+<pre class="r"><code>df1&lt;-data.frame(v1, v2)</code></pre>
+<p><em>df1</em> should pop up in your Environment window. You’ll notice a <img src="lab0fig2.png" /> next to <em>df1</em>. This tells you that <em>df1</em> possesses or holds more than one object. Click on <img src="lab0fig2.png" /> and you’ll see the two vectors we saved into <em>df1</em>. Another neat thing you can do is directly click on <em>df1</em> from the Environment window to bring up an Excel style worksheet on the top left window of your RStudio interface. You can also type in</p>
+<pre class="r"><code>View(df1)</code></pre>
+<p>to bring the worksheet up. You can’t edit this worksheet directly, but it allows you to see the values that a higher level R data object contains.</p>
+<p>We can store different types of vectors in a data frame. For example, we can save the numeric vector <em>v1</em> with a character vector <em>v3</em>.</p>
+<pre class="r"><code>v3 &lt;- c(&quot;martin&quot;, &quot;anne&quot;, &quot;ryan&quot;)
+df2 &lt;- data.frame(v1, v3)
+df2</code></pre>
+<p>For higher level data structures like a data frame, use the function <code>class()</code> to figure out what kind of object you’re working with.</p>
+<pre class="r"><code>class(df2)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>We can’t use <code>length()</code> on a data frame because it has more than one vector. Instead, it has <em>dimensions</em> - the number of rows and columns. You can find the number of rows and columns that a data frame has by using the command <code>dim()</code></p>
+<pre class="r"><code>dim(df1)</code></pre>
+<pre><code>## [1] 3 2</code></pre>
+<p>Here, the data frame <em>df1</em> has 3 rows and 2 columns. Data frames also have column names, which are characters.</p>
+<pre class="r"><code>colnames(df1)</code></pre>
+<pre><code>## [1] &quot;v1&quot; &quot;v2&quot;</code></pre>
+<p>In this case, the data frame used the vector names for the column names.</p>
+<p>We can extract columns from data frames by referring to their names using the <code>$</code> sign.</p>
+<pre class="r"><code>df1$v1</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>We can also extract data from data frames using brackets <code>[ , ]</code></p>
+<pre class="r"><code>df1[,1]</code></pre>
+<pre><code>## [1]  4 16  9</code></pre>
+<p>The value before the comma indicates the row, which you leave empty if you are not selecting by row. The value after the comma indicates the column, which you leave empty if you are not selecting by column. The above line of code selected the first column. Let’s select the 2nd row.</p>
+<pre class="r"><code>df1[2,]</code></pre>
+<pre><code>##   v1 v2
+## 2 16 12</code></pre>
+<p>What is the value in the 2nd row <em>and</em> 1st column?</p>
+<pre class="r"><code>df1[2,1]</code></pre>
+<pre><code>## [1] 16</code></pre>
+<p>We’ve been talking about the values in vectors and data frames rather abstractly. In practice, values, vectors and data frames have specific meaning in the context of data analysis. Let’s make things concrete. Take a look at this <a href="https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/tables/table-6/table-6-state-cuts/california.xls">website</a> showing crimes in California cities in 2016. Sacramento had 3,549 violent crime incidences. This is a data value (numeric!). The collection of violent crime counts for each city is a vector. The data frame has California cities as rows and the population, violent crime, homicide, and so on as columns. You learned about these elements in Handout 1. Now you see them in action in the R environment.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="functions" class="section level2">
+<h2><strong>Functions</strong></h2>
+<p><br />
+</p>
+<p>Let’s take a step back and talk about functions (also known as commands). An R function is a packaged recipe that converts one or more inputs (called arguments) into a single output. You execute most of your tasks in R using functions. We have already used a couple of functions above including <code>typeof()</code> and <code>colnames()</code>. Every function in R will have the following basic format</p>
+<p><code>functionName(arg1 = val1, arg2 = val2, ...)</code></p>
+<p>In R, you type in the function’s name and set a number of options or parameters within parentheses that are separated by commas. Some options <strong>need</strong> to be set by the user - i.e. the function will spit out an error because a required option is blank - whereas others can be set but are not required because there is a default value established.</p>
+<p>Let’s use the function <code>seq()</code> which makes regular sequences of numbers. You can find out what a function does and its options by calling up its help documentation by typing <code>?</code> and the function name</p>
+<pre class="r"><code>? seq</code></pre>
+<p>The help documentation should have popped up in the bottom right window of your RStudio interface. The documentation should also provide some examples of the function at the bottom of the page. Type the arguments <code>from = 1, to = 10</code> inside the parentheses of <code>seq()</code></p>
+<pre class="r"><code>seq(from = 1, to = 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>You should get the same result if you type in</p>
+<pre class="r"><code>seq(1, 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>The code above demonstrates something about how R resolves function arguments. When you use a function, you can always specify all the arguments in <code>arg = value</code> form. But if you do not, R attempts to resolve by position. So in the code <code>seq(1, 10)</code>, it is assumed that we want a sequence <code>from = 1</code> that goes <code>to = 10</code> because we typed 1 before 10. Type in 10 before 1 and see what happens.</p>
+<p>Each argument requires a certain type of data type. For example, you’ll get an error when you use a character in <code>seq()</code></p>
+<pre class="r"><code>seq(&quot;p&quot;, &quot;w&quot;)</code></pre>
+<pre><code>## Error in seq.default(&quot;p&quot;, &quot;w&quot;): &#39;from&#39; must be a finite number</code></pre>
+<p>Although the lab guides and course textbooks should get you through a lot of the functions that are needed to successfully accomplish tasks for this class, there are a number of useful online resources on R and RStudio that you can look into if you get stuck or want to learn more. We outline these resources <a href="https://crd150.github.io/tips.html#Getting_help">here</a>. If you ever get stuck, check this resource out first to troubleshoot before immediately asking a friend or the instructor/TA.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="r-scripting" class="section level2">
+<h2><strong>R Scripting</strong></h2>
+<p><br />
+</p>
+<p>In running the few lines of code above, we’ve asked you to work directly in the R Console and issue commands in an <em>interactive</em> way. That is, you type a command after <code>&gt;</code>, you hit enter/return, R responds, you type the next command, hit enter/return, R responds, and so on. As described in Handout 1, instead of writing the command directly into the console, you should write it in a script. The process is now: Type your command in the script. Run the code from the script. R responds. You get results. You can write two commands in a script. Run both simultaneously. R responds. You get results. This is the basic flow. In your homework assignments, we will be asking you to submit code in an R Markdown file. R Markdown allows you to create documents that serve as a neat record of your analysis. Think of it as a word document, but instead of sentences in an essay, you are writing code for a data analysis.</p>
+<p><br></p>
+<p>Rather than copying and pasting code from the lab guides into the R Console as you’ve been doing up to this point, type it into an R Markdown file and then run the code from there. Even though you do not need to turn in the labs, running the lab code in your own R Markdown file will give you practice for your assignments. Plus, the code is in <strong>your</strong> document, so you can add explanatory text or supplement the guide’s code with your own code.</p>
+<p><br></p>
+<p>Just like for each assignment, I will provide an R Markdown template for each lab. Download the R Markdown <a href="https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd">Lab template</a> into an appropriate folder on your hard drive. It’s best to set up on your hard drive a clean and efficient file management structure for this class as described in the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>. For example, below is where I would save Lab 1’s R Markdown file on my Mac laptop (I named the file “Lab 1”).</p>
+<center>
+<img src="lab1fig1.png" title="fig:" alt="This is what file organization looks like" />
+</center>
+<p><br></p>
+<p>Open the file in R Studio by clicking on <em>File</em> from the top menu, click on <em>Open File</em>, navigate to your Lab 1 folder, and click on the Lab 1 R Markdown file you downloaded. Once you do this, if there isn’t already one on your console, a fourth window should pop up in the top left showing you an R Markdown file.</p>
+<p><br></p>
+<center>
+<img src="chunk1.png" title="fig:" alt="The full RStudio interface" />
+</center>
+<p><br></p>
+<p>In this file, change the title to “Lab 1” and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>). Also don’t change the following chunk.</p>
+<pre><code>```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```</code></pre>
+<p>All your code should go inside areas designated as</p>
+<pre><code>```{r}
+#Type your code here
+```</code></pre>
+<p>For example, you would write the code <code>1+1</code> as</p>
+<pre><code>```{r}
+1+1
+```</code></pre>
+<p>From the file, run the code. R responds. You get results.</p>
+<p>If you haven’t already done so, now is a good time to read through the class <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a> as they go through the basics of R Markdown files. Go through this guide carefully as you will need to submit all your homework assignments using R Markdown.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="assignment-1" class="section level2">
+<h2><strong>Assignment 1</strong></h2>
+<p><br />
+</p>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn01.Rmd">Assignment 1 R Markdown Script</a>. The script can also be found on Canvas (Files - Week 1 - Assignment). Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas. We’ve put together some additional R tips <a href="https://crd150.github.io/tips.html">here</a> in the likely case you get stuck.</p>
+<ol style="list-style-type: decimal">
+<li>Look up the help documentation for the function <code>rep()</code>. Use this function to create the following 3 vectors. (2 points each)</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>[1] 0 0 0 0 0</p></li>
+<li><p>[1] 1 2 3 1 2 3 1 2 3 1 2 3</p></li>
+<li><p>[1] 4 5 5 6 6 6</p></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Load the <em>mtcars</em> dataset by using the code <code>data(mtcars)</code>. What are the units of observation? How many unit of observations does this dataset have? How many variables? Remember that wherever possible, you will need to use R code to answer the questions. The dataset’s help documentation <code>? mtcars</code> might be useful. (4 points)</p></li>
+<li><p>Explain what is the problem in each line of code below. Fix the code so it will run properly. (2 points each)</p></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>my variable &lt;- 3</p></li>
+<li><p>seq(1, 10 by = 2)</p></li>
+<li><p>Class(c(1,2,3))</p></li>
+</ol>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Have you used any of the following programs: Excel, R, PSPP, Stata, SAS, Python, Matlab? For each program, choose one of the following options: (a) Never used, (b) Beginner, (c) Basic competence, (d) Intermediate, (e) Advanced. (2 points)</p></li>
+<li><p>Describe what you are hoping to get out of this class? (2 points)</p></li>
+</ol>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
