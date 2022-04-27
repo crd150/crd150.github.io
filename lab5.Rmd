@@ -289,7 +289,7 @@ Let's save *sac.county.tracts* as a shapefile named *saccountytractslab5.shp*.
 st_write(sac.county.tracts, "saccountytractslab5.shp", delete_layer = TRUE)
 ```
 
-Check your current working directory to see if the file *saccountytractslab5.shp* was saved.
+Check your current working directory to see if the file *saccountytractslab5.shp* was saved.  You will be using this data set for your assignment this week.
 
 You can save your **sf** object in a number of different data formats other than `shp`.  We won't be concerned too much with these other formats in this class, but you can see a list of them [here](https://www.gdal.org/ogr_formats.html).
 
