@@ -1,0 +1,67 @@
+--------------------------------------------------------------------------------
+Codebook for Assignment 7, Question 2 data 
+File sactracts_gentrification.csv
+--------------------------------------------------------------------------------
+ 
+All data were downloaded from the 2006-10 and 2015-19 American Community Survey 
+Units of observations: Census tracts in 2010 boundaries
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+GEOID: Census Tract ID
+
+medinc10: Median household income, census tract, 2010
+
+rent10: Median rent, census tract, 2010
+
+houseval10: Median housing value, census tract, 2010
+
+pcol10: Percent with college degree, census tract, 2010
+
+pnhwhite10: Percent non-Hispanic white, census tract, 2010
+
+pnhasn10: Percent non-Hispanic Asian, census tract, 2010
+
+pnhblk10: Percent non-Hispanic Black, census tract, 2010
+
+phisp10: Percent Hispanic, census tract, 2010
+
+nhwhite10: Number non-Hispanic white, census tract, 2010
+
+nhasn10: Number non-Hispanic Asian, census tract, 2010
+
+nhblk10: Number non-Hispanic Black, census tract, 2010
+
+hisp10: Number Hispanic, census tract, 2010
+
+tpop10: Total population, census tract, 2010
+
+medinc19: Median household income, census tract, 2019
+
+rent19: Median rent, census tract, 2019
+
+houseval19: Median housing value, census tract, 2019
+
+pcol19: Percent with college degree, census tract, 2019
+
+GEOIDc: City ID
+
+medincc19:  Median household income, City, 2019
+
+rentc19: Median rent, City, 2019
+
+housevalc19: Median housing value, City, 2019
+
+pcolc19: Percent with college degree, City, 2019
+
+medincc10: Median household income, City, 2010
+
+rentc10: Median rent, City, 2010
+
+housevalc10: Median housing value, City, 2010
+
+pcolc10: Percent with college degree, City, 2010
+
+
