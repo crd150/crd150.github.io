@@ -13,7 +13,6 @@ output:
 ---
 
 
-
 <style>
 p.comment {
 background-color: #DBDBDB;
