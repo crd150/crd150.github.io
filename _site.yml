@@ -22,7 +22,7 @@ navbar:
         - text: "Lab 5"
           href:  lab5.html   
         - text: "Lab 6"
-          href:  lab6.html           
+          href:  lab6.html   
     - text: "Other"
       menu: 
         - text: "Eligible Communities"
@@ -33,7 +33,7 @@ navbar:
           href: ndata.html   
         - text: "Big and Open Data Sources"
           href: bigopendata.html       
-        - text: "PolicyMap"
+        - text: "PolicyMap "
           href: policymap.html
 output:
   html_document:
