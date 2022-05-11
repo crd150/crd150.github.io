@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 7b: Gentrification</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Spring 2022</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+    <li>
+      <a href="lab7a.html">Lab 7a</a>
+    </li>
+    <li>
+      <a href="lab7b.html">Lab 7b</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Eligible Communities</a>
+    </li>
+    <li>
+      <a href="tips.html">R tips</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+    <li>
+      <a href="policymap.html">PolicyMap </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 7b: Gentrification</h1>
+<h3 class="subtitle"><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></h3>
+<h4 class="author"><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></h4>
+<h4 class="date"><h4 style="font-style:normal">
+May 11, 2022
+</h4></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+<p><br />
+</p>
+<p>We go from one form of place-based inequality in the <a href="https://crd150.github.io/lab7a.html">last lab</a> (segregation) to another form in this lab (gentrification). How do we determine whether a neighborhood is undergoing gentrification? Let’s find out using a quantitative approach. We’ll determine which neighborhoods are experiencing gentrification in the City of Fresno, an issue that has gotten a lot of <a href="https://www.fresnobee.com/news/local/article222458970.html">local attention</a>.</p>
+<p>In this guide you will learn how to calculate the measure of gentrification used by Ding et al. (2016). This lab guide follows closely and supplements the material presented in class Handout 8.</p>
+<p class="comment">
+<strong>Assignment 7 is due by 2:00 pm, May 18th on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn07. For example: brazil_n_asgn07.
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="open-up-a-r-markdown-file" class="section level2">
+<h2><strong>Open up a R Markdown file</strong></h2>
+<p><br />
+</p>
+<p>Download the <a href="https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd">Lab template</a> into an appropriate folder on your hard drive (preferably, a folder named ‘Lab 7b’), open it in R Studio, and type and run your code there. The template is also located on Canvas under Files. The template is also located on Canvas under Files. Change the title (“Lab 7b”) and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>). Also keep the grey chunk after the YAML. For a rundown on the use of R Markdown, see the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="installing-and-loading-packages" class="section level2">
+<h2><strong>Installing and loading packages</strong></h2>
+<p><br />
+</p>
+<p>We will not be using any new packages in this lab. You’ll need to load the following packages. Unlike installing, you will always need to load packages whenever you start a new R session. As such, you’ll always need to use <code>library()</code> in your R Markdown file.</p>
+<pre class="r"><code>library(sf)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+library(tmap)
+library(rmapshaper)
+library(knitr)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="bringing-in-the-data" class="section level2">
+<h2><strong>Bringing in the data</strong></h2>
+<p><br />
+</p>
+<p>We will use the Ding et al. (2016) method outlined in Handout 8 for measuring gentrification. The measure defines gentrification as follows</p>
+<ul>
+<li>A neighborhood is eligible for gentrification if its median household income is less than the city’s median household income at the beginning of the observation period.</li>
+<li>An eligible neighborhood gentrifies if its change from the beginning to the end of the observation period in median gross rent <em>or</em> median housing value is greater than the change in the city <em>and</em> the change in its percent of residents that have a college degree is more than the change in the city.</li>
+</ul>
+<p>We will define the beginning of the period using 2006-2010 ACS data (this is the first ACS period using 2010 tract boundaries) and the end of the period using 2015-2019 ACS data. We need to bring in the appropriate variables from each of these years into R.</p>
+<p>To demonstrate this measure, we will examine gentrification in the <a href="https://www.fresno.gov/">City of Fresno</a> in California.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="tract-level-data" class="section level3">
+<h3><strong>Tract level data</strong></h3>
+<p><br />
+</p>
+<p>We will need to read in 2006-2010 tract-level median gross rent, median housing value and percent with a college degree for Fresno census tracts. We will use the <code>get_acs()</code> command to get these data. We won’t go through each line of code in detail because we’ve covered all of these operations and functions in prior labs. We’ve embedded comments within the code that briefly explains what each chunk is doing. Go back to prior guides (or RDS/GWR) if you need further help. Notice that I attached a <em>10</em> to the end of each variable to signify that it is for 2006-2010.</p>
+<pre class="r"><code># Bring in 2006-2010 census tract data using the Census API 
+ca.tracts10 &lt;- get_acs(geography = &quot;tract&quot;, 
+              year = 2010,
+              variables = c(medinc10 = &quot;B19013_001&quot;, rent10  = &quot;B25064_001&quot;,
+                            houseval10 = &quot;B25077_001&quot;, bachm = &quot;B15002_015&quot;,
+                            mastersm = &quot;B15002_016&quot;, profm = &quot;B15002_017&quot;,
+                            phdm = &quot;B15002_018&quot;, bachf = &quot;B15002_032&quot;,
+                            mastersf = &quot;B15002_033&quot;, proff = &quot;B15002_034&quot;,
+                            phdf = &quot;B15002_035&quot;, totcol = &quot;B15002_001&quot;),
+              state = &quot;CA&quot;,
+              survey = &quot;acs5&quot;,
+              output = &quot;wide&quot;,
+              geometry = TRUE)
+
+# Make the data tidy, calculate and keep essential vars. 
+ca.tracts10 &lt;- ca.tracts10 %&gt;% 
+  rename_with(~ sub(&quot;E$&quot;, &quot;&quot;, .x), everything()) %&gt;%
+  mutate(pcol10 = 100*(bachm+mastersm+profm+phdm+bachf+mastersf+proff+phdf)/totcol) %&gt;%
+  select(c(GEOID,medinc10, rent10, houseval10, pcol10)) </code></pre>
+<p><br></p>
+<p>Note that you might get an error that states</p>
+<pre><code>Calls: &lt;Anonymous&gt; ... withCallingHandlers -&gt; withVisible -&gt; eval -&gt; eval -&gt; get_acs
+Execution halted</code></pre>
+<p><br></p>
+<p>Sometimes the Census API experiences a hiccup like above when downloading older data such as 2006-2010 ACS. My advice is to wait a few minutes (or more) and the run the code (or knit your file) again until the hiccup goes away.</p>
+<p>We then need to keep just the City of Fresno tracts. Here we use familiar friends that were introduced in <a href="https://crd150.github.io/lab6.html#Spatial_data_wrangling">Lab 6</a>.</p>
+<pre class="r"><code># Bring in city boundaries.  We&#39;ll use the boundaries for the final year, 2019
+pl &lt;- places(state = &quot;CA&quot;, year = 2019, cb = TRUE)
+
+# Keep Fresno city
+fresno &lt;- filter(pl, NAME == &quot;Fresno&quot;)
+
+#Keep tracts in Fresno 
+fresno.tracts &lt;- ms_clip(target = ca.tracts10, clip = fresno, remove_slivers = TRUE)</code></pre>
+<p>We now need to get the same variables but for the end of the period, which we define as 2015-2019. I’ve appended <em>19</em> to the end of each variable name to signify these are 2019 data. This is done to distinguish these variables from the 2010 ACS data, which we’ll be downloading later when we measure gentrification. Also note that we don’t need any spatial data since <em>ca.tracts10</em> is already an <strong>sf</strong> object, so we don’t include the argument <code>geometry = TRUE</code>.</p>
+<pre class="r"><code># Bring in 2015-2019 census tract data using the Census API 
+ca.tracts19 &lt;- get_acs(geography = &quot;tract&quot;, 
+              year = 2019,
+              variables = c(tpop = &quot;B03002_001&quot;, 
+                            nhwhite = &quot;B03002_003&quot;, nhblk = &quot;B03002_004&quot;,
+                            nhasn = &quot;B03002_006&quot;, hisp = &quot;B03002_012&quot;,
+                            medinc19 = &quot;B19013_001&quot;, rent19  = &quot;B25064_001&quot;,
+                            houseval19 = &quot;B25077_001&quot;, bach = &quot;B15003_022&quot;,
+                            masters = &quot;B15003_023&quot;, prof = &quot;B15003_024&quot;,
+                            phd = &quot;B15003_025&quot;, totcol = &quot;B15003_001&quot;),
+              state = &quot;CA&quot;,
+              survey = &quot;acs5&quot;,
+              output = &quot;wide&quot;)
+
+# Make the data tidy, calculate and keep essential vars. 
+ca.tracts19 &lt;- ca.tracts19 %&gt;% 
+  rename_with(~ sub(&quot;E$&quot;, &quot;&quot;, .x), everything()) %&gt;%
+  mutate(pnhwhite19 = 100*(nhwhite/tpop), pnhasn19 = 100*(nhasn/tpop), 
+        pnhblk19 = 100*(nhblk/tpop), phisp19 = 100*(hisp/tpop), 
+        pcol19 = 100*(bach+masters+prof+phd)/totcol) %&gt;%
+  select(c(GEOID,pnhwhite19, pnhasn19, pnhblk19, phisp19,
+           medinc19, rent19, houseval19, pcol19))  </code></pre>
+<p>Finally, let’s combine the two tract level data objects. The <strong>sf</strong> object <em>fresno.tracts</em> contains 2006-2010 ACS tract-level data. We join the regular tibble <em>ca.tracts19</em>, which contains 2015-2019 ACS tract-level data, using <code>left_join()</code>. The GEOID is <em>GEOID</em> in both <em>fresno.tracts</em> and <em>ca.tracts19</em></p>
+<pre class="r"><code>fresno.tracts &lt;- fresno.tracts %&gt;%
+            left_join(ca.tracts19, by = &quot;GEOID&quot;)</code></pre>
+<p>Make sure we’ve successfully merged all the variables we need.</p>
+<pre class="r"><code>glimpse(fresno.tracts)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="city-level-data" class="section level3">
+<h3><strong>City level data</strong></h3>
+<p><br />
+</p>
+<p>As described in Handout 8, we need to compare neighborhoods to the entire City of Fresno. This means we need to bring in city data for the beginning (2006-10) and end (2015-19) periods. First, let’s bring in 2006-2010 ACS data for all places in California using <code>get_acs()</code>. We use the argument <code>geography = "place"</code>. We specify these data as place level 2006-2010 by attaching a <em>c10</em> to the end of each variable. We can’t use<code>geometry = TRUE</code> to bring in spatial data for 2006-2010 city data because <code>tidycensus()</code> does not provide spatial data for years before 2011.</p>
+<pre class="r"><code># Bring in census tract data using the Census API 
+ca.places10 &lt;- get_acs(geography = &quot;place&quot;, 
+              year = 2010,
+              variables = c(medincc10 = &quot;B19013_001&quot;, rentc10  = &quot;B25064_001&quot;,
+                            housevalc10 = &quot;B25077_001&quot;, bachm = &quot;B15002_015&quot;,
+                            mastersm = &quot;B15002_016&quot;, profm = &quot;B15002_017&quot;,
+                            phdm = &quot;B15002_018&quot;, bachf = &quot;B15002_032&quot;,
+                            mastersf = &quot;B15002_033&quot;, proff = &quot;B15002_034&quot;,
+                            phdf = &quot;B15002_035&quot;, totcol = &quot;B15002_001&quot;),
+              state = &quot;CA&quot;,
+              survey = &quot;acs5&quot;,
+              output = &quot;wide&quot;)
+
+# Make the data tidy, calculate and keep essential vars. Also take out zero population tracts
+ca.places10 &lt;- ca.places10 %&gt;% 
+    filter(NAME == &quot;Fresno city, California&quot;) %&gt;%
+  rename_with(~ sub(&quot;E$&quot;, &quot;&quot;, .x), everything()) %&gt;%
+  mutate(pcolc10 = 100*(bachm+mastersm+profm+phdm+bachf+mastersf+proff+phdf)/totcol) %&gt;%
+  select(c(GEOID,medincc10, rentc10, housevalc10, pcolc10)) </code></pre>
+<p><br></p>
+<p>We next need to bring in current (2015-2019) city level data. We specify the data as place level 2015-2019 by attaching a <em>c19</em> to the end of each variable. Here, we specify <code>geometry = TRUE</code> to get city spatial boundaries, and then filter to get just Fresno city.</p>
+<pre class="r"><code># Bring in census tract data using the Census API 
+ca.places19 &lt;- get_acs(geography = &quot;place&quot;, 
+              year = 2019,
+              variables = c(medincc19 = &quot;B19013_001&quot;, rentc19  = &quot;B25064_001&quot;,
+                            housevalc19 = &quot;B25077_001&quot;, bachc = &quot;B15003_022&quot;,
+                            mastersc = &quot;B15003_023&quot;, profc = &quot;B15003_024&quot;,
+                            phdc = &quot;B15003_025&quot;, totcolc = &quot;B15003_001&quot;),
+              state = &quot;CA&quot;,
+              survey = &quot;acs5&quot;,
+              output = &quot;wide&quot;,
+              geometry = TRUE)
+
+# Make the data tidy, calculate and keep essential vars. Also keep just Fresno
+fresno.city &lt;- ca.places19 %&gt;% 
+  filter(NAME == &quot;Fresno city, California&quot;) %&gt;%
+  rename_with(~ sub(&quot;E$&quot;, &quot;&quot;, .x), everything()) %&gt;%
+  mutate(pcolc19 = 100*(bachc+mastersc+profc+phdc)/totcolc) %&gt;%
+  select(c(GEOID,medincc19, rentc19, housevalc19, pcolc19)) </code></pre>
+<p>Finally, let’s combine the two city level data objects. The <strong>sf</strong> object <em>fresno.city</em> contains 2015-2019 ACS data just for Fresno city. We join the regular tibble <em>ca.places10</em>, which contains 2006-2010 ACS city-level data, to <em>fresno.city</em> using <code>left_join()</code>. The GEOID is <em>GEOID</em> in both files.</p>
+<pre class="r"><code>fresno.city &lt;- fresno.city %&gt;%
+            left_join(ca.places10, by = &quot;GEOID&quot;)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="putting-the-data-all-together" class="section level3">
+<h3><strong>Putting the data all together</strong></h3>
+<p><br />
+</p>
+<p>We have tract and city level data at the beginning and end of the period in separate data objects (<em>fresno.tracts</em> and <em>fresno.city</em>). We now need to join all of them together into a single file.</p>
+<p>When you view <em>fresno.tracts</em>, you’ll notice that we don’t have any variable indicating the city identifier to merge in city-level data. Instead of <code>left_join()</code>, we instead use the <code>st_join()</code> function to join the city data to the tract data, which is a part of the <strong>sf</strong> package. Here, rather than using an ID like GEOID, the joining is based on geographic location. We already used <code>st_join()</code> in <a href="https://crd150.github.io/lab7a.html">Lab 7a</a>. Let’s use it again, friends.</p>
+<pre class="r"><code>fresno.tracts &lt;- fresno.tracts %&gt;%
+                st_join(fresno.city, left=FALSE)</code></pre>
+<p>This function joins the variables from <em>fresno.city</em> to the data frame <em>fresno.tracts</em>.</p>
+<p>Look at the data to make sure the joins went as expected.</p>
+<pre class="r"><code>glimpse(fresno.tracts)</code></pre>
+<p>We’re done!</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="measuring-gentrification" class="section level2">
+<h2><strong>Measuring Gentrification</strong></h2>
+<p><br />
+</p>
+<p>We’ve got all the data we need in one data object (<em>fresno.tracts</em>). Now we can start constructing our gentrification measure.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="gentrification-eligible-tracts" class="section level3">
+<h3><strong>Gentrification eligible tracts</strong></h3>
+<p><br />
+</p>
+<p>First, let’s determine whether a tract is eligible to gentrify in the first place. A neighborhood is eligible for gentrification if its median household income is less than the city’s median household income in 2006-2010. We create a variable named <em>eligible</em> that specifies whether a neighborhood is eligible or not using the <code>ifelse()</code> function within <code>mutate()</code>.</p>
+<pre class="r"><code>fresno.tracts &lt;- fresno.tracts %&gt;%
+            mutate(eligible = ifelse(medinc10 &lt; medincc10, &quot;Eligible&quot;, &quot;Not Eligible&quot;))</code></pre>
+<p>Here, the <code>ifelse()</code> function tells R that if a tract’s median household income <em>medinc10</em> is less than the city level median household income <em>medincc10</em>, label that neighborhood “Eligible”. Otherwise, label the neighborhood as “Not Eligible”.</p>
+<p>What is the proportion of neighborhoods that are eligible to gentrify? Here, we are summarizing a categorical variable, which we covered in <a href="https://crd150.github.io/lab4.html#Categorical_variables">Lab 4</a>. Let’s put the results in a nice looking table by dropping the geometry using the function <code>st_drop_geometry()</code> and creating a nicely formatted table using the function <code>kable()</code>, which is a part of the <strong>knitr</strong> package. We use the argument <code>digits = 2</code> to round the values to two significant digits after the decimal place.</p>
+<pre class="r"><code>fresno.tracts %&gt;%
+  group_by(eligible) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(proportion = n / sum(n)) %&gt;%
+  ungroup() %&gt;%
+  st_drop_geometry() %&gt;%
+  kable(digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">eligible</th>
+<th align="right">n</th>
+<th align="right">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Eligible</td>
+<td align="right">71</td>
+<td align="right">0.56</td>
+</tr>
+<tr class="even">
+<td align="left">Not Eligible</td>
+<td align="right">55</td>
+<td align="right">0.43</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="gentrifying-tracts" class="section level3">
+<h3><strong>Gentrifying tracts</strong></h3>
+<p><br />
+</p>
+<p>Next, we identify which tracts that were eligible to gentrify that are gentrifying and which ones are not gentrifying. An eligible neighborhood gentrifies if its change between 2006-2010 and 2015-2019 in median gross rent <em>or</em> median housing value is greater than the change in the city <em>and</em> the change in its percent of residents that have a college degree is more than the change in the city.</p>
+<p>Let’s first calculate the tract-level 2010 to 2019 differences in rent <em>rentch</em>, housing values <em>housech</em>, and percent with a college degree <em>pcolch</em>.</p>
+<pre class="r"><code>fresno.tracts &lt;- fresno.tracts %&gt;%
+            mutate(rentch = rent19-rent10, housech = houseval19-houseval10,
+                   pcolch = pcol19-pcol10)</code></pre>
+<p>Next, we calculate the city-level differences in rent <em>rentchc</em>, housing values <em>housechc</em>, and percent with a college degree <em>pcolchc</em>.</p>
+<pre class="r"><code>fresno.tracts &lt;- fresno.tracts %&gt;%
+            mutate(rentchc = rentc19-rentc10, housechc = housevalc19-housevalc10,
+                   pcolchc = pcolc19-pcolc10)</code></pre>
+<p>We now have all the pieces to construct a variable <em>gent</em> that labels tracts as “Not eligible”, “Gentrifying”, and “Not Gentrifying”. We do this using a set of <code>ifelse()</code> statements within <code>mutate()</code>.</p>
+<pre class="r"><code>fresno.tracts &lt;- fresno.tracts %&gt;%
+            mutate(gent = ifelse(eligible == &quot;Not Eligible&quot;, &quot;Not Eligible&quot;,
+                          ifelse(eligible == &quot;Eligible&quot; &amp; pcolch &gt; pcolchc &amp;
+                                (rentch &gt; rentchc | housech &gt; housechc), &quot;Gentrifying&quot;,
+                                &quot;Not Gentrifying&quot;)))</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="examining-gentrification" class="section level2">
+<h2><strong>Examining Gentrification</strong></h2>
+<p><br />
+</p>
+<p>What is the proportion of neighborhoods in Fresno that experienced gentrification? Let’s put it in a nice looking table by dropping the geometry using the function <code>st_drop_geometry()</code> and using the function <code>kable()</code>.</p>
+<pre class="r"><code>fresno.tracts %&gt;%
+  group_by(gent) %&gt;%
+  summarize(n = n()) %&gt;%
+  mutate(proportion = n / sum(n)) %&gt;%
+  ungroup() %&gt;%
+  st_drop_geometry() %&gt;%
+  kable(digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gent</th>
+<th align="right">n</th>
+<th align="right">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Gentrifying</td>
+<td align="right">22</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="even">
+<td align="left">Not Eligible</td>
+<td align="right">55</td>
+<td align="right">0.43</td>
+</tr>
+<tr class="odd">
+<td align="left">Not Gentrifying</td>
+<td align="right">49</td>
+<td align="right">0.39</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="right">1</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table>
+<p>Approximately 17 percent of neighborhoods in Fresno experienced gentrification between 2010 and 2019. Where are these neighborhoods located? Let’s make a nice color patch map using our best buddy <code>tm_shape()</code>.</p>
+<pre class="r"><code>tm_shape(fresno.tracts, unit = &quot;mi&quot;) +
+  tm_polygons(col = &quot;gent&quot;, style = &quot;cat&quot;,palette = &quot;Paired&quot;, border.alpha = 0,
+              title = &quot;&quot;) +
+  tm_scale_bar(breaks = c(0, 1, 2), text.size  = 0.75, position = c(&quot;right&quot;, &quot;bottom&quot;))  +
+  tm_layout(main.title = &quot;2010-2019 Gentrification Status in Fresno&quot;, main.title.size = 0.95, frame = FALSE, legend.outside = TRUE)</code></pre>
+<p><img src="lab7b_files/figure-html/unnamed-chunk-18-1.png" /><!-- --></p>
+<p>What are the mean percentages of residents that are Hispanic and non-Hispanic white, Black, and Asian in 2010 in each of the gentrification categories?</p>
+<pre class="r"><code>fresno.tracts %&gt;%
+  st_drop_geometry() %&gt;%
+  filter(is.na(gent) == FALSE) %&gt;%
+  group_by(gent) %&gt;%
+  summarize(&quot;% White&quot; = mean(pnhwhite19),
+            &quot;% Black&quot; = mean(pnhblk19),
+            &quot;% Hispanic&quot; = mean(phisp19),
+            &quot;% Asian&quot; = mean(pnhasn19)) %&gt;%
+  kable(digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gent</th>
+<th align="right">% White</th>
+<th align="right">% Black</th>
+<th align="right">% Hispanic</th>
+<th align="right">% Asian</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Gentrifying</td>
+<td align="right">15.86</td>
+<td align="right">7.26</td>
+<td align="right">63.41</td>
+<td align="right">11.45</td>
+</tr>
+<tr class="even">
+<td align="left">Not Eligible</td>
+<td align="right">42.92</td>
+<td align="right">4.56</td>
+<td align="right">36.21</td>
+<td align="right">12.98</td>
+</tr>
+<tr class="odd">
+<td align="left">Not Gentrifying</td>
+<td align="right">17.33</td>
+<td align="right">8.19</td>
+<td align="right">60.81</td>
+<td align="right">10.81</td>
+</tr>
+</tbody>
+</table>
+<p>Exploring the association between gentrification and racial/ethnic composition and other demographic and socioeconomic characteristics is a great idea for your final project.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="assignment-7" class="section level2">
+<h2><strong>Assignment 7</strong></h2>
+<p><br />
+</p>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd">Assignment 7 R Markdown Script</a>. The script can also be found on Canvas (Files - Week 7 - Assignment). Any response requiring a data analysis task must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.).</p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>In <a href="https://crd150.github.io/lab6.html#Assignment_6">Assignment 6</a>, we descriptively examined the claim that Houston is the most racially integrated city in the United States. Let’s employ the segregation tools we learned this week to explore this claim in a more rigorous manner. Let’s also compare Houston to Sacramento, a city that has also been proclaimed as <a href="https://www.sacbee.com/news/local/article226876944.html">among most racially diverse in the nation</a>. Read in the Houston and Sacramento data sets <em>houstonrace.csv</em> and <em>sacrace.csv</em>, which can be found on Canvas (Files - Week 7 - Assignment). <strong>You do not need to convert these data sets into sf objects</strong>. Keep them as regular data frames (tibbles). A record layout of the data can be found <a href="https://raw.githubusercontent.com/crd150/data/master/sac_houston_city_tracts_record_layout.txt">here</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Calculate the Black/White, Hispanic/White and Asian/White Dissimilarity Indices for Houston and Sacramento. (5 points)</li>
+<li>Calculate the Black/White, Hispanic/White and Asian/White Interaction Indices for Houston and Sacramento. (5 points)</li>
+<li>Based on your answers to questions (a) and (b), which city is most segregated? Why? (2 points)</li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>We created a gentrification measure for the City of Fresno in Lab 7b. This question asks you to use the same method from Lab (Ding et al. 2016) to create a gentrification measure for the City of Sacramento, which has received a lot of <a href="https://www.sacbee.com/news/local/sacramento-tipping-point/article238333098.html">local media attention</a> for the rising presence of gentrification in certain neighborhoods. Download the file assignment7q2.zip from Canvas (Files - Week 7 - Assignment) into the appropriate folder on your hard drive. The file contains sactracts_gentrification.csv, which contains census-tract level data on Sacramento, and sactracts_boundaries.shp, which is a shapefile of Sacramento census tract boundaries. Unzip and bring the files into R. Consider the datasets to be cleaned and ready for analysis. The record layout for sactracts_gentrification.csv can be found <a href="https://raw.githubusercontent.com/crd150/data/master/sactracts_gentrification_record_layout.txt">here</a>.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>From the data set sactracts_gentrification.csv, create a variable that determines whether a neighborhood is not eligible for gentrification, is eligible and is not gentrifying, and is eligible and is gentrifying using the Ding et al. measure. (4 points)</li>
+<li>What are the proportions of tracts in Sacramento that were not eligible to gentrify, experienced gentrification, and did not experience gentrification between 2006-10 and 2015-19? (2 point)</li>
+<li>Produce a map of the gentrification variable you created in (a). You will need to join the object containing the gentrification variables to the shapefile of Sacramento tracts sactracts_boundaries.shp. (2 point)</li>
+</ol>
+<hr />
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "site_libs/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

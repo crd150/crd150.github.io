@@ -24,7 +24,9 @@ navbar:
         - text: "Lab 6"
           href:  lab6.html   
         - text: "Lab 7a"
-          href:  lab7a.html            
+          href:  lab7a.html 
+        - text: "Lab 7b"
+          href:  lab7b.html           
     - text: "Other"
       menu: 
         - text: "Eligible Communities"
