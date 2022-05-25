@@ -376,7 +376,7 @@ summary(shelters.geo$lat)
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##   33.74   34.00   34.05   34.07   34.14   34.70      60
+##   33.74   33.99   34.05   34.08   34.12   34.70      15
 ```
 
 30 shelters received an `NA`.  This is likely because the addresses are not correct, has errors, or are not fully specified.  You'll have to manually fix these issues, which becomes time consuming if you have a really large data set.  For the purposes of this lab, let's just discard these, but in practice, make sure to double check your address data (See the document Geocoding_Best_Practices.pdf in the Other Resources folder on Canvas for best practices for cleaning address data). We use the `filter()` function to filter out the NAs.
