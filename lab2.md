@@ -591,39 +591,6 @@ The first argument is the name of the R object you want to save. The second argu
 
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 2**
-\
-
-Download and open the [Assignment 2 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn02.Rmd). The script can also be found on Canvas (Files - Week 2 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case you get stuck. 
-
-<br>
-
-1. Download the file *q2data.csv* from Canvas (Files -> Week 2 -> Assignment).  Make sure you download it into an appropriate folder on your hard drive. A codebook is also provided. You must use functions we learned in lab.
-
-a. Read the file into R. (1 point)
-b. How many rows are included in the file? What does each row represent? Remember that whenever you can, you need to use code to answer the questions. (2 points)
-c. How many columns are included in the file? What does each column represent? (2 points)
-d. Conduct the following data wrangling tasks.  Use the pipe operator to do all of these tasks in one continuous line of code.  Note that you have to decide the appropriate order of the tasks. (4 points)
-
-* Keep the variables NAME, proportion White, Black and Hispanic, total population, and the difference between Hispanic and White income.
-* Create variables containing the proportion White, Black and Hispanic.
-* Create a variable subtracting White household income from Hispanic household income.
-* Save the changes into a tibble named *q2clean*
-
-e. Using the tibble *q2clean* you created in question 1d, determine how many observations have a percent Hispanic greater than 50% *and* have Hispanic households earning more than white households? (2 points)
-
-<br>
-
-2. The data set *babynames* contains the number of children of each sex given each name for each year from 1880 to 2017 as collected by the Social Security Administration. All names with more than 5 uses are given. Let's strengthen your data wrangling skills by exploring this unique data set.  Install the package **babynames**.  Run the code `library(babynames)`, `data(babynames)` and `head(babynames)`. You should see the tibble *babynames* pop up in your global environment window. Type in `? babynames` to get a description of this dataset. You must use functions we learned in lab.
-
-a. What was the most popular female baby name in 2017? What about male? (3 points)
-b. Does your name appear in the dataset? If yes, what year was it the most popular? (3 points)
-c. Is the name "Madison" a more popular Male or Female name in 2017? What about in 1984? (3 points)
-
-
-
 ***
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.

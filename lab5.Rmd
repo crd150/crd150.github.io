@@ -581,26 +581,6 @@ You've completed your introduction to **sf**. Whew! Badge? Yes, please, you earn
 
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 5**
-\
-
-Download and open the [Assignment 5 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn05.Rmd). The script can also be found on Canvas (Files - Week 5 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
-
-<br>
-
-1. One can easily lie (or distort the story) with maps. One of the commonly used tricks for misrepresenting the spatial distribution of phenomena relates to the inappropriate classifications of numeric variables. In the lab guide, we showed quantile breaks of median housing values in Sacramento. Bring into R the object *saccountytractslab5.shp* you saved in Lab and produce static maps using three other classifications. Make sure to include all the map features described in the lab (legend, title, etc.). Does your general impression of where high and low income neighborhoods are located in the city change across the different classifications? (6 points)
-
-2. We are in the midst of a global health crisis marked by profound human suffering. Analyzing the demographic, health and job characteristics of communities reveals that some places are disproportionately affected by this suffering. Communities with no or unstable internet access are at a disadvantage given that employment, medical care (telemedicine), education and other important services are primarily conducted online at home. Let's visually examine the association between internet access and race/ethnicity in Sacramento county census tracts.
-
-a. Using the Census API, bring in 2015-2019 total, non-Hispanic white, non-Hispanic black, non-Hispanic Asian, and Hispanic populations for census tracts in Sacramento county.  Check Lab 3 for the appropriate variable IDs. Make sure to bring in spatial data by using `geometry = TRUE`. Calculate the percent Asian, white, black and Hispanic variables. (2 points)
-b. Bring into R the 2015-2019 percent of households without a broadband, cable, Fiber Optic, or DSL internet connection for Sacramento county census tracts from PolicyMap (from the PolicyMap site, click on Health, Computer and Internet Access under the COVID-19 banner, Without High Speed Internet Access, and No Cable, Fiber Optic or DSL). Make sure to clean the data. (2 points)
-c. Merge the percent of households without a broadband, cable, Fiber Optic, or DSL internet connection to the **sf** census tracts object you created in (a). (1 point)
-d. Create maps of percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic using quantile breaks.  (6 points)
-e. Create a map of the percent of households without a broadband, cable, Fiber Optic, or DSL internet connection using quantile breaks. (3 points)
-
-
 ***
 
 

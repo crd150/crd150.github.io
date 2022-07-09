@@ -561,36 +561,6 @@ If you haven't already done so, now is a good time to read through the class [as
 
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 1**
-\
-
-Download and open the [Assignment 1 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn01.Rmd). The script can also be found on Canvas (Files - Week 1 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case  you get stuck. 
-
-1. Look up the help documentation for the function `rep()`. Use this function to create the following 3 vectors. (2 points each)
-
-a. [1] 0 0 0 0 0
-
-b. [1] 1 2 3 1 2 3 1 2 3 1 2 3
-
-c. [1] 4 5 5 6 6 6
-
-2. Load the *mtcars* dataset by using the code `data(mtcars)`.  What are the units of observation? How many unit of observations does this dataset have? How many variables?  Remember that wherever possible, you will need to use R code to answer the questions. The dataset's help documentation `? mtcars` might be useful. (4 points)
-
-3. Explain what is the problem in each line of code below. Fix the code so it will run properly. (2 points each)
-
-a. my variable <- 3
-
-b. seq(1, 10 by = 2)
-
-c. Class(c(1,2,3))
-
-4. Have you used any of the following programs: Excel, R, PSPP, Stata, SAS, Python, Matlab? For each program, choose one of the following options: (a) Never used, (b) Beginner, (c) Basic competence, (d) Intermediate, (e) Advanced.  (2 points)
-
-5. Describe what you are hoping to get out of this class? (2 points)
-
-
 ***
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.

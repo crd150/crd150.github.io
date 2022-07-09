@@ -360,38 +360,6 @@ we can conclude that the foreign-born population in Sacramento city exhibits pos
 
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 6**
-\
-
-Download and open the [Assignment 6 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn06.Rmd). The script can also be found on Canvas (Files - Week 6 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
-
-<br>
-
-
-1. Housing eviction has received significant [public attention](https://www.citylab.com/equity/2017/10/where-evictions-hurt-the-most/544238/) especially in the [City of Oakland](https://www.citylab.com/equity/2020/01/moms-4-housing-eviction-oakland-homeless-crisis-real-estate/605263/).  Let's examine the geographic clustering of housing eviction rates in the City of Oakland.
-
-a. Use the Census API to bring in median household income (ID: B19013_001) from the 2015-19 American Community Survey for census tracts in California. Make sure to bring it in as a spatial object by setting `geometry = TRUE`. (1 point)
-b. For the object you created in (a), keep census tracts that are located in the City of Oakland. (2 points)
-c. Download the file oakevict.csv from Canvas (Files - Week 6 - Assignment).  The file contains [housing eviction rates](http://evictionlab.org/) for census tracts in Oakland. Read this file into R and merge it into the object you created in (b). (1 point)
-d. Calculate the correlation between median household income and eviction rates. (1 point)
-e. Create a map of housing eviction rates using quantile breaks. (1 point)
-f. Construct a Moran scatterplot of housing eviction rates. Use queen contiguity and row-standardized weights. (2 points)
-g. Calculate the Moran's I for housing eviction rates.  (1 point)
-h. Explain in words the conceptual difference between the correlation you calculated in 1d and the correlation you calculated in 1g. (2 points)
-i. Are housing eviction rates geographically clustered based on your analysis in (e)-(g)? Explain why or why not. (2 points)
-
-
-<br>
-
-2. This [article](http://www.latimes.com/nation/la-na-houston-diversity-2017-htmlstory.html) claims that Houston is the most racially integrated city in the United States. We'll examine this claim by calculating the spatial clustering of race/ethnic groups using the Moran's I for Houston metropolitan area data. Bring in the shapefile houstondems.zip into R.  This file contains data for census tracts in the Houston metropolitan areas.  The file is located on Canvas (Files - Week 6 - Assignment).  Save the file in an appropriate folder and unzip it to extract the shapefiles. The record layout for the file can be found [here](https://raw.githubusercontent.com/crd150/data/master/houston_tracts_record_layout.txt).  Consider the file to be clean and ready for analysis.
-
-a. Read the file houstondems.shp into R. Create maps of percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic in the Houston metropolitan area using quantile breaks. (2 points)
-b. Calculate Moran's I for percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic in Houston. Use queen contiguity and row-standardized weights. (3 points)
-c. Summarize in words which race/ethnic groups are geographically clustered in Houston based on your answers in (b). (2 points)
-
-
 ***
 
 

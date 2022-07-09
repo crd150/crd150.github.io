@@ -365,6 +365,9 @@ div.tocify {
     <li>
       <a href="lab8.html">Lab 8</a>
     </li>
+    <li>
+      <a href="lab9.html">Lab 9</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -817,33 +820,6 @@ fresno.city &lt;- ca.places19 %&gt;%
 </tbody>
 </table>
 <p>Exploring the association between gentrification and racial/ethnic composition and other demographic and socioeconomic characteristics is a great idea for your final project.</p>
-<div style="margin-bottom:25px;">
-
-</div>
-</div>
-<div id="assignment-7" class="section level2">
-<h2><strong>Assignment 7</strong></h2>
-<p><br />
-</p>
-<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd">Assignment 7 R Markdown Script</a>. The script can also be found on Canvas (Files - Week 7 - Assignment). Any response requiring a data analysis task must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.).</p>
-<p><br></p>
-<ol style="list-style-type: decimal">
-<li>In <a href="https://crd150.github.io/lab6.html#Assignment_6">Assignment 6</a>, we descriptively examined the claim that Houston is the most racially integrated city in the United States. Let’s employ the segregation tools we learned this week to explore this claim in a more rigorous manner. Let’s also compare Houston to Sacramento, a city that has also been proclaimed as <a href="https://www.sacbee.com/news/local/article226876944.html">among most racially diverse in the nation</a>. Read in the Houston and Sacramento data sets <em>houstonrace.csv</em> and <em>sacrace.csv</em>, which can be found on Canvas (Files - Week 7 - Assignment). <strong>You do not need to convert these data sets into sf objects</strong>. Keep them as regular data frames (tibbles). A record layout of the data can be found <a href="https://raw.githubusercontent.com/crd150/data/master/sac_houston_city_tracts_record_layout.txt">here</a>.</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>Calculate the Black/White, Hispanic/White and Asian/White Dissimilarity Indices for Houston and Sacramento. (5 points)</li>
-<li>Calculate the Black/White, Hispanic/White and Asian/White Interaction Indices for Houston and Sacramento. (5 points)</li>
-<li>Based on your answers to questions (a) and (b), which city is most segregated? Why? (2 points)</li>
-</ol>
-<p><br></p>
-<ol start="2" style="list-style-type: decimal">
-<li>We created a gentrification measure for the City of Fresno in Lab 7b. This question asks you to use the same method from Lab (Ding et al. 2016) to create a gentrification measure for the City of Sacramento, which has received a lot of <a href="https://www.sacbee.com/news/local/sacramento-tipping-point/article238333098.html">local media attention</a> for the rising presence of gentrification in certain neighborhoods. Download the file assignment7q2.zip from Canvas (Files - Week 7 - Assignment) into the appropriate folder on your hard drive. The file contains sactracts_gentrification.csv, which contains census-tract level data on Sacramento, and sactracts_boundaries.shp, which is a shapefile of Sacramento census tract boundaries. Unzip and bring the files into R. Consider the datasets to be cleaned and ready for analysis. The record layout for sactracts_gentrification.csv can be found <a href="https://raw.githubusercontent.com/crd150/data/master/sactracts_gentrification_record_layout.txt">here</a>.</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>From the data set sactracts_gentrification.csv, create a variable that determines whether a neighborhood is not eligible for gentrification, is eligible and is not gentrifying, and is eligible and is gentrifying using the Ding et al. measure. (4 points)</li>
-<li>What are the proportions of tracts in Sacramento that were not eligible to gentrify, experienced gentrification, and did not experience gentrification between 2006-10 and 2015-19? (2 point)</li>
-<li>Produce a map of the gentrification variable you created in (a). You will need to join the object containing the gentrification variables to the shapefile of Sacramento tracts sactracts_boundaries.shp. (2 point)</li>
-</ol>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
