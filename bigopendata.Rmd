@@ -1,8 +1,7 @@
-
 ---
 title: "Big Data and Open Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Spring 2022</h4>
+date: <h4 style="font-style:normal">Winter 2023</h4>
 output: 
   html_document:
     theme: cosmo
@@ -56,9 +55,9 @@ This guide lists and describes online sources that provide [Big Data](https://en
 * [Airbnb](http://insideairbnb.com/get-the-data.html): Provides csv files containing detailed information on data on airbnb hosts.  The data are in longitude/latitude.  They don't provide historical data.
 
 * Bikesharing: Web sites providing public use data on bikesharing.  Provides station-to-station data.
-    + [San Francisco](https://www.lyft.com/bikes/bay-wheels/system-data).  
+    + [San Francisco](https://www.lyft.com/bikes/bay-wheels/system-data)  
     + [New York City](https://www.citibikenyc.com/system-data) 
-    + [Chicago](https://www.divvybikes.com/system-data). 
+    + [Chicago](https://www.divvybikes.com/system-data) 
     + [Washington D.C.](https://www.capitalbikeshare.com/system-data)
 
 * [OpenStreetMaps](https://ropensci.github.io/osmdata/).  **osmdata** is an R package for downloading OpenStreetMaps data.  The site provides a couple of vignettes on using the package.
@@ -67,11 +66,11 @@ This guide lists and describes online sources that provide [Big Data](https://en
 
 * [Zillow](https://www.zillow.com/research/data/). Provides housing price data at the metro, city and zipcode levels.  R has a [package](https://cran.r-project.org/web/packages/ZillowR/index.html) for downloading Zillow data directly.
 
-* [Yelp](https://www.yelp.com/dataset).  A public use dataset put together by Yelp specifically for personal and educational purposes, but has been used in academic and applied research.  You can use the Yelp API, and here is a [tutorial](https://billpetti.github.io/2017-12-23-use-yelp-api-r-rstats/), but there are some restrictions, specifically getting an access ID and creating your own app.  Here is another [tutorial](https://github.com/richierocks/yelp) for a specific R package that uses the Yelp API.
+* [Yelp](https://www.yelp.com/dataset).  A public use dataset put together by Yelp specifically for personal and educational purposes, but has been used in academic and applied research.  You can use the Yelp API, and here is a [tutorial](https://billpetti.github.io/2017-12-23-use-yelp-api-r-rstats/), and [another](https://www.youtube.com/watch?v=qyGYItbMKkM), but there are some restrictions, specifically getting an access ID and creating your own app.  Here is another [tutorial](https://github.com/richierocks/yelp) for a specific R package that uses the Yelp API.
 
 * [Uber](https://movement.uber.com/?lang=en-US).  A public use dataset that provides anonymized information on Uber usage in select US cities.  You'll need to sign up for an account or use your Facebook or Google account.
 
-* [Twitter](https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets). Twitter provides access to a sample of their tweets.  You'll need to register for an API.  Here are some guides to collect and manage tweets in R: [here](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/), [here](https://cfss.uchicago.edu/webdata002_twitter_exercise.html), and [here](https://cran.r-project.org/web/packages/rtweet/vignettes/intro.html).
+* [Twitter](https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets). Twitter provides access to a sample of their tweets.  You'll need to register for an API.  Here are some guides to collect and manage tweets in R: [here](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/), [here](https://info5940.infosci.cornell.edu/notes/webdata/twitter-api-practice/), and [here](https://cran.r-hub.io/web/packages/rtweet/vignettes/intro.html).
 
 
 **Open data portals**
@@ -86,7 +85,7 @@ There are a couple of sites that maintain open data portal directories, includin
 
 * [US City Open Data Census](http://us-cities.survey.okfn.org/)
 
-Here are links to various open data portals in US cities (updated 03/15/22)
+Here are links to various open data portals in US cities (updated 01/06/23)
 
 *California*
 
@@ -131,8 +130,6 @@ Here are links to various open data portals in US cities (updated 03/15/22)
 * [Orange County](http://data-ocpw.opendata.arcgis.com/)
 
 * [San Francisco City/County](https://datasf.org/)
-
-* [Santa Clara County](http://prod-sccgov.opendata.arcgis.com/)
 
 * [Santa Clara County](https://data.sccgov.org/)
 

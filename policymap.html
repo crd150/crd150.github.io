@@ -13,7 +13,7 @@
 
 <title>Missing Data in PolicyMap</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -62,6 +62,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
 
@@ -86,6 +87,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -143,11 +147,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -176,8 +184,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -185,16 +193,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -314,12 +315,12 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Spring 2022</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2023</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -333,7 +334,7 @@ div.tocify {
   <a href="hw_guidelines.html">Assignment Guidelines</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Labs/Assignments
      
     <span class="caret"></span>
@@ -342,37 +343,10 @@ div.tocify {
     <li>
       <a href="lab1.html">Lab 1</a>
     </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7a.html">Lab 7a</a>
-    </li>
-    <li>
-      <a href="lab7b.html">Lab 7b</a>
-    </li>
-    <li>
-      <a href="lab8.html">Lab 8</a>
-    </li>
-    <li>
-      <a href="lab9.html">Lab 9</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other
      
     <span class="caret"></span>
@@ -406,7 +380,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -460,7 +434,7 @@ h2.title {
 <p><br />
 </p>
 <p>This guide provides step-by-step instructions for downloading data from <a href="https://ucdavis.policymap.com/newmaps#/">PolicyMap</a>. PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries.</p>
-<p>In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median housing value. UC Davis provides full access to all PolicyMap tools for staff, students, and faculty. You can access the full site only if you are on campus or logged onto the UC Davis VPN Client. Download the PulseSecure VPN app using the directions outlined <a href="https://www.library.ucdavis.edu/service/connect-from-off-campus/">here</a>. We will download data from the UCD PolicyMap portal and clean up the files in R. Much of this we already covered in <a href="https://crd150.github.io/lab3.html">Lab 3</a>. However, we also in this guide how to deal with missing values in PolicyMap data.</p>
+<p>In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median housing value. UC Davis provides full access to all PolicyMap tools for staff, students, and faculty. You can access the full site only if you are on campus or logged onto the UC Davis VPN Client. Download the PulseSecure VPN app using the directions outlined <a href="https://www.library.ucdavis.edu/service/connect-from-off-campus/">here</a>. We will download data from the UCD PolicyMap portal and clean up the files in R. Much of this we already covered in <a href="https://crd150.github.io/lab3.html">Lab 3</a>.</p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -468,7 +442,7 @@ h2.title {
 <h2><strong>Installing and Loading Packages</strong></h2>
 <p><br />
 </p>
-<p>We’ll be using the package <strong>VIM</strong> in this guide. Install it.</p>
+<p>We’ll be using the package <strong>VIM</strong> in this guide. Install it if you already haven’t.</p>
 <pre class="r"><code>install.packages(&quot;VIM&quot;)</code></pre>
 <p>Then load it and the other packages we will be using in this guide.</p>
 <pre class="r"><code>library(tidyverse)
@@ -499,7 +473,7 @@ library(VIM)</code></pre>
 <p><img src="oaklandmap1.png" /></p>
 </center>
 <ol start="3" style="list-style-type: decimal">
-<li>The map does not show any data. Let’s add the Median Housing Value. Click on the <em>Housing</em> tab, followed by <em>Median Value</em> under <em>Home Values</em>.</li>
+<li>The map does not show any data. Let’s add Median Housing Value. Click on the <em>Housing</em> tab, followed by <em>Median Value</em> under <em>Home Values</em>.</li>
 </ol>
 <center>
 <p><img src="medval.png" /></p>
@@ -523,30 +497,36 @@ library(VIM)</code></pre>
 <p><img src="pmgeo.png" /></p>
 </center>
 <p><strong>Be very careful about the geographic level. Users often do not realize that they are downloading an incorrect geographic scale. For example, you want to download census tract, but instead you download the Zip code. If you find that the geographic scale is greyed out under the pull down menu, Zoom in and out of the map.</strong></p>
-<p>Leave the defaults (Year: 2015-2019, Variable: Median dollars, and Shaded by: Census Tract, 2010).</p>
+<p>Leave the defaults (Year: 2016-2020, Variable: Median dollars, and Shaded by: Census Tract, 2020).</p>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Let’s download these data. At the top right of the site, click on the download icon <img src="download.png" />.</p></li>
-<li><p>A window should pop up. The first screen asks you what data to download - it should be “Estimated median value of an owner-occupied home, between 2015-2019” under Layer. Click on the <em>Next, Select Location</em> button</p></li>
+<li><p>A window should pop up. The first screen on the left (Select Data) tells you what data to download - it should be “Estimated median value of owner-occupied home, between 2016-2020” under Layer, with “2016-2020” under Year and “Median dollars” under Variable already selected.</p></li>
 </ol>
 <center>
 <p><img src="pmfirst.png" /></p>
 </center>
 <ol start="7" style="list-style-type: decimal">
-<li>The next screen asks you to select a location. It should be <em>Oakland City, CA (City, 2010)</em> and <em>Shaded by Census Tract</em>. Click on <em>Next, Confirm Download</em>.</li>
+<li>The next section (Select Location) asks you to select a location. It should be <em>City: Oakland, CA</em> and <em>Census Tract, 2020</em> for “Get values for geography”.</li>
 </ol>
 <center>
 <p><img src="pmsecond.png" /></p>
 </center>
 <ol start="8" style="list-style-type: decimal">
-<li><p>The next screen asks you to confirm the download - just click on Download CSV <img src="dlcsv.png" /></p></li>
-<li><p>After a minute or two, a screen will pop up asking you to save the file. Save the file into an appropriate folder, such as below (Mac laptop)</p></li>
+<li>The last section asks you to confirm the download. <em>Human-readable data file (csv)</em> should already be selected under “Data Format”. Select <em>Download via browser</em> under “Delivery Method”. Then click on the Download button.</li>
 </ol>
 <center>
-<p><img src="pmfolder.png" /></p>
+<p><img src="pmthird.png" /></p>
+</center>
+<ol start="9" style="list-style-type: decimal">
+<li>After a minute or two, a screen like below (on a Mac laptop) should pop up at the top right corner of your screen (the file name will differ from yours). You can download this file again until the date given.</li>
+</ol>
+<center>
+<p><img src="downloadcsv.png" /></p>
 </center>
 <ol start="10" style="list-style-type: decimal">
-<li>PolicyMap allows you to download only one variable at the time. So, you’ll need to go through the above steps again to get other variables. Follow the same steps above to download these data as a csv into an appropriate folder on your hard drive. For example, to get percent black, navigate to the <em>Demographics</em> tab, then under <em>Race</em> select <em>Black</em>. To download percent Hispanic, navigate to the <em>Demographics</em> tab, then under <em>Ethnicity</em> select <em>Hispanic</em> and finally <em>All</em>.</li>
+<li>PolicyMap allows you to download only one variable at the time. So, you’ll need to go through the above steps again to get other variables. Follow the same steps above to download these data as a csv into an appropriate folder on your hard drive. For example, to get percent black, navigate to the <em>Demographics</em> tab, then under <em>Race, Ethnicity, Diversity</em> select <em>Race</em> and then <em>Black or African American</em>. To download percent Hispanic, navigate to the <em>Demographics</em> tab, then under <em>Race, Ethnicity, Diversity</em> select <em>Ethnicity</em>, then <em>Hispanic or Latino by Race</em>, and finally <em>All</em>.</li>
 </ol>
+<p><strong>After you’ve downloaded a csv file whether through PolicyMap or another source, do not open it up in Excel to manipulate or alter the data in any way. All of your data wrangling should be done in R</strong></p>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -557,49 +537,31 @@ library(VIM)</code></pre>
 </p>
 <p>Bring in the data using <code>read_csv()</code>.</p>
 <pre class="r"><code>pm.file &lt;- read_csv(&quot;YOUR FILE NAME HERE&quot;)</code></pre>
-<p>We need to clean up the file to get it ready for analysis. The first issue with <em>pm.file</em> is the footnotes located at the bottom of the file. If you view the file in R, the footnotes look like</p>
-<center>
-<p><img src="footnotes3.png" /></p>
-</center>
-<p>To remove the footnotes, use the function <code>slice()</code></p>
+<p>Let’s keep the necessary variables: <em>GeoID</em> and <em>mhv</em>. <em>GeoID</em> is the tract GEOID.</p>
 <pre class="r"><code>pm.file &lt;- pm.file %&gt;%
-              slice(-(114:n()))</code></pre>
-<p>The function removes all rows starting from row 114 to the last row in the tibble (last row is indicated by the function <code>n()</code>). Note the negative sign that tells the function to remove the rows. Without the negative sign, the function will instead keep those rows.</p>
-<p>We also need to rename variables and keep the ones that are relevant. First, let’s look at the <em>pm.file</em>’s column names</p>
-<pre class="r"><code>names(pm.file)</code></pre>
-<pre><code>## [1] &quot;Census Tract&quot;                                                    
-## [2] &quot;FIPS Code&quot;                                                       
-## [3] &quot;Formatted FIPS&quot;                                                  
-## [4] &quot;Estimated median value of an owner-occupied home, between 2015-2&quot;</code></pre>
-<p>The variable <em>Estimated median value of an owner-occupied home, between 2015-2</em> contains median housing values. Let’s shorten the name because we would not want to have to type this long name out everytime we want to refer to this variable. Make the name simple and clear. Here, we rename it <em>medval</em> using the <code>rename()</code> function.</p>
-<pre class="r"><code>pm.file &lt;- pm.file %&gt;%
-          rename(medval = &quot;Estimated median value of an owner-occupied home, between 2015-2&quot;)</code></pre>
-<p>We had to put quotes around the original variable name because it had spaces in between.</p>
-<p>Next, let’s keep the necessary variables: <em>FIPS Code</em> and <em>medinc</em>. <em>FIPS Code</em> is the tract GEOID.</p>
-<pre class="r"><code>pm.file &lt;- pm.file %&gt;%
-          select(&quot;FIPS Code&quot;, medval)</code></pre>
+          select(GeoID, mhv)</code></pre>
 <div style="margin-bottom:25px;">
 
 </div>
-<div id="merging-with-census-data" class="section level3">
-<h3><strong>Merging with Census data</strong></h3>
+<div id="merging-with-census-api-data" class="section level3">
+<h3><strong>Merging with Census API data</strong></h3>
 <p><br />
 </p>
-<p>Let’s bring in some census data from the Census API. We covered how to use <code>get_acs()</code> from the <strong>tidycensus</strong> package in <a href="https://crd150.github.io/lab3.html">Lab 3</a>.</p>
+<p>Let’s bring in some census data from the Census API. We covered how to use <code>get_acs()</code> from the <strong>tidycensus</strong> package in <a href="https://crd150.github.io/lab3.html">Lab 3</a>. Make sure the ACS years match up between PolicyMap and Census API data. Census tract boundaries changed in 2020, which means that 2016-2020 tract data will not completely merge with ACS data between 2010 and 2019.</p>
 <pre class="r"><code>ca &lt;- get_acs(geography = &quot;tract&quot;, 
-              year = 2019,
+              year = 2020,
               variables = c(tpopr = &quot;B03002_001&quot;, 
                             nhwhite = &quot;B03002_003&quot;, nhblk = &quot;B03002_004&quot;, 
                             nhasn = &quot;B03002_006&quot;, hisp = &quot;B03002_012&quot;), 
               state = &quot;CA&quot;,
-              survey = &quot;acs5&quot;)
+              survey = &quot;acs5&quot;,
+              output = &quot;wide&quot;)
 
 ca &lt;- ca %&gt;%
-            select(-moe) %&gt;%
-            spread(key = variable, value = estimate)</code></pre>
-<p>Merge in <em>ca</em> into <em>pm.file</em>. The linking variable is <em>FIPS Code</em> in <em>pm.file</em> and <em>GEOID</em> in <em>ca</em>.</p>
+        select(GEOID, tpoprE, nhwhiteE, nhblkE, nhasnE, hispE)</code></pre>
+<p>Merge in <em>ca</em> into <em>pm.file</em>. The linking variable is <em>GeoID</em> in <em>pm.file</em> and <em>GEOID</em> in <em>ca</em>.</p>
 <pre class="r"><code>pm.file &lt;- pm.file %&gt;%
-              left_join(ca, by = c(&quot;FIPS Code&quot; = &quot;GEOID&quot;))</code></pre>
+              left_join(ca, by = c(&quot;GeoID&quot; = &quot;GEOID&quot;))</code></pre>
 <div style="margin-bottom:25px;">
 
 </div>
@@ -609,41 +571,44 @@ ca &lt;- ca %&gt;%
 <p><br />
 </p>
 <p>Missing values are a part of a social scientist’s life. You can’t avoid them.</p>
-<p>You will notice that PolicyMap designates missing values as <em>N/A</em>. R designates missing as <em>NA</em>. Therefore, R reads <em>N/A</em> as a character. This means that R does not recognize <em>medval</em> as a numeric but a character.</p>
-<pre class="r"><code>class(pm.file$medval)</code></pre>
+<p>You will notice that PolicyMap designates missing values as <em>N/A</em>.</p>
+<center>
+<p><img src="na.png" /></p>
+</center>
+<p>R designates missing as <em>NA</em>. Therefore, R reads <em>N/A</em> as a character. This means that R does not recognize <em>mhv</em> as a numeric but a character.</p>
+<pre class="r"><code>class(pm.file$mhv)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>We need to replace <em>N/A</em> with <em>NA</em> and then convert it to numeric</p>
 <pre class="r"><code>pm.file &lt;- pm.file %&gt;%
-              mutate(medval = as.numeric(ifelse(medval == &quot;N/A&quot;, &quot;NA&quot;, medval)))</code></pre>
-<p>The code <code>ifelse(medval == "N/A", "NA", medval)</code> says that if the variable <em>medval</em> equals “N/A”, replace it to “NA”, otherwise keep it its original value stored in <em>medval</em>. <code>as.numeric()</code> converts <em>medval</em> to a numeric.</p>
-<pre class="r"><code>class(pm.file$medval)</code></pre>
+              mutate(mhv = as.numeric(ifelse(mhv == &quot;N/A&quot;, &quot;NA&quot;, mhv)))</code></pre>
+<p>The code <code>ifelse(medval == "N/A", "NA", medval)</code> says that if the variable <em>mhv</em> equals “N/A”, replace it to “NA”, else keep its original value stored in <em>mhv</em>. <code>as.numeric()</code> converts <em>mhv</em> to a numeric.</p>
+<pre class="r"><code>class(pm.file$mhv)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>The next step is to determine what percentage of your cases are missing data. The best function for doing this in R is <code>aggr()</code>, which is in the <strong>VIM</strong> package. Run the <code>aggr()</code> function as follows</p>
 <pre class="r"><code>summary(aggr(pm.file))</code></pre>
-<p><img src="policymap_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<p><img src="policymap_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
 <pre><code>## 
 ##  Missings per variable: 
-##   Variable Count
-##  FIPS Code     0
-##     medval     2
-##       NAME     0
-##       hisp     0
-##      nhasn     0
-##      nhblk     0
-##    nhwhite     0
-##      tpopr     0
+##  Variable Count
+##     GeoID     0
+##       mhv     5
+##    tpoprE     0
+##  nhwhiteE     0
+##    nhblkE     0
+##    nhasnE     0
+##     hispE     0
 ## 
 ##  Missings in combinations of variables: 
-##     Combinations Count   Percent
-##  0:0:0:0:0:0:0:0   111 98.230088
-##  0:1:0:0:0:0:0:0     2  1.769912</code></pre>
-<p>The results show two tables and two plots. The left-hand side plot shows the proportion of cases that are missing values for each variable in the data set. The right-hand side plot shows which combinations of variables are missing. The first table shows the number of cases that are missing values for each variable in the data set. The second table shows the percent of cases missing values based on combinations of variables. The results show that 2 or 1.8% of census tracts are missing values on the variable <em>medval</em>.</p>
+##   Combinations Count   Percent
+##  0:0:0:0:0:0:0   111 95.689655
+##  0:1:0:0:0:0:0     5  4.310345</code></pre>
+<p>The results show two tables and two plots. The left-hand side plot shows the proportion of cases that are missing values for each variable in the data set. The right-hand side plot shows which combinations of variables are missing. The first table shows the number of cases that are missing values for each variable in the data set. The second table shows the percent of cases missing values based on combinations of variables. The results show that 5 or 4.3% of census tracts are missing values on the variable <em>mhv</em>.</p>
 <p>In any statistical analysis, you will need to deal with missing values. For example, if you wanted to find out the average median housing value in Oakland tracts, you would type in</p>
-<pre class="r"><code>mean(pm.file$medval)</code></pre>
+<pre class="r"><code>mean(pm.file$mhv)</code></pre>
 <pre><code>## [1] NA</code></pre>
-<p>The mean is <em>NA</em>, which tells you that there are missing values in the variable <em>medval</em> that you need to deal with before R calculates a value. There are many ways that one can deal with missing data. One method is to just simply ignore or discard cases with a missing value. To do this in the <code>mean()</code> function (and in many other R functions), you include the argument <code>na.rm = TRUE</code></p>
-<pre class="r"><code>mean(pm.file$medval, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 655940.5</code></pre>
+<p>The mean is <em>NA</em>, which tells you that there are missing values in the variable <em>mhv</em> that you need to deal with before R calculates a value. There are many ways that one can deal with missing data. One method is to just simply ignore or discard cases with a missing value. To do this in the <code>mean()</code> function (and in many other R functions), you include the argument <code>na.rm = TRUE</code></p>
+<pre class="r"><code>mean(pm.file$mhv, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 711477.5</code></pre>
 <p>As long as a large proportion of your data set is not missing data, simply ignoring missing data is often acceptable. Just make sure you are transparent about what you did.</p>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>

@@ -56,14 +56,14 @@ h2.title {
 
 This guide provides step-by-step instructions for downloading data from [PolicyMap](https://ucdavis.policymap.com/newmaps#/). PolicyMap is a fully web-based online data and mapping application that gives you access to over 15,000 indicators related to demographics, housing, crime, mortgages, health, jobs and more. Data are available at all common geographies (address, block group, census tract, zip code, county, city, state, Metropolitan area) as well as unique geographies like school districts and political boundaries. 
 
-In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median housing value.   UC Davis provides full access to all PolicyMap tools for staff, students, and faculty.  You can access the full site only if you are on campus or logged onto the UC Davis VPN Client. Download the PulseSecure VPN app using the directions outlined [here](https://www.library.ucdavis.edu/service/connect-from-off-campus/).  We will download data from the UCD PolicyMap portal and clean up the files in R.   Much of this we already covered in [Lab 3](https://crd150.github.io/lab3.html).  However, we also in this guide how to deal with missing values in PolicyMap data.  
+In this guide, we will download PolicyMap census tract data for the City of Oakland. We will download median housing value.   UC Davis provides full access to all PolicyMap tools for staff, students, and faculty.  You can access the full site only if you are on campus or logged onto the UC Davis VPN Client. Download the PulseSecure VPN app using the directions outlined [here](https://www.library.ucdavis.edu/service/connect-from-off-campus/).  We will download data from the UCD PolicyMap portal and clean up the files in R.   Much of this we already covered in [Lab 3](https://crd150.github.io/lab3.html).  
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Installing and Loading Packages**
 \
 
-We'll be using the package **VIM** in this guide. Install it.
+We'll be using the package **VIM** in this guide. Install it if you already haven't.
 
 
 ```r
@@ -108,7 +108,7 @@ You should get a map that highlights Oakland's boundaries.
 
 </center>
 
-3. The map does not show any data.  Let's add the Median Housing Value. Click on the *Housing* tab, followed by *Median Value* under *Home Values*.
+3. The map does not show any data.  Let's add Median Housing Value. Click on the *Housing* tab, followed by *Median Value* under *Home Values*.
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/medval.png)
@@ -146,11 +146,12 @@ and the geographic level.
 **Be very careful about the geographic level. Users often do not realize that they are downloading an incorrect geographic scale. For example, you want to download census tract, but instead you download the Zip code. If you find that the geographic scale is greyed out under the pull down menu, Zoom in and out of the map.**
 
 
-Leave the defaults (Year: 2015-2019, Variable: Median dollars, and Shaded by: Census Tract, 2010).  
+Leave the defaults (Year: 2016-2020, Variable: Median dollars, and Shaded by: Census Tract, 2020).  
 
 5. Let's download these data.  At the top right of the site, click on the download icon ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/download.png).  
 
-6. A window should pop up. The first screen asks you what data to download - it should be "Estimated median value of an owner-occupied home, between 2015-2019" under Layer. Click on the *Next, Select Location* button
+
+6. A window should pop up. The first screen on the left (Select Data) tells you what data to download - it should be "Estimated median value of owner-occupied home, between 2016-2020" under Layer, with "2016-2020" under Year and "Median dollars" under Variable already selected.
 
 <center>
 ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmfirst.png)
@@ -158,7 +159,7 @@ Leave the defaults (Year: 2015-2019, Variable: Median dollars, and Shaded by: Ce
 </center>
 
 
-7. The next screen asks you to select a location.  It should be *Oakland City, CA (City, 2010)* and *Shaded by Census Tract*.  Click on *Next, Confirm Download*.  
+7. The next section (Select Location) asks you to select a location.  It should be *City: Oakland, CA* and *Census Tract, 2020* for "Get values for geography".    
 
 
 <center>
@@ -167,20 +168,26 @@ Leave the defaults (Year: 2015-2019, Variable: Median dollars, and Shaded by: Ce
 </center>
 
 
-8. The next screen asks you to confirm the download - just click on Download CSV ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/dlcsv.png)
-
-9. After a minute or two, a screen will pop up asking you to save the file.  Save the file into an appropriate folder, such as below (Mac laptop)
+8. The last section asks you to confirm the download. *Human-readable data file (csv)* should already be selected under "Data Format". Select *Download via browser* under "Delivery Method". Then click on the Download button.
 
 <center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmfolder.png)
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/pmthird.png)
+
+</center>
+
+9. After a minute or two, a screen like below (on a Mac laptop) should pop up at the top right corner of your screen (the file name will differ from yours).  You can download this file again until the date given.
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/downloadcsv.png)
 
 </center>
 
 
-10. PolicyMap allows you to download only one variable at the time.  So, you'll need to go through the above steps again to get other variables.  Follow the same steps above to download these data as a csv into an appropriate folder on your hard drive.  For example, to get percent black, navigate to the *Demographics* tab, then under *Race* select *Black*. To download percent Hispanic, navigate to the *Demographics* tab, then under *Ethnicity* select *Hispanic* and finally *All*.  
+
+10. PolicyMap allows you to download only one variable at the time.  So, you'll need to go through the above steps again to get other variables.  Follow the same steps above to download these data as a csv into an appropriate folder on your hard drive.  For example, to get percent black, navigate to the *Demographics* tab, then under *Race, Ethnicity, Diversity* select *Race* and then *Black or African American*. To download percent Hispanic, navigate to the *Demographics* tab, then under *Race, Ethnicity, Diversity* select *Ethnicity*, then *Hispanic or Latino by Race*, and finally *All*.  
 
 
-
+**After you've downloaded a csv file whether through PolicyMap or another source, do not open it up in Excel to manipulate or alter the data in any way. All of your data wrangling should be done in R**
 
 <div style="margin-bottom:25px;">
 </div>
@@ -196,85 +203,43 @@ pm.file <- read_csv("YOUR FILE NAME HERE")
 
 
 
-We need to clean up the file to get it ready for analysis. The first issue with *pm.file* is the footnotes located at the bottom of the file.  If you view the file in R, the footnotes look like
-
-<center>
-![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/footnotes3.png)
-
-</center>
-
-
-To remove the footnotes, use the function `slice()`
+Let's keep the necessary variables: *GeoID* and *mhv*. *GeoID* is the tract GEOID.
 
 
 ```r
 pm.file <- pm.file %>%
-              slice(-(114:n()))
-```
-
-The function removes all rows starting from row 114 to the last row in the tibble (last row is indicated by the function `n()`).  Note the negative sign that tells the function to remove the rows.  Without the negative sign, the function will instead keep those rows. 
-
-We also need to rename variables and keep the ones that are relevant. First, let's look at the *pm.file*'s column names
-
-
-```r
-names(pm.file)
-```
-
-```
-## [1] "Census Tract"                                                    
-## [2] "FIPS Code"                                                       
-## [3] "Formatted FIPS"                                                  
-## [4] "Estimated median value of an owner-occupied home, between 2015-2"
-```
-
-The variable *Estimated median value of an owner-occupied home, between 2015-2* contains median housing values.  Let's shorten the name because we would not want to have to type this long name out everytime we want to refer to this variable.  Make the name simple and clear.  Here, we rename it *medval* using the `rename()` function.
- 
-
-```r
-pm.file <- pm.file %>%
-          rename(medval = "Estimated median value of an owner-occupied home, between 2015-2")
-```
-
-We had to put quotes around the original variable name because it had spaces in between.
-
-Next, let's keep the necessary variables: *FIPS Code* and *medinc*. *FIPS Code* is the tract GEOID.
-
-
-```r
-pm.file <- pm.file %>%
-          select("FIPS Code", medval)
+          select(GeoID, mhv)
 ```
 
 
 <div style="margin-bottom:25px;">
 </div>
-### **Merging with Census data**
+### **Merging with Census API data**
 \
 
-Let's bring in some census data from the Census API.  We covered how to use `get_acs()` from the **tidycensus** package in [Lab 3](https://crd150.github.io/lab3.html).
+Let's bring in some census data from the Census API.  We covered how to use `get_acs()` from the **tidycensus** package in [Lab 3](https://crd150.github.io/lab3.html). Make sure the ACS years match up between PolicyMap and Census API data. Census tract boundaries changed in 2020, which means that 2016-2020 tract data will not completely merge with ACS data between 2010 and 2019.
 
 
 ```r
 ca <- get_acs(geography = "tract", 
-              year = 2019,
+              year = 2020,
               variables = c(tpopr = "B03002_001", 
                             nhwhite = "B03002_003", nhblk = "B03002_004", 
                             nhasn = "B03002_006", hisp = "B03002_012"), 
               state = "CA",
-              survey = "acs5")
+              survey = "acs5",
+              output = "wide")
 
 ca <- ca %>%
-            select(-moe) %>%
-            spread(key = variable, value = estimate)
+        select(GEOID, tpoprE, nhwhiteE, nhblkE, nhasnE, hispE)
 ```
 
-Merge in *ca* into *pm.file*.  The linking variable is *FIPS Code* in *pm.file* and *GEOID* in *ca*.
+Merge in *ca* into *pm.file*.  The linking variable is *GeoID* in *pm.file* and *GEOID* in *ca*.
 
 
 ```r
 pm.file <- pm.file %>%
-              left_join(ca, by = c("FIPS Code" = "GEOID"))
+              left_join(ca, by = c("GeoID" = "GEOID"))
 ```
 
 
@@ -285,11 +250,19 @@ pm.file <- pm.file %>%
 
 Missing values are a part of a social scientist's life.  You can't avoid them.  
 
-You will notice that PolicyMap designates missing values as *N/A*.  R designates missing as *NA*.  Therefore, R reads *N/A* as a character. This means that R does not recognize *medval* as a numeric but a character.
+You will notice that PolicyMap designates missing values as *N/A*.  
+
+<center>
+![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/na.png)
+
+</center>
+
+
+R designates missing as *NA*.  Therefore, R reads *N/A* as a character. This means that R does not recognize *mhv* as a numeric but a character.
 
 
 ```r
-class(pm.file$medval)
+class(pm.file$mhv)
 ```
 
 ```
@@ -301,14 +274,14 @@ We need to replace *N/A* with *NA* and then convert it to numeric
 
 ```r
 pm.file <- pm.file %>%
-              mutate(medval = as.numeric(ifelse(medval == "N/A", "NA", medval)))
+              mutate(mhv = as.numeric(ifelse(mhv == "N/A", "NA", mhv)))
 ```
 
-The code `ifelse(medval == "N/A", "NA", medval)` says that if the variable *medval* equals "N/A", replace it to "NA", otherwise keep it its original value stored in *medval*.  `as.numeric()` converts *medval* to a numeric.
+The code `ifelse(medval == "N/A", "NA", medval)` says that if the variable *mhv* equals "N/A", replace it to "NA", else keep its original value stored in *mhv*.  `as.numeric()` converts *mhv* to a numeric.
 
 
 ```r
-class(pm.file$medval)
+class(pm.file$mhv)
 ```
 
 ```
@@ -322,49 +295,48 @@ The next step is to determine what percentage of your cases are missing data.  T
 summary(aggr(pm.file))
 ```
 
-![](policymap_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](policymap_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ```
 ## 
 ##  Missings per variable: 
-##   Variable Count
-##  FIPS Code     0
-##     medval     2
-##       NAME     0
-##       hisp     0
-##      nhasn     0
-##      nhblk     0
-##    nhwhite     0
-##      tpopr     0
+##  Variable Count
+##     GeoID     0
+##       mhv     5
+##    tpoprE     0
+##  nhwhiteE     0
+##    nhblkE     0
+##    nhasnE     0
+##     hispE     0
 ## 
 ##  Missings in combinations of variables: 
-##     Combinations Count   Percent
-##  0:0:0:0:0:0:0:0   111 98.230088
-##  0:1:0:0:0:0:0:0     2  1.769912
+##   Combinations Count   Percent
+##  0:0:0:0:0:0:0   111 95.689655
+##  0:1:0:0:0:0:0     5  4.310345
 ```
 
-The results show two tables and two plots.  The left-hand side plot shows the proportion of cases that are missing values for each variable in the data set.  The right-hand side plot shows which combinations of variables are missing.  The first table shows the number of cases that are missing values for each variable in the data set. The second table shows the percent of cases missing values based on combinations of variables.  The results show that 2 or 1.8% of census tracts are missing values on the variable *medval*. 
+The results show two tables and two plots.  The left-hand side plot shows the proportion of cases that are missing values for each variable in the data set.  The right-hand side plot shows which combinations of variables are missing.  The first table shows the number of cases that are missing values for each variable in the data set. The second table shows the percent of cases missing values based on combinations of variables.  The results show that 5 or 4.3% of census tracts are missing values on the variable *mhv*. 
 
 In any statistical analysis, you will need to deal with missing values. For example, if you wanted to find out the average median housing value in Oakland tracts, you would type in
 
 
 ```r
-mean(pm.file$medval)
+mean(pm.file$mhv)
 ```
 
 ```
 ## [1] NA
 ```
 
-The mean is *NA*, which tells you that there are missing values in the variable *medval* that you need to deal with before R calculates a value. There are many ways that one can deal with missing data. One method is to just simply ignore or discard cases with a missing value.  To do this in the `mean()` function (and in many other R functions), you include the argument `na.rm = TRUE`
+The mean is *NA*, which tells you that there are missing values in the variable *mhv* that you need to deal with before R calculates a value. There are many ways that one can deal with missing data. One method is to just simply ignore or discard cases with a missing value.  To do this in the `mean()` function (and in many other R functions), you include the argument `na.rm = TRUE`
 
 
 ```r
-mean(pm.file$medval, na.rm = TRUE)
+mean(pm.file$mhv, na.rm = TRUE)
 ```
 
 ```
-## [1] 655940.5
+## [1] 711477.5
 ```
 
 As long as a large proportion of your data set is not missing data, simply ignoring missing data is often acceptable.  Just make sure you are transparent about what you did. 

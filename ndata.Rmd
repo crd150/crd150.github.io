@@ -1,7 +1,7 @@
 ---
 title: "Neighborhood Data Sources"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Spring 2022</h4>
+date: <h4 style="font-style:normal">Winter 2023</h4>
 output: 
   html_document:
     theme: cosmo
@@ -94,14 +94,17 @@ If you want to evaluate tract characteristics over a long time period, you'll ne
 
 The following datasets provide health related indicators at small scale geographies.
 
-* [500 Cities: Local Data for Better Health](https://www.cdc.gov/500cities/).
-    + This dataset, put together by the Centers for Disease Control and Prevention (CDC), provides city- and census tract-level small area estimates for chronic disease risk factors, health outcomes, and clinical preventive service use for the largest 500 cities in the United State.
+* [PLACES: Local Data for Better Health](https://www.cdc.gov/places/index.html)
+    + This dataset, put together by the Centers for Disease Control and Prevention (CDC), provides city- and census tract-level small area estimates for chronic disease risk factors, health outcomes, and clinical preventive service use for census tracts in the United State.
+    
+* [Healthy Places Index](https://www.healthyplacesindex.org/) 
+  + A project of the Public Health Alliance of Southern California, The Healthy Places Index (HPI) is a powerful and easy-to-use data and policy platform created to advance health equity through open and accessible data. Neighborhood-by-neighborhood, the HPI maps data on social conditions that drive health — like education, job opportunities, clean air and water, and other indicators that are positively associated with life expectancy at birth. 
 
 * [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40)  
     + Developed by California's Office of Environmental Health Hazard Assessment, CalEnviroScreen is is a screening tool that evaluates the burden of pollution from multiple sources in California communities while accounting for potential vulnerability to the adverse effects of pollution.  You can also download a shapefile of census tracts with these indicators [here](https://oehha.ca.gov/calenviroscreen/maps-data/download-data).
   
 
-* [EJScreen]([https://www.epa.gov/ejscreen/download-ejscreen-data]) 
+* [EJScreen](https://www.epa.gov/ejscreen/download-ejscreen-data) 
   + Developed by the Environmental Protection Agency, EJScreen is a new nationwide environmental justice (EJ) mapping and screening tool It is based on nationally consistent data and an approach that combines environmental and demographic indicators 
 
 
@@ -133,10 +136,13 @@ HUD offers a plethora of lower geographic scale datasets on a variety of housing
 
 The Opportunity Atlas is an an interactive, map-based tool that can trace the root of outcomes, such as poverty and incarceration, back to the neighborhoods in which children grew up.  The atlas, in a nutshell, shows “Which neighborhoods in America offer children the best chances of climbing the income ladder?” You can view the tool and download all the census tract data [here](https://www.opportunityatlas.org/).
 
+**Social Capital Atlas**
+
+The Social Capital Atlas dataset shows new insights on how communities are connected using data from Facebook friendships. The dataset constructs and analyzes measures of social capital (Connectedness, Cohesiveness and Civic Engagement) across counties, ZIP codes, high schools, and colleges in the United States. Explore the dataset [here](https://www.socialcapital.org/).
 
 **Los Angeles Neighborhood Data for Social Change**
 
-A data warehouse created by the [University of Southern California](https://socialinnovation.usc.edu/) that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles.  Check the site out [here](https://usc.data.socrata.com/stories/s/htr6-r22g).
+A data warehouse created by the [University of Southern California](https://socialinnovation.usc.edu/) that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles.  Check the site out [here](https://la.myneighborhooddata.org/).
 
 **CA Neighborhoods and Renter Vulnerability**
 

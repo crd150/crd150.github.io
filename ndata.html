@@ -13,7 +13,7 @@
 
 <title>Neighborhood Data Sources</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -58,6 +58,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
 
@@ -82,6 +83,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -139,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -172,8 +180,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -181,16 +189,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -234,12 +235,12 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Spring 2022</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2023</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -253,7 +254,7 @@ $(document).ready(function () {
   <a href="hw_guidelines.html">Assignment Guidelines</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Labs/Assignments
      
     <span class="caret"></span>
@@ -262,37 +263,10 @@ $(document).ready(function () {
     <li>
       <a href="lab1.html">Lab 1</a>
     </li>
-    <li>
-      <a href="lab2.html">Lab 2</a>
-    </li>
-    <li>
-      <a href="lab3.html">Lab 3</a>
-    </li>
-    <li>
-      <a href="lab4.html">Lab 4</a>
-    </li>
-    <li>
-      <a href="lab5.html">Lab 5</a>
-    </li>
-    <li>
-      <a href="lab6.html">Lab 6</a>
-    </li>
-    <li>
-      <a href="lab7a.html">Lab 7a</a>
-    </li>
-    <li>
-      <a href="lab7b.html">Lab 7b</a>
-    </li>
-    <li>
-      <a href="lab8.html">Lab 8</a>
-    </li>
-    <li>
-      <a href="lab9.html">Lab 9</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Other
      
     <span class="caret"></span>
@@ -332,7 +306,7 @@ $(document).ready(function () {
 CRD 150 - Quantitative Methods in Community Research
 </h4></h3>
 <h4 class="date"><h4 style="font-style:normal">
-Spring 2022
+Winter 2023
 </h4></h4>
 
 </div>
@@ -413,15 +387,19 @@ h2.title {
 <p><strong>Health characteristics</strong></p>
 <p>The following datasets provide health related indicators at small scale geographies.</p>
 <ul>
-<li><a href="https://www.cdc.gov/500cities/">500 Cities: Local Data for Better Health</a>.
+<li><a href="https://www.cdc.gov/places/index.html">PLACES: Local Data for Better Health</a>.
 <ul>
-<li>This dataset, put together by the Centers for Disease Control and Prevention (CDC), provides city- and census tract-level small area estimates for chronic disease risk factors, health outcomes, and clinical preventive service use for the largest 500 cities in the United State.</li>
+<li>This dataset, put together by the Centers for Disease Control and Prevention (CDC), provides city- and census tract-level small area estimates for chronic disease risk factors, health outcomes, and clinical preventive service use for census tracts in the United State.</li>
+</ul></li>
+<li><a href="https://www.healthyplacesindex.org/">Healthy Places Index</a>.
+<ul>
+<li>A project of the Public Health Alliance of Southern California, The Healthy Places Index (HPI) is a powerful and easy-to-use data and policy platform created to advance health equity through open and accessible data. Neighborhood-by-neighborhood, the HPI maps data on social conditions that drive health — like education, job opportunities, clean air and water, and other indicators that are positively associated with life expectancy at birth.</li>
 </ul></li>
 <li><a href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40">CalEnviroScreen</a>
 <ul>
 <li>Developed by California’s Office of Environmental Health Hazard Assessment, CalEnviroScreen is is a screening tool that evaluates the burden of pollution from multiple sources in California communities while accounting for potential vulnerability to the adverse effects of pollution. You can also download a shapefile of census tracts with these indicators <a href="https://oehha.ca.gov/calenviroscreen/maps-data/download-data">here</a>.</li>
 </ul></li>
-<li><a href="%5Bhttps://www.epa.gov/ejscreen/download-ejscreen-data%5D">EJScreen</a>
+<li><a href="https://www.epa.gov/ejscreen/download-ejscreen-data">EJScreen</a>
 <ul>
 <li>Developed by the Environmental Protection Agency, EJScreen is a new nationwide environmental justice (EJ) mapping and screening tool It is based on nationally consistent data and an approach that combines environmental and demographic indicators</li>
 </ul></li>
@@ -451,8 +429,10 @@ h2.title {
 </ul>
 <p><strong>Opportunity Atlas</strong></p>
 <p>The Opportunity Atlas is an an interactive, map-based tool that can trace the root of outcomes, such as poverty and incarceration, back to the neighborhoods in which children grew up. The atlas, in a nutshell, shows “Which neighborhoods in America offer children the best chances of climbing the income ladder?” You can view the tool and download all the census tract data <a href="https://www.opportunityatlas.org/">here</a>.</p>
+<p><strong>Social Capital Atlas</strong></p>
+<p>The Social Capital Atlas dataset shows new insights on how communities are connected using data from Facebook friendships. The dataset constructs and analyzes measures of social capital (Connectedness, Cohesiveness and Civic Engagement) across counties, ZIP codes, high schools, and colleges in the United States. Explore the dataset <a href="https://www.socialcapital.org/">here</a>.</p>
 <p><strong>Los Angeles Neighborhood Data for Social Change</strong></p>
-<p>A data warehouse created by the <a href="https://socialinnovation.usc.edu/">University of Southern California</a> that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles. Check the site out <a href="https://usc.data.socrata.com/stories/s/htr6-r22g">here</a>.</p>
+<p>A data warehouse created by the <a href="https://socialinnovation.usc.edu/">University of Southern California</a> that collects a bunch of health, demographic, built environment, and socioeconomic variables at the neighborhood level for the County of Los Angeles. Check the site out <a href="https://la.myneighborhooddata.org/">here</a>.</p>
 <p><strong>CA Neighborhoods and Renter Vulnerability</strong></p>
 <p>This <a href="https://knowledge.luskin.ucla.edu/ca-renter-vulnerability/#top">project</a> focuses on identifying the broad vulnerabilities to COVID-19 and their disparities across neighborhoods in California.</p>
 <p><strong>Looking for data?</strong></p>

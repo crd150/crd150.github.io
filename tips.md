@@ -31,7 +31,7 @@ h1.title {
 
 
 
-Pulling your hair out because you're getting an error in R that you can't figure out? Are you banging your head on the table because you can't knit? Are you throwing darts at my picture because I haven't give you enough direction on how to code a task in R properly? This page provides some tips and fixes for dealing with some common problems in R and R Markdown.
+Pulling your hair out because you're getting an error in R that you can't figure out? Are you banging your head on the table because you can't knit? Are you throwing darts at my picture because I haven't given you enough direction on how to code a task in R properly? This page provides some tips and fixes for dealing with some common problems in R and R Markdown.
 
 Note that we've already provided a detailed list of common R Markdown issues in the [assignment guidelines](https://crd150.github.io/hw_guidelines.html).  We will repeat some of that here, but add a few more tips and fixes, including those for general R coding.
 
@@ -44,11 +44,11 @@ Note that we've already provided a detailed list of common R Markdown issues in 
   - Misspellings
   - Capitalization: You typed an uppercase letter when you should have typed a lowercase letter (vice versa).
   - Closing punctuation: You forgot a closing parentheses, bracket, or quotation. All too often have I forgotten to add an additional parenthesis at the end of a line. You’ll know that you’ve done this if you see a red X on the left side of your R Markdown document. The red X will appear as you are typing, so wait until you’re finished to assess these warnings.
-  - You forgot to add a comma (,), pipe (`%>%`) or plus sign (`+`). 
+  - You forgot to add a comma (,), pipe (`%>%`), plus sign (`+`) or comma (`,`).
 
 <br>
 
-* **Did you create the object?**  If you get an error that reads `Error: object '____' not found`, this means that you did not create this object.  Maybe you have a spelling error.  Maybe you just simply did not create it.
+* **Did you create the object?**  If you get an error that reads `Error: object '____' not found`, this means that you did not create this object.  Maybe you have a spelling error.  Maybe you just simply did not create it. Look at your Environment window - do you see the object there? Remember, if you are knitting, the code that creates the object should be in the R Markdown file.
 
 * **Check loaded packages.** You also get errors like `Error in data %>% summary() : could not find function “%>%”` when you failed to load a package. 
 
@@ -58,7 +58,9 @@ Note that we've already provided a detailed list of common R Markdown issues in 
 
 * **Incorrect data type.** Some functions require a certain data type (or class) as an input.  For example, `seq("d", "e")` will spit out the error `Error in seq.default("d", "e") : 'from' must be a finite number` because `seq()` only takes in numeric data.
 
-* **Problems with Package LoadingProblems with Package Loading.** Sometimes, for inexplicable reasons, a package will uninstall spontaneously. Perhaps it’s because the package needs to be updated (newer versions have come out). Perhaps the R goblin stole it. Try loading the package with `library()` again. If the error message states that the package doesn’t exist again, manually install the package with `install.packages()`.
+* **Problems with a installing a package.** Sometimes you will get an error installing a package. It might be a server issue so run `install.packages()` again. You might get an error stating that another package is not installed. If the package you are trying to install is dependent on another package also being installed, usually the dependent packages will also be installed automatically. However, you might try installing the dependent packages separately first.
+
+* **Problems with a package loading.** Sometimes, for inexplicable reasons, a package will uninstall spontaneously. Perhaps it’s because the package needs to be updated (newer versions have come out). Perhaps the R goblin stole it. Try loading the package with `library()` again. If the error message states that the package doesn’t exist, manually install the package with `install.packages()`.
 
 * **Reading in data**. You might get "cannot open" errors when trying to bring in data into R. Make sure you are pointing R to the right folder (check using `getwd()` and set the appropriate folder using `setwd()`).  Make sure the file you are trying to bring in actually exists in that folder. Make sure you have the correct file name *and* extension.
 
