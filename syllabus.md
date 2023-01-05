@@ -71,7 +71,7 @@ The following is an abridged version of the course syllabus.  A full course syll
 Dr. Noli Brazil  
 *Contact*: nbrazil.at.ucdavis.edu  
 *Office*: 2325 Hart Hall
-*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vbcaq). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas home page.
+*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vwzry). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. The last 20 minutes are open drop in. Zoom link is located on Canvas home page.
 
 <div style="margin-bottom:25px;">
 </div>
