@@ -1,7 +1,7 @@
 ---
 title: "Syllabus"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Spring 2022</h4>
+date: <h4 style="font-style:normal">Winter 2023</h4>
 output: 
   html_document:
     toc: true
@@ -55,13 +55,13 @@ The following is an abridged version of the course syllabus.  A full course syll
 
 * Lecture: 
     + Monday and Wednesday, 2:10-4:00 pm
-    + 158 Olson
+    + 119 Wellman
     + Live, in-person
     + Combination of lecture, discussion, activities and lab. See course agenda for schedule
 * Labs: 
     + A01: Friday, 10:00-10:50 am
     + A02: Friday, 11:00-11:50 am 
-    + 75 Hutchinson Hall
+    + 2216 Teaching and Learning Complex
     + Live, in-person
 
 <div style="margin-bottom:25px;">
@@ -70,17 +70,17 @@ The following is an abridged version of the course syllabus.  A full course syll
 
 Dr. Noli Brazil  
 *Contact*: nbrazil.at.ucdavis.edu  
-*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vbcaq). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas and pdf syllabus.
+*Office*: 2325 Hart Hall
+*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vbcaq). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas home page.
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Teaching Assistant**
 
-Charlotte Glennie 
-*Contact*: cfglennie.at.ucdavis.edu  
-*Office hours*: Tuesday: 4:00-6:00 pm, Zoom only, in-person scheduled in advance
-
-Zoom link is located on Canvas and pdf syllabus.
+Jennifer Cribbs
+*Contact*: jecribbs.at.ucdavis.edu  
+*Office*: 2219 Plant and Environmental Sciences
+*Office hours*: Tuesday: 12:30-2:30 pm, Zoom or in-person. Zoom link is located on Canvas home page.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -114,7 +114,7 @@ The course is organized into two phases.
 
 * Most Monday lectures will be a combination of lecture and ungraded in-class group and individual exercises/questions covering the week’s substantive topics.  The exercises during lecture are meant to be less about learning how to do a task in R, and more about deepening your understanding of the week’s substantive topics. Expect that many of these exercises and questions be reflective of those found in the quizzes. 
 
-* Most Wednesday lectures will be a combination of some lecture covering the week’s topic but mostly computer sessions covering the week’s lab guide, which will be released on the course website every Wednesday morning.  I will ask you to bring your laptops to Wednesday lectures in order to follow along.  Not all lectures are expected to go the full class period.
+* Most Wednesday lectures will be a combination of some lecture covering the week’s topic but mostly computer sessions covering the week’s lab guide, which will be released on the course website every Wednesday before class.  I will ask you to bring your laptops to Wednesday lectures in order to follow along.  Not all lectures are expected to go the full class period.
 
 
 <div style="margin-bottom:25px;">
@@ -172,7 +172,7 @@ Late submissions will be deducted 10% per 24 hours until 72 hours after the subm
 
 2. Quizzes (20%)
 
-There will be two quizzes that will test conceptual material covered in lecture and readings.  The quizzes are closed book and will be taken in class during their designated dates and will cover only the material covered since the last quiz. They will consist of short computational, multiple choice and short answer questions.  You will not be expected to write or interpret R code. Make-up quizzes will be given ONLY in the case of extreme emergencies (severe illness, death in the immediate family) and when accompanied by appropriate documentation (e.g. doctor’s note). In the case of unexcused absences (travel plans, overslept, etc.), there are no make-up quizzes.  If you have been tested or have been exposed to COVID, and cannot take the test in class but can take it at home, we will provide accommodations to take the quiz during the same time as the rest of the class.
+There will be two quizzes that will test conceptual material covered in lecture and readings.  The quizzes are open book and will be taken in class on your laptop during their designated dates and will cover only the material covered since the last quiz. They will consist of short computational, multiple choice and short answer questions.  You will not be expected to write or interpret R code. Make-up quizzes will be given ONLY in the case of extreme emergencies (severe illness, death in the immediate family) and when accompanied by appropriate documentation (e.g. doctor’s note). In the case of unexcused absences (travel plans, overslept, etc.), there are no make-up quizzes.  If you have been tested or have been exposed to COVID, and cannot take the test in class but can take it at home, we will provide accommodations to take the quiz during the same time as the rest of the class.
 
 3. Final course project (30%)
 
@@ -183,14 +183,14 @@ The purpose of the final course project is to provide students the opportunity t
 ## **Other Information**
 \
 
-Please see the full syllabus on the Canvas website for information regarding masking and other COVID related policies and resources, course communication, code of conduct, and grades.
+Please see the full syllabus on the Canvas website for information regarding COVID related policies and resources, course communication, code of conduct, and grades.
 
 <div style="margin-bottom:25px;">
 </div>	
 ## **Course Agenda**
 \
 
-The schedule is subject to revision throughout the quarter.  Please see the full syllabus for a more detailed version of the agenda. *Live, Zoom lecture/lab.
+The schedule is subject to revision throughout the quarter.  Please see the full syllabus for a more detailed version of the agenda.
 
 <table class="table table-striped table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -205,15 +205,15 @@ The schedule is subject to revision throughout the quarter.  Please see the full
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 5em; "> 28-Mar </td>
+   <td style="text-align:left;width: 5em; "> 9-Jan </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Intro to class. Intro to R </td>
-   <td style="text-align:left;width: 13em; "> Handout 1 </td>
+   <td style="text-align:left;width: 13em; "> Handout 1; Duarte &amp; deSouza </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 30-Mar </td>
+   <td style="text-align:left;width: 5em; "> 11-Jan </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Data analysis framework. Intro to R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -221,7 +221,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 1-Apr </td>
+   <td style="text-align:left;width: 5em; "> 13-Jan </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Intro to R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -229,23 +229,23 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 4-Apr </td>
+   <td style="text-align:left;width: 5em; "> 16-Jan </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Data wrangling </td>
-   <td style="text-align:left;width: 13em; "> Handout 2 </td>
+   <td style="text-align:left;"> MLK Holiday </td>
+   <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 6-Apr </td>
+   <td style="text-align:left;width: 5em; "> 18-Jan </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Data wrangling in R </td>
-   <td style="text-align:left;width: 13em; ">  </td>
+   <td style="text-align:left;width: 13em; "> Handout 2 </td>
    <td style="text-align:left;"> HW 1 </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 8-Apr </td>
+   <td style="text-align:left;width: 5em; "> 20-Jan </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Data wrangling in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -253,7 +253,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 11-Apr </td>
+   <td style="text-align:left;width: 5em; "> 23-Jan </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Intro to the U.S. Census </td>
    <td style="text-align:left;width: 13em; "> Handout 3 </td>
@@ -261,7 +261,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 13-Apr </td>
+   <td style="text-align:left;width: 5em; "> 25-Jan </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Working with U.S. Census data in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -269,7 +269,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 15-Apr </td>
+   <td style="text-align:left;width: 5em; "> 27-Jan </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Working with U.S. Census data in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -277,7 +277,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 18-Apr </td>
+   <td style="text-align:left;width: 5em; "> 30-Jan </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Exploratory data analysis </td>
    <td style="text-align:left;width: 13em; "> Handout 4 </td>
@@ -285,7 +285,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 20-Apr </td>
+   <td style="text-align:left;width: 5em; "> 1-Feb </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Exploratory data analysis in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -293,7 +293,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 22-Apr </td>
+   <td style="text-align:left;width: 5em; "> 3-Feb </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Exploratory data analysis in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -301,7 +301,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 25-Apr </td>
+   <td style="text-align:left;width: 5em; "> 6-Feb </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Intro to spatial data </td>
    <td style="text-align:left;width: 13em; "> Handout 5 </td>
@@ -309,7 +309,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 27-Apr </td>
+   <td style="text-align:left;width: 5em; "> 8-Feb </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Spatial data in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -317,7 +317,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 29-Apr </td>
+   <td style="text-align:left;width: 5em; "> 10-Feb </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Spatial data in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -325,63 +325,63 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 2-May </td>
+   <td style="text-align:left;width: 5em; "> 13-Feb </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Spatial autocorrelation </td>
+   <td style="text-align:left;"> Exploratory spatial data analysis </td>
    <td style="text-align:left;width: 13em; "> Handout 6 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 4-May </td>
+   <td style="text-align:left;width: 5em; "> 15-Feb </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Spatial autocorrelation in R </td>
+   <td style="text-align:left;"> Exploratory spatial data analysis in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;"> HW 5 </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 6-May </td>
+   <td style="text-align:left;width: 5em; "> 17-Feb </td>
    <td style="text-align:left;"> Lab </td>
-   <td style="text-align:left;"> Spatial autocorrelation in R </td>
+   <td style="text-align:left;"> Exploratory spatial data analysis in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 9-May </td>
+   <td style="text-align:left;width: 5em; "> 20-Feb </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Measuring segregation </td>
-   <td style="text-align:left;width: 13em; "> Handout 7 </td>
+   <td style="text-align:left;"> Presidents Day Holiday </td>
+   <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 11-May </td>
+   <td style="text-align:left;width: 5em; "> 22-Feb </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Measuring gentrification </td>
-   <td style="text-align:left;width: 13em; "> Handout 8 </td>
+   <td style="text-align:left;"> Measuring segregation </td>
+   <td style="text-align:left;width: 13em; "> Handout 7 </td>
    <td style="text-align:left;"> HW 6 </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 13-May </td>
+   <td style="text-align:left;width: 5em; "> 24-Feb </td>
    <td style="text-align:left;"> Lab </td>
-   <td style="text-align:left;"> Segregation and gentrification in R </td>
+   <td style="text-align:left;"> Measuring segregation in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 16-May </td>
+   <td style="text-align:left;width: 5em; "> 27-Feb </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Big data and open data </td>
-   <td style="text-align:left;width: 13em; "> Handout 9 </td>
+   <td style="text-align:left;width: 13em; "> Handout 8 </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> Proposal </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 18-May </td>
+   <td style="text-align:left;width: 5em; "> 1-Mar </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Mapping open data in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -389,7 +389,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 20-May </td>
+   <td style="text-align:left;width: 5em; "> 3-Mar </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Mapping open data in R </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -397,15 +397,15 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 23-May </td>
-   <td style="text-align:left;"> Lecture* </td>
+   <td style="text-align:left;width: 5em; "> 6-Mar </td>
+   <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Guest Lecture </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 25-May </td>
+   <td style="text-align:left;width: 5em; "> 8-Mar </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Story Maps using ArcGIS online </td>
    <td style="text-align:left;width: 13em; "> Lung-Amam &amp; Dawkins (2019)  </td>
@@ -413,7 +413,7 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 27-May </td>
+   <td style="text-align:left;width: 5em; "> 10-Mar </td>
    <td style="text-align:left;"> Lab </td>
    <td style="text-align:left;"> Story Maps using ArcGIS online </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -421,15 +421,15 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 30-May </td>
+   <td style="text-align:left;width: 5em; "> 13-Mar </td>
    <td style="text-align:left;"> Lecture </td>
-   <td style="text-align:left;"> Holiday, no class </td>
+   <td style="text-align:left;"> Guest Lecture </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 1-Jun </td>
+   <td style="text-align:left;width: 5em; "> 15-Mar </td>
    <td style="text-align:left;"> Lecture </td>
    <td style="text-align:left;"> Final project in-class workshop </td>
    <td style="text-align:left;width: 13em; ">  </td>
@@ -437,17 +437,25 @@ The schedule is subject to revision throughout the quarter.  Please see the full
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 8-Jun </td>
+   <td style="text-align:left;width: 5em; "> 17-Mar </td>
+   <td style="text-align:left;"> Lab </td>
+   <td style="text-align:left;"> TA Extra office hours </td>
+   <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> StoryMap due 12:00 pm </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 5em; "> 22-Mar </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> StoryMap due 5:00 pm </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> StoryMap </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 5em; "> 9-Jun </td>
+   <td style="text-align:left;width: 5em; "> 23-Mar </td>
    <td style="text-align:left;">  </td>
-   <td style="text-align:left;"> StoryMap eval due 12:00 pm </td>
+   <td style="text-align:left;"> StoryMap eval due 5:00 pm </td>
    <td style="text-align:left;width: 13em; ">  </td>
    <td style="text-align:left;">  </td>
    <td style="text-align:left;"> StoryMap peer evals </td>

@@ -1,7 +1,7 @@
 ---
 title: "Syllabus"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Spring 2022</h4>
+date: <h4 style="font-style:normal">Winter 2023</h4>
 output: 
   html_document:
     toc: true
@@ -55,13 +55,13 @@ The following is an abridged version of the course syllabus.  A full course syll
 
 * Lecture: 
     + Monday and Wednesday, 2:10-4:00 pm
-    + 158 Olson
+    + 119 Wellman
     + Live, in-person
     + Combination of lecture, discussion, activities and lab. See course agenda for schedule
 * Labs: 
     + A01: Friday, 10:00-10:50 am
     + A02: Friday, 11:00-11:50 am 
-    + 75 Hutchinson Hall
+    + 2216 Teaching and Learning Complex
     + Live, in-person
 
 <div style="margin-bottom:25px;">
@@ -70,17 +70,17 @@ The following is an abridged version of the course syllabus.  A full course syll
 
 Dr. Noli Brazil  
 *Contact*: nbrazil.at.ucdavis.edu  
-*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vbcaq). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas and pdf syllabus.
+*Office*: 2325 Hart Hall
+*Office hours*: Monday and Wednesday from 4:30-5:30 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vbcaq). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. Zoom link is located on Canvas home page.
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Teaching Assistant**
 
-Charlotte Glennie 
-*Contact*: cfglennie.at.ucdavis.edu  
-*Office hours*: Tuesday: 4:00-6:00 pm, Zoom only, in-person scheduled in advance
-
-Zoom link is located on Canvas and pdf syllabus.
+Jennifer Cribbs
+*Contact*: jecribbs.at.ucdavis.edu  
+*Office*: 2219 Plant and Environmental Sciences
+*Office hours*: Tuesday: 12:30-2:30 pm, Zoom or in-person. Zoom link is located on Canvas home page.
 
 <div style="margin-bottom:25px;">
 </div>
@@ -114,7 +114,7 @@ The course is organized into two phases.
 
 * Most Monday lectures will be a combination of lecture and ungraded in-class group and individual exercises/questions covering the week’s substantive topics.  The exercises during lecture are meant to be less about learning how to do a task in R, and more about deepening your understanding of the week’s substantive topics. Expect that many of these exercises and questions be reflective of those found in the quizzes. 
 
-* Most Wednesday lectures will be a combination of some lecture covering the week’s topic but mostly computer sessions covering the week’s lab guide, which will be released on the course website every Wednesday morning.  I will ask you to bring your laptops to Wednesday lectures in order to follow along.  Not all lectures are expected to go the full class period.
+* Most Wednesday lectures will be a combination of some lecture covering the week’s topic but mostly computer sessions covering the week’s lab guide, which will be released on the course website every Wednesday before class.  I will ask you to bring your laptops to Wednesday lectures in order to follow along.  Not all lectures are expected to go the full class period.
 
 
 <div style="margin-bottom:25px;">
@@ -172,7 +172,7 @@ Late submissions will be deducted 10% per 24 hours until 72 hours after the subm
 
 2. Quizzes (20%)
 
-There will be two quizzes that will test conceptual material covered in lecture and readings.  The quizzes are closed book and will be taken in class during their designated dates and will cover only the material covered since the last quiz. They will consist of short computational, multiple choice and short answer questions.  You will not be expected to write or interpret R code. Make-up quizzes will be given ONLY in the case of extreme emergencies (severe illness, death in the immediate family) and when accompanied by appropriate documentation (e.g. doctor’s note). In the case of unexcused absences (travel plans, overslept, etc.), there are no make-up quizzes.  If you have been tested or have been exposed to COVID, and cannot take the test in class but can take it at home, we will provide accommodations to take the quiz during the same time as the rest of the class.
+There will be two quizzes that will test conceptual material covered in lecture and readings.  The quizzes are open book and will be taken in class on your laptop during their designated dates and will cover only the material covered since the last quiz. They will consist of short computational, multiple choice and short answer questions.  You will not be expected to write or interpret R code. Make-up quizzes will be given ONLY in the case of extreme emergencies (severe illness, death in the immediate family) and when accompanied by appropriate documentation (e.g. doctor’s note). In the case of unexcused absences (travel plans, overslept, etc.), there are no make-up quizzes.  If you have been tested or have been exposed to COVID, and cannot take the test in class but can take it at home, we will provide accommodations to take the quiz during the same time as the rest of the class.
 
 3. Final course project (30%)
 
@@ -183,14 +183,14 @@ The purpose of the final course project is to provide students the opportunity t
 ## **Other Information**
 \
 
-Please see the full syllabus on the Canvas website for information regarding masking and other COVID related policies and resources, course communication, code of conduct, and grades.
+Please see the full syllabus on the Canvas website for information regarding COVID related policies and resources, course communication, code of conduct, and grades.
 
 <div style="margin-bottom:25px;">
 </div>	
 ## **Course Agenda**
 \
 
-The schedule is subject to revision throughout the quarter.  Please see the full syllabus for a more detailed version of the agenda. *Live, Zoom lecture/lab.
+The schedule is subject to revision throughout the quarter.  Please see the full syllabus for a more detailed version of the agenda.
 
 ```{r echo=  FALSE, warning = FALSE, message = FALSE}
 options(knitr.kable.NA = '')
