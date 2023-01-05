@@ -1,13 +1,14 @@
 ---
 title: "Assignment Guidelines"
 subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Spring 2022</h4>
+date: <h4 style="font-style:normal">Winter 2023</h4>
 output: 
   html_document:
     toc: true
     toc_depth: 3
     toc_float: true
     theme: cosmo
+    self_contained: false
 ---
 
 <style>
@@ -574,7 +575,7 @@ Also note: all code used to produce your results must be shown in your HTML file
 ## **Getting R Markdown Help**
 \
 
-Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheat sheet by going to Help -> Cheatsheets -> R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in Chapter 21 in [R for Data Science](http://r4ds.had.co.nz/index.html). R Studio has a quick [introduction](https://rmarkdown.rstudio.com/authoring_quick_tour.html) to R Markdown. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case that you get stuck. And, of course, there is the Google machine. Use it to get help.
+Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheat sheet by going to Help -> Cheatsheets -> R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in Chapter 27 in [R for Data Science]https://r4ds.had.co.nz/r-markdown.html). R Studio has a quick [introduction](https://rmarkdown.rstudio.com/authoring_quick_tour.html) to R Markdown. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case that you get stuck. And, of course, there is the Google machine. Use it to get help.
 
 
 
