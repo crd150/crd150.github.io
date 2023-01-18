@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 2: Data Wrangling</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2023</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+    <li>
+      <a href="lab7.html">Lab 7</a>
+    </li>
+    <li>
+      <a href="lab8.html">Lab 8</a>
+    </li>
+    <li>
+      <a href="lab9.html">Lab 9</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Eligible Communities</a>
+    </li>
+    <li>
+      <a href="tips.html">R tips</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+    <li>
+      <a href="policymap.html">PolicyMap </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 2: Data Wrangling</h1>
+<h3 class="subtitle"><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></h3>
+<h4 class="author"><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></h4>
+<h4 class="date"><h4 style="font-style:normal">
+January 18, 2022
+</h4></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+<p><br />
+</p>
+<p>In this guide you will learn how to download, clean and manage data - a process known as Data Wrangling - in R. You will be working with data on California counties. The objectives of this guide are as follows</p>
+<ol style="list-style-type: decimal">
+<li>Learn how to read data into R</li>
+<li>Learn about tidyverse</li>
+<li>Learn data wrangling functions</li>
+</ol>
+<p>This lab guide follows closely and supplements the material presented in Chapters 3, 7-9, and 14 in the textbook <a href="http://r4ds.had.co.nz/index.html">R for Data Science</a> (RDS) and the class Handout 2.</p>
+<p class="comment">
+<strong>Assignment 2 is due by 2:00 pm, January 25 on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn02. For example: brazil_n_asgn02.
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="open-up-a-r-markdown-file" class="section level2">
+<h2><strong>Open up a R Markdown file</strong></h2>
+<p><br />
+</p>
+<p>Rather than working directly from the R console, I recommended typing in lab code into an R Markdown and working from there. This will give you more practice and experience working in the R Markdown environment, which you will need to do for all of your assignments. Plus you can add your own comments to the code to ensure that you’re understanding what is being done. Download the <a href="https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd">lab template</a> into an appropriate folder on your hard drive (preferably, a folder named ‘Lab 2’), open it in R Studio, and type and run your lab code there. The template is also located on Canvas under Files. Change the title (“Lab 2”) and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>). Also keep the grey chunk after the YAML. For a rundown on the use of R Markdown, see the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="r-packages" class="section level2">
+<h2><strong>R Packages</strong></h2>
+<p><br />
+</p>
+<p>At the end of <a href="https://crd150.github.io/lab1.html#Functions">Lab 1</a> we learned about R functions. Functions do not exist in a vacuum, but exist within <a href="https://r-pkgs.org/introduction.html">R packages</a>. Packages are the fundamental units of reproducible R code. They include R functions, the documentation that describes how to use them, and sample data. At the top left of a function’s help documentation, you’ll find in curly brackets the R package that the function is housed in. For example, type in your console <code>? seq</code>. At the top left of the help documentation, you’ll find that <code>seq()</code> is in the package <strong>base</strong>. All the functions we have used so far are part of packages that have been pre-installed and pre-loaded into R. For all new packages, you need to install and load them.</p>
+<p>In this lab and all labs from here on out, we will be using commands from the package <strong>tidyverse</strong>. <a href="https://www.tidyverse.org/">Tidyverse</a> is a collection of high-powered, consistent, and easy-to-use packages developed by a number of thoughtful and talented R developers. In order to use functions in a new package, you first need to install the package using the <code>install.packages()</code> command.</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>You should see a bunch of gobbledygook roll through your console screen. Don’t worry, that’s just R downloading all of the other packages and applications that <strong>tidyverse</strong> relies on. These are known as <a href="https://r-pkgs.org/dependencies-in-practice.html">dependencies</a>. Unless you get a message in red that indicates there is an error (like we saw in <a href="https://crd150.github.io/lab1.html#R_Data_Types">Lab 1</a> when we typed in hello world without quotes), you should be fine.</p>
+<p>Next, you will need to load the package into your working environment. You need to do this every time you start RStudio. We do this using the <code>library()</code> function. Notice there are no quotes around <strong>tidyverse</strong> this time.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>The Packages window at the lower-right of your RStudio shows all the packages you currently have installed. If you don’t have a package listed in this window, you’ll need to use the <code>install.packages()</code> function to install it. If the package is checked, that means it is loaded into your current R session</p>
+<p>For example, here is a section of my Packages window</p>
+<p><br></p>
+<center>
+<p><img src="window1.png" /></p>
+</center>
+<p><br />
+</p>
+<p><br></p>
+<p>The only packages loaded into my current session is <strong>methods</strong>, a package that is loaded every time you open an R session. Let’s say we use <code>install.packages()</code> to install the package <strong>matrixStats</strong>. The window now looks like</p>
+<p><br></p>
+<center>
+<p><img src="window2.png" /></p>
+</center>
+<p><br />
+</p>
+<p>When you load it in using <code>library()</code>, a check mark appears next to <strong>matrixStats</strong></p>
+<p><br></p>
+<center>
+<p><img src="window3.png" /></p>
+</center>
+<p><br />
+</p>
+<p><br></p>
+<p><strong>Note that you only need to install packages once (<code>install.pacakges()</code>), but you need to load them each time you relaunch RStudio (<code>library()</code>)</strong>. Repeat after me: Install once, library every time. This means your R Markdown should never have the function <code>install.pacakges()</code> but will likely always have the function <code>library()</code>.</p>
+<p>Are you ready to enter the <strong>tidyverse</strong>? Yes, of course, so here is a badge! Wear it proudly my young friends! And away we go!</p>
+<center>
+<p><img src="tidyverse.png" style="width:25.0%" /></p>
+</center>
+<p><br />
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="reading-data" class="section level2">
+<h2><strong>Reading data</strong></h2>
+<p><br />
+</p>
+<p>One of the first steps in the Data Wrangling process is to read in your dataset. Most of the data files you will encounter are comma-delimited (or comma-separated) files, which have <code>.csv</code> extensions. Comma-delimited means that columns are separated by commas. I uploaded a file on Canvas (Files - Week 2 - Lab) containing the number of Hispanic, white, Asian, and black residents in 2018 in California counties taken from the United States <a href="https://www.census.gov/programs-surveys/acs">American Community Survey</a>. Download the file <em>week2data.csv</em> and save it into the same folder where your Lab 2 R Markdown file resides. The record layout/codebook for the file can be found <a href="https://raw.githubusercontent.com/crd150/data/master/week2data_codebook.txt">here</a>.</p>
+<p>To read in the csv file, first make sure that R is pointed to the folder you saved your data into. Type in <code>getwd()</code> to find out the current directory</p>
+<pre class="r"><code>getwd()</code></pre>
+<p>and <code>setwd("directory name")</code> to set the directory to the folder containing the data, where “directory name” is the path to the folder on your hard drive containing this lab’s data.</p>
+<p>In my Mac OS computer, the file is located in the folder shown in the figure below.</p>
+<center>
+<div class="figure">
+<img src="setwd.png" alt="" />
+<p class="caption">Directory path where your data reside</p>
+</div>
+</center>
+<p>Using a Mac laptop, I type in the following command to set the directory to the folder containing my data.</p>
+<pre class="r"><code>setwd(&quot;~/Documents/UCD/CRD150/Labs/Lab 2&quot;)</code></pre>
+<p>For a Windows system, you can find the pathway of a file by right clicking on it and selecting Properties. You will find that instead of a forward slash like in a Mac, a Windows path will be indicated by a single back slash <code>\</code>. R doesn’t like this because it thinks of a single back slash as an <a href="https://en.wikipedia.org/wiki/Escape_character">escape character</a>. Use instead two back slashes <code>\\</code></p>
+<pre class="r"><code>setwd(&quot;C:\\Users\\noli\\Desktop\\Classes\\CRD150\\Lab 2&quot;)</code></pre>
+<p>or a forward slash <code>/</code>.</p>
+<pre class="r"><code>setwd(&quot;C:/Users/noli/Desktop/Classes/CRD150/Lab 2&quot;)</code></pre>
+<p>You can also manually set the working directory by clicking on Session -&gt; Set Working Directory -&gt; Choose Directory.</p>
+<p><br></p>
+<p>Once you’ve set your directory, use the function <code>read_csv()</code> and plug in the name of the file in quotes inside the parentheses. Make sure you include the <em>.csv</em> extension.</p>
+<pre class="r"><code>counties &lt;- read_csv(&quot;week2data.csv&quot;)</code></pre>
+<p>You should see the object <em>counties</em> pop up in your Environment window (top right). First thing you should do when you bring in a data set is to look at it to make sure you know what you have and nothing went drastically wrong when reading in the data. One way to look at the data is to print it on your screen. Do this using the <code>glimpse()</code> command</p>
+<pre class="r"><code>glimpse(counties)</code></pre>
+<pre><code>## Rows: 58
+## Columns: 8
+## $ GEOID   &lt;chr&gt; &quot;06001&quot;, &quot;06003&quot;, &quot;06005&quot;, &quot;06007&quot;, &quot;06009&quot;, &quot;06011&quot;, &quot;06013&quot;,…
+## $ name    &lt;chr&gt; &quot;Alameda County&quot;, &quot;Alpine County&quot;, &quot;Amador County&quot;, &quot;Butte Cou…
+## $ state   &lt;chr&gt; &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;California&quot;, &quot;Calif…
+## $ hisp    &lt;dbl&gt; 367041, 117, 4943, 35445, 5166, 12539, 284003, 5281, 23279, 50…
+## $ nhasn   &lt;dbl&gt; 468356, 8, 565, 9852, 527, 328, 177544, 741, 7805, 96128, 729,…
+## $ nhblk   &lt;dbl&gt; 175063, 18, 764, 3282, 258, 186, 93140, 484, 1614, 45217, 212,…
+## $ nhwhite &lt;dbl&gt; 524881, 777, 29571, 164184, 36932, 7800, 504818, 17233, 145153…
+## $ tpopr   &lt;dbl&gt; 1629615, 1203, 37306, 225207, 45057, 21479, 1123678, 27442, 18…</code></pre>
+<p>You get a quick, compact summary of your data The function takes one argument: the name of a data frame. It then tells us how many rows it has, how many variables there are, what these variables are called, and what kind of data are associated with each variable. This function is useful when we’re working with a data set containing many variables.</p>
+<p>If you like viewing your data through an Excel style worksheet, type in <code>View(counties)</code>, and <em>counties</em> should pop up in the top left window of your R Studio interface. Scroll up and down, left and right. Take some time to understand the format of the data set. What do the columns represent? Rows?</p>
+<p><strong>tidyverse</strong> can read in more than just .csv files. It has a suite of <code>read_</code> functions that are a part of the subpackage <strong>readr</strong>. The goal of <strong>readr</strong> is to provide a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. To learn more about these functions, see <strong>readr</strong>’s dedicated <a href="https://readr.tidyverse.org/index.html">site</a>.</p>
+<p>By learning how to read in data, you’ve earned another <strong>tidyverse</strong> badge! Hooray!</p>
+<center>
+<p><img src="readr.png" style="width:25.0%" /></p>
+</center>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="tibbles" class="section level2">
+<h2><strong>Tibbles</strong></h2>
+<p><br />
+</p>
+<p>The data set that you brought in above using <code>read_csv()</code> saved the file in a special R object known as a <em>tibble</em>. Although the <strong>tidyverse</strong> works with all data objects, its fundamental object type is the tibble. Tibbles are essentially a special variant of data frames that have desirable properties for printing and joining. To illustrate comparisons between tibbles and regular data frames, let’s bring in the county data we downloaded above but using the function <code>read.csv()</code>, which will bring in files as regular data frames.</p>
+<pre class="r"><code>counties.df &lt;- read.csv(&quot;week2data.csv&quot;)</code></pre>
+<p>The first difference between regular data frames and tibbles is how the dataset “looks.” First, the tibble.</p>
+<pre class="r"><code>counties</code></pre>
+<pre><code>## # A tibble: 58 × 8
+##    GEOID name                state        hisp  nhasn  nhblk nhwhite   tpopr
+##    &lt;chr&gt; &lt;chr&gt;               &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 06001 Alameda County      California 367041 468356 175063  524881 1629615
+##  2 06003 Alpine County       California    117      8     18     777    1203
+##  3 06005 Amador County       California   4943    565    764   29571   37306
+##  4 06007 Butte County        California  35445   9852   3282  164184  225207
+##  5 06009 Calaveras County    California   5166    527    258   36932   45057
+##  6 06011 Colusa County       California  12539    328    186    7800   21479
+##  7 06013 Contra Costa County California 284003 177544  93140  504818 1123678
+##  8 06015 Del Norte County    California   5281    741    484   17233   27442
+##  9 06017 El Dorado County    California  23279   7805   1614  145153  185015
+## 10 06019 Fresno County       California 509442  96128  45217  293677  971616
+## # … with 48 more rows</code></pre>
+<p>Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen. In addition, each column reports its name and type.</p>
+<p>Tibbles are designed so that you don’t accidentally overwhelm your console when you print large data frames. Compare the print output above to what you get with a data frame</p>
+<pre class="r"><code>counties.df</code></pre>
+<p>Ugly, right?</p>
+<p>Not all functions work with tibbles, particularly those that are specific to spatial data. As such, we’ll be using a combination of tibbles and regular data frames throughout the class, with a preference towards tibbles where possible. Note that when you search on Google for how to do something in R, you will likely get non tidyverse ways of doing things. Most of these suggestions are fine, but some are not and may screw you up down the road. For example, always use <code>read_csv()</code> to read in data. Do not use <code>read.csv()</code>. My advice is to try to stick with tidyverse functions to do things in R. This is why our textbook RDS is a valuable resource.</p>
+<p>Anyway, you earned another badge. Yes!</p>
+<center>
+<p><img src="tibble.png" style="width:25.0%" /></p>
+</center>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="data-wrangling" class="section level2">
+<h2><strong>Data Wrangling</strong></h2>
+<p><br />
+</p>
+<p>It is rare that the data you download are in exactly the right form for analysis. For example, rather than all counties in the tibble <em>counties</em>, you might want to analyze just Northern California counties. Or you might want to discard certain variables from the dataset to reduce clutter.</p>
+<p>In this lab, we won’t have time to go through all of the methods and functions in R that are associated with the data wrangling process. We will cover more in Lab 3 and later labs. Many methods you will have to learn on your own given the specific tasks you will need to accomplish. In the rest of this guide, we’ll go through some of the basic data wrangling techniques using the functions found in the package <strong>dplyr</strong>, which was automatically installed and loaded when you brought in the <strong>tidyverse</strong> package.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="selecting-variables" class="section level3">
+<h3><strong>Selecting variables</strong></h3>
+<p><br />
+</p>
+<p>In practice, most of the data files you will download will contain variables you won’t need. It is easier to work with a smaller dataset as it reduces clutter and clears up memory space, which is important if you are executing complex tasks on a large number of observations. Use the command <code>select()</code> to keep variables by name. Visually, we are doing this (taken from the RStudio <a href="http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">cheatsheet</a>)</p>
+<center>
+<p><img src="subsetcols.png" /></p>
+</center>
+<p>To see the names of variables in the dataset <em>counties</em>, use the <code>names()</code> command.</p>
+<pre class="r"><code>names(counties)</code></pre>
+<pre><code>## [1] &quot;GEOID&quot;   &quot;name&quot;    &quot;state&quot;   &quot;hisp&quot;    &quot;nhasn&quot;   &quot;nhblk&quot;   &quot;nhwhite&quot;
+## [8] &quot;tpopr&quot;</code></pre>
+<p>Let’s keep <em>GEOID</em>, <em>name</em>, <em>hisp</em>, <em>nhasn</em>, <em>nhblk</em>, <em>nhwhite</em>, and <em>tpopr</em></p>
+<pre class="r"><code>select(counties, GEOID, name, hisp, nhasn, nhblk, nhwhite, tpopr)</code></pre>
+<pre><code>## # A tibble: 58 × 7
+##    GEOID name                  hisp  nhasn  nhblk nhwhite   tpopr
+##    &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 06001 Alameda County      367041 468356 175063  524881 1629615
+##  2 06003 Alpine County          117      8     18     777    1203
+##  3 06005 Amador County         4943    565    764   29571   37306
+##  4 06007 Butte County         35445   9852   3282  164184  225207
+##  5 06009 Calaveras County      5166    527    258   36932   45057
+##  6 06011 Colusa County        12539    328    186    7800   21479
+##  7 06013 Contra Costa County 284003 177544  93140  504818 1123678
+##  8 06015 Del Norte County      5281    741    484   17233   27442
+##  9 06017 El Dorado County     23279   7805   1614  145153  185015
+## 10 06019 Fresno County       509442  96128  45217  293677  971616
+## # … with 48 more rows</code></pre>
+<p>A shortcut way of doing this is to use the <code>:</code> operator.</p>
+<pre class="r"><code>select(counties, GEOID, name, hisp:tpopr)</code></pre>
+<pre><code>## # A tibble: 58 × 7
+##    GEOID name                  hisp  nhasn  nhblk nhwhite   tpopr
+##    &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 06001 Alameda County      367041 468356 175063  524881 1629615
+##  2 06003 Alpine County          117      8     18     777    1203
+##  3 06005 Amador County         4943    565    764   29571   37306
+##  4 06007 Butte County         35445   9852   3282  164184  225207
+##  5 06009 Calaveras County      5166    527    258   36932   45057
+##  6 06011 Colusa County        12539    328    186    7800   21479
+##  7 06013 Contra Costa County 284003 177544  93140  504818 1123678
+##  8 06015 Del Norte County      5281    741    484   17233   27442
+##  9 06017 El Dorado County     23279   7805   1614  145153  185015
+## 10 06019 Fresno County       509442  96128  45217  293677  971616
+## # … with 48 more rows</code></pre>
+<p>The <code>:</code> operator tells R to select all the variables from <em>hisp</em> to <em>tpopr</em>. This operator is useful when you’ve got a lot of variables to keep and they all happen to be ordered sequentially.</p>
+<p>You can use the <code>select()</code> command to keep variables <em>except</em> for the ones you designate. For example, to keep all variables in <em>counties</em> except <em>state</em>, and save this change back into a new tibble called <em>counties1</em>, type in</p>
+<pre class="r"><code>counties1 &lt;- select(counties, -state)</code></pre>
+<p>The negative sign tells R to exclude the variable named right after. You can delete multiple variables. For example, if you wanted to keep all variables except <em>name</em> and <em>state</em>, you would type in <code>select(counties, -name, -state)</code>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="creating-new-variables" class="section level3">
+<h3><strong>Creating new variables</strong></h3>
+<p><br />
+</p>
+<p>The <code>mutate()</code> function allows you to create new variables within your dataset. This is important when you need to transform variables in some way - for example, calculating a ratio or adding two variables together. Visually, you are doing this</p>
+<center>
+<p><img src="mutate.png" /></p>
+</center>
+<p>You can use the <code>mutate()</code> command to generate as many new variables as you would like. For example, let’s construct five new variables in <em>counties1</em>: the proportion of residents who are non-Hispanic white, non-Hispanic Asian, non-Hispanic black, and Hispanic. Name these variables <em>pnhwhite</em>, <em>pnhasn</em>, <em>pnhblk</em>, and <em>phisp</em>, respectively.</p>
+<pre class="r"><code>mutate(counties1, pnhwhite = nhwhite/tpopr, pnhasn = nhasn/tpopr, 
+              pnhblk = nhblk/tpopr, phisp = hisp/tpopr)</code></pre>
+<p>Note that you can create new variables based on the variables you just created in the same line of code (Wow!). For example, you can create a variable named <em>diff</em> that represents the difference between the percent non-Hispanic white and percent non-Hispanic black after creating both variables within the same <code>mutate()</code> command. Let’s save these changes back into <em>counties1</em></p>
+<pre class="r"><code>counties1 &lt;- mutate(counties1, pnhwhite = nhwhite/tpopr, pnhasn = nhasn/tpopr, 
+              pnhblk = nhblk/tpopr, phisp = hisp/tpopr,
+              diff = pnhwhite-phisp)</code></pre>
+<p>View <em>counties1</em> to verify that you’ve successfully created these variables.</p>
+<pre class="r"><code>glimpse(counties1)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="filtering" class="section level3">
+<h3><strong>Filtering</strong></h3>
+<p><br />
+</p>
+<p>Filtering means selecting rows/observations based on their values. To filter in R, use the command <code>filter()</code>. Visually, filtering rows looks like this.</p>
+<center>
+<p><img src="subsetrows.png" /></p>
+</center>
+<p>The first argument in the parentheses of this command is the name of the data frame. The second and any subsequent arguments (separated by commas) are the expressions that filter the data frame. For example, we can keep just Sacramento county from <em>counties1</em> using its <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/ca/home/?cid=nrcs143_013697">FIPS code</a>, which is the county’s unique ID (note that we’re not saving this change since we are not using the assignment operator <code>&lt;-</code>).</p>
+<pre class="r"><code>filter(counties1, GEOID == &quot;06067&quot;)</code></pre>
+<p>The double equal operator <code>==</code> means equal to. The command is telling R to keep the rows in <em>counties1</em> whose <em>GEOID</em> equals “06067”. There are quotes around 06067 because <em>GEOID</em> is a <a href="https://crd150.github.io/lab1.html#Characters">character</a> variable.</p>
+<p>We can also explicitly exclude cases and keep everything else by using the not equal operator <code>!=</code>. The following code <em>excludes</em> Sacramento county.</p>
+<pre class="r"><code>filter(counties1, GEOID != &quot;06067&quot;)</code></pre>
+<p>What about filtering if a county has a value greater than a specified value? For example, counties with a proportion Hispanic greater than 0.5 (50%).</p>
+<pre class="r"><code>filter(counties1, phisp &gt; 0.50)</code></pre>
+<p>What about less than 0.5 (50%)?</p>
+<pre class="r"><code>filter(counties1, phisp &lt; 0.50)</code></pre>
+<p>Both lines of code do not include counties that have a proportion Hispanic equal to 0.5. We include it by using the less than or equal operator <code>&lt;=</code> or greater than or equal operator <code>&gt;=</code>.</p>
+<pre class="r"><code>filter(counties1, phisp &lt;= 0.5)</code></pre>
+<p>In addition to comparison operators, filtering may also utilize logical operators that make multiple selections. There are three basic logical operators: <code>&amp;</code> (and), <code>|</code> (or), and <code>!</code> (not). We can keep counties with <em>phisp</em> greater than 0.5 <strong>and</strong> <em>pnhasn</em> greater than 0.05 by using <code>&amp;</code>.</p>
+<pre class="r"><code>filter(counties1, phisp &gt; 0.50 &amp; pnhasn &gt; 0.05)</code></pre>
+<p>Use <code>|</code> to keep counties with a <em>GEOID</em> of “06067” (Sacramento) <strong>or</strong> “06113” (Yolo)</p>
+<pre class="r"><code>filter(counties1, GEOID == &quot;06067&quot; | GEOID == &quot;06113&quot;)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="arrange" class="section level3">
+<h3><strong>Arrange</strong></h3>
+<p><br />
+</p>
+<p>We use the <code>arrange()</code> function to sort a data frame by one or more variables. You might want to do this to get a sense of which cases have the highest or lowest values in your data set or sort counties by their name. For example, let’s sort in ascending order counties by proportion Hispanic.</p>
+<pre class="r"><code>arrange(counties1, phisp)</code></pre>
+<pre><code>## # A tibble: 58 × 12
+##    GEOID name     hisp nhasn nhblk nhwhite  tpopr pnhwh…¹  pnhasn  pnhblk  phisp
+##    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 06105 Trinit…   937   141   104   10796  13037   0.828 0.0108  0.00798 0.0719
+##  2 06063 Plumas…  1599   148   160   15640  18724   0.835 0.00790 0.00855 0.0854
+##  3 06057 Nevada…  9109  1090   541   84389  98838   0.854 0.0110  0.00547 0.0922
+##  4 06089 Shasta… 17218  5195  1951  143919 178919   0.804 0.0290  0.0109  0.0962
+##  5 06003 Alpine…   117     8    18     777   1203   0.646 0.00665 0.0150  0.0973
+##  6 06091 Sierra…   290     0     4    2509   2885   0.870 0       0.00139 0.101 
+##  7 06043 Maripo…  1870   168   215   14309  17658   0.810 0.00951 0.0122  0.106 
+##  8 06023 Humbol… 14986  3886  1389  101460 135490   0.749 0.0287  0.0103  0.111 
+##  9 06009 Calave…  5166   527   258   36932  45057   0.820 0.0117  0.00573 0.115 
+## 10 06109 Tuolum…  6385   593   924   43565  53899   0.808 0.0110  0.0171  0.118 
+## # … with 48 more rows, 1 more variable: diff &lt;dbl&gt;, and abbreviated variable
+## #   name ¹​pnhwhite</code></pre>
+<p><a href="https://en.wikipedia.org/wiki/Trinity_County,_California">Trinity county</a> has the lowest percent Hispanic with 7.19.</p>
+<p>By default, <code>arrange()</code> sorts in ascending order. We can sort by a variable in descending order by using the <code>desc()</code> function on the variable we want to sort by. For example, to sort <em>counties1</em> by <em>phisp</em> in descending order we use</p>
+<pre class="r"><code>arrange(counties1, desc(phisp))</code></pre>
+<pre><code>## # A tibble: 58 × 12
+##    GEOID name     hisp  nhasn  nhblk nhwhite  tpopr pnhwh…¹ pnhasn  pnhblk phisp
+##    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 06025 Imper… 1.50e5   2263   4109   20372 1.80e5   0.113 0.0126 0.0228  0.834
+##  2 06107 Tular… 2.92e5  14622   5973  135372 4.59e5   0.295 0.0319 0.0130  0.636
+##  3 06069 San B… 3.46e4   1564    437   20872 5.87e4   0.356 0.0267 0.00745 0.589
+##  4 06011 Colus… 1.25e4    328    186    7800 2.15e4   0.363 0.0153 0.00866 0.584
+##  5 06047 Merce… 1.56e5  19593   8007   77092 2.67e5   0.288 0.0733 0.0299  0.582
+##  6 06053 Monte… 2.51e5  24213  10621  132600 4.33e5   0.306 0.0559 0.0245  0.579
+##  7 06039 Mader… 8.79e4   3035   4753   54145 1.54e5   0.351 0.0197 0.0308  0.569
+##  8 06031 Kings… 8.07e4   5463   8916   49728 1.50e5   0.331 0.0364 0.0594  0.537
+##  9 06019 Fresn… 5.09e5  96128  45217  293677 9.72e5   0.302 0.0989 0.0465  0.524
+## 10 06071 San B… 1.11e6 142802 168985  632557 2.12e6   0.298 0.0673 0.0797  0.523
+## # … with 48 more rows, 1 more variable: diff &lt;dbl&gt;, and abbreviated variable
+## #   name ¹​pnhwhite</code></pre>
+<p><a href="https://en.wikipedia.org/wiki/Imperial_County,_California">Imperial county</a> has the largest percent Hispanic with 83.4.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="pipes" class="section level3">
+<h3><strong>Pipes</strong></h3>
+<p><br />
+</p>
+<p>One of the important innovations from the tidyverse is the pipe operator <code>%&gt;%</code>. You use the pipe operator when you want to combine multiple operations into one continuous line of code. For example, we can use a pipe to combine all the commands we executed on the object <em>counties</em> from the sections <em>Selecting variables</em> to <em>Filtering</em> in one continuous line of code.</p>
+<pre class="r"><code>counties2 &lt;- counties %&gt;% 
+            select(-state) %&gt;% 
+            mutate(pnhwhite = nhwhite/tpopr, pnhasn = nhasn/tpopr, 
+                    pnhblk = nhblk/tpopr, phisp = hisp/tpopr,
+                    diff = pnhwhite-phisp) %&gt;% 
+            filter(GEOID == &quot;06067&quot; | GEOID == &quot;06113&quot;)</code></pre>
+<p><br></p>
+<p>Let’s break down what the pipe is doing here. First, you start out with your dataset <em>counties</em>. You “pipe” <code>%&gt;%</code> that into the command <code>select()</code>. Notice that you didn’t have to type in <em>counties</em> inside the <code>select()</code> command - <code>%&gt;%</code> pipes that in for you. <code>select()</code> deletes <em>state</em> and then pipes this result into the command <code>mutate()</code> to create new variables. This tibble gets piped to <code>filter()</code> to select just Sacramento and Yolo counties. Finally, the code saves the result into a new tibble <em>counties2</em> which we designated at the beginning with the arrow operator.</p>
+<p>Piping makes code clearer, and simultaneously gets rid of the need to define any intermediate objects that you would have needed to keep track of while reading the code. PIPE, Pipe, and pipe whenever you can. Badge it!</p>
+<center>
+<p><img src="pipe.png" style="width:25.0%" /></p>
+</center>
+<p><br />
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="saving-data" class="section level2">
+<h2><strong>Saving Data</strong></h2>
+<p><br />
+</p>
+<p>Let’s save a dataset containing race/ethnicity for Sacramento and Yolo counties. Use <code>write_csv()</code> to save the data frame or tibble as a csv file in the folder of your current working directory.</p>
+<pre class="r"><code>write_csv(counties2, &quot;lab2_file.csv&quot;)</code></pre>
+<p>The first argument is the name of the R object you want to save. The second argument is the name of the csv file in quotes. Make sure to add the .csv extension. The file is saved in the folder you set as the current working directory (remember, use <code>getwd()</code> to determine the current directory). You’re done! <a href="https://www.youtube.com/watch?v=3GwjfUFyY6M">Time to celebrate</a>.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="assignment-2" class="section level2">
+<h2><strong>Assignment 2</strong></h2>
+<p><br />
+</p>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn02.Rmd">Assignment 2 R Markdown Script</a>. The script can also be found on Canvas (Files - Week 2 - Assignment). Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas. We’ve put together some additional R tips <a href="https://crd150.github.io/tips.html">here</a> in the likely case you get stuck.</p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>Download the file <em>q2data.csv</em> from Canvas (Files -&gt; Week 2 -&gt; Assignment). Make sure you download it into an appropriate folder on your hard drive. A codebook is also provided. You must use functions we learned in lab.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Read the file into R. (1 point)</li>
+<li>How many rows are included in the file? What does each row represent? Remember that whenever you can, you need to use code to answer the questions. (2 points)</li>
+<li>How many columns are included in the file? What does each column represent? (2 points)</li>
+<li>Conduct the following data wrangling tasks. Use the pipe operator to do all of these tasks in one continuous line of code. Note that you have to decide the appropriate order of the tasks. (4 points)</li>
+</ol>
+<ul>
+<li>Keep the variables NAME, proportion White, Black and Hispanic, total population, and Hispanic household income.</li>
+<li>Create variables containing the proportion White, Black and Hispanic.</li>
+<li>Save the changes into a tibble named <em>q2clean</em></li>
+</ul>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Using the tibble <em>q2clean</em> you created in question 1d, determine how many observations have a percent Hispanic greater than 50% <em>and</em> have Hispanic households earning more than $75,000? (2 points)</li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The data set <em>babynames</em> contains the number of children of each sex given each name for each year from 1880 to 2017 as collected by the Social Security Administration. All names with more than 5 uses are given. Let’s strengthen your data wrangling skills by exploring this unique data set. Install the package <strong>babynames</strong>. Run the code <code>library(babynames)</code>, <code>data(babynames)</code> and <code>head(babynames)</code>. You should see the tibble <em>babynames</em> pop up in your global environment window. Type in <code>? babynames</code> to get a description of this dataset. You must use functions we learned in lab.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>What was the most popular female baby name in 2017? What about male? (3 points)</li>
+<li>Does your name appear in the dataset? If yes, what year was it the most popular? (3 points)</li>
+<li>Is the name “Madison” a more popular Male or Female name in 2017? What about in 1984? (3 points)</li>
+</ol>
+<hr />
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>
