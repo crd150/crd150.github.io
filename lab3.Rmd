@@ -486,11 +486,11 @@ Download and open the [Assignment 3 R Markdown Script](https://raw.githubusercon
 
 1. California housing is super duper [expensive!](https://www.bloomberg.com/graphics/2019-california-housing-crisis/) How many years of income will it take to buy a home in California? Let's answer this question by examining [house-price-to-income ratios](https://www.citylab.com/equity/2018/05/where-the-house-price-to-income-ratio-is-most-out-of-whack/561404/) in California counties. The ratio gives you the number of years a household needs in order to completely pay for housing in California assuming it uses all of its income to pay it off. Run the following data wrangling tasks.  Submit all the code you used to accomplish these tasks.  Where possible, use the pipe operator `%>%`. 
 
-a. Using the Census API, bring into R 2016-20 American Community Survey county-level estimates of [median housing value](https://www.socialexplorer.com/data/ACS2020_5yr/metadata/?ds=ACS20_5yr&table=B25077) in California. Make sure the data set is clean - a county should be listed in only one row and the columns should have the county FIPS code, name, and estimates of the median housing value. (2 points)
-b. Using PolicyMap, bring into R 2016-20 American Community Survey estimates of median household income for all counties in California.  Clean the data set. (3 points)
+a. Using the Census API, bring into R 2017-21 American Community Survey county-level estimates of [median housing value](https://www.socialexplorer.com/data/ACS2021_5yr/metadata/?ds=ACS21_5yr&table=B25077) in California. Make sure the data set is clean - a county should be listed in only one row and the columns should have the county FIPS code, name, and estimates of the median housing value. (2 points)
+b. Using PolicyMap, bring into R 2017-21 American Community Survey estimates of median household income for all counties in California.  Clean the data set. (3 points)
 c. Merge the files from (a) and (b) together. Create a variable containing the ratio of median housing value to median household income. That is, the variable should divide the median housing value by the median household income. (2 points)
-d. How many years will it take for a household to pay off a house in Yolo County in 2016-20? (1 point)
-e. Which county has the largest housing value-to-income ratio in 2016-2020? Smallest? (3 points)
+d. How many years will it take for a household to pay off a house in Yolo County in 2017-21? (1 point)
+e. Which county has the largest housing value-to-income ratio in 2017-21? Smallest? (3 points)
 
 
 <br>
