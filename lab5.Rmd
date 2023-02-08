@@ -595,7 +595,7 @@ You can save your maps a couple of ways.
 1. On the plotting screen where the map is shown, click on *Export* and save it as either an image or pdf file.
 2. Use the function `tmap_save()`
 
-For option 2, we can save the map object *sac.map* as such
+For option 2, we can save the map object *sac.map* as such 
 
 ```{r warning=FALSE, message=FALSE, eval = FALSE}
 tmap_save(sac.map, "saccountyhval.png")
