@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 6: Exploratory Spatial Data Analysis</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2023</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+    <li>
+      <a href="lab7.html">Lab 7</a>
+    </li>
+    <li>
+      <a href="lab8.html">Lab 8</a>
+    </li>
+    <li>
+      <a href="lab9.html">Lab 9</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Eligible Communities</a>
+    </li>
+    <li>
+      <a href="tips.html">R tips</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+    <li>
+      <a href="policymap.html">PolicyMap </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 6: Exploratory Spatial Data Analysis</h1>
+<h3 class="subtitle"><h4 style="font-style:normal">
+CRD 150 - Quantitative Methods in Community Research
+</h4></h3>
+<h4 class="author"><h4 style="font-style:normal">
+Professor Noli Brazil
+</h4></h4>
+<h4 class="date"><h4 style="font-style:normal">
+February 15th, 2023
+</h4></h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+<p><br></p>
+<p>In this guide you will learn how to conduct an exploratory spatial data analysis (ESDA). Specifically, you will learn how to examine and quantify spatial clustering (autocorrelation). You will also gain skills in spatial data wrangling. The objectives of the guide are as follows</p>
+<ol style="list-style-type: decimal">
+<li>Learn how to keep tracts that are within city boundaries</li>
+<li>Learn how to create a spatial weights matrix</li>
+<li>Calculate spatial autocorrelation</li>
+</ol>
+<p>To achieve these objectives, you will be working with tract-level data on the foreign-born population in Sacramento. This lab guide follows closely and supplements the material presented in Chapters 4.1 and 4.2 in the textbook <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> (GWR) and Handout 6.</p>
+<p><br></p>
+<p class="comment">
+<strong>Assignment 6 is due by 2:00 pm, February 22nd on Canvas.</strong> See <a href="https://crd150.github.io/hw_guidelines.html">here</a> for assignment guidelines. You must submit an <code>.Rmd</code> file and its associated <code>.html</code> file. Name the files: yourLastName_firstInitial_asgn06. For example: brazil_n_asgn06.
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="open-up-an-r-markdown-file" class="section level2">
+<h2><strong>Open up an R Markdown file</strong></h2>
+<p><br />
+</p>
+<p>Download the <a href="https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd">Lab template</a> into an appropriate folder on your hard drive (preferably, a folder named ‘Lab 6’), open it in R Studio, and type and run your code there. The template is also located on Canvas under Files. Change the title (“Lab 6”) and insert your name and date. Don’t change anything else inside the YAML (the stuff at the top in between the <code>---</code>). Also keep the grey chunk after the YAML. For a rundown on the use of R Markdown, see the <a href="https://crd150.github.io/hw_guidelines.html">assignment guidelines</a></p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="installing-and-loading-packages" class="section level2">
+<h2><strong>Installing and loading packages</strong></h2>
+<p><br />
+</p>
+<p>You’ll need to install the following packages in R. You only need to do this once, so if you’ve already installed these packages, skip the code. Also, don’t put these <code>install.packages()</code> in your R Markdown document. Copy and paste the code in the R Console. We’ll talk about what these packages provide as their relevant functions come up in the guide.</p>
+<pre class="r"><code>install.packages(&quot;rmapshaper&quot;)
+install.packages(&quot;spdep&quot;)</code></pre>
+<p>You’ll need to load the following packages. Unlike installing, you will always need to load packages whenever you start a new R session. You’ll also always need to use <code>library()</code> in your R Markdown file.</p>
+<pre class="r"><code>library(tidyverse)
+library(tidycensus)
+library(sf)
+library(tigris)
+library(tmap)
+library(rmapshaper)
+library(spdep)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="bringing-spatial-data-into-r" class="section level2">
+<h2><strong>Bringing spatial data into R</strong></h2>
+<p><br />
+</p>
+<p>We will be working with census tract data on the foreign-born population in Sacramento city. The following code is very similar to the code in <a href="https://crd150.github.io/lab5.html">Lab 5</a>, so we won’t dwell on the specifics. We first need to get foreign-born population data for California census tracts from the 2016-2020 American Community Survey. Let’s use our best friends the Census API and the function <code>get_acs()</code>. Remember that “E” at the end of the variable indicates “Estimate” and “M” indicates margins of errors.</p>
+<pre class="r"><code>ca.tracts &lt;- get_acs(geography = &quot;tract&quot;, 
+              year = 2020,
+              variables = c(fb = &quot;B05012_003&quot;, totp = &quot;B05012_001&quot;), 
+              state = &quot;CA&quot;,
+              survey = &quot;acs5&quot;,
+              output = &quot;wide&quot;,
+              geometry = TRUE)  %&gt;%
+              mutate(pfb = fbE/totpE) %&gt;%
+              rename(totp = totpE) %&gt;%
+              select(GEOID, totp, pfb)</code></pre>
+<p>Next, let’s bring in the Sacramento City boundary using <code>places()</code> from the <strong>tigris</strong> package, which we first learned about in <a href="https://crd150.github.io/lab3.html#Using_the_Census_API">Lab 3</a>. Remember, since we brought in 2016-2020 ACS data above, you need to specify <code>year = 2020</code> in the <code>places()</code> function.</p>
+<pre class="r"><code>pl &lt;- places(state = &quot;CA&quot;, cb = TRUE, year=2020)
+
+sac.city &lt;- filter(pl, NAME == &quot;Sacramento&quot;)</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="spatial-data-wrangling" class="section level2">
+<h2><strong>Spatial data wrangling</strong></h2>
+<p><br />
+</p>
+<p>The goal in this lab is to conduct exploratory spatial data analysis to examine how spatially clustered the foreign born population is in Sacramento City. Before we can do this, we need to keep the tracts from <em>ca.tracts</em> that are in Sacramento City <em>sac.city</em>. Easier said than done. Looking at the variables in the data frame <em>ca.tracts</em>, we find that there is no variable that indicates whether the tract belongs to Sacramento city. This includes the <em>GEOID</em>, which only provides state and county census IDs. While there is a <code>county =</code> argument in <code>get_acs()</code>, there is no <code>place =</code> argument. In order to extract the Sacramento tracts, we need to do some data wrangling. However, not just any old data wrangling, but <em>spatial</em> data wrangling. Cue <a href="https://www.youtube.com/watch?v=cphNpqKpKc4">dangerous sounding music</a>.</p>
+<p>Well, it’s not that dangerous or scary. Spatial Data Wrangling involves cleaning or altering your data set based on the geographic location of features. A common spatial data wrangling task is to subset a set of spatial objects based on their location relative to another spatial object. In our case, we want to keep California tracts that are in Sacramento city. Think of what were doing here as something similar to taking a cookie cutter shaped like the Sacramento city (in our case, the <strong>sf</strong> object <em>sac.city</em>) and cutting out the city from our cookie dough of census tracts (<em>ca.tracts</em>).</p>
+<p>Recall from Handout 3 that census tracts neatly fall within a county’s boundary (remember the census geography hierarchy diagram from Handout 3). In other words, tracts don’t spill over. But, it does spill over for cities. The left diagram in the Figure below is an example of a county in red and four tracts in black - all the tracts fall neatly into the county boundary. In contrast, the right diagram is an example of a city on top of four tracts - one tract falls neatly inside (top left), but the other three spill out.</p>
+<center>
+<div class="figure">
+<img src="example1.png" alt="" />
+<p class="caption">Tracts falling in (County) and out (City) of boundaries</p>
+</div>
+</center>
+<p>One way of dealing with this is to keep or clip the portion of the tract that is inside the boundary. Clipping will keep just the portion of the tract inside the city boundary and discards the rest of the tract. We use the function <code>ms_clip()</code> which is in the <a href="https://cran.r-project.org/web/packages/rmapshaper/rmapshaper.pdf"><strong>rmapshaper</strong></a> package. In the code below, <code>target = ca.tracts</code> tells R to cut out <em>ca.tracts</em> using the <em>sac.city</em> boundaries.</p>
+<pre class="r"><code>sac.city.tracts &lt;- ms_clip(target = ca.tracts, clip = sac.city, remove_slivers = TRUE)</code></pre>
+<p>Map the clipped tracts and the city boundaries.</p>
+<pre class="r"><code>tm_shape(sac.city.tracts) +
+  tm_polygons(col = &quot;blue&quot;) +
+tm_shape(sac.city) +
+  tm_borders(col = &quot;red&quot;)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
+<p>Now, the city is filled in with tracts. The argument <code>target =</code> specifies the dough and <code>clip =</code> specifies the cookie cutter. To be clear what a clip is doing, the Figure below shows a clip of the city example shown in the first Figure above. With a clip, one tract is not clipped because it falls completely within the city (the top left tract). But, the other three are clipped - the portions that are within the boundary are kept (in blue), and the rest (with hash marks) are discarded from the map.</p>
+<p>Because spatial data are not always precise, when you clip you’ll sometimes get unwanted <a href="https://en.wikipedia.org/wiki/Sliver_polygon">sliver polygons</a>. The argument <code>remove_slivers = TRUE</code> removes these slivers.</p>
+<center>
+<div class="figure">
+<img src="clip.png" alt="" />
+<p class="caption">Clipping tracts</p>
+</div>
+</center>
+<p>The number of tracts in the City of Sacramento is</p>
+<pre class="r"><code>nrow(sac.city.tracts)</code></pre>
+<pre><code>## [1] 149</code></pre>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="exploratory-spatial-data-analysis" class="section level2">
+<h2><strong>Exploratory Spatial Data Analysis</strong></h2>
+<p><br />
+</p>
+<p>Our goal is to determine whether the foreign-born population in Sacramento City is geographically clustered. We can explore clustering by examining maps and scatterplots. We can also formally test for clustering or spatial autocorrelation by calculating the Moran’s I, which is covered in Handout 6.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="exploratory-mapping" class="section level3">
+<h3><strong>Exploratory mapping</strong></h3>
+<p><br />
+</p>
+<p>Before calculating spatial autocorrelation, you should map your variable to see if it <em>looks</em> like it clusters across space. Using the function <code>tm_shape()</code>, which we learned about in <a href="https://crd150.github.io/lab5.html#Mapping_in_R">Lab 5</a>, and the mapping principles we learned in last week’s lecture, let’s make a nice map showing the proportion (or percent) foreign-born in Sacramento city using quantile breaks.</p>
+<pre class="r"><code>tm_shape(sac.city.tracts, unit = &quot;mi&quot;) +
+  tm_polygons(col = &quot;pfb&quot;, style = &quot;quantile&quot;,palette = &quot;Reds&quot;, 
+              border.alpha = 0, title = &quot;&quot;) +
+  tm_scale_bar(breaks = c(0, 1, 2), text.size  = 1,  position = c(&quot;left&quot;, &quot;bottom&quot;)) +
+  tm_layout(main.title = &quot;Proportion foreign-born in Sacramento City tracts&quot;,
+            main.title.size = 0.95, frame = FALSE,
+            legend.outside = TRUE)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<p>It does look like the foreign-born population clusters. In particular, there appears to be high concentrations of foreign-born residents in the South and North areas of the city.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="spatial-weights-matrix" class="section level3">
+<h3><strong>Spatial weights matrix</strong></h3>
+<p><br />
+</p>
+<p>Before we can formally model the spatial dependency shown in the above map, we must first cover how neighborhoods are spatially connected to one another. That is, what does “near” mean when we say “near things are more related than distant things”? You need to define</p>
+<ol style="list-style-type: decimal">
+<li>Neighbor connectivity (who is you neighbor?)</li>
+<li>Neighbor weights (how much does your neighbor matter?)</li>
+</ol>
+<p>We go through each of these steps below.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="neighbor-connectivity" class="section level4">
+<h4><strong>Neighbor connectivity</strong></h4>
+<p><br />
+</p>
+<p>A common way of defining neighbors is to see who shares a border. The two most common ways of defining contiguity is Rook and Queen adjacency (Figure below). Rook adjacency refers to neighbors that share a line segment. Queen adjacency refers to neighbors that share a line segment (or border) or a point (or vertex).</p>
+<center>
+<div class="figure">
+<img src="fig1.png" alt="" />
+<p class="caption">Geographic contiguity</p>
+</div>
+</center>
+<p>Neighbor relationships in R are represented by neighbor <em>nb</em> objects. An <em>nb</em> object identifies the neighbors for each feature in the dataset. We use the command <code>poly2nb()</code> from the <strong>spdep</strong> package to create a contiguity-based neighbor object.</p>
+<p>Let’s specify Queen connectivity.</p>
+<pre class="r"><code>sacb&lt;-poly2nb(sac.city.tracts, queen=T)</code></pre>
+<p>You plug the object <em>sac.city.tracts</em> into the first argument of <code>poly2nb()</code> and then specify Queen contiguity using the argument <code>queen=T</code>. To get Rook adjacency, change the argument to <code>queen=F</code>.</p>
+<p>The function <code>summary()</code> tells us something about the neighborhood.</p>
+<pre class="r"><code>summary(sacb)</code></pre>
+<p>The average number of neighbors (i.e. adjacent tracts) is 5.68s, 1 tract has a low of 1 neighbor and 1 has a high of 12 neighbors.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="neighbor-weights" class="section level4">
+<h4><strong>Neighbor weights</strong></h4>
+<p><br />
+</p>
+<p>We’ve established who our neighbors are by creating an <em>nb</em> object using <code>poly2nb()</code>. The next step is to assign weights to each neighbor relationship. The weight determines <em>how much</em> each neighbor counts. You will need to employ the <code>nb2listw()</code> command from the <strong>spdep</strong> package, which will you give you a spatial weights object.</p>
+<pre class="r"><code>sacw&lt;-nb2listw(sacb, style=&quot;W&quot;, zero.policy = TRUE)</code></pre>
+<p>In the command, you first put in your neighbor <em>nb</em> object (<em>sacb</em>) and then define the weights <code>style = "W"</code>. Here, <code>style = "W"</code> indicates that the weights for each spatial unit are standardized to sum to 1 (this is known as row standardization - see Handout 6). For example, if census tract 1 has 3 neighbors, each of the neighbors will have a weight of 1/3. This allows for comparability between areas with different numbers of neighbors.</p>
+<p>The <code>zero.policy = TRUE</code> argument tells R to ignore cases that have <strong>no</strong> neighbors. How can this occur? The Figure below provides an example. It shows tracts in Los Angeles county. You’ll notice two tracts that are not geographically adjacent to other tracts - they are literally islands (Catalina and San Clemente). So, if you specify queen adjacency, these islands would have no neighbors. If you conduct a spatial analysis of Los Angeles county tracts in R, most functions will spit out an error indicating that you have polygons with no neighbors. To avoid that, specify <code>zero.policy = TRUE</code>, which will ignore all cases without neighbors.</p>
+<center>
+<div class="figure">
+<img src="lacounty.png" alt="" />
+<p class="caption">Los Angeles county tracts with islands</p>
+</div>
+</center>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="moran-scatterplot" class="section level3">
+<h3><strong>Moran Scatterplot</strong></h3>
+<p><br />
+</p>
+<p>We’ve now defined what we mean by neighbor by creating an <em>nb</em> object using <code>poly2nb()</code> and the influence of each neighbor by creating a spatial weights matrix using <code>nb2listw()</code>. The map of percent foreign born showed that neighborhood percent foreign born appears to be clustered in Sacramento. We can visually explore this more by creating a scatterplot of percent foreign-born on the x-axis and the average percent foreign born of one’s neighbors (also known as the spatial lag) on the y-axis. We’ve already covered scatterplots in Handout 4. The scatterplot described here is just a special type of scatterplot known as a Moran scatterplot.</p>
+<p>You can create a Moran scatterplot using the function <code>moran.plot()</code> from the <strong>spdep</strong> package.</p>
+<pre class="r"><code>moran.plot(sac.city.tracts$pfb, sacw,
+           xlab = &quot;% foreign born&quot;,
+           ylab = &quot;Neighbors % foreign born&quot;)</code></pre>
+<p><img src="lab6_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
+<p>The first argument is the variable you want to calculate spatial autocorrelation for. The function <code>moran.plot()</code> is not tidy friendly, so we refer to the percent foreign born variable with a dollar sign <code>$</code>, which we learned about in <a href="https://crd150.github.io/lab1.html#Data_Frames">Lab 1</a>. <em>sac.city.tracts$pfb</em> will give you the percent foreign born as a vector.</p>
+<pre class="r"><code>sac.city.tracts$pfb</code></pre>
+<p>The second argument is the spatial weights matrix that defines neighbor and interaction. The <code>xlab</code> and <code>ylab</code> arguments provide clean labels for the x and y axes.</p>
+<p>The x-axis is a tract’s percent foreign born and the y-axis is the average percent foreign born of that tract’s neighbors. There is evidence of strong positive association - the higher your neighbors’ percent foreign born, the higher your own neighborhood’s percent foreign born. As we discussed in lecture, you can separate the plot into four quadrants based on positive and negative spatial autocorrelation.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="morans-i" class="section level3">
+<h3><strong>Moran’s I</strong></h3>
+<p><br />
+</p>
+<p>The map and Moran scatterplot provide descriptive visualizations of spatial clustering (autocorrelation) in the percent foreign born. But, rather than eyeballing the correlation, we need a quantitative and objective approach to measuring the degree to which places cluster. This is where measures of spatial autocorrelation step in. An index of spatial autocorrelation provides a summary over the entire study area of the level of spatial similarity observed among neighboring observations.</p>
+<p>The most popular test of spatial autocorrelation is the Moran’s I test. Use the command <code>moran.test()</code> in the <strong>spdep</strong> package to calculate the Moran’s I.</p>
+<pre class="r"><code>moran.test(sac.city.tracts$pfb, sacw)    </code></pre>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  sac.city.tracts$pfb  
+## weights: sacw    
+## 
+## Moran I statistic standard deviate = 10.066, p-value &lt; 2.2e-16
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.496907919      -0.006756757       0.002503483</code></pre>
+<p>We find that the Moran’s I is positive (0.49) and statistically significant (<a href="https://en.wikipedia.org/wiki/P-value">p-value</a> &lt; 0.05). Remember from lecture that the Moran’s I is simply a correlation, and we learned from Handout 3 that correlations go from -1 to 1. A 0.49 correlation is fairly high (meeting the rule of thumb of 0.30 described in Handout 6), indicating strong positive clustering. Moreover, we find that this correlation is statistically significant (p-value basically at 0).</p>
+<p>Based on the following evidence</p>
+<ol style="list-style-type: decimal">
+<li>A map of percent foreign born visually indicating geographic clustering</li>
+<li>The Moran scatterplot indicating a visual correlation between a neighborhood’s percent foreign born and its neighbors’ average percent foreign born</li>
+<li>A Moran’s I value that is</li>
+</ol>
+<ul>
+<li>Greater than 0.3</li>
+<li>Statistically significant from 0 with a p-value less than 0.05</li>
+</ul>
+<p>we can conclude that the foreign-born population in Sacramento city exhibits positive spatial autocorrelation, or, is geographically clustered.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="assignment-6" class="section level2">
+<h2><strong>Assignment 6</strong></h2>
+<p><br />
+</p>
+<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn06.Rmd">Assignment 6 R Markdown Script</a>. The script can also be found on Canvas (Files - Week 6 - Assignment). Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas.</p>
+<p><br></p>
+<ol style="list-style-type: decimal">
+<li>Housing eviction has received significant <a href="https://www.citylab.com/equity/2017/10/where-evictions-hurt-the-most/544238/">public attention</a> especially in the <a href="https://www.citylab.com/equity/2020/01/moms-4-housing-eviction-oakland-homeless-crisis-real-estate/605263/">City of Oakland</a>. Let’s examine the geographic clustering of housing eviction rates in the City of Oakland.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Use the Census API to bring in median household income (ID: B19013_001) from the 5-year 2015-19 American Community Survey for census tracts in California. Make sure to bring it in as a spatial object by setting <code>geometry = TRUE</code>. (1 point)</li>
+<li>For the object you created in (a), keep census tracts that are located in the City of Oakland. (2 points)</li>
+<li>Download the file oakevict.csv from Canvas (Files - Week 6 - Assignment). The file contains 2019 <a href="http://evictionlab.org/">housing eviction rates</a> for census tracts in Oakland. Read this file into R and merge it into the object you created in (b). (1 point)</li>
+<li>Calculate the correlation between median household income and eviction rates. (1 point)</li>
+<li>Create a presentation-ready map of housing eviction rates using quantile breaks. (1 point)</li>
+<li>Construct a Moran scatterplot of housing eviction rates. Use queen contiguity and row-standardized weights. (2 points)</li>
+<li>Calculate the Moran’s I for housing eviction rates. (1 point)</li>
+<li>Explain in your own words the conceptual difference between the correlation you calculated in 1d and the correlation you calculated in 1g. (2 points)</li>
+<li>Are housing eviction rates geographically clustered based on your analysis in (e)-(g)? Explain why or why not. (2 points)</li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>This <a href="http://www.latimes.com/nation/la-na-houston-diversity-2017-htmlstory.html">article</a> claims that Houston is the most racially integrated city in the United States. We’ll examine this claim by calculating the spatial clustering of race/ethnic groups using the Moran’s I for Houston metropolitan area data. Bring in the shapefile houstondems.zip into R. This file contains data for census tracts in the Houston metropolitan areas. The file is located on Canvas (Files - Week 6 - Assignment). Save the file in an appropriate folder and unzip it to extract the shapefiles. The record layout for the file can be found <a href="https://raw.githubusercontent.com/crd150/data/master/houston_tracts_record_layout.txt">here</a>. Consider the file to be clean and ready for analysis.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Read the file houstondems.shp into R. Create presentation-ready maps of percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic in the Houston metropolitan area using quantile breaks. (2 points)</li>
+<li>Calculate Moran’s I for percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic in Houston. Use queen contiguity and row-standardized weights. (3 points)</li>
+<li>Summarize in your own words which race/ethnic groups are geographically clustered in Houston based on your answers in (b). (2 points)</li>
+</ol>
+<hr />
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>
