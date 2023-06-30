@@ -546,54 +546,7 @@ my_table
 ```
 
 ```{=html}
-<template id="8982390c-40be-4818-865d-405ce7dc95a2"><style>
-.tabwid table{
-  border-spacing:0px !important;
-  border-collapse:collapse;
-  line-height:1;
-  margin-left:auto;
-  margin-right:auto;
-  border-width: 0;
-  border-color: transparent;
-  caption-side: top;
-}
-.tabwid-caption-bottom table{
-  caption-side: bottom;
-}
-.tabwid_left table{
-  margin-left:0;
-}
-.tabwid_right table{
-  margin-right:0;
-}
-.tabwid td, .tabwid th {
-    padding: 0;
-}
-.tabwid a {
-  text-decoration: none;
-}
-.tabwid thead {
-    background-color: transparent;
-}
-.tabwid tfoot {
-    background-color: transparent;
-}
-.tabwid table tr {
-background-color: transparent;
-}
-.katex-display {
-    margin: 0 0 !important;
-}
-</style><div class="tabwid"><style>.cl-baf684ba{}.cl-baecda3c{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-baf0bf9e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-baf0bfa8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-baf0bfb2{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-baf0d7ea{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-baf0d7f4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-baf0d7fe{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-baf0d7ff{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-baf684ba'><thead><tr style="overflow-wrap:break-word;"><th class="cl-baf0d7ea"><p class="cl-baf0bf9e"><span class="cl-baecda3c">City</span></p></th><th class="cl-baf0d7f4"><p class="cl-baf0bfa8"><span class="cl-baecda3c">Mean</span></p></th><th class="cl-baf0d7f4"><p class="cl-baf0bfa8"><span class="cl-baecda3c">Median</span></p></th><th class="cl-baf0d7f4"><p class="cl-baf0bfa8"><span class="cl-baecda3c">Standard Deviation</span></p></th><th class="cl-baf0d7f4"><p class="cl-baf0bfa8"><span class="cl-baecda3c">IQR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">Oakland</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">66,558.89</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">51,437.5</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">41,417.35</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">40,686.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">Sacramento</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">53,797.86</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">49,552.0</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">24,414.81</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">28,390.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">San Francisco</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">91,052.05</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">89,184.5</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">37,913.28</span></p></td><td class="cl-baf0d7fe"><p class="cl-baf0bfb2"><span class="cl-baecda3c">50,444.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-baf0d7ff"><p class="cl-baf0bfb2"><span class="cl-baecda3c">San Jose</span></p></td><td class="cl-baf0d7ff"><p class="cl-baf0bfb2"><span class="cl-baecda3c">91,805.13</span></p></td><td class="cl-baf0d7ff"><p class="cl-baf0bfb2"><span class="cl-baecda3c">88,299.0</span></p></td><td class="cl-baf0d7ff"><p class="cl-baf0bfb2"><span class="cl-baecda3c">34,649.93</span></p></td><td class="cl-baf0d7ff"><p class="cl-baf0bfb2"><span class="cl-baecda3c">48,412.25</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="cae6e9d7-d2c3-40a1-8334-d5e7e566ea20"></div>
-<script>
-var dest = document.getElementById("cae6e9d7-d2c3-40a1-8334-d5e7e566ea20");
-var template = document.getElementById("8982390c-40be-4818-865d-405ce7dc95a2");
-var fantome = dest.attachShadow({mode: 'open'});
-var templateContent = template.content;
-fantome.appendChild(templateContent);
-</script>
-
+<div class="tabwid"><style>.cl-f0090aa0{}.cl-efff3836{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f003a59c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f003a5a6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f003a5b0{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f003c068{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f003c072{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f003c073{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f003c074{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-f0090aa0'><thead><tr style="overflow-wrap:break-word;"><th class="cl-f003c068"><p class="cl-f003a59c"><span class="cl-efff3836">City</span></p></th><th class="cl-f003c072"><p class="cl-f003a5a6"><span class="cl-efff3836">Mean</span></p></th><th class="cl-f003c072"><p class="cl-f003a5a6"><span class="cl-efff3836">Median</span></p></th><th class="cl-f003c072"><p class="cl-f003a5a6"><span class="cl-efff3836">Standard Deviation</span></p></th><th class="cl-f003c072"><p class="cl-f003a5a6"><span class="cl-efff3836">IQR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">Oakland</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">66,558.89</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">51,437.5</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">41,417.35</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">40,686.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">Sacramento</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">53,797.86</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">49,552.0</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">24,414.81</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">28,390.50</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">San Francisco</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">91,052.05</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">89,184.5</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">37,913.28</span></p></td><td class="cl-f003c073"><p class="cl-f003a5b0"><span class="cl-efff3836">50,444.00</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f003c074"><p class="cl-f003a5b0"><span class="cl-efff3836">San Jose</span></p></td><td class="cl-f003c074"><p class="cl-f003a5b0"><span class="cl-efff3836">91,805.13</span></p></td><td class="cl-f003c074"><p class="cl-f003a5b0"><span class="cl-efff3836">88,299.0</span></p></td><td class="cl-f003c074"><p class="cl-f003a5b0"><span class="cl-efff3836">34,649.93</span></p></td><td class="cl-f003c074"><p class="cl-f003a5b0"><span class="cl-efff3836">48,412.25</span></p></td></tr></tbody></table></div>
 ```
 
 \
@@ -857,39 +810,6 @@ ggsave("phisp_inc.png", phisp_inc)
 
 Navigate to your working directory folder (type in `getwd()` to find what this folder is) and you should see *phisp_inc.png*.
 
-
-
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 4**
-\
-
-
-Download and open the [Assignment 4 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn04.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
-
-<br>
-  
-1. As a comprehensive source for neighborhood data, PolicyMap allows you to examine interesting associations across different dimensions of neighborhood health and well-being outside of those provided in the U.S. Census.  Let's examine the potential predictors of resident health in the City of Sacramento. Bring into R the dataset [sac_health_policymap.csv](https://raw.githubusercontent.com/crd150/data/master/sac_health_policymap.csv), which contains census-tract level data on Sacramento downloaded from PolicyMap.  I've also uploaded the file on Canvas (Files - Week 4 - Assignment). Consider the dataset to be cleaned and ready for analysis.  A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn4_question1_codebook.txt).  
-
-a. Create an appropriate plot that shows the shape of the distribution for the variable *health*, which measures the percent of residents reporting very good to excellent health.  Describe the shape of the distribution. (2 points)
-
-b. Examine the association between *health* and the variable *phys*. Based on this examination, briefly describe the relationship between the variable *health* and *phys*. (2 points)
-
-c. Create the appropriate plots showing the association between *health* and the following variables: *foodaccess*, *unemp*, and *medinc*.  Based on these plots, briefly describe the relationship between *health* and the three variables. Describe any nonlinearities in the relationships. (5 points)
-
-<br>
-
-2. The following questions investigate housing structure in Yolo County. Bring into R the dataset [ca_border_tracts.csv](https://raw.githubusercontent.com/crd150/data/master/ca_border_tracts.csv), which contains 2012-2016 American Community Survey (ACS) data for census tracts in California and states sharing a boundary with California (Arizona, Nevada, and Oregon). I've also uploaded the file on Canvas (Files - Week 4 - Assignment). Consider the dataset to be cleaned and ready for analysis.  A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/assgn4_question2_codebook.txt). 
-
-a. What is the mean, median, interquartile range, and standard deviation of the percentage of houses built after 2000 in Yolo County? Show these values in a presentation-ready table. (2 points) 
-
-b. What is the correlation between median household income and percentage of houses built after 2000 in Yolo County? (1 point)
-
-c. Show a plot investigating any potential outliers in the percentage of houses built after 2000 in Yolo County. (2 points)
-
-d. Did you find any outliers? If so, how many? What is the mean, median and standard deviation of the percentage of houses built after 2000 in Yolo County *without* these outliers? What about the correlation between median household income and percentage of houses built after 2000? Briefly comment on what you learned in question 2d. (4 points)
-
-e. Calculate 90/10 percentile ratios for median household income for each region (Bay Area, Southern California, Other California, Arizona, Nevada, and Oregon).  Present these values in a presentation-ready table using flextable(). Which region exhibits the highest neighborhood income inequality? Lowest? (2 points)
 
 
 

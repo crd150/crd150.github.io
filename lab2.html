@@ -13,7 +13,7 @@
 
 <title>Lab 2: Data Wrangling</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -596,7 +596,7 @@ h2.title {
 ##  8 06015 Del Norte County    California   5281    741    484   17233   27442
 ##  9 06017 El Dorado County    California  23279   7805   1614  145153  185015
 ## 10 06019 Fresno County       California 509442  96128  45217  293677  971616
-## # … with 48 more rows</code></pre>
+## # ℹ 48 more rows</code></pre>
 <p>Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen. In addition, each column reports its name and type.</p>
 <p>Tibbles are designed so that you don’t accidentally overwhelm your console when you print large data frames. Compare the print output above to what you get with a data frame</p>
 <pre class="r"><code>counties.df</code></pre>
@@ -646,7 +646,7 @@ h2.title {
 ##  8 06015 Del Norte County      5281    741    484   17233   27442
 ##  9 06017 El Dorado County     23279   7805   1614  145153  185015
 ## 10 06019 Fresno County       509442  96128  45217  293677  971616
-## # … with 48 more rows</code></pre>
+## # ℹ 48 more rows</code></pre>
 <p>A shortcut way of doing this is to use the <code>:</code> operator.</p>
 <pre class="r"><code>select(counties, GEOID, name, hisp:tpopr)</code></pre>
 <pre><code>## # A tibble: 58 × 7
@@ -662,7 +662,7 @@ h2.title {
 ##  8 06015 Del Norte County      5281    741    484   17233   27442
 ##  9 06017 El Dorado County     23279   7805   1614  145153  185015
 ## 10 06019 Fresno County       509442  96128  45217  293677  971616
-## # … with 48 more rows</code></pre>
+## # ℹ 48 more rows</code></pre>
 <p>The <code>:</code> operator tells R to select all the variables from <em>hisp</em> to <em>tpopr</em>. This operator is useful when you’ve got a lot of variables to keep and they all happen to be ordered sequentially.</p>
 <p>You can use the <code>select()</code> command to keep variables <em>except</em> for the ones you designate. For example, to keep all variables in <em>counties</em> except <em>state</em>, and save this change back into a new tibble called <em>counties1</em>, type in</p>
 <pre class="r"><code>counties1 &lt;- select(counties, -state)</code></pre>
@@ -726,38 +726,38 @@ h2.title {
 <p>We use the <code>arrange()</code> function to sort a data frame by one or more variables. You might want to do this to get a sense of which cases have the highest or lowest values in your data set or sort counties by their name. For example, let’s sort in ascending order counties by proportion Hispanic.</p>
 <pre class="r"><code>arrange(counties1, phisp)</code></pre>
 <pre><code>## # A tibble: 58 × 12
-##    GEOID name     hisp nhasn nhblk nhwhite  tpopr pnhwh…¹  pnhasn  pnhblk  phisp
-##    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-##  1 06105 Trinit…   937   141   104   10796  13037   0.828 0.0108  0.00798 0.0719
-##  2 06063 Plumas…  1599   148   160   15640  18724   0.835 0.00790 0.00855 0.0854
-##  3 06057 Nevada…  9109  1090   541   84389  98838   0.854 0.0110  0.00547 0.0922
-##  4 06089 Shasta… 17218  5195  1951  143919 178919   0.804 0.0290  0.0109  0.0962
-##  5 06003 Alpine…   117     8    18     777   1203   0.646 0.00665 0.0150  0.0973
-##  6 06091 Sierra…   290     0     4    2509   2885   0.870 0       0.00139 0.101 
-##  7 06043 Maripo…  1870   168   215   14309  17658   0.810 0.00951 0.0122  0.106 
-##  8 06023 Humbol… 14986  3886  1389  101460 135490   0.749 0.0287  0.0103  0.111 
-##  9 06009 Calave…  5166   527   258   36932  45057   0.820 0.0117  0.00573 0.115 
-## 10 06109 Tuolum…  6385   593   924   43565  53899   0.808 0.0110  0.0171  0.118 
-## # … with 48 more rows, 1 more variable: diff &lt;dbl&gt;, and abbreviated variable
-## #   name ¹​pnhwhite</code></pre>
+##    GEOID name    hisp nhasn nhblk nhwhite  tpopr pnhwhite  pnhasn  pnhblk  phisp
+##    &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 06105 Trini…   937   141   104   10796  13037    0.828 0.0108  0.00798 0.0719
+##  2 06063 Pluma…  1599   148   160   15640  18724    0.835 0.00790 0.00855 0.0854
+##  3 06057 Nevad…  9109  1090   541   84389  98838    0.854 0.0110  0.00547 0.0922
+##  4 06089 Shast… 17218  5195  1951  143919 178919    0.804 0.0290  0.0109  0.0962
+##  5 06003 Alpin…   117     8    18     777   1203    0.646 0.00665 0.0150  0.0973
+##  6 06091 Sierr…   290     0     4    2509   2885    0.870 0       0.00139 0.101 
+##  7 06043 Marip…  1870   168   215   14309  17658    0.810 0.00951 0.0122  0.106 
+##  8 06023 Humbo… 14986  3886  1389  101460 135490    0.749 0.0287  0.0103  0.111 
+##  9 06009 Calav…  5166   527   258   36932  45057    0.820 0.0117  0.00573 0.115 
+## 10 06109 Tuolu…  6385   593   924   43565  53899    0.808 0.0110  0.0171  0.118 
+## # ℹ 48 more rows
+## # ℹ 1 more variable: diff &lt;dbl&gt;</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/Trinity_County,_California">Trinity county</a> has the lowest percent Hispanic with 7.19.</p>
 <p>By default, <code>arrange()</code> sorts in ascending order. We can sort by a variable in descending order by using the <code>desc()</code> function on the variable we want to sort by. For example, to sort <em>counties1</em> by <em>phisp</em> in descending order we use</p>
 <pre class="r"><code>arrange(counties1, desc(phisp))</code></pre>
 <pre><code>## # A tibble: 58 × 12
-##    GEOID name     hisp  nhasn  nhblk nhwhite  tpopr pnhwh…¹ pnhasn  pnhblk phisp
-##    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-##  1 06025 Imper… 1.50e5   2263   4109   20372 1.80e5   0.113 0.0126 0.0228  0.834
-##  2 06107 Tular… 2.92e5  14622   5973  135372 4.59e5   0.295 0.0319 0.0130  0.636
-##  3 06069 San B… 3.46e4   1564    437   20872 5.87e4   0.356 0.0267 0.00745 0.589
-##  4 06011 Colus… 1.25e4    328    186    7800 2.15e4   0.363 0.0153 0.00866 0.584
-##  5 06047 Merce… 1.56e5  19593   8007   77092 2.67e5   0.288 0.0733 0.0299  0.582
-##  6 06053 Monte… 2.51e5  24213  10621  132600 4.33e5   0.306 0.0559 0.0245  0.579
-##  7 06039 Mader… 8.79e4   3035   4753   54145 1.54e5   0.351 0.0197 0.0308  0.569
-##  8 06031 Kings… 8.07e4   5463   8916   49728 1.50e5   0.331 0.0364 0.0594  0.537
-##  9 06019 Fresn… 5.09e5  96128  45217  293677 9.72e5   0.302 0.0989 0.0465  0.524
-## 10 06071 San B… 1.11e6 142802 168985  632557 2.12e6   0.298 0.0673 0.0797  0.523
-## # … with 48 more rows, 1 more variable: diff &lt;dbl&gt;, and abbreviated variable
-## #   name ¹​pnhwhite</code></pre>
+##    GEOID name    hisp  nhasn  nhblk nhwhite  tpopr pnhwhite pnhasn  pnhblk phisp
+##    &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 06025 Impe… 1.50e5   2263   4109   20372 1.80e5    0.113 0.0126 0.0228  0.834
+##  2 06107 Tula… 2.92e5  14622   5973  135372 4.59e5    0.295 0.0319 0.0130  0.636
+##  3 06069 San … 3.46e4   1564    437   20872 5.87e4    0.356 0.0267 0.00745 0.589
+##  4 06011 Colu… 1.25e4    328    186    7800 2.15e4    0.363 0.0153 0.00866 0.584
+##  5 06047 Merc… 1.56e5  19593   8007   77092 2.67e5    0.288 0.0733 0.0299  0.582
+##  6 06053 Mont… 2.51e5  24213  10621  132600 4.33e5    0.306 0.0559 0.0245  0.579
+##  7 06039 Made… 8.79e4   3035   4753   54145 1.54e5    0.351 0.0197 0.0308  0.569
+##  8 06031 King… 8.07e4   5463   8916   49728 1.50e5    0.331 0.0364 0.0594  0.537
+##  9 06019 Fres… 5.09e5  96128  45217  293677 9.72e5    0.302 0.0989 0.0465  0.524
+## 10 06071 San … 1.11e6 142802 168985  632557 2.12e6    0.298 0.0673 0.0797  0.523
+## # ℹ 48 more rows
+## # ℹ 1 more variable: diff &lt;dbl&gt;</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/Imperial_County,_California">Imperial county</a> has the largest percent Hispanic with 83.4.</p>
 <div style="margin-bottom:25px;">
 
@@ -794,42 +794,6 @@ h2.title {
 <p>Let’s save a dataset containing race/ethnicity for Sacramento and Yolo counties. Use <code>write_csv()</code> to save the data frame or tibble as a csv file in the folder of your current working directory.</p>
 <pre class="r"><code>write_csv(counties2, &quot;lab2_file.csv&quot;)</code></pre>
 <p>The first argument is the name of the R object you want to save. The second argument is the name of the csv file in quotes. Make sure to add the .csv extension. The file is saved in the folder you set as the current working directory (remember, use <code>getwd()</code> to determine the current directory). You’re done! <a href="https://www.youtube.com/watch?v=3GwjfUFyY6M">Time to celebrate</a>.</p>
-<div style="margin-bottom:25px;">
-
-</div>
-</div>
-<div id="assignment-2" class="section level2">
-<h2><strong>Assignment 2</strong></h2>
-<p><br />
-</p>
-<p>Download and open the <a href="https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn02.Rmd">Assignment 2 R Markdown Script</a>. The script can also be found on Canvas (Files - Week 2 - Assignment). Any response requiring a data analysis task must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the <code>Rmd</code> and its knitted <code>html</code> files on Canvas. We’ve put together some additional R tips <a href="https://crd150.github.io/tips.html">here</a> in the likely case you get stuck.</p>
-<p><br></p>
-<ol style="list-style-type: decimal">
-<li>Download the file <em>q2data.csv</em> from Canvas (Files -&gt; Week 2 -&gt; Assignment). Make sure you download it into an appropriate folder on your hard drive. A codebook is also provided. You must use functions we learned in lab.</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>Read the file into R. (1 point)</li>
-<li>How many rows are included in the file? What does each row represent? Remember that whenever you can, you need to use code to answer the questions. (2 points)</li>
-<li>How many columns are included in the file? What does each column represent? (2 points)</li>
-<li>Conduct the following data wrangling tasks. Use the pipe operator to do all of these tasks in one continuous line of code. Note that you have to decide the appropriate order of the tasks. (4 points)</li>
-</ol>
-<ul>
-<li>Keep the variables NAME, proportion White, Black and Hispanic, total population, and Hispanic household income.</li>
-<li>Create variables containing the proportion White, Black and Hispanic.</li>
-<li>Save the changes into a tibble named <em>q2clean</em></li>
-</ul>
-<ol start="5" style="list-style-type: lower-alpha">
-<li>Using the tibble <em>q2clean</em> you created in question 1d, determine how many observations have a percent Hispanic greater than 50% <em>and</em> have Hispanic households earning more than $75,000? (2 points)</li>
-</ol>
-<p><br></p>
-<ol start="2" style="list-style-type: decimal">
-<li>The data set <em>babynames</em> contains the number of children of each sex given each name for each year from 1880 to 2017 as collected by the Social Security Administration. All names with more than 5 uses are given. Let’s strengthen your data wrangling skills by exploring this unique data set. Install the package <strong>babynames</strong>. Run the code <code>library(babynames)</code>, <code>data(babynames)</code> and <code>head(babynames)</code>. You should see the tibble <em>babynames</em> pop up in your global environment window. Type in <code>? babynames</code> to get a description of this dataset. You must use functions we learned in lab.</li>
-</ol>
-<ol style="list-style-type: lower-alpha">
-<li>What was the most popular female baby name in 2017? What about male? (3 points)</li>
-<li>Does your name appear in the dataset? If yes, what year was it the most popular? (3 points)</li>
-<li>Is the name “Madison” a more popular Male or Female name in 2017? What about in 1984? (3 points)</li>
-</ol>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>

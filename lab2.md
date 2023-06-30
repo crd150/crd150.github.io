@@ -273,7 +273,7 @@ counties
 ##  8 06015 Del Norte County    California   5281    741    484   17233   27442
 ##  9 06017 El Dorado County    California  23279   7805   1614  145153  185015
 ## 10 06019 Fresno County       California 509442  96128  45217  293677  971616
-## # … with 48 more rows
+## # ℹ 48 more rows
 ```
 
 Tibbles have a refined print method that shows only the first 10 rows, and only the columns that fit on the screen.  In addition, each column reports its name and type.
@@ -354,7 +354,7 @@ select(counties, GEOID, name, hisp, nhasn, nhblk, nhwhite, tpopr)
 ##  8 06015 Del Norte County      5281    741    484   17233   27442
 ##  9 06017 El Dorado County     23279   7805   1614  145153  185015
 ## 10 06019 Fresno County       509442  96128  45217  293677  971616
-## # … with 48 more rows
+## # ℹ 48 more rows
 ```
 
 A shortcut way of doing this is to use the `:` operator.
@@ -378,7 +378,7 @@ select(counties, GEOID, name, hisp:tpopr)
 ##  8 06015 Del Norte County      5281    741    484   17233   27442
 ##  9 06017 El Dorado County     23279   7805   1614  145153  185015
 ## 10 06019 Fresno County       509442  96128  45217  293677  971616
-## # … with 48 more rows
+## # ℹ 48 more rows
 ```
 
 The `:` operator tells R to select all the variables from *hisp* to *tpopr*.  This operator is useful when you've got a lot of variables to keep and they all happen to be ordered sequentially.
@@ -508,20 +508,20 @@ arrange(counties1, phisp)
 
 ```
 ## # A tibble: 58 × 12
-##    GEOID name     hisp nhasn nhblk nhwhite  tpopr pnhwh…¹  pnhasn  pnhblk  phisp
-##    <chr> <chr>   <dbl> <dbl> <dbl>   <dbl>  <dbl>   <dbl>   <dbl>   <dbl>  <dbl>
-##  1 06105 Trinit…   937   141   104   10796  13037   0.828 0.0108  0.00798 0.0719
-##  2 06063 Plumas…  1599   148   160   15640  18724   0.835 0.00790 0.00855 0.0854
-##  3 06057 Nevada…  9109  1090   541   84389  98838   0.854 0.0110  0.00547 0.0922
-##  4 06089 Shasta… 17218  5195  1951  143919 178919   0.804 0.0290  0.0109  0.0962
-##  5 06003 Alpine…   117     8    18     777   1203   0.646 0.00665 0.0150  0.0973
-##  6 06091 Sierra…   290     0     4    2509   2885   0.870 0       0.00139 0.101 
-##  7 06043 Maripo…  1870   168   215   14309  17658   0.810 0.00951 0.0122  0.106 
-##  8 06023 Humbol… 14986  3886  1389  101460 135490   0.749 0.0287  0.0103  0.111 
-##  9 06009 Calave…  5166   527   258   36932  45057   0.820 0.0117  0.00573 0.115 
-## 10 06109 Tuolum…  6385   593   924   43565  53899   0.808 0.0110  0.0171  0.118 
-## # … with 48 more rows, 1 more variable: diff <dbl>, and abbreviated variable
-## #   name ¹​pnhwhite
+##    GEOID name    hisp nhasn nhblk nhwhite  tpopr pnhwhite  pnhasn  pnhblk  phisp
+##    <chr> <chr>  <dbl> <dbl> <dbl>   <dbl>  <dbl>    <dbl>   <dbl>   <dbl>  <dbl>
+##  1 06105 Trini…   937   141   104   10796  13037    0.828 0.0108  0.00798 0.0719
+##  2 06063 Pluma…  1599   148   160   15640  18724    0.835 0.00790 0.00855 0.0854
+##  3 06057 Nevad…  9109  1090   541   84389  98838    0.854 0.0110  0.00547 0.0922
+##  4 06089 Shast… 17218  5195  1951  143919 178919    0.804 0.0290  0.0109  0.0962
+##  5 06003 Alpin…   117     8    18     777   1203    0.646 0.00665 0.0150  0.0973
+##  6 06091 Sierr…   290     0     4    2509   2885    0.870 0       0.00139 0.101 
+##  7 06043 Marip…  1870   168   215   14309  17658    0.810 0.00951 0.0122  0.106 
+##  8 06023 Humbo… 14986  3886  1389  101460 135490    0.749 0.0287  0.0103  0.111 
+##  9 06009 Calav…  5166   527   258   36932  45057    0.820 0.0117  0.00573 0.115 
+## 10 06109 Tuolu…  6385   593   924   43565  53899    0.808 0.0110  0.0171  0.118 
+## # ℹ 48 more rows
+## # ℹ 1 more variable: diff <dbl>
 ```
 
 [Trinity county](https://en.wikipedia.org/wiki/Trinity_County,_California) has the lowest percent Hispanic with 7.19.
@@ -535,20 +535,20 @@ arrange(counties1, desc(phisp))
 
 ```
 ## # A tibble: 58 × 12
-##    GEOID name     hisp  nhasn  nhblk nhwhite  tpopr pnhwh…¹ pnhasn  pnhblk phisp
-##    <chr> <chr>   <dbl>  <dbl>  <dbl>   <dbl>  <dbl>   <dbl>  <dbl>   <dbl> <dbl>
-##  1 06025 Imper… 1.50e5   2263   4109   20372 1.80e5   0.113 0.0126 0.0228  0.834
-##  2 06107 Tular… 2.92e5  14622   5973  135372 4.59e5   0.295 0.0319 0.0130  0.636
-##  3 06069 San B… 3.46e4   1564    437   20872 5.87e4   0.356 0.0267 0.00745 0.589
-##  4 06011 Colus… 1.25e4    328    186    7800 2.15e4   0.363 0.0153 0.00866 0.584
-##  5 06047 Merce… 1.56e5  19593   8007   77092 2.67e5   0.288 0.0733 0.0299  0.582
-##  6 06053 Monte… 2.51e5  24213  10621  132600 4.33e5   0.306 0.0559 0.0245  0.579
-##  7 06039 Mader… 8.79e4   3035   4753   54145 1.54e5   0.351 0.0197 0.0308  0.569
-##  8 06031 Kings… 8.07e4   5463   8916   49728 1.50e5   0.331 0.0364 0.0594  0.537
-##  9 06019 Fresn… 5.09e5  96128  45217  293677 9.72e5   0.302 0.0989 0.0465  0.524
-## 10 06071 San B… 1.11e6 142802 168985  632557 2.12e6   0.298 0.0673 0.0797  0.523
-## # … with 48 more rows, 1 more variable: diff <dbl>, and abbreviated variable
-## #   name ¹​pnhwhite
+##    GEOID name    hisp  nhasn  nhblk nhwhite  tpopr pnhwhite pnhasn  pnhblk phisp
+##    <chr> <chr>  <dbl>  <dbl>  <dbl>   <dbl>  <dbl>    <dbl>  <dbl>   <dbl> <dbl>
+##  1 06025 Impe… 1.50e5   2263   4109   20372 1.80e5    0.113 0.0126 0.0228  0.834
+##  2 06107 Tula… 2.92e5  14622   5973  135372 4.59e5    0.295 0.0319 0.0130  0.636
+##  3 06069 San … 3.46e4   1564    437   20872 5.87e4    0.356 0.0267 0.00745 0.589
+##  4 06011 Colu… 1.25e4    328    186    7800 2.15e4    0.363 0.0153 0.00866 0.584
+##  5 06047 Merc… 1.56e5  19593   8007   77092 2.67e5    0.288 0.0733 0.0299  0.582
+##  6 06053 Mont… 2.51e5  24213  10621  132600 4.33e5    0.306 0.0559 0.0245  0.579
+##  7 06039 Made… 8.79e4   3035   4753   54145 1.54e5    0.351 0.0197 0.0308  0.569
+##  8 06031 King… 8.07e4   5463   8916   49728 1.50e5    0.331 0.0364 0.0594  0.537
+##  9 06019 Fres… 5.09e5  96128  45217  293677 9.72e5    0.302 0.0989 0.0465  0.524
+## 10 06071 San … 1.11e6 142802 168985  632557 2.12e6    0.298 0.0673 0.0797  0.523
+## # ℹ 48 more rows
+## # ℹ 1 more variable: diff <dbl>
 ```
 
 [Imperial county](https://en.wikipedia.org/wiki/Imperial_County,_California) has the largest percent Hispanic with 83.4.
@@ -597,37 +597,6 @@ write_csv(counties2, "lab2_file.csv")
 
 The first argument is the name of the R object you want to save. The second argument is the name of the csv file in quotes. Make sure to add the .csv extension. The file is saved in the folder you set as the current working directory (remember, use `getwd()` to determine the current directory). You're done! [Time to celebrate](https://www.youtube.com/watch?v=3GwjfUFyY6M).
 
-
-
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 2**
-\
-
-Download and open the [Assignment 2 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn02.Rmd). The script can also be found on Canvas (Files - Week 2 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case you get stuck. 
-
-<br>
-
-1. Download the file *q2data.csv* from Canvas (Files -> Week 2 -> Assignment).  Make sure you download it into an appropriate folder on your hard drive. A codebook is also provided. You must use functions we learned in lab.
-
-a. Read the file into R. (1 point)
-b. How many rows are included in the file? What does each row represent? Remember that whenever you can, you need to use code to answer the questions. (2 points)
-c. How many columns are included in the file? What does each column represent? (2 points)
-d. Conduct the following data wrangling tasks.  Use the pipe operator to do all of these tasks in one continuous line of code.  Note that you have to decide the appropriate order of the tasks. (4 points)
-
-* Keep the variables NAME, proportion White, Black and Hispanic, total population, and Hispanic household income.
-* Create variables containing the proportion White, Black and Hispanic.
-* Save the changes into a tibble named *q2clean*
-
-e. Using the tibble *q2clean* you created in question 1d, determine how many observations have a percent Hispanic greater than 50% *and* have Hispanic households earning more than $75,000? (2 points)
-
-<br>
-
-2. The data set *babynames* contains the number of children of each sex given each name for each year from 1880 to 2017 as collected by the Social Security Administration. All names with more than 5 uses are given. Let's strengthen your data wrangling skills by exploring this unique data set.  Install the package **babynames**.  Run the code `library(babynames)`, `data(babynames)` and `head(babynames)`. You should see the tibble *babynames* pop up in your global environment window. Type in `? babynames` to get a description of this dataset. You must use functions we learned in lab.
-
-a. What was the most popular female baby name in 2017? What about male? (3 points)
-b. Does your name appear in the dataset? If yes, what year was it the most popular? (3 points)
-c. Is the name "Madison" a more popular Male or Female name in 2017? What about in 1984? (3 points)
 
 
 

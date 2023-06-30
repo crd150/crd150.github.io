@@ -475,36 +475,6 @@ catracts <- get_acs(geography = "tract",
 You'll find that the code is nearly identical to the code we used to bring in the county data, except we replace `county` with `tract` for `geography =`.  We'll work with tract data more in the next lab when we explore methods and techniques in exploratory data analysis.
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 3**
-\
-
-Download and open the [Assignment 3 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn03.Rmd). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case  you get stuck. 
-
-<br>
-
-1. California housing is super duper [expensive!](https://www.bloomberg.com/graphics/2019-california-housing-crisis/) How many years of income will it take to buy a home in California? Let's answer this question by examining [house-price-to-income ratios](https://www.citylab.com/equity/2018/05/where-the-house-price-to-income-ratio-is-most-out-of-whack/561404/) in California counties. The ratio gives you the number of years a household needs in order to completely pay for housing in California assuming it uses all of its income to pay it off. Run the following data wrangling tasks.  Submit all the code you used to accomplish these tasks.  Where possible, use the pipe operator `%>%`. 
-
-a. Using the Census API, bring into R 2017-21 American Community Survey county-level estimates of [median housing value](https://www.socialexplorer.com/data/ACS2021_5yr/metadata/?ds=ACS21_5yr&table=B25077) in California. Make sure the data set is clean - a county should be listed in only one row and the columns should have the county FIPS code, name, and estimates of the median housing value. (2 points)
-b. Using PolicyMap, bring into R 2017-21 American Community Survey estimates of median household income for all counties in California.  Clean the data set. (3 points)
-c. Merge the files from (a) and (b) together. Create a variable containing the ratio of median housing value to median household income. That is, the variable should divide the median housing value by the median household income. (2 points)
-d. How many years will it take for a household to pay off a house in Yolo County in 2017-21? (1 point)
-e. Which county has the largest housing value-to-income ratio in 2017-21? Smallest? (3 points)
-
-
-<br>
-
-
-2. California has experienced a number of historically devastating wildfires in recent years.  One of the most destructive fires occurred in [Butte County in November 2018](https://en.wikipedia.org/wiki/Camp_Fire_(2018)).  Some [news](https://www.npr.org/2019/11/09/777801169/the-camp-fire-destroyed-11-000-homes-a-year-later-only-11-have-been-rebuilt) [articles](https://www.citylab.com/equity/2017/11/wildfires-have-worsened-the-bay-areas-housing-crisis/546647/) posited that the wild fires will have severe immediate consequences on the local housing market.  Because the fires burned down a large proportion of homes, reducing housing stock, housing and rental prices will increase because of the low supply and the high demand. We will use the 2019 1-year ACS data to test whether rental and housing values in Butte County increased approximately one year after the fires.
-
-a. Use the Census API to bring in 1-year ACS estimates of [median housing values](https://www.socialexplorer.com/data/ACS2018/metadata/?ds=ACS18&table=B25077) and [median gross rent](https://www.socialexplorer.com/data/ACS2018/metadata/?ds=ACS18&table=B25064) for California counties in 2018.  Do the same for 2019, merge these files together using their GEOID, and select out the variables containing the margin of errors. Filter to keep just Butte county. (3 points)
-
-b. Take the difference between the 2018 and 2019 median housing values. Do the same for median gross rent.  Did housing values go up in Butte county? What about rent? (3 points)
-
-c.  We need an appropriate comparison to Butte county to determine whether the changes we calculated in (b) are large.  Repeat (a) and (b) but for the state of California to get the increase in the state's median housing value and median gross rent from 2018 to 2019. How do the values you calculated in (b) compare to California?  (3 points)
-
-
 
 ***
 
