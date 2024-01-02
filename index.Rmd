@@ -1,8 +1,8 @@
 ---
 title: 'CRD 150: Quantitative Methods in Community Research'
-subtitle: <h4 style="font-style:normal">Professor Noli Brazil</h4>
-author: <h4 style="font-style:normal">University of California, Davis</h4>
-date: <h4 style="font-style:normal">Department of Human Ecology, Community and Regional Development</h4>
+subtitle: <font size="4">Professor Noli Brazil</font>
+author: <font size="4">University of California, Davis</font>
+date: <font size="4">Department of Human Ecology, Community and Regional Development</font>
 ---
 
 
