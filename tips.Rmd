@@ -1,7 +1,7 @@
 ---
 title: "R Tips and Fixes"
-subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-author: <h4 style="font-style:normal">Professor Noli Brazil</h4>
+subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
+author: Professor Noli Brazil
 output: 
   html_document:
     toc: true
@@ -42,17 +42,19 @@ Note that we've already provided a detailed list of common R Markdown issues in 
 ## **R help**
 \
 
+When you get an error in R, it will tell you in red like so: \textcolor{red}{Error: ______}. Note that not all red text is an error. It could be a warning or a message. You shouldn't necessarily ignore warnings and messages, but you can still run code when you get them. With errors, you can't run code. What are some common causes of errors?
+
 * **Check for typos.** One of the most common causes of errors are typos, which usually throw an error such as `Error in _____ : could not find function “_____”` due to a function being misspelled.  What kinds of typos are the most common?
-  - Misspellings
-  - Capitalization: You typed an uppercase letter when you should have typed a lowercase letter (vice versa).
-  - Closing punctuation: You forgot a closing parentheses, bracket, or quotation. All too often have I forgotten to add an additional parenthesis at the end of a line. You’ll know that you’ve done this if you see a red X on the left side of your R Markdown document. The red X will appear as you are typing, so wait until you’re finished to assess these warnings.
-  - You forgot to add a comma (,), pipe (`%>%`), plus sign (`+`) or comma (`,`).
+  - *Misspellings*; This is by far the most common simple mistake for a beginner. Make sure you spelled the function, the function's arguments, the object(s) you are calling up, the name of the file you are reading in etc. correctly.
+  - *Capitalization*: You typed an uppercase letter when you should have typed a lowercase letter (vice versa).
+  - *Closing punctuation*: You forgot a closing parentheses, bracket, or quotation. All too often have I forgotten to add an additional parenthesis at the end of a line. You’ll know that you’ve done this if you see a red X on the left side of your R Markdown document. The red X will appear as you are typing, so wait until you’re finished to assess these warnings.
+  - You *forgot to add* a comma (,), pipe (`%>%`), plus sign (`+`) or comma (`,`).
 
 <br>
 
 * **Did you create the object?**  If you get an error that reads `Error: object '____' not found`, this means that you did not create this object.  Maybe you have a spelling error.  Maybe you just simply did not create it. Look at your Environment window - do you see the object there? Remember, if you are knitting, the code that creates the object should be in the R Markdown file.
 
-* **Check loaded packages.** You also get errors like `Error in data %>% summary() : could not find function “%>%”` when you failed to load a package. 
+* **Check loaded packages.** You get errors like `Error in data %>% summary() : could not find function “%>%”` when you failed to load a package. 
 
 * **Functions sharing similar names**.  Yes, this exists.  There are two or more packages with the same exact function name.  An example of this is the function `select()` which is in the **dplyr** and **MASS** packages.  When you have both packages loaded, you will need to specify the package you want to use for that shared function name every time you use that function.  For example, `dply::select()`.
 
@@ -70,7 +72,7 @@ Note that we've already provided a detailed list of common R Markdown issues in 
 
 <br>
 
-Read the error message. Don’t ignore what R is telling you. Be aware that red text that appears in your console is not always an indication of an error. Sometimes it’s just a warning.
+Read the error message. Don’t ignore what R is telling you.
 
 
 
@@ -99,6 +101,8 @@ The [assignment guidelines](https://crd150.github.io/hw_guidelines.html) goes th
 
 * Filename of .Rmd File. Ensure that the filename of your .Rmd file does not have any special characters at the end.  Example: no files named analysis_(1).Rmd, but rather analysis.Rmd. 
 
+* Make sure that any data you read in is also in the same folder as the RMarkdown.
+
 
 <div style="margin-bottom:25px;">
 </div>
@@ -111,7 +115,7 @@ The [assignment guidelines](https://crd150.github.io/hw_guidelines.html) goes th
   + A description of the error code. Paste the error message into the email or attach a screenshot
   + A brief explanation of steps you have already taken to try to resolve the issue on your own
 
-* You should ask your peers for help before you ask your instructor or TA. Relying on a single person to solve all of your problems is dangerous, because that person won’t be available throughout your career as a data scientist.
+* You should ask your peers for help before you ask your instructor or TA. Relying on a single person to solve all of your problems is dangerous, because that person won’t be available throughout your career.
 
 * Read our course textbooks [R for Data Science](http://r4ds.had.co.nz/index.html) and [Geocomputation with R](https://geocompr.robinlovelace.net/)
 
@@ -126,6 +130,7 @@ The [assignment guidelines](https://crd150.github.io/hw_guidelines.html) goes th
 * The following online resources are great for getting help.
 
   - [RStudio Cheatsheets](https://rstudio.com/resources/cheatsheets/)
+  - [Common Errors](https://epirhandbook.com/en/common-errors.html)
   - [Getting Help with R](https://www.r-project.org/help.html)
   - [What they forget to teach you about R](https://rstats.wtf/)
   - [Data wrangling cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)

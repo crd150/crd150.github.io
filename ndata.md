@@ -1,7 +1,7 @@
 ---
 title: "Neighborhood Data Sources"
-subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2023</h4>
+subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
+author: Winter 2024
 output: 
   html_document:
     theme: cosmo
@@ -56,7 +56,7 @@ This guide lists and describes online sources that provide data typically in a c
     + Similar to PolicyMap, but focuses more on historical data, including Census data going back to the first Census in 1790. Also like PolicyMap, UC Davis affiliates have access to all Social Explorer tools. Focuses on census data, but provides data from other sources, including religious organizations.
     
 
-* [National Neighborhood Data Archive](https://www.openicpsr.org/openicpsr/nanda)  
+* [National Neighborhood Data Archive](https://www.icpsr.umich.edu/web/ICPSR/series/1920)  
   + The National Neighborhood Data Archive is a publicly available data archive containing contextual measures for neighborhoods, typically census tracts, across the United States. NaNDA offers theoretically derived, spatially referenced, nationwide measures of the physical and social environment at local levels.    
 
 **Decennial Census and American Community Survey**
@@ -87,15 +87,18 @@ If you want to evaluate tract characteristics over a long time period, you'll ne
     
 * [Longitudinal Tract Database](https://s4.ad.brown.edu/projects/diversity/researcher/bridging.htm)
     + This site's tools are free to the public.  In addition to providing preloaded census data normalized to a certain boundary year, the site provides crosswalks that allow you to normalize *any* tract level data.
-
+    
+* [Interpolation](https://walker-data.com/census-r/spatial-analysis-with-us-census-data.html?q=interpolate#area-weighted-areal-interpolation)
+    + You can interpolate estimates of census tracts over time using interpolation functions available in the **sf** package. 
+    
 **Health characteristics**
 
 The following datasets provide health related indicators at small scale geographies.
 
-* [PLACES: Local Data for Better Health](https://www.cdc.gov/places/index.html).
+* [PLACES: Local Data for Better Health](https://www.cdc.gov/places/index.html)
     + This dataset, put together by the Centers for Disease Control and Prevention (CDC), provides city- and census tract-level small area estimates for chronic disease risk factors, health outcomes, and clinical preventive service use for census tracts in the United State.
     
-* [Healthy Places Index](https://www.healthyplacesindex.org/). 
+* [Healthy Places Index](https://www.healthyplacesindex.org/) 
   + A project of the Public Health Alliance of Southern California, The Healthy Places Index (HPI) is a powerful and easy-to-use data and policy platform created to advance health equity through open and accessible data. Neighborhood-by-neighborhood, the HPI maps data on social conditions that drive health — like education, job opportunities, clean air and water, and other indicators that are positively associated with life expectancy at birth. 
 
 * [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40)  
