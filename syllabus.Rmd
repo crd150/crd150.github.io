@@ -8,24 +8,10 @@ output:
     toc_depth: 3
     toc_float: true
     theme: cosmo
+    self_contained: false
 ---
 
-
 <style>
-p.comment {
-background-color: #DBDBDB;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: italic;
-}
-
-.figure {
-   margin-top: 20px;
-   margin-bottom: 20px;
-}
-
 h1.title {
   font-weight: bold;
   font-family: Arial;  
@@ -35,8 +21,12 @@ h2.title {
   font-family: Arial;  
 }
 
-</style>
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
 
+</style>
 
 <style type="text/css">
 #TOC {
@@ -46,6 +36,7 @@ h2.title {
 </style>
 
 \
+
 
 The following is an abridged version of the course syllabus.  A full course syllabus can be found on the Canvas class website.
 
