@@ -1,7 +1,7 @@
 ---
 title: "Eligible Cities and Counties"
-subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2023</h4>
+subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
+author: Winter 2024
 output: 
   html_document:
     toc: true
