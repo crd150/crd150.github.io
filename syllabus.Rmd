@@ -1,14 +1,13 @@
 ---
 title: "Syllabus"
 subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
-date: <font size="4">Winter 2024</font>
+author: Winter 2024
 output: 
   html_document:
     toc: true
     toc_depth: 3
     toc_float: true
     theme: cosmo
-    self_contained: false
 ---
 
 <style>
