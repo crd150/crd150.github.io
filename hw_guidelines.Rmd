@@ -1,7 +1,7 @@
 ---
 title: "Assignment Guidelines"
-subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2023</h4>
+subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
+date: Winter 2024
 output: 
   html_document:
     toc: true
@@ -38,19 +38,27 @@ h2.title {
 \
 
 
-Assignments will be released Wednesday morning and are due 2:00 pm on Canvas the following Wednesday. Assignment questions are provided at the end of each lab's guide. Assignments have two components:
+Assignments will be released Wednesday morning and are due 10:00 am on Canvas the following Wednesday. Assignment questions are provided at the end of each lab's guide. Assignments have two components:
 
-1. Executing data analysis tasks in R. For example, creating a map or running a statistical model and interpreting its results.
+1. Executing data analysis tasks in R. For example, creating a map or running a statistical model.
 2. Answering conceptual questions - for example, interpret a concept introduced in lecture or the textbook.  
 
-You will use [R Markdown](https://rmarkdown.rstudio.com/) to write up all R related assignments. This guide will go through the steps for answering and submitting class assignment questions using R Markdown.  For a thorough rundown of R Markdown, see [Chapter 27](https://r4ds.had.co.nz/r-markdown.html) in RDS.
+In order to get full credit for each assignment, you will need to
+
+1. Show the correct statistical results for a given question (e.g. map, table, statistics).
+2. Show the code producing the results. 
+3. Provide comments in your own words explaining what each line of code is doing
+4. Provide correct written answers.  
+5. Submit an R Markdown Rmd file and its knitted html file on Canvas.
+
+You will use [R Markdown](https://rmarkdown.rstudio.com/) to write up all R related assignments. This guide will go through the steps for answering and submitting class assignment questions using R Markdown.  For a thorough rundown of R Markdown, see [Chapter 27](https://r4ds.had.co.nz/r-markdown.html) in RDS. For full explanation of how assignments will be graded, read the [Grading section](https://crd150.github.io/hw_guidelines.html#Grading) located later in this guide.
 
 <div style="margin-bottom:25px;">
 </div>
 ## **R Markdown**
 \
 
-R Markdown is a simple formatting syntax for authoring html, pdf, and Microsoft Word documents in RStudio.  For each R related assignment, you will upload onto Canvas two documents: 
+R Markdown is a simple formatting syntax for authoring html, pdf, and Microsoft Word documents in RStudio.  For each R related assignment, you will need to upload onto Canvas two documents: 
 
 1. An R Markdown document, which has an `.Rmd` extension
 2. A knitted `.html` file 
@@ -76,7 +84,7 @@ Once you've installed these packages, you don't need to install them any more in
 
 An `.Rmd` template will be provided for each assignment.  Download the week's assignment template, which will be linked at the top of every assignment, and save it into an appropriate folder on your hard drive. File management is important here. Here are some tips.
 
-* Set up a clear and understandable hierarchical file system for this class on your hard drive.  For example, create a class folder (CRD 150).  Within this class folder, create the folder Assignments.  Within the Assignments folder, create separate folders for each Assignment (e.g. Assignment 1, Assignment 2, ...).  Save that week's assignment template here. When you knit your Rmd (we'll get to what knitting means below), this is where your html file will go. Don't work from your Desktop. Or from the Downloads folder. Or some randomly named folder that you will have a hard time finding a month, week or day from now. You might end having a system that looks like the following (on a Mac)
+* Set up a clear and understandable hierarchical file system for this class on your hard drive.  For example, create a class folder (CRD 150).  Within this class folder, create the folder Assignments.  Within the Assignments folder, create separate folders for each Assignment (e.g. Assignment 1, Assignment 2, ...).  Save that week's assignment template here. When you knit your Rmd (we'll get to what knitting means below), this is where your html file will go. Don't work from your Desktop. Or from the Downloads folder. Or some randomly named folder that you will have a hard time finding a month, week or day from now. You should have a sequence of folders that looks like the following (on a Mac)
 
 <center>
 ![This is what file organization looks like](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/fileorg.png)
@@ -136,7 +144,7 @@ Question 1
 
 `r ''`1+1
 
-1. What does the above code do?
+1. What is the result of the above operation?
 ````
 \
 
@@ -158,7 +166,7 @@ We will ask you to annotate your R code so that we (and you) know what is being 
 
 ````
 ```{r}`r ''`
-#this yields two
+#The code adds one plus one
 1+1
 ```
 ````
@@ -172,7 +180,7 @@ The first line of the chunk has `{r}` which basically states that everything ins
 
 ````
 ```{r q1chunk1}`r ''`
-#this yields two
+#The code adds one plus one
 1+1
 ```
 ````
@@ -188,6 +196,7 @@ In every R Markdown assignment template, you will notice the following R code ch
 ````
 ```{r}`r ''`
 knitr::opts_chunk$set(warning=FALSE, message = FALSE)
+knitr::opts_knit$set(progress = TRUE, verbose = TRUE)
 ```
 ````
 
@@ -216,7 +225,7 @@ Question 1
 
 `r ''`1+1
 
-1. What does the above code do?
+1. What is the result of the above operation?
 ````
 \
 
@@ -226,12 +235,11 @@ You would type in your R Markdown document the following
 Question 1
 
 ```{r q1chunk1}`r ''`
-#this yields two
+#The code adds one plus one 
 1+1
 ```
 
-The code adds one plus one
-
+This yields two
 ````
 
 <br>
@@ -311,11 +319,11 @@ After you write code in a chunk, you'll need to test the code to make sure it is
 Question 1
 
 ```{r q1chunk1}`r ''`
-#this yields two
+#The code adds one plus one 
 1+1
 ```
 
-The code adds one plus one.
+This yields two
 ````
 
 <br>
@@ -365,6 +373,8 @@ Note that when you run an R code chunk for the very first time ever, its output 
 
 </center>
 
+\
+
 This will also be true when you plot graphs and maps. When you are testing your code, you might want to have the code results shown in your RStudio Console (the bottom left window) and plots/maps shown in the Plots window (bottom right window). To get RStudio to do this, select the "Tools" menu and select "Global Options".  Select "R Markdown" from the left-hand side and deselect the check box "Show output inline for all R Markdown documents". The output from your code should now be shown in the console or Plots window. 
 
 <center>
@@ -383,7 +393,7 @@ In addition to the R Markdown Rmd file, you will need to submit its knitted resu
 
 <br>
 
-To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png), which will be located at the top of the upper center of the R Markdown window.  Note that you can select your document type when knitting by clicking the pull down menu next to ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png) and selecting your document choice (default is html).  When you start knitting, you will notice that a new window on the bottom left will appear in place of the console.  The window will show the progress in your knitting.  R is going through each R code chunk one at a time. The percentages you will see will be based on the proportion of your R Markdown file that R has successfully knitted. See Figure below.
+To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png), which will be located at the top of the upper center of the R Markdown window.  Note that you can select your document type when knitting by clicking the pull down menu next to ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/hwguide6.png) and selecting your document choice (default is html).  When you start knitting, you will notice that a new window on the bottom left named "Render" will appear in place of the console.  The window will show the progress in your knitting.  R is going through each R code chunk one at a time. The percentages you will see will be based on the proportion of your R Markdown file that R has successfully knitted. See Figure below.
 
 <br>
 
@@ -394,7 +404,9 @@ To Knit your document click ![](/Users/noli/Documents/UCD/teaching/CRD150/Lab/cr
 
 <br>
 
-If it has a problem knitting, R will stop at the chunk that contains the problem.  You can determine the offending place in your R Markdown file two ways.  First, in the R Markdown tab in  the bottom left window, if you click on "Output" located at the top right corner of this window, you will see the R Markdown progress window, the error in red, and where R Markdown stopped. Carefully read the description of the error, which will contain the R code chunk name and sometimes the lines containing the problem in your R Markdown file.  This is where it is useful for naming your chunks.  You can directly go to your offending chunk and see what may be the problem. For example, the figure below shows knitting was stopped because the object *xyz* was not created in the R Markdown file.  You can go to the chunk named *q2chunk2* to remedy the issue.
+If you have successfully knitted the RMarkdown file, the resulting html file will appear in the same folder as where your RMarkdown file resides. 
+
+If it has a problem knitting, R will stop at the chunk that contains the problem.  You can determine the offending error and where it is located in your RMarkwdown in the Render pane.  You will see the R Markdown progress window, the error in red, and where R Markdown stopped. Carefully read the description of the error, which will contain the R code chunk name and the lines containing the problem in your R Markdown file.  This is where it is useful for naming your chunks.  You can directly go to your offending chunk and lines of code and see what may be the problem. For example, the figure below shows knitting was stopped because the column *tpopr* does not exist.  You can go to the chunk named *q3chunk2*, lines 55-56 to remedy the issue.
 
 <br>
 
@@ -405,20 +417,10 @@ If it has a problem knitting, R will stop at the chunk that contains the problem
 
 <br>
 
-The other way to find where R Markdown is having trouble is by clicking on "Issues" also located at the top right corner of the R Markdown window. The error will give you something similar to what you found in the Output window, but instead of a chunk, it will tell you the specific line in your R Markdown file that this error is located.  Go to that line in your R Markdown file and see what is the issue.  For example the error identified below is located in line 34.
-
-<br>
-
-<center>
-![R Markdown knitting stopped by an error ](/Users/noli/Documents/UCD/teaching/CRD150/Lab/crd150.github.io/kniterror2.png)
-
-</center>
-
-<br>
 
 Hopefully, the error statement reveals why you were not able to knit.  If it is not illuminating, you'll need to figure out what you did wrong.  See the **Having problems knitting?** section below.
 
-Note that when you are knitting, progress and any errors will be shown not in the regular R console window, but in a special R Markdown window.  To toggle back to the Console (and back to the R Markdown window), just click on the Console (or R Markdown) tab as shown below.
+Note that when you are knitting, progress and any errors will be shown not in the regular R console window, but in the Render window.  To toggle back to the Console (and back to the Render window), just click on the Console (or R Markdown) tab as shown below.
 
 <br><br>
 
@@ -519,10 +521,10 @@ The proper workflow for each assignment will be as follows
 1. Go through the week's reading and lab guide and make sure you understand the material.
 2. Create a folder on your hard drive that is specific to the assignment (e.g. Assignment 1, Assignment 2, etc.).
 3. Save the R Markdown assignment template linked to each assignment in the appropriate assignment folder on your hard drive.
-4. Download any data needed for the assignment into the same folder.  For most assignments, I will upload the assignment data on GitHub, which you can directly link to in R, so you won't have to download data.
+4. Download any data needed for the assignment into the same folder.  For most assignments, I will upload the assignment data on Canvas or GitHub.
 5. Open the R Markdown assignment file in RStudio.
 6. In the R Markdown document, answer the first assignment question.
-* Most of the questions will ask you to run code.  Show that code in R Markdown chunks. Bottom line: Any code you used to get a result should be in your assignment. Otherwise, you will get points off, and for some questions, get *all* points off.
+* Most of the questions will ask you to run code.  Show that code with your own comments in R Markdown chunks. Bottom line: Any code you used to get a result should be in your assignment. Otherwise, you will get points off, and for some questions, get *all* points off.
   + Break up your code into different chunks where it makes sense. For some questions, you might include all code for a question in one single chunk.  For other questions, you might break up the code into several chunks.
   + Make sure your code works.  Run code one chunk at a time to make sure it is working. Note that there are multiple ways to get to an answer in R. **We will not grade on how efficient your code is unless stated so in the question**. 
 * Most of the questions will ask you to explain your results. Write your explanations outside of the R code chunks. Please - *please* - take these interpretation questions seriously.  This is a not a programming or Data Science course - you may have taken 40 hours to produce super elegant code to answer a question, but your results won't be worth much to anyone if you can't properly interpret them. 
@@ -541,9 +543,27 @@ In order to get full credit for each assignment, you will need to
 
 1. Show the correct statistical results for a given question (e.g. map, table, statistics).
 2. Show the code producing the results. 
-3. Provide correct written answers.  
+3. Provide comments in your own words explaining what each line of code is doing
+4. Provide correct written answers.  
+5. Submit an R Markdown Rmd file and its knitted html file on Canvas.
 
 Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.   Because there are typically multiple ways to get an answer, we will not grade you on the efficiency of your code.  You can ask for help from the TAs and work with other students.  However, you *must* submit your own assignments.
+
+You *must* include in *your own words* comments that explain each line of code in your R Markdown. It does not have to be extensive, but should be concise and clear enough to let us know that you understand what the code is doing. You should indicate not just the **what**, but also the **why**. For example
+
+````
+```{r q1chunk1}`r ''`
+#keeps the variables var1 and var2 because these are the only variables I need 
+#for the analysis.
+
+object <- object %>%
+          select(var1, var2)
+```
+````
+
+<br>
+
+Comments are important for demonstrating that you understand what your code is doing. Furthermore, by writing in basic English what each piece of code is doing and why you are doing it, you will be able to strengthen your understanding of how R works. Furthermore, comments will help clear up any confusion when future you goes back to your code.
 
 Our grading will be more lenient at the beginning of the quarter as you learn the nuances of R, but will get progressively more stringent on aspects of your submission that have already been covered in prior assignments.  For example, we fully expect you to have proper axis labels on all graphs, and appropriate legends on all maps, topics that we will cover early in the quarter, later in the quarter.
 
@@ -573,7 +593,7 @@ Also note: all code used to produce your results must be shown in your HTML file
 ## **Getting R Markdown Help**
 \
 
-Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheat sheet by going to Help -> Cheatsheets -> R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in Chapter 27 in [R for Data Science]https://r4ds.had.co.nz/r-markdown.html). R Studio has a quick [introduction](https://rmarkdown.rstudio.com/authoring_quick_tour.html) to R Markdown. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case that you get stuck. And, of course, there is the Google machine. Use it to get help.
+Whenever you are editing R Markdown documents in RStudio, you can display an R Markdown cheat sheet by going to Help -> Cheatsheets -> R Markdown Cheat Sheet. A basic introduction to R Markdown can also be found in Chapter 27 in [R for Data Science](https://r4ds.had.co.nz/r-markdown.html). R Studio has a quick [introduction](https://rmarkdown.rstudio.com/authoring_quick_tour.html) to R Markdown. We've put together some additional R tips [here](https://crd150.github.io/tips.html) in the likely case that you get stuck. And, of course, there is the Google machine. Use it to get help.
 
 
 
