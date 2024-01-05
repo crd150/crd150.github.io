@@ -9,11 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Winter 2024" />
 
 
 <title>Big Data and Open Data Sources</title>
 
-<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -240,7 +241,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">CRD 150: Winter 2023</a>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2024</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -326,12 +327,9 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Big Data and Open Data Sources</h1>
-<h3 class="subtitle"><h4 style="font-style:normal">
-CRD 150 - Quantitative Methods in Community Research
-</h4></h3>
-<h4 class="date"><h4 style="font-style:normal">
-Winter 2023
-</h4></h4>
+<h3 class="subtitle"><font size="4">CRD 150 - Quantitative Methods in
+Community Research</font></h3>
+<h4 class="author">Winter 2024</h4>
 
 </div>
 
@@ -366,58 +364,121 @@ h2.title {
 </p>
 <p><br />
 </p>
-<p>This guide lists and describes online sources that provide <a href="https://en.wikipedia.org/wiki/Big_data">Big Data</a> or <a href="https://ash.harvard.edu/files/open_government.pdf">Open Data</a>. Remember to look at the meta data to figure out what kinds of information you can download.<br />
+<p>This guide lists and describes online sources that provide <a
+href="https://en.wikipedia.org/wiki/Big_data">Big Data</a> or <a
+href="https://ash.harvard.edu/files/open_government.pdf">Open Data</a>.
+Remember to look at the meta data to figure out what kinds of
+information you can download.<br />
 </p>
 <ul>
-<li><p><a href="http://insideairbnb.com/get-the-data.html">Airbnb</a>: Provides csv files containing detailed information on data on airbnb hosts. The data are in longitude/latitude. They don’t provide historical data.</p></li>
-<li><p>Bikesharing: Web sites providing public use data on bikesharing. Provides station-to-station data.</p>
+<li><p><a href="http://insideairbnb.com/get-the-data.html">Airbnb</a>:
+Provides csv files containing detailed information on data on airbnb
+hosts. The data are in longitude/latitude. They don’t provide historical
+data.</p></li>
+<li><p>Bikesharing: Web sites providing public use data on bikesharing.
+Provides station-to-station data.</p>
 <ul>
-<li><a href="https://www.lyft.com/bikes/bay-wheels/system-data">San Francisco</a><br />
+<li><a href="https://www.lyft.com/bikes/bay-wheels/system-data">San
+Francisco</a><br />
 </li>
-<li><a href="https://www.citibikenyc.com/system-data">New York City</a></li>
+<li><a href="https://www.citibikenyc.com/system-data">New York
+City</a></li>
 <li><a href="https://www.divvybikes.com/system-data">Chicago</a></li>
-<li><a href="https://www.capitalbikeshare.com/system-data">Washington D.C.</a></li>
+<li><a href="https://www.capitalbikeshare.com/system-data">Washington
+D.C.</a></li>
 </ul></li>
-<li><p><a href="https://ropensci.github.io/osmdata/">OpenStreetMaps</a>. <strong>osmdata</strong> is an R package for downloading OpenStreetMaps data. The site provides a couple of vignettes on using the package.</p></li>
-<li><p><a href="https://arrayofthings.github.io/">Array of things</a>. The City of Chicago installed modular sensor boxes around Chicago to collect real-time data on the city’s environment, infrastructure, and activity for research and public use. Other cities have followed.</p></li>
-<li><p><a href="https://www.zillow.com/research/data/">Zillow</a>. Provides housing price data at the metro, city and zipcode levels. R has a <a href="https://cran.r-project.org/web/packages/ZillowR/index.html">package</a> for downloading Zillow data directly.</p></li>
-<li><p><a href="https://www.yelp.com/dataset">Yelp</a>. A public use dataset put together by Yelp specifically for personal and educational purposes, but has been used in academic and applied research. You can use the Yelp API, and here is a <a href="https://billpetti.github.io/2017-12-23-use-yelp-api-r-rstats/">tutorial</a>, and <a href="https://www.youtube.com/watch?v=qyGYItbMKkM">another</a>, but there are some restrictions, specifically getting an access ID and creating your own app. Here is another <a href="https://github.com/richierocks/yelp">tutorial</a> for a specific R package that uses the Yelp API.</p></li>
-<li><p><a href="https://movement.uber.com/?lang=en-US">Uber</a>. A public use dataset that provides anonymized information on Uber usage in select US cities. You’ll need to sign up for an account or use your Facebook or Google account.</p></li>
-<li><p><a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets">Twitter</a>. Twitter provides access to a sample of their tweets. You’ll need to register for an API. Here are some guides to collect and manage tweets in R: <a href="https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/">here</a>, <a href="https://info5940.infosci.cornell.edu/notes/webdata/twitter-api-practice/">here</a>, and <a href="https://cran.r-hub.io/web/packages/rtweet/vignettes/intro.html">here</a>.</p></li>
+<li><p><a href="https://ropensci.github.io/osmdata/">OpenStreetMaps</a>.
+<strong>osmdata</strong> is an R package for downloading OpenStreetMaps
+data. The site provides a couple of vignettes on using the
+package.</p></li>
+<li><p><a href="https://arrayofthings.github.io/">Array of things</a>.
+The City of Chicago installed modular sensor boxes around Chicago to
+collect real-time data on the city’s environment, infrastructure, and
+activity for research and public use. Other cities have
+followed.</p></li>
+<li><p><a href="https://www.zillow.com/research/data/">Zillow</a>.
+Provides housing price data at the metro, city and zipcode levels. R has
+a <a
+href="https://cran.r-project.org/web/packages/ZillowR/index.html">package</a>
+for downloading Zillow data directly.</p></li>
+<li><p><a href="https://www.yelp.com/dataset">Yelp</a>. A public use
+dataset put together by Yelp specifically for personal and educational
+purposes, but has been used in academic and applied research. You can
+use the Yelp API, and here is a <a
+href="https://billpetti.github.io/2017-12-23-use-yelp-api-r-rstats/">tutorial</a>,
+and <a href="https://www.youtube.com/watch?v=qyGYItbMKkM">another</a>,
+but there are some restrictions, specifically getting an access ID and
+creating your own app. Here is another <a
+href="https://github.com/richierocks/yelp">tutorial</a> for a specific R
+package that uses the Yelp API.</p></li>
+<li><p><a
+href="https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets">Twitter</a>.
+Twitter provides access to a sample of their tweets. You’ll need to
+register for an API. Here are some guides to collect and manage tweets
+in R: <a
+href="https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/">here</a>,
+<a
+href="https://info5940.infosci.cornell.edu/notes/webdata/twitter-api-practice/">here</a>,
+and <a
+href="https://cran.r-hub.io/web/packages/rtweet/vignettes/intro.html">here</a>.</p></li>
 </ul>
 <p><strong>Open data portals</strong></p>
-<p>Many city, county and even state governments maintain open data portals. These portals provide various datasets held and maintained by the public sectors. Some of the data are measured at a fine spatial scale, going doing to longitude/latitude.</p>
-<p>There are a couple of sites that maintain open data portal directories, including</p>
+<p>Many city, county and even state governments maintain open data
+portals. These portals provide various datasets held and maintained by
+the public sectors. Some of the data are measured at a fine spatial
+scale, going doing to longitude/latitude.</p>
+<p>There are a couple of sites that maintain open data portal
+directories, including</p>
 <ul>
 <li><p><a href="https://www.data.gov/open-gov/">Data.gov</a></p></li>
-<li><p><a href="https://opendatainception.io/">Open Data Inception</a></p></li>
-<li><p><a href="http://us-cities.survey.okfn.org/">US City Open Data Census</a></p></li>
+<li><p><a href="https://opendatainception.io/">Open Data
+Inception</a></p></li>
+<li><p><a href="https://dataportals.org/">Open Knowledge
+Foundation</a></p></li>
 </ul>
-<p>Here are links to various open data portals in US cities (updated 01/06/23)</p>
+<p>Here are links to various open data portals in US cities (updated
+01/08/24)</p>
 <p><em>California</em></p>
 <ul>
-<li><p><a href="http://gisdata-scag.opendata.arcgis.com/">Southern California Association of Governments</a></p></li>
-<li><p><a href="https://data.sacog.org/">Sacramento Area Council of Governments</a></p></li>
-<li><p><a href="http://data.cityofsacramento.org/">Sacramento City</a></p></li>
-<li><p><a href="http://data-sacramentocounty.opendata.arcgis.com/">Sacramento County</a></p></li>
-<li><p><a href="https://datasf.org/opendata/">San Francisco City</a></p></li>
+<li><p><a href="http://gisdata-scag.opendata.arcgis.com/">Southern
+California Association of Governments</a></p></li>
+<li><p><a href="https://data.sacog.org/">Sacramento Area Council of
+Governments</a></p></li>
+<li><p><a href="http://data.cityofsacramento.org/">Sacramento
+City</a></p></li>
+<li><p><a
+href="http://data-sacramentocounty.opendata.arcgis.com/">Sacramento
+County</a></p></li>
+<li><p><a href="https://datasf.org/opendata/">San Francisco
+City</a></p></li>
 <li><p><a href="https://data.acgov.org/">Alameda County</a></p></li>
 <li><p><a href="https://data.oaklandca.gov/">Oakland City</a></p></li>
 <li><p><a href="http://data.openoakland.org/">Oakland City</a></p></li>
-<li><p><a href="http://www.longbeach.gov/openlb/">Long Beach City</a></p></li>
-<li><p><a href="https://data.sanjoseca.gov/home">San Jose City</a></p></li>
-<li><p><a href="https://geodat-kernco.opendata.arcgis.com/">Kern County</a></p></li>
-<li><p><a href="https://chulavista-cvgis.opendata.arcgis.com/">Chula Vista City</a></p></li>
-<li><p><a href="http://data-anaheim.opendata.arcgis.com/">Anaheim City</a></p></li>
-<li><p><a href="https://data.countyofriverside.us/">Riverside County</a></p></li>
-<li><p><a href="https://gis-cityoffresno.hub.arcgis.com/">Fresno City</a></p></li>
+<li><p><a href="http://www.longbeach.gov/openlb/">Long Beach
+City</a></p></li>
+<li><p><a href="https://data.sanjoseca.gov/">San Jose City</a></p></li>
+<li><p><a href="https://geodat-kernco.opendata.arcgis.com/">Kern
+County</a></p></li>
+<li><p><a href="https://chulavista-cvgis.opendata.arcgis.com/">Chula
+Vista City</a></p></li>
+<li><p><a href="http://data-anaheim.opendata.arcgis.com/">Anaheim
+City</a></p></li>
+<li><p><a href="https://data.countyofriverside.us/">Riverside
+County</a></p></li>
+<li><p><a href="https://gis-cityoffresno.hub.arcgis.com/">Fresno
+City</a></p></li>
 <li><p><a href="https://data.lacity.org/">Los Angeles City</a></p></li>
 <li><p><a href="http://geohub.lacity.org/">Los Angeles City</a></p></li>
-<li><p><a href="https://data.lacounty.gov/">Los Angeles County</a></p></li>
-<li><p><a href="https://egis-lacounty.hub.arcgis.com/">Los Angeles County</a></p></li>
-<li><p><a href="http://data-ocpw.opendata.arcgis.com/">Orange County</a></p></li>
-<li><p><a href="https://datasf.org/">San Francisco City/County</a></p></li>
-<li><p><a href="https://data.sccgov.org/">Santa Clara County</a></p></li>
+<li><p><a href="https://data.lacounty.gov/">Los Angeles
+County</a></p></li>
+<li><p><a href="https://egis-lacounty.hub.arcgis.com/">Los Angeles
+County</a></p></li>
+<li><p><a href="http://data-ocpw.opendata.arcgis.com/">Orange
+County</a></p></li>
+<li><p><a href="https://datasf.org/">San Francisco
+City/County</a></p></li>
+<li><p><a href="https://data.sccgov.org/">Santa Clara
+County</a></p></li>
 <li><p><a href="https://data.sandiego.gov/">San Diego City</a></p></li>
 <li><p><a href="https://data.ca.gov/">California State</a></p></li>
 </ul>
@@ -425,13 +486,16 @@ h2.title {
 <ul>
 <li><p><a href="https://data.boston.gov/">Boston</a></p></li>
 <li><p><a href="https://data.ny.gov/">New York</a></p></li>
-<li><p><a href="https://opendata.cityofnewyork.us/data/">New York</a></p></li>
+<li><p><a href="https://opendata.cityofnewyork.us/data/">New
+York</a></p></li>
 <li><p><a href="https://data.cityofchicago.org/">Chicago</a></p></li>
-<li><p><a href="https://www.opendataphilly.org/">Philadelphia</a></p></li>
+<li><p><a
+href="https://www.opendataphilly.org/">Philadelphia</a></p></li>
 <li><p><a href="https://www.phoenixopendata.com/">Phoenix</a></p></li>
 <li><p><a href="https://data.detroitmi.gov/">Detroit</a></p></li>
 <li><p><a href="https://data.baltimorecity.gov/">Baltimore</a></p></li>
-<li><p><a href="https://gis-pdx.opendata.arcgis.com/">Portland</a></p></li>
+<li><p><a
+href="https://gis-pdx.opendata.arcgis.com/">Portland</a></p></li>
 <li><p><a href="https://data.seattle.gov/">Seattle</a></p></li>
 <li><p><a href="http://opendata.dc.gov/">Washington D.C.</a></p></li>
 <li><p><a href="https://data.milwaukee.gov/">Milwaukee</a></p></li>
@@ -440,14 +504,30 @@ h2.title {
 <p>Your city/county not listed above? Use Google. It’s your friend.</p>
 <p><strong>Looking for data?</strong></p>
 <ul>
-<li><p>Kaggle is a crowd-sourced platform for all things data science. This includes competitions, discussion forums, online tutorials, and most importantly, at least for the purpose of this guide, a repository of big data sources. A lot of these data are not pertinent to this class, but some are; specifically, those with geographic information that allows you to connect data to geographic locations. Check out their datasets <a href="https://www.kaggle.com/datasets">here</a>.</p></li>
-<li><p>Esri provides a repository that many of its members use to store various big and open data all in shapefile format. Check out what’s available <a href="http://hub.arcgis.com/pages/open-data">here</a>.</p></li>
-<li><p><a href="https://github.com/awesomedata/awesome-public-datasets">Awesome Public Datasets</a></p></li>
-<li><p><a href="https://registry.opendata.aws/">Amazon AWS Public Data Sets</a></p></li>
+<li><p>Kaggle is a crowd-sourced platform for all things data science.
+This includes competitions, discussion forums, online tutorials, and
+most importantly, at least for the purpose of this guide, a repository
+of big data sources. A lot of these data are not pertinent to this
+class, but some are; specifically, those with geographic information
+that allows you to connect data to geographic locations. Check out their
+datasets <a href="https://www.kaggle.com/datasets">here</a>.</p></li>
+<li><p>Esri provides a repository that many of its members use to store
+various big and open data all in shapefile format. Check out what’s
+available <a
+href="http://hub.arcgis.com/pages/open-data">here</a>.</p></li>
+<li><p><a
+href="https://github.com/awesomedata/awesome-public-datasets">Awesome
+Public Datasets</a></p></li>
+<li><p><a href="https://registry.opendata.aws/">Amazon AWS Public Data
+Sets</a></p></li>
 </ul>
 <hr />
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
-<p>Website created and maintained by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This
+work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative
+Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+<p>Website created and maintained by <a
+href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 
 
 

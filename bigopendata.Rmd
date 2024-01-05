@@ -1,7 +1,7 @@
 ---
 title: "Big Data and Open Data Sources"
-subtitle: <h4 style="font-style:normal">CRD 150 - Quantitative Methods in Community Research</h4>
-date: <h4 style="font-style:normal">Winter 2023</h4>
+subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
+author: Winter 2024
 output: 
   html_document:
     theme: cosmo
@@ -68,8 +68,6 @@ This guide lists and describes online sources that provide [Big Data](https://en
 
 * [Yelp](https://www.yelp.com/dataset).  A public use dataset put together by Yelp specifically for personal and educational purposes, but has been used in academic and applied research.  You can use the Yelp API, and here is a [tutorial](https://billpetti.github.io/2017-12-23-use-yelp-api-r-rstats/), and [another](https://www.youtube.com/watch?v=qyGYItbMKkM), but there are some restrictions, specifically getting an access ID and creating your own app.  Here is another [tutorial](https://github.com/richierocks/yelp) for a specific R package that uses the Yelp API.
 
-* [Uber](https://movement.uber.com/?lang=en-US).  A public use dataset that provides anonymized information on Uber usage in select US cities.  You'll need to sign up for an account or use your Facebook or Google account.
-
 * [Twitter](https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets). Twitter provides access to a sample of their tweets.  You'll need to register for an API.  Here are some guides to collect and manage tweets in R: [here](https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/use-twitter-api-r/), [here](https://info5940.infosci.cornell.edu/notes/webdata/twitter-api-practice/), and [here](https://cran.r-hub.io/web/packages/rtweet/vignettes/intro.html).
 
 
@@ -83,9 +81,9 @@ There are a couple of sites that maintain open data portal directories, includin
 
 * [Open Data Inception](https://opendatainception.io/)
 
-* [US City Open Data Census](http://us-cities.survey.okfn.org/)
+* [Open Knowledge Foundation](https://dataportals.org/)
 
-Here are links to various open data portals in US cities (updated 01/06/23)
+Here are links to various open data portals in US cities (updated 01/08/24)
 
 *California*
 
@@ -107,7 +105,7 @@ Here are links to various open data portals in US cities (updated 01/06/23)
 
 * [Long Beach City](http://www.longbeach.gov/openlb/)
 
-* [San Jose City](https://data.sanjoseca.gov/home)
+* [San Jose City](https://data.sanjoseca.gov/)
 
 * [Kern County](https://geodat-kernco.opendata.arcgis.com/)
 
