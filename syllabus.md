@@ -58,19 +58,19 @@ The following is an abridged version of the course syllabus.  A full course syll
 </div>
 ## **Instructor**
 
-Dr. Noli Brazil  
-*Contact*: nbrazil.at.ucdavis.edu  
-*Office*: 2325 Hart Hall
-*Office hours*: Monday and Wednesday from 4:00-5:00 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vwzry). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. The last 20 minutes are open drop in. Zoom link is located [here](https://ucdavis.zoom.us/j/92687238324?pwd=WTRyZDZMenhZeUMyYXMxbis0ZXR4UT09) and on Canvas home page.
+* Dr. Noli Brazil  
+* *Contact*: nbrazil.at.ucdavis.edu  
+* *Office*: 2325 Hart Hall
+* *Office hours*: Monday and Wednesday from 4:00-5:00 pm or by appointment, Zoom or in-person.  Please sign up for a slot [here](https://www.wejoinin.com/sheets/vwzry). Out of courtesy to other students, please do not sign up for more than two 10-minute blocks.  If you do, I will keep only the first two blocks. The last 20 minutes are open drop in. Zoom link is located [here](https://ucdavis.zoom.us/j/92687238324?pwd=WTRyZDZMenhZeUMyYXMxbis0ZXR4UT09) and on Canvas home page.
 
 <div style="margin-bottom:25px;">
 </div>
 ## **Teaching Assistant**
 
-Jennifer Cribbs
-*Contact*: jecribbs.at.ucdavis.edu  
-*Office*: Plant and Environmental Sciences 2004. Zoom link located [here](https://ucdavis.zoom.us/j/97310674912?)
-*Office hours*: Tuesday, 2:00-4:00 pm
+* Jennifer Cribbs
+* *Contact*: jecribbs.at.ucdavis.edu  
+* *Office*: Plant and Environmental Sciences 2004. Zoom link located [here](https://ucdavis.zoom.us/j/97310674912?).
+* *Office hours*: Tuesday, 2:00-4:00 pm
 
 <div style="margin-bottom:25px;">
 </div>
