@@ -69,7 +69,7 @@ Dr. Noli Brazil
 
 Jennifer Cribbs
 *Contact*: jecribbs.at.ucdavis.edu  
-*Office*: TBD
+*Office*: Plant and Environmental Sciences 2004. Zoom link located [here](https://ucdavis.zoom.us/j/97310674912?)
 *Office hours*: Tuesday, 2:00-4:00 pm
 
 <div style="margin-bottom:25px;">
