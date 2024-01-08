@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Professor Noli Brazil" />
+
+<meta name="date" content="2024-01-10" />
+
+<title>Lab 1: Introduction to R</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CRD 150: Winter 2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="hw_guidelines.html">Assignment Guidelines</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Labs/Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Lab 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Lab 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Lab 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Lab 4</a>
+    </li>
+    <li>
+      <a href="lab5.html">Lab 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Lab 6</a>
+    </li>
+    <li>
+      <a href="lab7.html">Lab 7</a>
+    </li>
+    <li>
+      <a href="lab8.html">Lab 8</a>
+    </li>
+    <li>
+      <a href="lab9.html">Lab 9</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eligible.html">Eligible Communities</a>
+    </li>
+    <li>
+      <a href="tips.html">R tips</a>
+    </li>
+    <li>
+      <a href="ndata.html">Neighborhood Data Sources</a>
+    </li>
+    <li>
+      <a href="bigopendata.html">Big and Open Data Sources</a>
+    </li>
+    <li>
+      <a href="policymap.html">PolicyMap </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Lab 1: Introduction to R</h1>
+<h3 class="subtitle"><font size="4">CRD 150 - Quantitative Methods in
+Community Research</font></h3>
+<h4 class="author">Professor Noli Brazil</h4>
+<h4 class="date">January 10, 2024</h4>
+
+</div>
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial
+}
+
+</style>
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+<p><br />
+</p>
+<p>In this guide you will learn the basic fundamentals of the
+statistical software program R. Because R is not a prerequisite for the
+class, this guide assumes no background in the language. The objectives
+of the guide are as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Download R and RStudio</li>
+<li>Get familiar with the RStudio interface</li>
+<li>Understand R data types</li>
+<li>Understand R data structures, in particular vectors and data
+frames</li>
+<li>Understand R functions</li>
+<li>Understand R Markdown and the process for submitting
+assignments</li>
+</ol>
+<p>This lab guide follows closely and supplements the material presented
+in Chapters 2, 4, and 20 in the textbook <a
+href="http://r4ds.had.co.nz/index.html">R for Data Science</a>
+(RDS).</p>
+<p class="comment">
+<strong>Assignment 1 is due by 10:00 am, January 17th on
+Canvas.</strong> See <a
+href="https://crd150.github.io/hw_guidelines.html">here</a> for
+assignment guidelines. You must submit an <code>.Rmd</code> file and its
+associated <code>.html</code> file. Name the files:
+yourLastName_firstInitial_asgn01. For example: brazil_n_asgn01
+</p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="a-note-on-lab-guides" class="section level2">
+<h2><strong>A note on lab guides</strong></h2>
+<p><br />
+</p>
+<p>Lab guides are self-contained and self-guided. The expectation for
+each guide is to get through all of it either on your own or
+collaboratively. <strong>You do not need to turn in lab guides.</strong>
+However, it is important that you do not skip guides as lab material
+builds on one another.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="what-is-r" class="section level2">
+<h2><strong>What is R?</strong></h2>
+<p><br />
+</p>
+<p>R is a free, open source statistical programming language. It is
+useful for data cleaning, analysis, and visualization. R is an
+interpreted language, not a compiled one. This means that you type
+something into R and it does it. It is both a command line software and
+a programming environment. It is an extensible, open-source language and
+computing environment for Windows, Macintosh, UNIX, and Linux platforms,
+which allows for the user to freely distribute, study, change, and
+improve the software.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="getting-r" class="section level2">
+<h2><strong>Getting R</strong></h2>
+<p><br />
+</p>
+<p>R can be downloaded from one of the “CRAN” (Comprehensive R Archive
+Network) sites. In the US, the main site is at <a
+href="http://cran.us.r-project.org/"
+class="uri">http://cran.us.r-project.org/</a>. Look in the “Download and
+Install R” area. Click on the appropriate link based on your operating
+system.</p>
+<p><strong>If you already have R on your computer, make sure you have
+the most updated version of R on your personal computer (4.3.2 “Eye
+Holes”).</strong></p>
+<div style="margin-bottom:25px;">
+
+</div>
+<div id="mac-os-x" class="section level3">
+<h3><strong>Mac OS X</strong></h3>
+<ol style="list-style-type: decimal">
+<li><p>On the “R for macOS” page, there are multiple packages that could
+be downloaded. If you have a Mac with <a
+href="https://support.apple.com/en-us/HT211814">Apple Silicon</a>, click
+on R-4.3.2-arm64.pkg; if you don’t have Silicon and are running on macOS
+11 (Big Sur) or higher, click on R-4.3.2-x86_64.pkg; if you are running
+an earlier version of OS X, download the appropriate version listed
+under “Binary for legacy macOS/OS X systems.”</p></li>
+<li><p>After the package finishes downloading, locate the installer on
+your hard drive, double-click on the installer package, and after a few
+screens, select a destination for the installation of the R framework
+(the program) and the R.app GUI. Note that you will have to supply your
+computer’s Administrator’s password. Close the window when the
+installation is done.</p></li>
+<li><p>An application will appear in the Applications folder:
+R.app.</p></li>
+<li><p>Browse to the <a href="https://www.xquartz.org/">XQuartz download
+page</a>. Click on the most recent version of XQuartz to download the
+application.</p></li>
+<li><p>Run the XQuartz installer. XQuartz is needed to create windows to
+display many types of R graphics: this used to be included in MacOS
+until version 10.8 but now must be downloaded separately.</p></li>
+</ol>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="windows" class="section level3">
+<h3><strong>Windows</strong></h3>
+<ol style="list-style-type: decimal">
+<li><p>On the “R for Windows” page, click on the “base” link, which
+should take you to the “R-4.3.2 for Windows” page</p></li>
+<li><p>On this page, click “Download R 4.3.2 for Windows”, and save the
+exe file to your hard disk when prompted. Saving to the desktop is
+fine.</p></li>
+<li><p>To begin the installation, double-click on the downloaded file.
+Don’t be alarmed if you get unknown publisher type warnings. Window’s
+User Account Control will also worry about an unidentified program
+wanting access to your computer. Click on “Run” or “Yes”.</p></li>
+<li><p>Select the proposed options in each part of the install dialog.
+When the “Select Components” screen appears, just accept the standard
+choices (the default). For Startup options, keep the default.</p></li>
+</ol>
+<p>Note: Depending on the age of your computer and version of Windows,
+you may be running either a “32-bit” or “64-bit” version of the Windows
+operating system. If you have the 64-bit version (most likely), R will
+install the appropriate version (R x64 3.5.2) and will also (for
+backwards compatibility) install the 32-bit version (R i386 3.5.2). You
+can run either, but you will probably just want to run the 64-bit
+version.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+</div>
+<div id="what-is-rstudio" class="section level2">
+<h2><strong>What is RStudio?</strong></h2>
+<p><br />
+</p>
+<p>If you click on the R program you just downloaded, you will find a
+very basic user interface. For example, below is what I get on a Mac</p>
+<p><br></p>
+<center>
+<div class="float">
+<img
+src="rint.png"
+alt="R’s Interface." />
+<div class="figcaption">R’s Interface.</div>
+</div>
+</center>
+<p><br></p>
+<p>We will not use R’s direct interface to run analyses. Instead, we
+will use the program RStudio. RStudio gives you a true integrated
+development environment (IDE), where you can write code in a window, see
+results in other windows, see locations of files, see objects you’ve
+created, and so on. To clarify which is which: R is the name of the
+programming language itself and RStudio is a convenient interface.</p>
+<div style="margin-bottom:25px;">
+
+</div>
+</div>
+<div id="getting-rstudio" class="section level2">
+<h2><strong>Getting RStudio</strong></h2>
+<p><br />
+</p>
+<p>To download and install RStudio, follow the directions below</p>
+<ol style="list-style-type: decimal">
+<li>Navigate to RStudio’s download <a
+href="https://rstudio.com/products/rstudio/download/#download">site</a></li>
+<li>Click on the “Download RStudio Desktop” link under the header “2:
+Install RStudio”. This will prompt you to save an installer package on
+your drive.</li>
+<li>Click on the installer that you downloaded. Follow the installation
+wizard’s directions, making sure to keep all defaults intact. After
+installation, RStudio should pop up in your Applications or Programs
+folder/menu.</li>
+</ol>
+<p>Note that the most recent version of RStudio works only for certain
+operating systems (OS). If you have an older OS, you will need to
+download an older version RStudio, which you can find <a
+href="https://docs.posit.co/previous-versions/rstudio/">here</a>.</p>
+<hr />
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This
+work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative
+Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+<p>Website created and maintained by <a
+href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>
