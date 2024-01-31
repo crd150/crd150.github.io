@@ -298,15 +298,16 @@ To get the proportion of tracts that are Opportunity Zone neighborhoods, you'll 
 ncal.tracts %>%
   group_by(oppzone) %>%
   summarize(n = n()) %>%
-  mutate(freq = n / sum(n))
+  mutate(total = sum(n),
+        freq = n / total)
 ```
 
 ```
-## # A tibble: 2 × 3
-##   oppzone                                   n  freq
-##   <chr>                                 <int> <dbl>
-## 1 Designated Qualified Opportunity Zone    75 0.125
-## 2 Not Designated                          524 0.875
+## # A tibble: 2 × 4
+##   oppzone                                   n total  freq
+##   <chr>                                 <int> <int> <dbl>
+## 1 Designated Qualified Opportunity Zone    75   599 0.125
+## 2 Not Designated                          524   599 0.875
 ```
 
 Let's break up this chunk of code to show exactly what was done here. First, *ncal.tracts* was piped into the `group_by()` function.  Next, `group_by(oppzone)` separates the neighborhoods by Opportunity Zone designation. We then used `summarize()` to count the number of neighborhoods by Opportunity Zone designation.  The function to get a count is `n()`, and we saved this count in a variable named *n*. This gave us the following table.
@@ -326,22 +327,25 @@ ncal.tracts %>%
 ## 2 Not Designated                          524
 ```
 
-There are 75 neighborhoods that are designated as an Opportunity Zone. Next, this table is piped into  `mutate()`, which creates a variable *freq* showing the proportion of all neighborhoods by Opportunity Zone designation (how would you transform this to a percentage?). The code `sum(n)` adds the values of *n*:  524+75 = 599. We then divide the value of each *n* by this sum:  75/599 = 0.125 and 524/599 = 0.875. That yields the final frequency table. 
+Remember, we are trying to get the proportion of neighborhoods that are and are not designated as Opportunity zones. This means we need a numerator - the number of neighborhoods that are and are not designated as Opportunity Zones. This is what `n = n()` gives us. There are 75 neighborhoods that are designated as an Opportunity Zone.
+
+Next, this table is piped into  `mutate()`, which creates a variable *total* which gives you the denominator - the total number of neighborhoods. The code `sum(n)` adds the values of *n*:  524+75 = 599. We then create a variable *freq*, which divides the value of each *n* by this sum:  75/599 = 0.125 and 524/599 = 0.875. This yields the proportion of all neighborhoods by Opportunity Zone designation (how would you transform this to a percentage?). 
 
 
 ```r
 ncal.tracts %>%
   group_by(oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))
+    mutate(total = sum(n),
+        freq = n / total)
 ```
 
 ```
-## # A tibble: 2 × 3
-##   oppzone                                   n  freq
-##   <chr>                                 <int> <dbl>
-## 1 Designated Qualified Opportunity Zone    75 0.125
-## 2 Not Designated                          524 0.875
+## # A tibble: 2 × 4
+##   oppzone                                   n total  freq
+##   <chr>                                 <int> <int> <dbl>
+## 1 Designated Qualified Opportunity Zone    75   599 0.125
+## 2 Not Designated                          524   599 0.875
 ```
 
   
@@ -352,22 +356,23 @@ We can add *city* to the `group_by()` function to disaggregate the above result 
 ncal.tracts %>%
   group_by(city, oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))
+    mutate(total = sum(n),
+        freq = n / total)
 ```
 
 ```
-## # A tibble: 8 × 4
+## # A tibble: 8 × 5
 ## # Groups:   city [4]
-##   city          oppzone                                   n   freq
-##   <chr>         <chr>                                 <int>  <dbl>
-## 1 Oakland       Designated Qualified Opportunity Zone    30 0.265 
-## 2 Oakland       Not Designated                           83 0.735 
-## 3 Sacramento    Designated Qualified Opportunity Zone    23 0.23  
-## 4 Sacramento    Not Designated                           77 0.77  
-## 5 San Francisco Designated Qualified Opportunity Zone    11 0.0558
-## 6 San Francisco Not Designated                          186 0.944 
-## 7 San Jose      Designated Qualified Opportunity Zone    11 0.0582
-## 8 San Jose      Not Designated                          178 0.942
+##   city          oppzone                                   n total   freq
+##   <chr>         <chr>                                 <int> <int>  <dbl>
+## 1 Oakland       Designated Qualified Opportunity Zone    30   113 0.265 
+## 2 Oakland       Not Designated                           83   113 0.735 
+## 3 Sacramento    Designated Qualified Opportunity Zone    23   100 0.23  
+## 4 Sacramento    Not Designated                           77   100 0.77  
+## 5 San Francisco Designated Qualified Opportunity Zone    11   197 0.0558
+## 6 San Francisco Not Designated                          186   197 0.944 
+## 7 San Jose      Designated Qualified Opportunity Zone    11   189 0.0582
+## 8 San Jose      Not Designated                          178   189 0.942
 ```
  
 Which city has the highest proportion of Opportunity Zone neighborhoods? Lowest? 
@@ -393,18 +398,19 @@ To summarize the relationship between two categorical variables, you'll need to 
 ncal.tracts %>%
   group_by(oppzone, mhisp) %>%
   summarize(n = n())  %>%
-  mutate(freq = n / sum(n))
+    mutate(total = sum(n),
+        freq = n / total)
 ```
 
 ```
-## # A tibble: 4 × 4
+## # A tibble: 4 × 5
 ## # Groups:   oppzone [2]
-##   oppzone                               mhisp            n   freq
-##   <chr>                                 <chr>        <int>  <dbl>
-## 1 Designated Qualified Opportunity Zone Majority        16 0.213 
-## 2 Designated Qualified Opportunity Zone Not Majority    59 0.787 
-## 3 Not Designated                        Majority        47 0.0897
-## 4 Not Designated                        Not Majority   477 0.910
+##   oppzone                               mhisp            n total   freq
+##   <chr>                                 <chr>        <int> <int>  <dbl>
+## 1 Designated Qualified Opportunity Zone Majority        16    75 0.213 
+## 2 Designated Qualified Opportunity Zone Not Majority    59    75 0.787 
+## 3 Not Designated                        Majority        47   524 0.0897
+## 4 Not Designated                        Not Majority   477   524 0.910
 ```
 
 A much higher proportion of Opportunity Zone neighborhoods are Majority Hispanic (0.213) compared to non Opportunity Zone neighborhoods (0.0897).
@@ -571,7 +577,7 @@ my_table
 ```
 
 ```{=html}
-<div class="tabwid"><style>.cl-bf3770c4{}.cl-bf2a5d08{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bf2e82de{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf2e82f2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf2e82f3{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf2ea0f2{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2ea0fc{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2ea106{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2ea107{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-bf3770c4'><thead><tr style="overflow-wrap:break-word;"><th class="cl-bf2ea0f2"><p class="cl-bf2e82de"><span class="cl-bf2a5d08">City</span></p></th><th class="cl-bf2ea0fc"><p class="cl-bf2e82f2"><span class="cl-bf2a5d08">Mean</span></p></th><th class="cl-bf2ea0fc"><p class="cl-bf2e82f2"><span class="cl-bf2a5d08">Median</span></p></th><th class="cl-bf2ea0fc"><p class="cl-bf2e82f2"><span class="cl-bf2a5d08">Standard Deviation</span></p></th><th class="cl-bf2ea0fc"><p class="cl-bf2e82f2"><span class="cl-bf2a5d08">IQR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">Oakland</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">66,558.9</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">51,437.5</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">41,417.3</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">40,686.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">Sacramento</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">53,797.9</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">49,552.0</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">24,414.8</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">28,390.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">San Francisco</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">91,052.1</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">89,184.5</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">37,913.3</span></p></td><td class="cl-bf2ea106"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">50,444.0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2ea107"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">San Jose</span></p></td><td class="cl-bf2ea107"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">91,805.1</span></p></td><td class="cl-bf2ea107"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">88,299.0</span></p></td><td class="cl-bf2ea107"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">34,649.9</span></p></td><td class="cl-bf2ea107"><p class="cl-bf2e82f3"><span class="cl-bf2a5d08">48,412.2</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-8e93468c{}.cl-8e8797d8{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8e8e7134{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8e8e713e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8e8e7148{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8e8e8ab6{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8e8e8ac0{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8e8e8ac1{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8e8e8ac2{width:0.75in;background-color:rgba(255, 255, 255, 1.00);vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-8e93468c'><thead><tr style="overflow-wrap:break-word;"><th class="cl-8e8e8ab6"><p class="cl-8e8e7134"><span class="cl-8e8797d8">City</span></p></th><th class="cl-8e8e8ac0"><p class="cl-8e8e713e"><span class="cl-8e8797d8">Mean</span></p></th><th class="cl-8e8e8ac0"><p class="cl-8e8e713e"><span class="cl-8e8797d8">Median</span></p></th><th class="cl-8e8e8ac0"><p class="cl-8e8e713e"><span class="cl-8e8797d8">Standard Deviation</span></p></th><th class="cl-8e8e8ac0"><p class="cl-8e8e713e"><span class="cl-8e8797d8">IQR</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">Oakland</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">66,558.9</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">51,437.5</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">41,417.3</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">40,686.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">Sacramento</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">53,797.9</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">49,552.0</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">24,414.8</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">28,390.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">San Francisco</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">91,052.1</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">89,184.5</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">37,913.3</span></p></td><td class="cl-8e8e8ac1"><p class="cl-8e8e7148"><span class="cl-8e8797d8">50,444.0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8e8e8ac2"><p class="cl-8e8e7148"><span class="cl-8e8797d8">San Jose</span></p></td><td class="cl-8e8e8ac2"><p class="cl-8e8e7148"><span class="cl-8e8797d8">91,805.1</span></p></td><td class="cl-8e8e8ac2"><p class="cl-8e8e7148"><span class="cl-8e8797d8">88,299.0</span></p></td><td class="cl-8e8e8ac2"><p class="cl-8e8e7148"><span class="cl-8e8797d8">34,649.9</span></p></td><td class="cl-8e8e8ac2"><p class="cl-8e8e7148"><span class="cl-8e8797d8">48,412.2</span></p></td></tr></tbody></table></div>
 ```
 
 \
@@ -651,7 +657,8 @@ Recall from Handout 4 that we use bar charts to summarize categorical variables.
 ncal.tracts %>% 
   group_by(oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))  %>%
+    mutate(total = sum(n),
+        freq = n / total)  %>%
   ggplot() +
     geom_bar(mapping=aes(x=oppzone, y=freq),stat="identity") 
 ```
@@ -667,7 +674,8 @@ The X and Y axes labels are not so great. Interpretable labels are important for
 ncal.tracts %>% 
   group_by(oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))  %>%
+    mutate(total = sum(n),
+        freq = n / total) %>%
   ggplot() +
     geom_bar(mapping=aes(x=oppzone, y=freq),stat="identity") +
     xlab("Opportunity Zone") +

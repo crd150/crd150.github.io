@@ -212,7 +212,8 @@ To get the proportion of tracts that are Opportunity Zone neighborhoods, you'll 
 ncal.tracts %>%
   group_by(oppzone) %>%
   summarize(n = n()) %>%
-  mutate(freq = n / sum(n))
+  mutate(total = sum(n),
+        freq = n / total)
 ```
 
 Let's break up this chunk of code to show exactly what was done here. First, *ncal.tracts* was piped into the `group_by()` function.  Next, `group_by(oppzone)` separates the neighborhoods by Opportunity Zone designation. We then used `summarize()` to count the number of neighborhoods by Opportunity Zone designation.  The function to get a count is `n()`, and we saved this count in a variable named *n*. This gave us the following table.
@@ -223,13 +224,16 @@ ncal.tracts %>%
   summarize (n = n())
 ```
 
-There are 75 neighborhoods that are designated as an Opportunity Zone. Next, this table is piped into  `mutate()`, which creates a variable *freq* showing the proportion of all neighborhoods by Opportunity Zone designation (how would you transform this to a percentage?). The code `sum(n)` adds the values of *n*:  524+75 = 599. We then divide the value of each *n* by this sum:  75/599 = 0.125 and 524/599 = 0.875. That yields the final frequency table. 
+Remember, we are trying to get the proportion of neighborhoods that are and are not designated as Opportunity zones. This means we need a numerator - the number of neighborhoods that are and are not designated as Opportunity Zones. This is what `n = n()` gives us. There are 75 neighborhoods that are designated as an Opportunity Zone.
+
+Next, this table is piped into  `mutate()`, which creates a variable *total* which gives you the denominator - the total number of neighborhoods. The code `sum(n)` adds the values of *n*:  524+75 = 599. We then create a variable *freq*, which divides the value of each *n* by this sum:  75/599 = 0.125 and 524/599 = 0.875. This yields the proportion of all neighborhoods by Opportunity Zone designation (how would you transform this to a percentage?). 
 
 ```{r}
 ncal.tracts %>%
   group_by(oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))
+    mutate(total = sum(n),
+        freq = n / total)
 ```
 
   
@@ -239,7 +243,8 @@ We can add *city* to the `group_by()` function to disaggregate the above result 
 ncal.tracts %>%
   group_by(city, oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))
+    mutate(total = sum(n),
+        freq = n / total)
 ```
  
 Which city has the highest proportion of Opportunity Zone neighborhoods? Lowest? 
@@ -264,7 +269,8 @@ To summarize the relationship between two categorical variables, you'll need to 
 ncal.tracts %>%
   group_by(oppzone, mhisp) %>%
   summarize(n = n())  %>%
-  mutate(freq = n / sum(n))
+    mutate(total = sum(n),
+        freq = n / total)
 ```
 
 A much higher proportion of Opportunity Zone neighborhoods are Majority Hispanic (0.213) compared to non Opportunity Zone neighborhoods (0.0897).
@@ -440,7 +446,8 @@ Recall from Handout 4 that we use bar charts to summarize categorical variables.
 ncal.tracts %>% 
   group_by(oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))  %>%
+    mutate(total = sum(n),
+        freq = n / total)  %>%
   ggplot() +
     geom_bar(mapping=aes(x=oppzone, y=freq),stat="identity") 
 ```    
@@ -453,7 +460,8 @@ The X and Y axes labels are not so great. Interpretable labels are important for
 ncal.tracts %>% 
   group_by(oppzone) %>%
   summarize (n = n()) %>%
-  mutate(freq = n / sum(n))  %>%
+    mutate(total = sum(n),
+        freq = n / total) %>%
   ggplot() +
     geom_bar(mapping=aes(x=oppzone, y=freq),stat="identity") +
     xlab("Opportunity Zone") +
