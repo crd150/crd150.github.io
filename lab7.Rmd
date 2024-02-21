@@ -1,0 +1,405 @@
+---
+title: "Lab 7: Segregation"
+subtitle: <font size="4">CRD 150 - Quantitative Methods in Community Research</font>
+author: Professor Noli Brazil
+date: February 21, 2024
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    mathjax: local
+    theme: cosmo
+    code_folding: show
+---
+
+
+<style>
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+h1.title {
+  font-weight: bold;
+  font-family: Arial;  
+}
+
+h2.title {
+  font-family: Arial;  
+}
+
+</style>
+
+
+<style type="text/css">
+#TOC {
+  font-size: 13px;
+  font-family: Arial;
+}
+</style>
+
+
+\
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+Measures of segregation and other indices of place-based inequality have been fundamental to documenting and understanding the causes and consequences of residential patterns of racial separation.  In this guide you will learn how to calculate neighborhood segregation and using R.  The objectives of the guide are as follows
+
+1. Calculate the Dissimilarity index, a measure of residential evenness.
+2. Calculate the Interaction index, a measure of residential exposure.
+3. Calculate the Location Quotient for Racial Residential Segregation, a measure of neighborhood level concentration
+
+To accomplish these objectives, you will be working with Census tract data for four of the largest cities in California: Fresno, San Diego, San Jose, and San Francisco.
+
+This lab guide follows closely and supplements the material presented in Chapters 4.1 and 4.2 in the textbook [Geocomputation with R](https://geocompr.robinlovelace.net/) (GWR) and Handout 7. 
+
+<br>
+
+<p class="comment">**Assignment 7 is due by 10:00 am, February 28th on Canvas.**  See [here](https://crd150.github.io/hw_guidelines.html) for assignment guidelines. You must submit an `.Rmd` file and its associated `.html` file. Name the files: yourLastName_firstInitial_asgn07. For example: brazil_n_asgn07.</p>
+
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Open up a R Markdown file**
+\
+
+Download the [Lab template](https://raw.githubusercontent.com/crd150/data/master/labtemplate.Rmd) into an appropriate folder on your hard drive (preferably, a folder named 'Lab 7'), open it in R Studio, and type and run your code there.  The template is also located on Canvas under Files.  The template is also located on Canvas under Files.  Change the title ("Lab 7") and insert your name and date. Don't change anything else inside the YAML (the stuff at the top in between the `---`).  Also keep the grey chunk after the YAML. For a rundown on the use of R Markdown, see the [assignment guidelines](https://crd150.github.io/hw_guidelines.html).
+
+<div style="margin-bottom:25px;">
+</div>
+## **Installing and loading packages**
+\
+
+We will not be using any new packages in this lab. You’ll need to load the following packages. Unlike installing, you will always need to load packages whenever you start a new R session. As such, you’ll always need to use `library()` in your R Markdown file.
+
+```{r message = FALSE, warning=FALSE}
+library(sf)
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+library(tmap)
+library(rmapshaper)
+library(flextable)
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Read in the data**
+\
+
+The following code uses the Census API to bring in demographic tract-level data for four of the most populated cities in California: San Diego, San Jose, San Francisco, and Fresno.  We won't go through each line of code in detail because we've covered all of these operations and functions in prior labs.  We've embedded comments within the code that briefly explains what each chunk is doing. Go back to prior guides (or RDS/GWR) if you need further help. 
+
+```{r warning=FALSE, results="hide", message=FALSE}
+# Bring in 2016-2020 census tract data using the Census API 
+ca.tracts20 <- get_acs(geography = "tract", 
+              year = 2022,
+              variables = c(tpop = "B03002_001", 
+                            nhwhite = "B03002_003", nhblk = "B03002_004",
+                            nhasn = "B03002_006", hisp = "B03002_012"),
+              state = "CA",
+              survey = "acs5",
+              output = "wide",
+              geometry = TRUE)
+
+# Calculate, rename and keep essential vars. 
+ca.tracts20 <- ca.tracts20 %>% 
+  mutate(pnhwhite = 100*(nhwhiteE/tpopE), pnhasn = 100*(nhasnE/tpopE), 
+        pnhblk = 100*(nhblkE/tpopE), phisp = 100*(hispE/tpopE)) %>%
+  rename(nhwhite = nhwhiteE, nhasn = nhasnE, nhblk = nhblkE,
+         hisp = hispE, tpop = tpopE) %>%
+  select(GEOID,tpop, pnhwhite, pnhasn, pnhblk, phisp,
+           nhwhite, nhasn, nhblk, hisp)  
+
+# Bring in city boundaries
+pl <- places(state = "CA", year = 2022, cb = TRUE)
+
+# Keep four large cities in CA
+large.cities <- filter(pl, NAME == "San Diego" |
+                         NAME == "San Jose" | NAME == "San Francisco" |
+                         NAME == "Fresno")
+
+#Clip tracts in large cities 
+large.tracts <- ms_clip(target = ca.tracts20, 
+                        clip = large.cities, remove_slivers = TRUE)
+```
+
+Make sure to take a look at the final outcome.
+
+```{r}
+glimpse(large.tracts)
+```
+
+The object *large.tracts* contains the census tracts located in the four cities.  When you view the dataset, you'll notice that we don't have any variable indicating which  city each tract belongs to.  We need the city identifier to calculate segregation for each city. The city GEOID and NAME are in the object  *large.cities*, which we will need to append to each tract in the object *large.tracts*. 
+
+We do this by using the `st_join()` function, which is a part of the **sf** package.   The function will join the variables from *large.cities* to *large.tracts* based on geographic location.  That is, if a tract is located within a city, that city's values from *large.cities* will be appended to that tract.
+
+First, look at the variables already in *large.tracts*.
+
+```{r}
+names(large.tracts)
+```
+
+Then look at the variables in *large.cities*
+
+```{r}
+names(large.cities)
+```
+
+Then `st_join()`
+
+```{r}
+large.tracts <- large.tracts %>%
+                st_join(large.cities)
+```
+
+This function joins the variables from *large.cities* to the object *large.tracts*. 
+
+```{r}
+names(large.tracts)
+```
+
+Note that  when the two files have the same variable names, R attaches *.x* and *.y* to the end of the variable names such as *GEOID.x* and *GEOID.y*, which represent the tract and city GEOIDs, respectively.
+
+We don't need all of these new variables, so let's use `select()` to remove the variables we don't need.
+
+```{r}
+large.tracts <- large.tracts %>%
+                select(-(STATEFP:AFFGEOID), -(NAMELSAD:AWATER))
+```
+
+Make sure we've kept the variables we need
+
+```{r}
+names(large.tracts)
+```
+
+<div style="margin-bottom:25px;">
+</div>
+## **Mapping**
+\
+
+
+Before calculating segregation, you should map neighborhood racial/ethnic composition in order to gain a visual understanding of how race/ethnic groups are spatially distributed in your study region. For example, let's map percent Hispanic in Fresno.
+
+```{r}
+large.tracts %>%
+  filter(NAME == "Fresno") %>%
+  tm_shape(unit = "mi") +
+    tm_polygons(col = "phisp", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "") +
+    tm_scale_bar(breaks = c(0, 1, 2), text.size = 0.75, position = c("right", "bottom")) + 
+  tm_compass(type = "4star", position = c("left", "top")) +
+  tm_layout(main.title = "Percent Hispanic in Fresno City Tracts", 
+            main.title.size = 0.9, frame = FALSE)
+```
+
+How does this spatial distribution compare to percent non-Hispanic white?
+
+```{r}
+large.tracts %>%
+  filter(NAME == "Fresno") %>%
+tm_shape(unit = "mi") +
+  tm_polygons(col = "pnhwhite", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "") +
+  tm_scale_bar(breaks = c(0, 1, 2), text.size = 0.75, position = c("right", "bottom")) +  
+    tm_compass(type = "4star", position = c("left", "top")) +
+  tm_layout(main.title = "Percent White in Fresno City Tracts", 
+            main.title.size = 0.9,
+            frame = FALSE)
+```
+
+It looks like a North/South divide.  Map the other two race/ethnic groups in Fresno and all the groups in the other three cities.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Dissimilarity Index**
+\
+
+The most common measure of residential evenness is the Dissimilarity Index *D*. To calculate *D*, we'll follow the Dissimilarity index formula on page 3 of Handout 7. We will calculate Black/White, Hispanic/White, and Asian/White Dissimilarity. 
+
+We already have the values $t_{im}$, and $t_{ik}$, which is the total population of  race/ethnic group $m$ and $k$ in each census tract. But we don't have the total population of race/ethnic group $m$ and $k$ for each city. This is the value $T_m$ and $T_k$ in the formula.   To calculate these values, we use the `group_by()` and `mutate()` functions.  
+
+```{r warning = FALSE, message = FALSE}
+large.tracts <- large.tracts %>%
+      group_by(NAME) %>%
+      mutate(nhwhitec = sum(nhwhite), nhasnc = sum(nhasn), 
+             nhblkc = sum(nhblk), hispc = sum(hisp), 
+             tpopc = sum(tpop)) %>%
+      ungroup()
+```  
+  
+We already covered `group_by()` in [Lab 4](https://crd150.github.io/lab4.html#Numeric_variables), but as a reminder, the `group_by()` function tells R that all future functions on *large.tracts* will be grouped according to the variable *NAME*, which is the city name. We use the `sum()` function within the `mutate()` function to sum up, for example, the non-Hispanic white population *nhwhite* for each city. We name this variable *nhwhitec*.  If you type in `View(large.tracts)`, you should find that the variable *nhwhitec* provides the same value for all tracts within the same city. We do this for all the other race/ethnic groups.
+
+The function `ungroup()` at the end of the code tells R to stop the grouping.  It's always good practice to `ungroup()` a data set if you are saving it for future use (rather than using it as a summary table as we've been doing so far in the class).
+
+Now we can calculate the rest of the formula, breaking it down piece-by-piece like we did in the handout and in lecture.
+
+```{r warning = FALSE, message = FALSE}
+large.tracts %>%
+      group_by(NAME) %>%
+      mutate(d.wb = abs(nhblk/nhblkc-nhwhite/nhwhitec),
+              d.wa = abs(nhasn/nhasnc-nhwhite/nhwhitec), 
+              d.wh = abs(hisp/hispc-nhwhite/nhwhitec)) %>%
+      summarize(BWD = 0.5*sum(d.wb, na.rm=TRUE), AWD = 0.5*sum(d.wa, na.rm=TRUE),
+                HWD = 0.5*sum(d.wh, na.rm=TRUE)) %>%
+      ungroup()
+```
+
+<br>
+
+Let's break the code down so we're all on the same page. 
+
+* We use `group_by()` because we want to calculate Dissimilarity for each city, which is indicated by the variable *NAME*.
+* We use `mutate()` to calculate the tract level contributions to the index, i.e. the value $\left|\frac{t_{rm}}{T_m} - \frac{t_{rk}}{T_k}\right|$ in Equation 1 in Handout 7 for each neighborhood $i$.
+* Next, we turn to `summarize()` to finish the rest of the job.  Within `summarize()`, we use the function `sum()` to add the neighborhood specific values in Equation 1 in Handout 7. In other words, `sum()` is performing the $\sum\limits_{i}^{N}$ that adds up $\left|\frac{t_{rm}}{T_m} - \frac{t_{rk}}{T_k}\right|$. 
+* Finally, multiply the summed up value by 0.5 to get the final index values.
+
+<br>
+
+The resulting values provide the Dissimilarity indices for Black/White (*BWD*), Asian/White (*AWD*), and Hispanic/White (*HWD*).  In all of these cases, we calculate segregation from white residents, but you can calculate segregation for any race/ethnicity combination (e.g. Black/Hispanic).  Instead of just copying and pasting the chunk of code above into your console, make sure you understand what each line of code is doing.  Not only will it help you become a more seasoned R coder, but it will also help you better understand the underlying math behind the Dissimilarity index.
+
+<br>
+
+The results table we got above is a little messy.  Let's clean it up by doing three things: (1) Drop the geometry column using `st_drop_geometry()`, which is a part of the **sf** package, thus making the object *large.tracts* no longer spatial; (2) use the `flextable()` function to make a nicely formatted table; and (3) save the resulting table in an object we named *dis.table*. The `st_drop_geometry()` function removes the *geometry* variable, and thus makes the object *large.tracts* no longer spatial.  We save the table into an object named *dis.table*
+
+```{r warning = FALSE, message = FALSE}
+dis.table <- large.tracts %>%
+      group_by(NAME) %>%
+      mutate(d.wb = abs(nhblk/nhblkc-nhwhite/nhwhitec),
+              d.wa = abs(nhasn/nhasnc-nhwhite/nhwhitec), 
+              d.wh = abs(hisp/hispc-nhwhite/nhwhitec)) %>%
+      summarize(BWD = 0.5*sum(d.wb, na.rm=TRUE), AWD = 0.5*sum(d.wa, na.rm=TRUE),
+                HWD = 0.5*sum(d.wh, na.rm=TRUE)) %>%
+      ungroup() %>%
+      st_drop_geometry() %>%
+      flextable() 
+
+dis.table %>%
+  colformat_double(j = c("BWD", "AWD", "HWD"), digits = 3)
+```
+
+\
+
+Looks much better. The Dissimilarity index for Black/White in Fresno is 0.463.  The interpretation of this value is that 46.3% of black residents would need to move neighborhoods in order to achieve a uniform distribution of black and white residents across neighborhoods in the city.  
+
+
+<div style="margin-bottom:25px;">
+</div>
+## **Interaction Index**
+\
+
+The most common measure of exposure is the Interaction Index $P^*$.  Let's calculate the exposure of black (*BWI*), Asian (*AWI*), Hispanic (*HWI*) residents to white residents using the formula on page 6 of Handout 7.
+
+```{r}
+int.table <-large.tracts %>%
+      group_by(NAME) %>%
+      mutate(i.wb = (nhblk/nhblkc)*(nhwhite/tpop),
+              i.wa = (nhasn/nhasnc)*(nhwhite/tpop), 
+              i.wh = (hisp/hispc)*(nhwhite/tpop)) %>%
+      summarize(BWI = sum(i.wb, na.rm=TRUE), AWI = sum(i.wa, na.rm=TRUE),
+                HWI = sum(i.wh, na.rm=TRUE)) %>%
+      ungroup() %>%
+      st_drop_geometry() %>%
+      flextable()
+```
+
+Look at the Interaction index equation in Handout 7. The `mutate()` function is creating the tract specific values $\frac{t_{im}}{T_m} * \frac{t_{ik}}{t_i}$.  We then turn to `summarize()` to perform the $\sum\limits_{i}^{N}$. 
+
+We present the results in a nice table using the function `flextable()`.
+
+```{r}
+int.table %>%
+  colformat_double(j = c("BWI", "AWI", "HWI"), digits = 3)
+```                
+
+\
+
+The probability of a Black resident "interacting" with a white person in his or her neighborhood is about 20.8% in Fresno. We can also interpret this to mean that 21 of every 100 people a Black person meets in his or her neighborhood will be white.  Remember that interaction is not symmetric.  Calculate the interaction of white residents with Black residents in the other cities and see if there are major differences with the values we calculated above.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Location Quotient**
+\
+
+The Dissimilarity and Interaction indices are city-level indices. In the handout, we covered one neighborhood-level measure: Location Quotient for Racial Residential Segregation (LQRSS), which captures neighborhood racial/ethnic concentration.
+ 
+Let’s zoom into the City of Fresno and calculate the LQRSS for each of its tracts. First, keep Fresno tracts from *large.tracts* using the `filter()` command and calculate the LQRSS for blacks, Asians, Hispanics, and whites using equation (3) in this week's handout.
+  
+  
+```{r}
+fresno.tracts <- large.tracts %>%
+  filter(NAME == "Fresno") %>%
+  mutate(blklq = (nhblk/tpop)/(nhblkc/tpopc), 
+        asnlq = (nhasn/tpop)/(nhasnc/tpopc),
+        hisplq = (hisp/tpop)/(hispc/tpopc),
+        whitelq = (nhwhite/tpop)/(nhwhitec/tpopc))
+```
+
+The census tract with GEOID of 06019004217 has a black LQ of 3.96. In your own words, what does this value represent?
+
+You can visualize the distribution using a histogram (or boxplot). For example, a histogram of the black LQ looks like
+
+```{r}
+fresno.tracts %>% 
+  ggplot() + 
+    geom_histogram(mapping = aes(x=blklq), na.rm=TRUE) +
+    xlab("Black Location Quotient") 
+```
+
+The skewness of the distribution indicates significant concentration of the black population in Fresno. We can also map the LQRSS. Let's use the viewing feature in **tmap** so we can zoom in and out, and identify the GEOIDs with the tracts with high or low Black location quotients.
+
+```{r}
+tmap_mode("view")
+tm_shape(fresno.tracts, unit = "mi") +
+  tm_polygons(col = "blklq", style = "quantile",palette = "Reds", 
+              border.alpha = 0, title = "Black Location Quotient") 
+```
+              
+The map indicates that there are some neighborhoods in the city that have a percent black population that is as high as 4 times the overall percent black population in the city.
+
+<div style="margin-bottom:25px;">
+</div>
+## **Assignment 7**
+\
+
+Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd). The script can also be found on Canvas (Files - Week 7 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
+
+<br>
+
+1. In [Assignment 6](https://crd150.github.io/lab6.html#Assignment_6), we descriptively examined the claim that Houston is the most racially integrated city in the United States. Let's employ the segregation tools we learned this week to explore this claim even further.  Let's also compare Houston to Sacramento, a city that has also been proclaimed as [among most racially diverse in the nation](https://www.sacbee.com/news/local/article226876944.html).  Read in the Houston and Sacramento shapefiles  *houstondems.shp* and *sacdems.shp*, which can be found on Canvas in the zipped folder *Assignment7.zip* (Files - Week 7 - Assignment). A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/sac_houston_metro_tracts_record_layout.txt).
+
+a. Calculate the Black/White, Hispanic/White and Asian/White Dissimilarity Indices for Houston and Sacramento. Present these values in a presentation-ready table(s). (3 points)
+b. Calculate the Black/White, Hispanic/White and Asian/White Interaction Indices for Houston and Sacramento. Present these values in a presentation-ready table(s). (3 points)
+c. Based on your answers to questions (a) and (b), which city is most segregated? Why? (2 points)
+d. Instead of examining segregation at the city level, let’s find where it exists at the neighborhood level. Calculate the Location Quotient for Racial Residential Segregation (LQRSS) for the Hispanic, White, Black and Asian populations for each city. (1 point)
+e. Show presentation-ready maps of the Hispanic LQRSS for each city. (2 points)
+f. Let’s examine the socioeconomic variables that may be correlated with neighborhood Hispanic concentration in each city. Calculate the correlation between the Hispanic LQRSS and percent of residents under 18 years old, percent of residents between 22 and 34, and percent foreign born in Houston. Do the same for Sacramento. Summarize the results in your own words, noting differences and similarities between the two cities. (2 points)
+
+<br>
+
+2. You will be calculating two-group segregation indices for the cities of Detroit and Los Angeles. Read in the Detroit and Los Angeles data files  *detroitrace.csv* and *losangelesrace.csv*, which can be found on Canvas in the zipped folder *Assignment7.zip* (Files - Week 7 - Assignment). **You do not need to convert these data sets into sf objects**.  Keep them as regular data frames (tibbles). A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/los_angeles_detroit_city_tracts_record_layout.txt). 
+
+a. Calculate the Black/White, Hispanic/White, and Asian/White Dissimilarity indices for Detroit and Los Angeles. Present these values in a presentation-ready table(s). (3 points)
+b. Calculate the Black/White, Hispanic/White, and Asian/White Interaction indices for Detroit and Los Angeles. Present these values in a presentation-ready table(s). (3 points)
+c. Intuitively, if you get a high Dissimilarity index, you should get a low Interaction index. Comparing Detroit and Los Angeles Asian/White and Hispanic/White segregation, we find this to be the case. However, we find that Los Angeles has a larger Black/White Dissimilarity index than Detroit, but has a higher Black/White Interaction index. What is a good explanation for this finding? (1 point)
+
+
+***
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+
+
+Website created and maintained by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
