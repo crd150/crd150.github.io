@@ -104,7 +104,7 @@ The following code uses the Census API to bring in demographic tract-level data 
 
 ```{r warning=FALSE, results="hide", message=FALSE}
 # Bring in 2016-2020 census tract data using the Census API 
-ca.tracts20 <- get_acs(geography = "tract", 
+ca.tracts <- get_acs(geography = "tract", 
               year = 2022,
               variables = c(tpop = "B03002_001", 
                             nhwhite = "B03002_003", nhblk = "B03002_004",
@@ -115,7 +115,7 @@ ca.tracts20 <- get_acs(geography = "tract",
               geometry = TRUE)
 
 # Calculate, rename and keep essential vars. 
-ca.tracts20 <- ca.tracts20 %>% 
+ca.tracts <- ca.tracts %>% 
   mutate(pnhwhite = 100*(nhwhiteE/tpopE), pnhasn = 100*(nhasnE/tpopE), 
         pnhblk = 100*(nhblkE/tpopE), phisp = 100*(hispE/tpopE)) %>%
   rename(nhwhite = nhwhiteE, nhasn = nhasnE, nhblk = nhblkE,
@@ -132,7 +132,7 @@ large.cities <- filter(pl, NAME == "San Diego" |
                          NAME == "Fresno")
 
 #Clip tracts in large cities 
-large.tracts <- ms_clip(target = ca.tracts20, 
+large.tracts <- ms_clip(target = ca.tracts, 
                         clip = large.cities, remove_slivers = TRUE)
 ```
 
