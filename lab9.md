@@ -363,7 +363,7 @@ To add a navigation bar
 ## **Preview your StoryMap**
 \
 
-You can continue adding more features to your StoryMap as you see fit. One feature we will not cover are Map Tours. A Map Tour is a guided tour that lets you lead your audience through a curated set of places, one tour stop at a time. This is great if you are, for example, highlighting different areas of a community. See Esri's Map tour [tutorial](https://doc.arcgis.com/en/arcgis-storymaps/author-and-share/add-guided-tours.htm) and curated examples of [Map tours](https://storymaps.arcgis.com/collections/dd4c2e6d5c2a40dd98e881f6ba616605?item=1.
+You can continue adding more features to your StoryMap as you see fit. One feature we will not cover are Map Tours. A Map Tour is a guided tour that lets you lead your audience through a curated set of places, one tour stop at a time. This is great if you are, for example, highlighting different areas of a community. The study described in Davis et al., (2024) used Map Tours to represent Black residents' perspectives living in a gentrifying neighborhood. See Esri's Map tour [tutorial](https://doc.arcgis.com/en/arcgis-storymaps/author-and-share/add-guided-tours.htm) and curated examples of [Map tours](https://storymaps.arcgis.com/collections/dd4c2e6d5c2a40dd98e881f6ba616605?item=1.
 
 Note that ArcGIS Online automatically saves your StoryMap as you are creating it. If you back to your ArcGIS Online Content page, you should see your StoryMap.  For example, I have
 
