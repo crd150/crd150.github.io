@@ -481,8 +481,8 @@ glimpse(shelters.geo)
 ## $ use_type     <chr> "publish", "publish", "publish", "publish", "publish", "p…
 ## $ date_updated <chr> "2017/10/30 14:43:13+00", "2017/10/06 16:28:29+00", "2017…
 ## $ dis_status   <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ lat          <dbl> 33.97213, 34.03751, 33.86655, 34.14560, 34.10297, 34.1016…
-## $ long         <dbl> -118.2695, -118.3175, -118.3993, -118.0012, -118.0975, -1…
+## $ lat          <dbl> NA, 34.03751, 33.86655, 34.14560, 34.10297, 34.10160, 34.…
+## $ long         <dbl> NA, -118.3175, -118.3993, -118.0012, -118.0975, -118.3304…
 ```
 
 We see the latitudes and longitudes are attached to the variables *lat* and *long*, respectively.  Notice that not all the addresses were successfully geocoded.
@@ -635,44 +635,6 @@ la.city.tracts %>%
 ```
 
 ![](lab8_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
-
-
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 8**
-\
-
-Download and open the [Assignment 8 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn08.Rmd). The script can also be found on Canvas (Files - Week 8 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
-
-<br>
-
-1. In this question, you will be exploring the spatial distribution of Airbnb listings in the City of Oakland. [Airbnb](https://press.airbnb.com/about-us/) involves renting an entire home, a room or a shared room, typically from a private citizen. The data were downloaded from Airbnb's public use [data site](http://insideairbnb.com/get-the-data.html). You will be using the shapefile *oak_tracts.zip*,  which contains Oakland City tracts with their population sizes downloaded from the 2015-2019 American Community Survey, and the csv file *oakland_airbnb_dec2020.csv*, which contains Airbnb locations in December 2020. The record layout for *oakland_airbnb_dec2020.csv* can be found [here](https://raw.githubusercontent.com/crd150/data/master/oakland_airbnb_record_layout.txt).  You will also be using the file *station_info.csv*, which contains the addresses of [BART](https://www.bart.gov/system-map) station locations in Oakland. The files are located on Canvas (Files - Week 8 - Assignment). Save the files in an appropriate folder. Unzip *oak_tracts.zip* to extract the shapefiles.
-
-
-a. Read the file *oakland_airbnb_dec2020.csv* into R. Create a point dataset of Airbnb listings using their longitudes and latitudes.  (2 points)
-b. Read the file *oak_tracts.shp* into R. Create a variable that represents the number of Airbnb listings in each neighborhood. (3 points) 
-c. Create a presentation-ready choropleth map of the number of Airbnb listings per 1,000 residents. (2 points)
-d. Are neighborhoods with a large presence of Airbnb listings near BART stations, which is the Bay Area's main public rapid-transit system? Read the file *station_info.csv* into R. Geocode the BART stations using their street addresses. (2 points)
-e. Map the BART station point locations onto the choropleth map you created in (c). Based on a visual assessment of the map, are neighborhoods with a large presence of Airbnb listings near BART stations? (1 point)
-
-<br>
-
-2. The purpose of this question is to increase your exposure to the world of open data. In this exercise, you will explore a city's open data portal, answering questions about one of its data sets and examining the data set in R.  Pick **one** of the following cities and answer the questions that follow.
-
-    + New York, NY [(link)](https://opendata.cityofnewyork.us/)
-    + San Francisco, CA [(link)](https://datasf.org/opendata/)
-    + Los Angeles, CA [(link)](https://data.lacity.org/)
-    + Chicago, IL [(link)](https://data.cityofchicago.org/)
-
-a. Which city did you choose?
-b. Find a dataset that looks interesting to you and can be downloaded and brought into R.  Answer the following questions about this dataset.
-
-* Describe the dataset you selected. What are the variables, the year(s) captured by  the data, and the units of observations? (2 points)
-* Are you able to manipulate the data online? This includes filtering rows and selecting columns. (1 point)
-* Are you able to create visualizations online with the data using graphs and charts? If so, what kinds of graphs and charts? (1 point)
-* Are you able to map the data online? If so, what types of maps? (1 point)
-* Is the data set accompanied by a codebook with definitions of terms, variables and fields? (1 point)
-* Bring the data set into R. Create either a single presentation-ready table, chart or graph that we covered in [Lab 4](https://crd150.github.io/lab4.html) or a single presentation-ready map that we covered in [Lab 5](https://crd150.github.io/lab5.html) or Lab 8. Explain what your graphic is showing us. You must show your code to get full points for this question. (4 points)
 
 
 ***

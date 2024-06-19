@@ -689,30 +689,6 @@ You've completed your introduction to **tmap**. Whew! Badge? Yes, please, you ea
 </center>
 
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 5**
-\
-
-Download and open the [Assignment 5 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn05.Rmd). The script can also be found on Canvas (Files - Week 5 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands. Submit the `Rmd` and its knitted `html` files on Canvas.
-
-<br>
-
-1. [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40) is a mapping tool that helps identify California communities that are most affected by many sources of pollution, and where people are often especially vulnerable to pollution's effects. Download the CalEnviroScreen California tract-level shapefile from the the [official CES website](https://oehha.ca.gov/media/downloads/calenviroscreen/document/calenviroscreen40shpf2021shp.zip). The file is also located on Canvas in the Week 5 Assignment folder. Make sure to download it in an appropriate folder on your hard drive. Unzip the folder. 
-
-a. Read the file into R and keep tracts in Yolo county. (1 point)
-b. Make a static presentation-ready map of the variable *PM2_5* for Yolo county tracts, which is the level of pollution based on [PM 2.5](https://oehha.ca.gov/calenviroscreen/indicator/air-quality-pm25) levels (higher PM 2.5, more pollution), using quantile breaks. Summarize in your own words the geographic distribution of pollution burden in Yolo county based on the map. (2 points)
-c. Produce static presentation-ready maps of *PM2_5* using three classifications other than quantile breaks. Describe if and how your general impression of where high and low pollution burden neighborhoods are located in the county change across the different classifications. (6 points)
-
-2. We are gradually receding from a global health crisis marked by profound human suffering. Analyzing the demographic, health and job characteristics of communities reveals that some places were disproportionately affected by this suffering. In particular, we found that communities with no or unstable internet access are at a disadvantage given that employment, medical care (telemedicine), education and other important services were and still are primarily conducted online at home. Let's visually examine the association between internet access and race/ethnicity in Sacramento county census tracts.
-
-a. Using the Census API, bring in 2018-2022 total, non-Hispanic white, non-Hispanic black, non-Hispanic Asian, and Hispanic populations for census tracts in Sacramento county.  Check Lab 3 for the appropriate variable IDs. Make sure to bring in spatial data by using `geometry = TRUE`. Also make sure to clean the data. Calculate the percent Asian, white, Black and Hispanic variables. (2 points)
-b. Bring into R the 2018-2022 percent of households without a cable, Fiber Optic, or DSL internet connection for Sacramento county census tracts from PolicyMap (from the PolicyMap site, click on Quality of Life, Computer and Internet Access, Household Internet Access, Without High Speed Internet Access, and No Cable, Fiber Optic or DSL). Make sure to clean the data. (1 point)
-c. Merge the percent of households without a broadband, cable, Fiber Optic, or DSL internet connection to the **sf** census tracts object you created in (a). (1 point)
-d. Create static presentation-ready maps of percent non-Hispanic black, non-Hispanic white, non-Hispanic Asian, and Hispanic using quantile breaks.  (4 points)
-e. Create a static presentation-ready map of the percent of households without a broadband, cable, Fiber Optic, or DSL internet connection using quantile breaks. (1 point)
-f. Based on a visual comparison of the maps you created in (d) and (e), summarize in your own words the association between racial/ethnic composition and percent of households without a broadband, cable, Fiber Optic, or DSL internet connection. (2 points)
-
 
 ***
 

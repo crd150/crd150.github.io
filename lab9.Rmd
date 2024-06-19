@@ -432,32 +432,6 @@ We've only just touched on StoryMap's tools, functions, and possibilities.  Chec
 
 And this ends your final lab of the quarter. Hip Hip Hooray!!
 
-<div style="margin-bottom:25px;">
-</div>
-## **Final Project: Create a StoryMap**
-\
-
-Check the document final_project_description.pdf located on Canvas for specific details for the StoryMap requirements. You will create and submit a StoryMap presenting your community, research question(s), the project's aims and significance, methods and data, and results from your data analysis. Submit a link to your StoryMap on the class Canvas discussion forum before 5:00 pm, Wednesday, March 20th.  If for some reason you cannot share your map when sharing via "Organization", you will need to share it to "Everyone (Public)".
-
-For all the maps, charts, tables and other visuals created in R that were used in the StoryMap, you will need to submit the Rmd and its knitted html file on Canvas, also by 5:00 pm, Wednesday, March 20th. The maps, charts and tables must be presentation-ready. The Rmarkdown must be commented.
-
-Completing your final project will generally follow these broad steps:
-
-1. Identify your community and research question(s)
-2. Collect the appropriate data to answer the research question(s)
-3. Wrangle the data in R
-  + This will likely involve both non-spatial and spatial data wrangling tasks
-4. Analyze the data in R
-  + This will yield at least one presentation-ready table, chart and map of results that you will present in your StoryMap
-5. Save the results on your hard drive
-  + If you plan on presenting an interactive map in your StoryMap, also save your wrangled spatial data as a new shapefile. Zip up all the files associated with that shapefile.
-6. Plan your StoryMap, making sure to include all the necessary components outlined in the final project description
-7. Put your StoryMap together
-8. Publish your StoryMap, and share the link on Canvas in the Final Project Assignment Discussion Forum
-9. Submit on Canvas the Rmd and knitted html document that show the data wrangling and analysis you conducted for the final project
-
-After submitting your StoryMap, explore the StoryMaps that your classmates uploaded. Reply with thoughtful commentary on at least two of your classmates' maps, highlighting areas where your stories intersect, how your maps compliment and contrast each other and what you learned from their StoryMap. You can also identify one aspect of their StoryMap you liked and one aspect you think could be improved (be constructive, please!). Each reply should be between 150-300 words.  Evaluations are due on Canvas (with a reply to their StoryMap post in the forum) by Thursday, March 21st, 5:00 pm.
-
 
 ***
 

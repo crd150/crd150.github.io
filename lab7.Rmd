@@ -370,32 +370,6 @@ tm_shape(fresno.tracts, unit = "mi") +
               
 The map indicates that there are some neighborhoods in the city that have a percent black population that is as high as 4 times the overall percent black population in the city.
 
-<div style="margin-bottom:25px;">
-</div>
-## **Assignment 7**
-\
-
-Download and open the [Assignment 7 R Markdown Script](https://raw.githubusercontent.com/crd150/data/master/yourLastName_firstInitial_asgn07.Rmd). The script can also be found on Canvas (Files - Week 7 - Assignment). Any response requiring a data analysis task  must be supported by code you generate to produce your result. (Just examining your various objects in the “Environment” section of R Studio is insufficient—you must use scripted commands.). 
-
-<br>
-
-1. In [Assignment 6](https://crd150.github.io/lab6.html#Assignment_6), we descriptively examined the claim that Houston is the most racially integrated city in the United States. Let's employ the segregation tools we learned this week to explore this claim even further.  Let's also compare Houston to Sacramento, a city that has also been proclaimed as [among most racially diverse in the nation](https://www.sacbee.com/news/local/article226876944.html).  Read in the Houston and Sacramento shapefiles  *houstondems.shp* and *sacdems.shp*, which can be found on Canvas in the zipped folder *Assignment7.zip* (Files - Week 7 - Assignment). A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/sac_houston_metro_tracts_record_layout.txt).
-
-a. Calculate the Black/White, Hispanic/White and Asian/White Dissimilarity Indices for Houston and Sacramento. Present these values in a presentation-ready table(s). (3 points)
-b. Calculate the Black/White, Hispanic/White and Asian/White Interaction Indices for Houston and Sacramento. Present these values in a presentation-ready table(s). (3 points)
-c. Based on your answers to questions (a) and (b), which city is most segregated? Why? (2 points)
-d. Instead of examining segregation at the city level, let’s find where it exists at the neighborhood level. Calculate the Location Quotient for Racial Residential Segregation (LQRSS) for the Hispanic, White, Black and Asian populations for each city. (1 point)
-e. Show presentation-ready maps of the Hispanic LQRSS for each city. (2 points)
-f. Let’s examine the socioeconomic variables that may be correlated with neighborhood Hispanic concentration in each city. Calculate the correlation between the Hispanic LQRSS and percent of residents under 18 years old, percent of residents between 22 and 34, and percent foreign born in Houston. Do the same for Sacramento. Summarize the results in your own words, noting differences and similarities between the two cities. (2 points)
-
-<br>
-
-2. You will be calculating two-group segregation indices for the cities of Detroit and Los Angeles. Read in the Detroit and Los Angeles data files  *detroitrace.csv* and *losangelesrace.csv*, which can be found on Canvas in the zipped folder *Assignment7.zip* (Files - Week 7 - Assignment). **You do not need to convert these data sets into sf objects**.  Keep them as regular data frames (tibbles). A record layout of the data can be found [here](https://raw.githubusercontent.com/crd150/data/master/los_angeles_detroit_city_tracts_record_layout.txt). 
-
-a. Calculate the Black/White, Hispanic/White, and Asian/White Dissimilarity indices for Detroit and Los Angeles. Present these values in a presentation-ready table(s). (3 points)
-b. Calculate the Black/White, Hispanic/White, and Asian/White Interaction indices for Detroit and Los Angeles. Present these values in a presentation-ready table(s). (3 points)
-c. Intuitively, if you get a high Dissimilarity index, you should get a low Interaction index. Comparing Detroit and Los Angeles Asian/White and Hispanic/White segregation, we find this to be the case. However, we find that Los Angeles has a larger Black/White Dissimilarity index than Detroit, but has a higher Black/White Interaction index. What is a good explanation for this finding? (1 point)
-
 
 ***
 
